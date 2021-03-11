@@ -15,25 +15,32 @@ import crml.crmlParser;
 
 
 public class GrammarTest {
-	public static void main( String[] args) throws Exception
-	  {
-		File dir = new File ("/Users/olero90/eclipse-workspace/crml-compiler/tests");
-		String tests[] = dir.list();
-		
-		for (String test : tests) {
-			System.out.println("Testing " + test);
-			test_parser(dir + "/" + test);
-		}
+  public static void main( String[] args ) throws Exception {
+    if (args[0] == null)
+    {
+      System.out.println("usage: GrammarTest path/to/tests/");
+      return;
+    }
+    String path = new File(args[0]).getCanonicalPath();
+    System.out.println("Directory for tests: " + path);
+    File dir = new File ( path );
+    String tests[] = dir.list();
+    
+    for (String test : tests) {
+      System.out.println("-------------------------------");
+      System.out.println("Testing: " + test);
+      test_parser(dir + "/" + test);
+    }
 
-	  }
-	
-	public static void test_parser (String file) throws IOException {
-		CharStream code = CharStreams.fromFileName(file);
+  }
+  
+  public static void test_parser (String file) throws IOException {
+    CharStream code = CharStreams.fromFileName(file);
 
-		crmlLexer lexer = new crmlLexer(code);
-	    CommonTokenStream tokens = new CommonTokenStream( lexer );
-	    crmlParser parser = new crmlParser( tokens );
-	    ParseTree tree = parser.model();
+    crmlLexer lexer = new crmlLexer(code);
+      CommonTokenStream tokens = new CommonTokenStream( lexer );
+      crmlParser parser = new crmlParser( tokens );
+      ParseTree tree = parser.model();
 
-	}
+  }
 }
