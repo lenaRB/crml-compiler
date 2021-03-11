@@ -1,0 +1,115 @@
+// Package Op_user_defined
+// Property model Op_user_defined
+
+	// Templates
+	// Note: A template is an operator on requirements and returns a Boolean as output
+	Template R1 or R2 = not (not R1 and not R2);	// Logical disjunction
+	Template R1 xor R2 = (R1 or R2) and not (R1 and R2);	// Exclusive logical disjunction
+	Template R1 implies R2 = not R1 or R2;	// Logical inference
+
+	// Categories
+	// Note : A category is an operator on operators
+	Category increasing = { (>, >), (>=, >=), (<, >=), (<=, >), (==, >), (<>, >) };
+	// Category decreasing = { (>, >), (>=, >=), (<, <), (<=, <=), (==, <), (<>, <) };
+	Category varying = { (true, false), (false, false), (undecided, false), (undefined, false) };
+
+
+	// Operators for the evaluation of requirements
+		// Differential operator
+		// To be discussed: keep the keyword "operator" or replace it by "Function"?
+		Operator [ Boolean ] diff Boolean phi = phi - pre phi;
+		// Logical integral operator
+		Operator [ Boolean ] integrate Boolean phi wrt Boolean tau over Period P = sum (phi*diff (trim tau on P));
+		// Decision operator
+		Operator [ Boolean ] decide Boolean phi over Period P = Boolean ((Events phi) or (P end));
+		// Evaluation operator on a single time period
+		Operator [ Boolean ] evaluate Boolean phi over Period P = integrate (decide phi over P) wrt phi over P;
+		// Evaluation operator
+		Operator [ Boolean ] evaluate Requirement R = and (evaluate condition R over periods R);
+		// Satisfaction operator when an event E occurs
+		Operator [ Boolean ] alias sat_when sat Requirement R when Event E = (evaluate R == true) at E;	// To be discussed: "alias" enables the possibility to call operator as classical function
+
+	// Operators on clocks and events
+		// Filter clock ticks inside a time period
+		Operator [ Clock ] Clock C inside Period P = C ticks (tick >= P start) and (tick <= P end);
+		// Count the occurrences of events inside a time period
+		Operator [ Integer ] count Events E inside Period P = card E inside P;
+
+		// Events generated when a Boolean becomes true
+		Operator [ Events ] Boolean b becomes true = Events b;
+		// Events generated when a Boolean becomes false
+		Operator [ Events ] Boolean b becomes false = not b becomes true;
+		// Events generated when a Boolean becomes true inside a time period
+		Operator [ Events ] Boolean b becomes true inside Period P = (b becomes true) inside P;
+		// Events generated when a Boolean becomes false inside a time period
+		Operator [ Events ] Boolean b becomes false inside Period P = (b becomes false) inside P;
+
+		// Events generated when a requirement becomes true
+		Operator [ Events ] Requirement R becomes true = (evaluate R) becomes true;
+		// Events generated when a requirement becomes false
+		Operator [ Events ] Requirement R becomes false = not R becomes true;
+		// Events generated when a requirement becomes true inside a time period
+		Operator [ Events ] Requirement R becomes true inside Period P = (R becomes true) inside P;
+		// Events generated when a requirement becomes false inside a time period
+		Operator [ Events ] Requirement R becomes false inside Period P = (R becomes false) inside P ;
+
+	// Operators on time periods
+		// From events occur
+		Operator [ Periods ] from Events E = Periods [ E, Events false ];
+		// After events occur
+		Operator [ Periods ] after Events E = Periods ] E, Events false ];
+		// Before events occur
+		Operator [ Periods ] before Events E = Periods [ Events false, E [;
+		// Until events occur
+		Operator [ Periods ] until Events E = Periods [ Events false, E ];
+		// While a Boolean is true
+		Operator [ Periods ] during Boolean b = Periods [Events b, Events not b];
+
+		// After events occur and before events occur
+		Operator [ Periods ] after Events E1 before Events E2 = Periods ] E1, E2 [;
+		// After events occur and until events occur
+		Operator [ Periods ] after Events E1 until Events E2 = Periods ] E1, E2 ];
+		// After events occur and for an elapsed time
+		Operator [ Periods ] after Events E for Real d = Periods ] E, d ];
+		// After events occur and within an elapsed time
+		Operator [ Periods ] after Events E within Real d = Periods ] E,d [;
+		// From events occur and before events occur
+		Operator [ Periods ] from Events E1 before Events E2 = Periods [ E1, E2 [;
+		// From events occur and until events occur
+		Operator [ Periods ] from Events E1 until Events E2 = Periods [ E1, E2 ];
+		// From events occur and for an elapsed time
+		Operator [ Periods ] from Events E for Real d = Periods [ E, d ];
+		// From events occur and within an elapsed time
+		Operator [ Periods ] from Events E within Real d = Periods [ E, d [;
+		// When events occur
+		Operator [ Periods ] when Events E = Periods [ E, E ];
+
+
+	// Operators on requirements
+		// Checking a requirement
+		Operator [ Boolean ] Periods P check Boolean b = evaluate Requirement b on P;
+
+		// Checking that a requirement is satisfied at the end of a time period
+		Operator [ Boolean ] Periods P check at end Boolean b = P varying check b;
+
+		// Checking that the number of event occurrences at the end of a time period
+		// is lower or higher than a threshold
+		Operator [ Boolean ] Periods P check count Events E < fixed Integer n = P check ((count E inside P) increasing < n);
+
+		Operator [ Boolean ] Periods P check count Events E <= fixed Integer n = P check ((count E inside P) increasing <= n);
+		Operator [ Boolean ] Periods P check count Events E > fixed Integer n = P check ((count E inside P) increasing > n);
+		Operator [ Boolean ] Periods P check count Events E >= fixed Integer n = P check ((count E inside P) increasing >= n);
+		Operator [ Boolean ] Periods P check count Events E == fixed Integer n = P check ((count E inside P) increasing == n);
+
+		// Ensuring that a requirement is satisfied all along a time period
+		Operator [ Boolean ] Periods P ensure Boolean b = P check count (not b becomes true) == 0;
+
+		// Checking that the duration of a condition at the end of a time period
+		// is lower or higher than a threshold
+		Operator [ Boolean ] Periods P check duration Boolean b < fixed Real d = P check ((duration b on P) increasing < d);
+		Operator [ Boolean ] Periods P check duration Boolean b <= fixed Real d = P check ((duration b on P) increasing <= d);
+		Operator [ Boolean ] Periods P check duration Boolean b > fixed Real d = P check ((duration b on P) increasing > d);
+		Operator [ Boolean ] Periods P check duration Boolean b >= fixed Real d = P check ((duration b on P) increasing >= d);
+
+
+end Op_user_defined;

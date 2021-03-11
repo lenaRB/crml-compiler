@@ -1,0 +1,18 @@
+Property model TimePeriod
+	external Period P;
+	external Event E1;
+	external Event E2;
+	
+	// Constructors
+	Period P1 is [ E1, E2 ];
+	Period P2 is [ E1, E2 [;
+	Period P3 is ] E1, E2 ];
+	Period P4 is ] E1, E2 [;
+	
+	// Temporal operators
+	Period P5 is P1 master P2;	// Master period
+	
+	Event E3 is P start;	// Opening event
+	Event E4 is P end;	// Closing event	// Should be discussed: ambiguity with the "end" instruction for ending the property model?
+	
+end TimePeriod;

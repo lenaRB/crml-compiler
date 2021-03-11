@@ -1,0 +1,39 @@
+package crml_parser;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+
+import crml.crmlLexer;
+import crml.crmlParser;
+
+
+
+public class GrammarTest {
+	public static void main( String[] args) throws Exception
+	  {
+		File dir = new File ("/Users/olero90/eclipse-workspace/crml-compiler/tests");
+		String tests[] = dir.list();
+		
+		for (String test : tests) {
+			System.out.println("Testing " + test);
+			test_parser(dir + "/" + test);
+		}
+
+	  }
+	
+	public static void test_parser (String file) throws IOException {
+		CharStream code = CharStreams.fromFileName(file);
+
+		crmlLexer lexer = new crmlLexer(code);
+	    CommonTokenStream tokens = new CommonTokenStream( lexer );
+	    crmlParser parser = new crmlParser( tokens );
+	    ParseTree tree = parser.model();
+
+	}
+}

@@ -1,0 +1,29 @@
+Property model Typ
+	external Type T1; // To be discussed: does it have sense to have "external Type"?
+	
+	// Constructors
+	Type T2 extends T1 t{
+		alias T2_shortcut;
+		parameter Real p1;
+		parameter Integer n;
+		Real x1 is t*p1;
+		Real x2 is t + n;
+		forbid +;
+	};
+	
+	Type T3 extends T2(p1=0.001, n=273) { 
+		forbid /;
+	};
+	
+	T2 var_t2(p1=0.1,n=10);
+	
+	// Examples
+	Type RichEvent
+		extends Event event{
+			parameter String name;
+			fixed Real timeOfOccurence;
+			};
+	
+	RichEvent e(name="toto");
+	
+end Typ;

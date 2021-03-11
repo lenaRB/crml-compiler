@@ -1,0 +1,7 @@
+Package Op_addon
+
+	Operator [ Requirements ] for all Requirements R = and R;
+	
+	Operator [ ] stop simulation when Requirement R is violated = when (evaluate R == false) terminate;
+
+end Op_addon;
