@@ -55,8 +55,9 @@ build/crml_parser.jar: $(CLASS_FILES)
 	jar cf build/crml_parser.jar -C build crml/ -C build crml_parser/ 
 
 # generate all the needed Java files from the grammar
+# see the available options here: https://github.com/antlr/antlr4/blob/master/doc/tool-options.md
 $(ANTLR_FILES) $(JAVA_FILES): jars jars/antlr-4.9.2-complete.jar grammar/crml.g4 grammar/modelica.g4
-	java -cp jars/antlr-4.9.2-complete.jar org.antlr.v4.Tool -Dlanguage=Java -listener -visitor -Xexact-output-dir -o build/crml/ -lib grammar grammar/crml.g4
+	java -cp jars/antlr-4.9.2-complete.jar org.antlr.v4.Tool -Dlanguage=Java -long-messages -Xlog -listener -visitor -Xexact-output-dir -o build/crml/ -lib grammar grammar/crml.g4
 
 clean:
 	rm -rf build jars
