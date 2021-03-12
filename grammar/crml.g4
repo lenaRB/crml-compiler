@@ -15,19 +15,36 @@ model : 'Property' 'model'  IDENT
 
 def : LINE_COMMENT
 	| 'external' type IDENT ';'
-	| 'Template' 
+	| 'Template' template_def
 	| 'Class' IDENT ('{' class_var_def+ '}' | ('extends' IDENT) )';'
-	| type IDENT '(' exp (',' exp)* ')' ';'	
+	| 'Type' type_def ';'	// type vs class?
+	| type IDENT  arg_list ';'	
 	| type IDENT ('is' exp )?';'
 	| 'Set' IDENT 'of' type 'is' exp ';'
 	
+	;
+	
+template_def :  (var_name | keyword_name)+ '='
+;
+
+var_name : CAPS (CAPS|DIGIT)*
+;
+
+keyword_name : LOWCASE+;
+	 
+fragment CAPS :  'A' .. 'Z' ;
+fragment LOWCASE :  'a' .. 'z' ;
+	 
+type_def : IDENT ('extends' IDENT)?  arg_list? '{' class_var_def * '}' ? 
 	 ;
+	 
+arg_list : ('(' exp (',' exp)* ')');
 
 type :   'Integer' |'Real' | 'Boolean' | 'Requirement' |   'Requirements' | 'Clock' | 'Category' 
-		| 'Period' | 'Events' | 'Periods' | 'Event' | 'Class' | IDENT;
+		| 'Period' | 'Events' | 'Periods' | 'Event' | 'Class' | 'Type' | IDENT;
 		
 
-class_var_def : (('parameter' | 'external')? type IDENT ';' | LINE_COMMENT );
+class_var_def : (('parameter' | 'external' | 'fixed')? type IDENT ('is' exp)? ';' )|'alias' IDENT ';'| LINE_COMMENT ;
 
 
 exp :  'true' |'false' | 'undecided' | 'undefined' | IDENT | STRING | UNSIGNED_NUMBER | '(' exp ')' 

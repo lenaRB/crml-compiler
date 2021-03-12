@@ -2,7 +2,7 @@ Property model Typ
 	external Type T1; // To be discussed: does it have sense to have "external Type"?
 	
 	// Constructors
-	Type T2 extends T1 t{
+	Type T2 extends T1 t{ // what is t here?
 		alias T2_shortcut;
 		parameter Real p1;
 		parameter Integer n;

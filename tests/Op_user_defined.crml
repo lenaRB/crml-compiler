@@ -1,5 +1,5 @@
 // Package Op_user_defined
-// Property model Op_user_defined
+ Property model Op_user_defined
 
 	// Templates
 	// Note: A template is an operator on requirements and returns a Boolean as output
