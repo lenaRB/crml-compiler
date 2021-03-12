@@ -18,8 +18,10 @@ JAVA_FILES= build/crml/crmlBaseVisitor.java \
 			build/crml/crmlListener.java \
 			build/crml/crmlVisitor.java \
 			build/crml/crmlBaseListener.java \
-			build/crml/crmlParser.java \
-			src/crml_parser/GrammarTest.java
+			build/crml/crmlParser.java			
+
+JAVA_MAIN=  src/crml_parser/GrammarTest.java
+
 CLASS_FILES=build/crml/crmlBaseVisitor.class \
 			build/crml/crmlLexer.class \
 			build/crml/crmlListener.class \
@@ -32,8 +34,9 @@ CLASS_FILES=build/crml/crmlBaseVisitor.class \
 test: all
 	java -cp "jars/antlr-4.9.2-complete.jar$(PATH_SEPARATOR)build/crml_parser.jar" crml_parser.GrammarTest ./tests
 
-$(CLASS_FILES): build $(JAVA_FILES)
-	javac -d build -cp jars/antlr-4.9.2-complete.jar $(JAVA_FILES)
+# generate class files
+$(CLASS_FILES): build $(JAVA_FILES) $(JAVA_MAIN)
+	javac -d build -cp jars/antlr-4.9.2-complete.jar $(JAVA_FILES) $(JAVA_MAIN)
 
 all: build jars build/crml_parser.jar jars/antlr-4.9.2-complete.jar
 
@@ -52,11 +55,8 @@ build/crml_parser.jar: $(CLASS_FILES)
 	jar cf build/crml_parser.jar -C build crml/ -C build crml_parser/ 
 
 # generate all the needed Java files from the grammar
-$(ANTLR_FILES) $(JAVA_FILES): runtool
-
-# generate all the needed Java files from the grammar
-runtool: jars jars/antlr-4.9.2-complete.jar grammar/crml.g4 grammar/modelica.g4
-	java -cp jars/antlr-4.9.2-complete.jar org.antlr.v4.Tool -Dlanguage=Java -listener -visitor -o build/crml/ -lib grammar grammar/crml.g4
+$(ANTLR_FILES) $(JAVA_FILES): jars jars/antlr-4.9.2-complete.jar grammar/crml.g4 grammar/modelica.g4
+	java -cp jars/antlr-4.9.2-complete.jar org.antlr.v4.Tool -Dlanguage=Java -listener -visitor -Xexact-output-dir -o build/crml/ -lib grammar grammar/crml.g4
 
 clean:
 	rm -rf build jars
