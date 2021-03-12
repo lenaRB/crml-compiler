@@ -17,7 +17,7 @@ Property model Req_set
 	Requirements S6 is S1 with S2;
 	
 	// Logical operators
-	Boolean b is and S;	//Conjunction
+	Boolean b is and S;	//Conjunction - unary conjunction?
 	Requirements S7 is not S;	//Negation
 	
 end Req_set;

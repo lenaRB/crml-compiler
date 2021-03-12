@@ -1,7 +1,7 @@
 Property model Obj
 	external Class C1; // To be discussed: does it have sense to have "external Class"?
 	
-	Class C is {
+	Class C {
 		parameter Real p1;
 		parameter Real p2;
 		parameter Integer n;

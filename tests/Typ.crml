@@ -8,7 +8,7 @@ Property model Typ
 		parameter Integer n;
 		Real x1 is t*p1;
 		Real x2 is t + n;
-		forbid +;
+		forbid +; // what is this?
 	};
 	
 	Type T3 extends T2(p1=0.001, n=273) { 
