@@ -1,23 +1,23 @@
 Property model Req_set
 	// Requirement definition
-	external Requirement R1;	
+	external Requirement R1;
 	external Requirement R2;
 	external Requirement R3;
 	external Requirement R4;
-	
+
 	// Definition of sets
 	external Requirements S1;
 	external Requirements S2;
-	
+
 	// Constructors
 	Requirements S is {R1,R2,R3,R4};
 	Requirements S3 is R1 with R2;
 	Requirements S4 is S1 with R1;
 	Requirements S5 is R1 with S1;
 	Requirements S6 is S1 with S2;
-	
+
 	// Logical operators
-	Boolean b is and S;	//Conjunction - unary conjunction?
+	Boolean b is and S;	//Conjunction - operation on sets 
 	Requirements S7 is not S;	//Negation
-	
+
 end Req_set;

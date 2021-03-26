@@ -1,15 +1,15 @@
-Property model Evt_set
-	external Boolean b;
+model Evt_set
+	external Boolean B;
 	external Clock C1;
-	external Real d;
-			
+	external Real D;
+
 	// Event definition
 	external Event E;
-	
+
 	// Constructor
-	Clock C is clock b;	// To be discussed: should the constructor "clock" be named explicitly?
-	// Clock C is b;
-	
+	Clock C is clock B;	// To be discussed: should the constructor "clock" be named explicitly?
+	// Clock C is B;
+
 	// Temporal operators
 	Clock C2 is C + d;	// Delay
 	Clock C3 is C1 proj C2;	// Projection
@@ -17,8 +17,8 @@ Property model Evt_set
 	Clock C5 is C1 or C2;	// Union
 	Clock C6 is C or E;	// Union
 	Clock C7 is E or C;	// Union
-	
+
 	// Set operator
-	Integer n is card C;	// Card
-		
+	Integer N is card C;	// Card
+
 end Evt_set;

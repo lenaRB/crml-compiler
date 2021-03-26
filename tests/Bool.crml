@@ -1,29 +1,29 @@
-Property model Bool
-	external Period P;	
-	external Boolean b;
-	
+model Bool
+	external Period P;
+	external Boolean B;
+
 	external Events E;
-	
+
 	// Boolean construction from events
-	Boolean b0 is b;	// To be discussed: should the constructor be named explicitly?
-	// Boolean b0 is boolean b;	
-	
+	Boolean B0 is B;	// To be discussed: should the constructor be named explicitly?
+	// Boolean B0 is boolean B;
+
 	// Boolean definition with predefined values
-	Boolean b1 is true;
-	Boolean b2 is false;
-	Boolean b3 is undecided;
-	Boolean b4 is undefined;
-		
+	Boolean B1 is true;
+	Boolean B2 is false;
+	Boolean B3 is undecided;
+	Boolean B4 is undefined;
+
 	// Logical operators
-	Boolean b5 is b1 and b2;
-	Boolean b6 is not b1;
-	
+	Boolean B5 is B1 and B2;
+	Boolean B6 is not B1;
+
 	// Temporal operators
-	Boolean b7 is pre b1;	// Previous
-	Boolean b8 is b1 * b2;	// Filter
-	Boolean b9 is b1 - b2;	// Difference
-	Boolean b10 is b1 + b2;	// Accumulation
-	Boolean b11 is trim b on P;	// Trim
-//	Boolean b12 is sum b;	// Sum	- B in paranthesis?
-//	Real d is duration b on P;	// Duration during which b is true over P
+	Boolean B7 is pre B1;	// Previous
+	Boolean B8 is B1 * B2;	// Filter
+	Boolean B9 is B1 - B2;	// Difference
+	Boolean B10 is B1 + B2;	// Accumulation
+	Boolean B11 is trim B on P;	// Trim
+//	Boolean B12 is sum B;	// Sum	- B in paranthesis?
+//	Real D is duration B on P;	// Duration during which b is true over P
 end Bool;	// To be discussed: ambiguity with the "end" operator?

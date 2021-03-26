@@ -1,16 +1,16 @@
-Property model Object_set
+model Object_set
 	external Class C;	// To be discussed: does it have sense to have "external Class"?
 	C O1;
 	C O2;
 	C O3;
-	
+
 	// Constructor
 	Set S1 of C is {O1, O2, O3};	// Set of objects of class C
 	Set S2 of C is {};	// Empty set
-	
+
 	// Operators
 	Set S3 of C is S1 with S2;	// Union
-	Integer n is card S1;	// Card
+	Integer N is card S1;	// Card
 	Set S4 of C is S1 filter element >=2;	// Filter
-	
+
 end Object_set;

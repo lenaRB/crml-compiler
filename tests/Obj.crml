@@ -1,18 +1,18 @@
-Property model Obj
+model Obj
 	external Class C1; // To be discussed: does it have sense to have "external Class"?
-	
+
 	Class C {
-		parameter Real p1;
-		parameter Real p2;
-		parameter Integer n;
-		external Real x;
-		Real a;
+		parameter Real P1;
+		parameter Real P2;
+		parameter Integer N;
+		external Real X;
+		Real A;
 	};
-	
+
 	// Constructor
-	C O(p1=2.0, p2= 13.2, n=1);
-	
+	C O(P1=2.0, P2= 13.2, N=1);
+
 	// Operators
-	Real a1 is O.a;	// Get attribute function	// To be discussed: how to assign a value to a since there no equation related to a in Class C definition?
-	
+	Real A1 is O.a;	// Get attribute function	// To be discussed: how to assign a value to a since there no equation related to a in Class C definition?
+
 end Obj;

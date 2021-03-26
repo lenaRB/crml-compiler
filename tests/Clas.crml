@@ -1,16 +1,16 @@
-Property model Clas
+model Clas
 	external Class C1; // To be discussed: does it have sense to have "external Class"?
 
 	// Constructor
 	Class C { // do we need is?
-		parameter Real p1;
-		parameter Real p2;
-		parameter Integer n;
-		external Real x;
-		Real a;	// To be discussed: how to assign a value/definition to a?
+		parameter Real P1;
+		parameter Real P2;
+		parameter Integer N;
+		external Real X;
+		Real A;	// To be discussed: how to assign a value/definition to a?
 	};
 
 	// Operators
-	Class C1 extends C;
+	Class C1 extends _C;
 
 end Clas;

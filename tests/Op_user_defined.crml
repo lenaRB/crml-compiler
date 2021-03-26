@@ -1,17 +1,17 @@
 // Package Op_user_defined
- Property model Op_user_defined
+ model Op_user_defined
 
 	// Templates
 	// Note: A template is an operator on requirements and returns a Boolean as output
-	Template R1 or R2 = not (not R1 and not R2);	// Logical disjunction
-	Template R1 xor R2 = (R1 or R2) and not (R1 and R2);	// Exclusive logical disjunction
-	Template R1 implies R2 = not R1 or R2;	// Logical inference
+	//Template Requirement R1 or Requirement R2 = not (not R1 and not R2);	// Logical disjunction
+	Template Requirement R1 xor Requirement R2 = (R1 or R2) and not (R1 and R2);	// Exclusive logical disjunction
+	Template Requirement R1 implies Requirement R2 = not R1 or R2;	// Logical inference
 
 	// Categories
 	// Note : A category is an operator on operators
-	Category increasing = { (>, >), (>=, >=), (<, >=), (<=, >), (==, >), (<>, >) };
+	//Category Increasing is { (>, >), (>=, >=), (<, >=), (<=, >), (==, >), (<>, >) };
 	// Category decreasing = { (>, >), (>=, >=), (<, <), (<=, <=), (==, <), (<>, <) };
-	Category varying = { (true, false), (false, false), (undecided, false), (undefined, false) };
+	//Category Varying is { (true, false), (false, false), (undecided, false), (undefined, false) };
 
 
 	// Operators for the evaluation of requirements
@@ -36,7 +36,7 @@
 		Operator [ Integer ] count Events E inside Period P = card E inside P;
 
 		// Events generated when a Boolean becomes true
-		Operator [ Events ] Boolean b becomes true = Events b;
+		Operator [ Events ] Boolean b becomes true = Events(b);
 		// Events generated when a Boolean becomes false
 		Operator [ Events ] Boolean b becomes false = not b becomes true;
 		// Events generated when a Boolean becomes true inside a time period
