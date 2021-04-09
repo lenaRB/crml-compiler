@@ -3,12 +3,14 @@
 
 	// Templates
 	// Note: A template is an operator on requirements and returns a Boolean as output
-	//Template Requirement R1 or Requirement R2 = not (not R1 and not R2);	// Logical disjunction
-	Template Requirement R1 xor Requirement R2 = (R1 or R2) and not (R1 and R2);	// Exclusive logical disjunction
-	Template Requirement R1 implies Requirement R2 = not R1 or R2;	// Logical inference
+  // all arguments are booleans in templates, no need to specify type  or return type
+	// template  R1 or  R2 = not (not R1 and not R2);	// Logical disjunction
+	template  R1 xor Requirement R2 = (R1 or R2) and not (R1 and R2);	// Exclusive logical disjunction
+	template  R1 implies Requirement R2 = not R1 or R2;	// Logical inference
 
 	// Categories
 	// Note : A category is an operator on operators
+  // can be is or =
 	//Category Increasing is { (>, >), (>=, >=), (<, >=), (<=, >), (==, >), (<>, >) };
 	// Category decreasing = { (>, >), (>=, >=), (<, <), (<=, <=), (==, <), (<>, <) };
 	//Category Varying is { (true, false), (false, false), (undecided, false), (undefined, false) };

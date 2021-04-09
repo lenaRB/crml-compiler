@@ -1,7 +1,7 @@
-//Package Op_addon
+//Library Op_addon
 model Op_addon
-	Operator [ Requirements ] for_ all_ Requirements R = and R;
+	Operator [ Requirements ] fors alls Requirements R = and R;
 
-	Operator [ ] stop simulation when Requirement R is violated = when (evaluate R == false) terminate;
+	Operator [ ] 'stop simulation when' Requirement R 'becomes violated' = when (evaluate R == false) terminate;
 
 end Op_addon;

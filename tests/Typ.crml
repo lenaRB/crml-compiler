@@ -1,32 +1,32 @@
 model Typ
-	external Type T1; // To be discussed: does it have sense to have "external Type"?
+	external type t1; // To be discussed: does it have sense to have "external Type"?
 
 	// Constructors
-	Type _T extends Real X {// (represents any element of Real)
-		alias T_shortcut;
-		parameter Real P1;
-		parameter Integer N;
-		Real X1 is X*P1;
-		Real X2 is X + N;
-		forbid +; // what is this?
+	type t extends real X {// (represents any element of Real)
+		alias t_shortcut;
+		parameter real P1;
+		parameter integer N;
+		real X1 is X*P1;
+		real X2 is X + N;
+		forbid +;
 	};
 
 	//in a model
  //	T Y; <--- in the type T you replace x by y - parametrized types
 
-	Type _T3 extends _T2(P1=0.001, N=273) {
+	type t3 extends t2(P1=0.001, N=273) {
 		forbid /; // operator not allowed for this type
 	};
 
-	_T2 Var_t2(P1=0.1,N=10);
+	t2 Var_t2(P1=0.1,N=10);
 
 	// Examples
-	Type _RichEvent
-		extends Event Event1{
-			parameter String Name;
-			fixed Real TimeOfOccurence;
+	type richEvent
+		extends event Event1{
+			parameter string Name;
+			fixed real TimeOfOccurence;
 			};
 
-	_RichEvent E(Name="toto");
+	richEvent E(Name="toto");
 
 end Typ;
