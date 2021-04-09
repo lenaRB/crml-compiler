@@ -5,8 +5,8 @@
 	// Note: A template is an operator on requirements and returns a Boolean as output
   // all arguments are booleans in templates, no need to specify type  or return type
 	// template  R1 or  R2 = not (not R1 and not R2);	// Logical disjunction
-	template  R1 xor Requirement R2 = (R1 or R2) and not (R1 and R2);	// Exclusive logical disjunction
-	template  R1 implies Requirement R2 = not R1 or R2;	// Logical inference
+	template  R1 xor R2 = (R1 or R2) and not (R1 and R2);	// Exclusive logical disjunction
+	template  R1 implies R2 = not R1 or R2;	// Logical inference
 
 	// Categories
 	// Note : A category is an operator on operators
@@ -19,32 +19,32 @@
 	// Operators for the evaluation of requirements
 		// Differential operator
 		// To be discussed: keep the keyword "operator" or replace it by "Function"?
-		Operator [ Boolean ] diff Boolean phi = phi - pre phi;
+		operator [ boolean ] diff Boolean phi = phi - pre phi;
 		// Logical integral operator
-		Operator [ Boolean ] integrate Boolean phi wrt Boolean tau over Period P = sum (phi*diff (trim tau on P));
+		operator [ boolean ] integrate Boolean phi wrt Boolean tau over Period P = sum (phi*diff (trim tau on P));
 		// Decision operator
-		Operator [ Boolean ] decide Boolean phi over Period P = Boolean ((Events phi) or (P end));
+		operator [ boolean ] decide Boolean phi over Period P = Boolean ((Events phi) or (P end));
 		// Evaluation operator on a single time period
-		Operator [ Boolean ] evaluate Boolean phi over Period P = integrate (decide phi over P) wrt phi over P;
+		operator [ boolean ] evaluate Boolean phi over Period P = integrate (decide phi over P) wrt phi over P;
 		// Evaluation operator
-		Operator [ Boolean ] evaluate Requirement R = and (evaluate condition R over periods R);
+		operator [ boolean ] evaluate Requirement R = and (evaluate condition R over periods R);
 		// Satisfaction operator when an event E occurs
-		Operator [ Boolean ] alias sat_when sat Requirement R when Event E = (evaluate R == true) at E;	// To be discussed: "alias" enables the possibility to call operator as classical function
+		operator [ boolean ] alias sat_when sat Requirement R when Event E = (evaluate R == true) at E;	// To be discussed: "alias" enables the possibility to call operator as classical function
 
 	// Operators on clocks and events
 		// Filter clock ticks inside a time period
-		Operator [ Clock ] Clock C inside Period P = C ticks (tick >= P start) and (tick <= P end);
+		Operator [ clock ] Clock C inside Period P = C ticks (tick >= P start) and (tick <= P end);
 		// Count the occurrences of events inside a time period
-		Operator [ Integer ] count Events E inside Period P = card E inside P;
+		Operator [ integer ] count Events E inside Period P = card E inside P;
 
-		// Events generated when a Boolean becomes true
-		Operator [ Events ] Boolean b becomes true = Events(b);
+		// Events generated when a boolean becomes true
+		Operator [ events ] boolean B becomes true = Events(b);
 		// Events generated when a Boolean becomes false
-		Operator [ Events ] Boolean b becomes false = not b becomes true;
+		Operator [ events ] boolean B becomes false = not b becomes true;
 		// Events generated when a Boolean becomes true inside a time period
-		Operator [ Events ] Boolean b becomes true inside Period P = (b becomes true) inside P;
+		Operator [ events ] boolean B becomes true inside Period P = (b becomes true) inside P;
 		// Events generated when a Boolean becomes false inside a time period
-		Operator [ Events ] Boolean b becomes false inside Period P = (b becomes false) inside P;
+		Operator [ events ] Boolean b becomes false inside Period P = (b becomes false) inside P;
 
 		// Events generated when a requirement becomes true
 		Operator [ Events ] Requirement R becomes true = (evaluate R) becomes true;

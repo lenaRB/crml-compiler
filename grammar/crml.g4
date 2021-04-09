@@ -17,7 +17,7 @@ model : 'model'  id // need to add package and library - clarify what is allowed
 def : LINE_COMMENT
 	| 'external' (type id | structure_type user_type)';'
 	| 'template' template_def ';'
-	| 'class' id ('{' class_var_def+ '}' | ('extends' type id?) )';'
+	| 'class' type ('{' class_var_def+ '}' | ('extends' type id?) )';'
 	| 'type' type_def ';'
 	| 'set' id 'of' type 'is' exp ';'
 	| 'operator' '[' type? ']' template_def ';'
@@ -25,7 +25,7 @@ def : LINE_COMMENT
 	;
 
 	
-template_def :  (type id | USER_KEYWORD)+ '=' exp
+template_def :  (id | USER_KEYWORD)+ '=' exp
 ;
 
 operator_def :  ('\'' USER_KEYWORD+ '\'')? id  ( '\'' USER_KEYWORD+ '\'' id )* '=' exp ;

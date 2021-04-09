@@ -1,8 +1,8 @@
 model Clas
-	external class C1; // To be discussed: does it have sense to have "external Class"?
+	external class c1; // To be discussed: does it have sense to have "external Class"?
 
 	// Constructor
-	class C { // do we need is?
+	class c { // do we need is?
 		parameter real P1;
 		parameter real P2;
 		parameter integer N;
@@ -11,6 +11,6 @@ model Clas
 	};
 
 	// Operators
-	class C1 extends c;
+	class c1 extends c;
 
 end Clas;
