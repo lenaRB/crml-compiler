@@ -2,12 +2,12 @@ model Typ
 	external type t1; // To be discussed: does it have sense to have "external Type"?
 
 	// Constructors
-	type t extends real X {// (represents any element of Real)
+	type t extends Real X {// (represents any element of Real)
 		alias t_shortcut;
-		parameter real P1;
-		parameter integer N;
-		real X1 is X*P1;
-		real X2 is X + N;
+		parameter Real P1;
+		parameter Integer N;
+		Real X1 is X*P1;
+		Real X2 is X + N;
 		forbid +;
 	};
 
@@ -22,9 +22,9 @@ model Typ
 
 	// Examples
 	type richEvent
-		extends event Event1{
-			parameter string Name;
-			fixed real TimeOfOccurence;
+		extends Event Event1{
+			parameter String Name;
+			fixed Real TimeOfOccurence;
 			};
 
 	richEvent E(Name="toto");

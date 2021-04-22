@@ -3,11 +3,11 @@ model Clas
 
 	// Constructor
 	class c { // do we need is?
-		parameter real P1;
-		parameter real P2;
-		parameter integer N;
-		external real X;
-		real A;	// To be discussed: how to assign a value/definition to a?
+		parameter Real P1;
+		parameter Real P2;
+		parameter Integer N;
+		external Real X;
+		Real A;	// To be discussed: how to assign a value/definition to a?
 	};
 
 	// Operators

@@ -13,7 +13,4 @@ model Req
 	boolean B2 is R1 and R2;	// Conjunction
 	boolean B3 is not R1;	// Negation
 
-	// Temporal operators
-	periods P1 is R1;
-
 end Req;

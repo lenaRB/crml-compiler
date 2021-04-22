@@ -41,7 +41,7 @@ public class GrammarTest {
       CommonTokenStream tokens = new CommonTokenStream( lexer );
       crmlParser parser = new crmlParser( tokens );
       //parser.setTrace(true);
-      ParseTree tree = parser.model();
+      ParseTree tree = parser.definition();
       System.out.println(tree.toStringTree(parser));
 
   }
