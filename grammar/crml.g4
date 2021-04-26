@@ -20,7 +20,7 @@ def : LINE_COMMENT
 	| 'class' id ('{' class_var_def+ '}' | 'extends' type class_params? id? )';'
 	| 'type' type_def ';'
 	| 'Set' id 'of' type 'is' exp ';'
-	| 'Operator' '[' type? ']' template_def ';'
+	| 'Operator' '[' type ']' operator_def ';'
 	|  type id  (arg_list | 'is' exp )? ';'	
 	;
 
@@ -31,7 +31,7 @@ template_def :  (id | USER_KEYWORD)+ '=' exp
 
 operator_def :  (type id | USER_KEYWORD)+ '=' exp ;
 	 
-type_def : id ('extends' type  arg_list? id?)?  '{' class_var_def * '}' ? 
+type_def : id ('extends' type  arg_list? id?)?  ('{' class_var_def * '}' )? 
 	 ;
 	 
 arg_list : ('(' exp (',' exp)* ')');
@@ -56,9 +56,9 @@ exp :  boolean_value | id | STRING | UNSIGNED_NUMBER | '(' exp ')'
 	| exp binary_op exp | right_unary_op exp | exp left_unary_op | component_reference
 	| 'sum' '(' exp (',' exp)+')' |'trim' exp 'on' exp
 	| '{' (exp (',' exp)*)? '}' |  id 'proj' ('(' id ')')?  id | period_op 
-    | 'element' | 'terminate';
+    | 'element' | user_function | 'terminate' | 'when' exp 'then' exp;
 
-//user_function : user_keyword+ exp (user_keyword+ exp)*;
+user_function : user_keyword+ exp (user_keyword+ exp)* user_keyword*;
 	
 period_op : ('['| ']') exp ',' exp ('['| ']') ; 
 		

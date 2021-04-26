@@ -1,0 +1,27 @@
+package PhysicalQuantities_user_defined
+
+	// Definition of type Quantity to specify the domain of physical quantities
+	type Quantity extends Real quantity{
+		parameter String displayUnit;
+		parameter String SIunit;
+		parameter Real ratio;
+		parameter Real offset;
+		Real quantity_displayUnit = rate / quantity + offset;
+	};
+
+	// Physical quantities related to pressure
+	type AbsolutePressure extends Quantity(SIunit="Pa"){ forbid +,*;};
+	type AbsolutePressure_Pa extends AbsolutePressure (displayUnit="Pa", ratio=1, offset=0){ alias "Pa";};
+	type AbsolutePressure_bar extends AbsolutePressure (displayUnit="bar", ratio=1.e-5, offset=0){ alias "bar";};
+	type AbsolutePressure_mbar extends AbsolutePressure (displayUnit="mbar", ratio=1.e-2, offset=0){ alias "mbar"};
+
+	type PressureDifference extends Quantity (SIunit="Pa"){ forbid -,*;};
+	type PressureDifference_Pa extends PressureDifference (displayUnit="Pa", ratio=1, offset=0){ alias "Pa"};
+	type PressureDifference_bar extends PressureDifference (displayUnit="bar", ratio=1.e-5, offset=0){ alias "bar"};
+	type PressureDifference_mbar extends PressureDifference (displayUnit="mbar", ratio=1.e-2, offset=0){ alias "mbar"};	// Should be discussed: how to make the difference between PressureDifference_mbar and AbsolutePressure_mbar since their aliases are the same?
+
+	// Examples
+	AbsolutePressure p is 2 bar; // Is equivalent to AbsolutePressure_bar p is 2;
+
+
+end PhysicalQuantities_user_defined;

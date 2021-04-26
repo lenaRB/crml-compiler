@@ -1,0 +1,6 @@
+model Bool1
+Boolean b0 is true;
+Boolean b1 is false;
+Boolean b2 is undecided;
+Boolean b3 is undefined;
+end Bool1;

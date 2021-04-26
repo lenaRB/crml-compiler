@@ -6,101 +6,101 @@ Package PhysicalQuantities_to_be_discussed
 	// in SI units automatically.
 
 	// Definition of new types from the built-in Real type
-	Type Duration 
+	Type Duration
 		extends Real;
 		self.quantity is "time";	// To be discussed: should we keep "self" or not?
 		self.unit is "s";
 	end Duration;
 
 	Duration s is 1.0;	// Allows notations such as 60*s
-	
+
 	// To be discussed
 	// Question 1: How to define new units for the Duration type?
 	// Solution 1:
 	Duration ms is 0.001*s; // Allows notations such as 50*ms
 	Duration h is 3600*s;
 	Duration mn is 60*s;
-	
+
 	// Solution 2:
 	// Question: is the new "scale" attribute really needed in the built-in Real type?
 	// Or should we allow the definition of extra-attributes and of (conversion) function
 	// when extending built-in types? (see solution 3)
-	Duration ms 
+	Duration ms
 		self.unit is "ms";
 		self.scale is 0.001;
 		self.value is 1.0;
 	end ms;
-	
-	// Solution 3: 
+
+	// Solution 3:
 	Type Duration_ms
 		extends Duration;
 		Real scale;
 		Real SI_value;
-		
+
 		self.unit is "ms";
 		self.SI_value is self.value*self.scale;
 	end Duration_ms;
 
 
 	// // Ideas from FORM-L (Thuy)
-	// type Temperature 
-		// extends Real begin 
+	// type Temperature
+		// extends Real begin
 		// quantity is "temperature";
 		// unit is "°K";
 	// end Temperature;
-	
+
 	// Temperature _K is 1.0;	// Allows notations such as 300*_K
-	
+
 	// Temperature _C begin	// Allows notations such as 20*_C
 		// unit is "°C";
 		// value is 1.0;
 		// offset is 273.15;	// TK = TC + offset
 	// end _C;
-	
+
 	// Temperature _F begin	// Allows notations such as 20*_F
 		// unit is "°F";
 		// value is 1.0;
 		// scale is 5./9.;
 		// offset is 273.16-32*5/9;	// TK = (TF * scale) + offset
 	// end _F;
-	
-	// type Money 
+
+	// type Money
 		// extends Real begin	// Non physical quantity
 		// quantity is "money";
 		// unit is "€ ";
 	// end Money;
-	
-	// Money eur is 1.0;	
 
-	// type Mass 
-		// extends Real begin 
+	// Money eur is 1.0;
+
+	// type Mass
+		// extends Real begin
 		// quantity is "mass";
 		// unit is "kg";
 	// end Mass;
 
-	// Mass kg is 1.0; 
-	
-	// type Length 
-		// extends Real begin 
+	// Mass kg is 1.0;
+
+	// type Length
+		// extends Real begin
 		// quantity is "length";
 		// unit is "m";
 	// end Length;
-	
+
 	// Length m is 1.0;
-	
-	// type Force 
-		// extends Real begin 
+
+	// type Force
+		// extends Real begin
 		// quantity is Mass*Length / Duration^2;
 		// unit is "N;
 	// end Force;
-	
+
 	// Force _N is 1.0;
 
-	// type Speed 
+	// type Speed
 		// extends Real is Length / Duration;
 
-	// type Percentage extends Real begin 
-		// scale is 1e-2; 
+	// type Percentage extends Real begin
+		// scale is 1e-2;
 		// unit is "%";
 	// end Percentage;
 

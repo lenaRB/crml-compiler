@@ -7,6 +7,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import crml.crmlLexer;
@@ -43,6 +44,12 @@ public class GrammarTest {
       //parser.setTrace(true);
       ParseTree tree = parser.definition();
       System.out.println(tree.toStringTree(parser));
+      
+      ParseTreeWalker walker = new ParseTreeWalker(); 
+      crmlListenerImpl listener = new crmlListenerImpl();
 
+      walker.walk((ParseTreeListener) listener, tree);
+      
+      System.out.println(listener.buffer);
   }
 }

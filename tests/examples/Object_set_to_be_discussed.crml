@@ -4,7 +4,7 @@ model Object_set
 	// in the most simple way
 	Operator [Real] alias f c = c*time;
 
-	Class Component
+	class Component
 		external Boolean isOperating;
 		external Real temp;
 		fixed Real tempMax is 20; // To be discussed: difference between "fixed" and "parameter"
@@ -34,11 +34,11 @@ model Object_set
 	// Object definition
 	// in a more complex way
 	// with the use of inheritance
-	Class Component_basic
+	class Component_basic
 		external Boolean isOperating;
 	end Component_basic;
 
-	Class Component_of_type1
+	class Component_of_type1
 		extends Component_basic;
 		external Real temp;
 		external Real tempMax;
@@ -48,7 +48,7 @@ model Object_set
 			ensure self.temp <= self.tempMax;
 	end Component_of_type1;
 
-	Class Component_of_type2
+	class Component_of_type2
 		extends Component_basic;
 		external Real flow;
 
