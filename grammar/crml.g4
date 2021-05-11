@@ -58,6 +58,7 @@ exp :  boolean_value | id | STRING | UNSIGNED_NUMBER | '(' exp ')'
 	| '{' (exp (',' exp)*)? '}' |  id 'proj' ('(' id ')')?  id | period_op 
     | 'element' | user_function | 'terminate' | 'when' exp 'then' exp;
 
+// this is an operator call
 user_function : user_keyword+ exp (user_keyword+ exp)* user_keyword*;
 	
 period_op : ('['| ']') exp ',' exp ('['| ']') ; 
