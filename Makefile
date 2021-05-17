@@ -20,7 +20,8 @@ JAVA_FILES= build/crml/crmlBaseVisitor.java \
 			build/crml/crmlBaseListener.java \
 			build/crml/crmlParser.java			
 
-JAVA_MAIN=  src/crml_parser/GrammarTest.java
+JAVA_MAIN=  src/crml_parser/crmlListenerImpl.java \
+	    		src/crml_parser/GrammarTest.java
 
 CLASS_FILES=build/crml/crmlBaseVisitor.class \
 			build/crml/crmlLexer.class \
@@ -32,7 +33,7 @@ CLASS_FILES=build/crml/crmlBaseVisitor.class \
 
 # build and test the crml parser
 test: all
-	java -cp "jars/antlr-4.9.2-complete.jar$(PATH_SEPARATOR)build/crml_parser.jar" crml_parser.GrammarTest ./tests
+	java -cp "jars/antlr-4.9.2-complete.jar$(PATH_SEPARATOR)build/crml_parser.jar" crml_parser.GrammarTest ./tests/examples
 
 # generate class files
 $(CLASS_FILES): build $(JAVA_FILES) $(JAVA_MAIN)
