@@ -3,7 +3,7 @@ model Typ
 
 	// Constructors
 	type t extends Real X {// (represents any element of Real)
-		alias t_shortcut;
+		alias T_shortcut;
 		parameter Real P1;
 		parameter Integer N;
 		Real X1 is X*P1;
@@ -27,6 +27,6 @@ model Typ
 			fixed Real TimeOfOccurence;
 			};
 
-	richEvent E(Name="toto");
+	richEvent E(Name = "toto");
 
 end Typ;

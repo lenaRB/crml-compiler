@@ -1,4 +1,4 @@
-Property model Req_set
+model Req_set
 	// Requirement definition
 	external Requirement R1;
 	external Requirement R2;

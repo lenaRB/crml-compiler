@@ -3,14 +3,14 @@
 
 	// Templates
 	// Note: A template is an operator on requirements and returns a Boolean as output
-  // all arguments are booleans in templates, no need to specify type  or return type
-	Template  R1 _or  R2 = not (not R1 and not R2);	// Logical disjunction
+  	// all arguments are booleans in templates, no need to specify type  or return type
+	Template  R1 _or R2 = not (not R1 and not R2);	// Logical disjunction
 	Template  R1 _xor R2 = (R1 or R2) and not (R1 and R2);	// Exclusive logical disjunction
 	Template  R1 _implies R2 = not R1 or R2;	// Logical inference
 
 	// Categories
 	// Note : A category is an operator on operators
-  // can be is or =
+  	// can be is or =
 	//Category Increasing is { (>, >), (>=, >=), (<, >=), (<=, >), (==, >), (<>, >) };
 	// Category decreasing = { (>, >), (>=, >=), (<, <), (<=, <=), (==, <), (<>, <) };
 	//Category Varying is { (true, false), (false, false), (undecided, false), (undefined, false) };
@@ -21,97 +21,147 @@
 		// To be discussed: keep the keyword "operator" or replace it by "Function"?
 		Operator [ Boolean ] _diff Boolean phi = phi - pre phi;
 		// Logical integral operator
-		Operator [ Boolean ] _integrate Boolean phi _wrt Boolean tau _over Period P = sum (phi* _diff (trim tau on P));
+		Operator [ Boolean ] _integrate Boolean phi _wrt Boolean tau _over Period P = sum( phi, _diff (trim tau on P));
+		
 		// Decision operator
-		Operator [ Boolean ] _decide Boolean phi _over Period P = Boolean ((Events phi) or (P end));
+		// doesn't parse because of "Boolean" in the wrong position. There is no expression beginning with a type.
+//		Operator [ Boolean ] _decide Boolean phi _over Period P = Boolean ((Events phi) or (P end));
 		// Evaluation operator on a single time period
 		Operator [ Boolean ] _evaluate Boolean phi _over Period P = _integrate (_decide phi _over P) _wrt phi _over P;
 		// Evaluation operator
-		Operator [ Boolean ] evaluate Requirement R = and (evaluate condition R over periods R);
+		// doesn't parse because of "Periods" in the wrong position. There is no expression beginning with a type.
+//		Operator [ Boolean ] _evaluate Requirement R = and (evaluate _condition R _over Periods R);
 		// Satisfaction operator when an event E occurs
-		Operator [ Boolean ] alias sat_when sat Requirement R when Event E = (evaluate R == true) at E;	// To be discussed: "alias" enables the possibility to call operator as classical function
+		Operator [ Boolean ] _alias _sat_when _sat Requirement R _when Event E = (_evaluate R == true) at E;	// To be discussed: "alias" enables the possibility to call operator as classical function
 
 	// Operators on clocks and events
 		// Filter clock ticks inside a time period
-		Operator [ Clock ] Clock C _inside Period P = C ticks (tick >= P start) and (tick <= P end);
+		//	doesn't parse because of unknown "tick" and "ticks" and 
+		//	wrong expression structure after "="
+//		Operator [ Clock ] Clock C _inside Period P = C _ticks (_tick >= P start) and (_tick <= P end);
 		// Count the occurrences of events inside a time period
-		Operator [ Integer ] _count Events E _inside Period P = card E _inside P;
+		// doesn't parse because of wrong expression structure after "="
+//		Operator [ Integer ] _count Events E _inside Period P = card E _inside P;
 
 		// Events generated when a boolean becomes true
-		Operator [ Events ] boolean B becomes true = Events(b);
+		// Doesn't parse because of structure of Operator name left of "=" and ("true")
+		// because of structure of expression right of "=". No exp starting with type
+//		Operator [ Events ] Boolean B _becomes true = Events(b);
 		// Events generated when a Boolean becomes false
-		Operator [ Events ] boolean B becomes false = not b becomes true;
+		// Doesn't parse because of structure of Operator name left of "=" ("false")
+//		Operator [ Events ] Boolean B _becomes false = not b _becomes true;
 		// Events generated when a Boolean becomes true inside a time period
-		Operator [ Events ] boolean B becomes true inside Period P = (b becomes true) inside P;
+		// Doesn't parse because of structure of Operator name left of "=" ("true") and
+		// because of structure of expression right of "=". No exp with operator call following another
+		// sub-expression
+//		Operator [ Events ] Boolean B _becomes true _inside Period P = (b _becomes true) _inside P;
 		// Events generated when a Boolean becomes false inside a time period
-		Operator [ Events ] Boolean b becomes false inside Period P = (b becomes false) inside P;
+		// Doesn't parse because of structure of Operator name left of "=" ("false") and
+		// because of structure of expression right of "=". No exp with operator call following another
+		// sub-expression
+//		Operator [ Events ] Boolean b _becomes false _inside Period P = (b _becomes false) _inside P;
 
 		// Events generated when a requirement becomes true
-		Operator [ Events ] Requirement R becomes true = (evaluate R) becomes true;
+		// Doesn't parse because of structure of Operator name left of "=" ("true") and
+		// because of structure of expression right of "=". No exp with operator call following another
+		// sub-expression
+//		Operator [ Events ] Requirement R _becomes true = (evaluate R) _becomes true;
 		// Events generated when a requirement becomes false
-		Operator [ Events ] Requirement R becomes false = not R becomes true;
+		// Doesn't parse because of structure of Operator name left of "=" ("false") and
+		// because of structure of expression right of "=". No exp with operator call following another
+		// sub-expression
+//		Operator [ Events ] Requirement R _becomes false = not R _becomes true;
 		// Events generated when a requirement becomes true inside a time period
-		Operator [ Events ] Requirement R becomes true inside Period P = (R becomes true) inside P;
+		// Doesn't parse because of structure of Operator name left of "=" ("true") and
+		// because of structure of expression right of "=". No exp with operator call following another
+		// sub-expression
+//		Operator [ Events ] Requirement R _becomes true _inside Period P = (R _becomes true) _inside P;
 		// Events generated when a requirement becomes false inside a time period
-		Operator [ Events ] Requirement R becomes false inside Period P = (R becomes false) inside P ;
+		// Doesn't parse because of structure of Operator name left of "=" ("false") and
+		// because of structure of expression right of "=". No exp with operator call following another
+		// sub-expression.
+//		Operator [ Events ] Requirement R _becomes false inside Period P = (R _becomes false) _inside P ;
 
 	// Operators on time periods
 		// From events occur
-		Operator [ Periods ] from Events E = Periods [ E, Events false ];
+		// Doesn't because of structure of expression right of "=". No exp starting with type
+//		Operator [ Periods ] _from Events E = Periods [ E, Events false ];
 		// After events occur
-		Operator [ Periods ] after Events E = Periods ] E, Events false ];
+		// Doesn't because of structure of expression right of "=". No exp starting with type
+//		Operator [ Periods ] _after Events E = Periods ] E, Events false ];
 		// Before events occur
-		Operator [ Periods ] before Events E = Periods [ Events false, E [;
+		// Doesn't because of structure of expression right of "=". No exp starting with type
+//		Operator [ Periods ] _before Events E = Periods [ Events false, E [;
 		// Until events occur
-		Operator [ Periods ] until Events E = Periods [ Events false, E ];
+		// Doesn't because of structure of expression right of "=". No exp starting with type
+//		Operator [ Periods ] _until Events E = Periods [ Events false, E ];
 		// While a Boolean is true
-		Operator [ Periods ] during Boolean b = Periods [Events b, Events not b];
+		// Doesn't because of structure of expression right of "=". No exp starting with type
+//		Operator [ Periods ] _during Boolean b = Periods [Events b, Events not b];
 
 		// After events occur and before events occur
-		Operator [ Periods ] after Events E1 before Events E2 = Periods ] E1, E2 [;
+		// Doesn't because of structure of expression right of "=". No exp starting with type
+//		Operator [ Periods ] _after Events E1 _before Events E2 = Periods ] E1, E2 [;
 		// After events occur and until events occur
-		Operator [ Periods ] after Events E1 until Events E2 = Periods ] E1, E2 ];
+		// Doesn't because of structure of expression right of "=". No exp starting with type
+//		Operator [ Periods ] _after Events E1 _until Events E2 = Periods ] E1, E2 ];
 		// After events occur and for an elapsed time
-		Operator [ Periods ] after Events E for Real d = Periods ] E, d ];
+		// Doesn't because of structure of expression right of "=". No exp starting with type
+//		Operator [ Periods ] _after Events E _for Real d = Periods ] E, d ];
 		// After events occur and within an elapsed time
-		Operator [ Periods ] after Events E within Real d = Periods ] E,d [;
+		// Doesn't because of structure of expression right of "=". No exp starting with type
+//		Operator [ Periods ] _after Events E _within Real d = Periods ] E,d [;
 		// From events occur and before events occur
-		Operator [ Periods ] from Events E1 before Events E2 = Periods [ E1, E2 [;
+		// Doesn't because of structure of expression right of "=". No exp starting with type
+//		Operator [ Periods ] _from Events E1 _before Events E2 = Periods [ E1, E2 [;
 		// From events occur and until events occur
-		Operator [ Periods ] from Events E1 until Events E2 = Periods [ E1, E2 ];
+		// Doesn't because of structure of expression right of "=". No exp starting with type
+//		Operator [ Periods ] _from Events E1 _until Events E2 = Periods [ E1, E2 ];
 		// From events occur and for an elapsed time
-		Operator [ Periods ] from Events E for Real d = Periods [ E, d ];
+		// Doesn't because of structure of expression right of "=". No exp starting with type
+//		Operator [ Periods ] _from Events E _for Real d = Periods [ E, d ];
 		// From events occur and within an elapsed time
-		Operator [ Periods ] from Events E within Real d = Periods [ E, d [;
+		// Doesn't because of structure of expression right of "=". No exp starting with type
+//		Operator [ Periods ] _from Events E _within Real d = Periods [ E, d [;
 		// When events occur
-		Operator [ Periods ] when Events E = Periods [ E, E ];
+		// Doesn't because of structure of expression right of "=". No exp starting with type
+//		Operator [ Periods ] _when Events E = Periods [ E, E ];
 
 
 	// Operators on requirements
 		// Checking a requirement
-		Operator [ Boolean ] Periods P check Boolean b = evaluate Requirement b on P;
+		// Doesn't because of structure of expression right of "=". No exp starting with type
+//		Operator [ Boolean ] Periods P _check Boolean b = _evaluate Requirement b on P;
 
 		// Checking that a requirement is satisfied at the end of a time period
-		Operator [ Boolean ] Periods P check at end Boolean b = P varying check b;
+		// Doesn't parse because of structure of Operator name left of "=" ("at end")
+//		Operator [ Boolean ] Periods P _check at end Boolean b = P _varying _check b;
 
 		// Checking that the number of event occurrences at the end of a time period
 		// is lower or higher than a threshold
-		Operator [ Boolean ] Periods P check count Events E < fixed Integer n = P check ((count E inside P) increasing < n);
+		// Doesn't parse because of structure of Operator name left of "=" ("<" followed by a member
+		// variable definition) and because of structure of expression right of "=". No exp with
+		// operator call following another sub-expression
+//		Operator [ Boolean ] Periods P _check _count Events E < fixed Integer n = P _check ((_count E _inside P) _increasing < n);
 
-		Operator [ Boolean ] Periods P check count Events E <= fixed Integer n = P check ((count E inside P) increasing <= n);
-		Operator [ Boolean ] Periods P check count Events E > fixed Integer n = P check ((count E inside P) increasing > n);
-		Operator [ Boolean ] Periods P check count Events E >= fixed Integer n = P check ((count E inside P) increasing >= n);
-		Operator [ Boolean ] Periods P check count Events E == fixed Integer n = P check ((count E inside P) increasing == n);
+//		Operator [ Boolean ] Periods P check count Events E <= fixed Integer n = P check ((count E inside P) increasing <= n);
+//		Operator [ Boolean ] Periods P check count Events E > fixed Integer n = P check ((count E inside P) increasing > n);
+//		Operator [ Boolean ] Periods P check count Events E >= fixed Integer n = P check ((count E inside P) increasing >= n);
+//		Operator [ Boolean ] Periods P check count Events E == fixed Integer n = P check ((count E inside P) increasing == n);
 
 		// Ensuring that a requirement is satisfied all along a time period
-		Operator [ Boolean ] Periods P ensure Boolean b = P check count (not b becomes true) == 0;
+		// Doesn't parse because of structure of expression right of "=". No exp with
+		// operator call following another sub-expression.
+//		Operator [ Boolean ] Periods P _ensure Boolean b = P _check _count (not b _becomes true) == 0;
 
 		// Checking that the duration of a condition at the end of a time period
 		// is lower or higher than a threshold
-		Operator [ Boolean ] Periods P check duration Boolean b < fixed Real d = P check ((duration b on P) increasing < d);
-		Operator [ Boolean ] Periods P check duration Boolean b <= fixed Real d = P check ((duration b on P) increasing <= d);
-		Operator [ Boolean ] Periods P check duration Boolean b > fixed Real d = P check ((duration b on P) increasing > d);
-		Operator [ Boolean ] Periods P check duration Boolean b >= fixed Real d = P check ((duration b on P) increasing >= d);
-
+		// Doesn't parse because of structure of Operator name left of "=" ("<" followed by a member
+		// variable definition) and because of structure of expression right of "=". No exp with
+		// operator call following another sub-expression
+//		Operator [ Boolean ] Periods P _check _duration Boolean b < fixed Real d = P _check ((_duration b on P) _increasing < d);
+//		Operator [ Boolean ] Periods P _check _duration Boolean b <= fixed Real d = P _check ((_duration b on P) _increasing <= d);
+//		Operator [ Boolean ] Periods P _check _duration Boolean b > fixed Real d = P _check ((_duration b on P) _increasing > d);
+//		Operator [ Boolean ] Periods P _check _duration Boolean b >= fixed Real d = P _check ((_duration b on P) _increasing >= d);
 
 end Op_user_defined;

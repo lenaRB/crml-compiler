@@ -7,6 +7,7 @@ model Evt_set
 	external Event E;
 
 	// Constructor
+	// clock C is clock B;	// To be discussed: should the constructor "clock" be named explicitly?
 	Clock C is B;	
 
 	// Temporal operators
