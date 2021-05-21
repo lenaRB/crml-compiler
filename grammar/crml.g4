@@ -19,9 +19,9 @@ def : LINE_COMMENT
 	| 'Template' template_def ';'
 	| 'class' id ('{' class_var_def+ '}' | 'extends' type class_params? id? )';'
 	| 'type' type_def ';'
-	| 'Set' id 'of' type 'is' exp ';'
+	| 'Set' id 'of' type 'is' (set_body | exp binary_op exp) ';'
 	| 'Operator' '[' type ']' operator_def ';'
-	|  type id  (arg_list | 'is' exp )? ';'	
+	|  type id  (arg_list | 'is' (exp | set_body))? ';'
 	;
 
 class_params : '(' (id '=' exp)+ ')';
@@ -52,10 +52,11 @@ class_var_def : (('parameter' | 'external' | 'fixed')? type id ('is' exp)? ';' )
 
 boolean_value : 'true' |'false' | 'undecided' | 'undefined' ;
 
+set_body : '{' (exp (',' exp)*)? '}';
 exp :  boolean_value | id | STRING | UNSIGNED_NUMBER | '(' exp ')' 
 	| exp binary_op exp | right_unary_op exp | exp left_unary_op | component_reference
 	| 'sum' '(' exp (',' exp)+')' |'trim' exp 'on' exp
-	| '{' (exp (',' exp)*)? '}' |  id 'proj' ('(' id ')')?  id | period_op 
+	|  id 'proj' ('(' id ')')?  id | period_op
     | 'element' | user_function | 'terminate' | 'when' exp 'then' exp;
 
 // this is an operator call
