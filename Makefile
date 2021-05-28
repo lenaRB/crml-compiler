@@ -7,11 +7,14 @@ else
 PATH_SEPARATOR=:
 endif
 
+ifeq (,$(TEST))
+TEST=./tests
+endif
 
 ANTLR_FILES=build/crml/crml.tokens \
 			build/crml/crml.interp \
 			build/crml/crmlLexer.interp \
-            build/crml/crmlLexer.tokens
+      build/crml/crmlLexer.tokens
 
 JAVA_FILES= build/crml/crmlBaseVisitor.java \
 			build/crml/crmlLexer.java \
@@ -20,8 +23,9 @@ JAVA_FILES= build/crml/crmlBaseVisitor.java \
 			build/crml/crmlBaseListener.java \
 			build/crml/crmlParser.java			
 
-JAVA_MAIN=  src/crml_parser/crmlListenerImpl.java \
-	    		src/crml_parser/GrammarTest.java
+JAVA_MAIN=  src/crml/parser/Main.java \
+						src/crml/translator/crmlListenerImpl.java \
+						src/crml/translator/Main.java
 
 CLASS_FILES=build/crml/crmlBaseVisitor.class \
 			build/crml/crmlLexer.class \
@@ -29,17 +33,23 @@ CLASS_FILES=build/crml/crmlBaseVisitor.class \
 			build/crml/crmlVisitor.class \
 			build/crml/crmlBaseListener.class \
 			build/crml/crmlParser.class \
-			build/crml_parser/GrammarTest.class
+			build/crml/parser/Main.class \
+			build/crml/translator/Main.class \
+			build/crml/translator/crmlListenerImpl.class
 
 # build and test the crml parser
 test: all
-	java -cp "jars/antlr-4.9.2-complete.jar$(PATH_SEPARATOR)build/crml_parser.jar" crml_parser.GrammarTest ./tests/examples
+	java -cp "jars/antlr-4.9.2-complete.jar$(PATH_SEPARATOR)build/crmlTools.jar" crml.parser.Main ./tests/examples
+
+# build and run one test of the crml parser
+testone: all
+	java -cp "jars/antlr-4.9.2-complete.jar$(PATH_SEPARATOR)build/crmlTools.jar" crml.parser.Main $(TEST)
 
 # generate class files
 $(CLASS_FILES): build $(JAVA_FILES) $(JAVA_MAIN)
 	javac -d build -cp jars/antlr-4.9.2-complete.jar $(JAVA_FILES) $(JAVA_MAIN)
 
-all: build jars build/crml_parser.jar jars/antlr-4.9.2-complete.jar
+all: build jars build/crmlTools.jar jars/antlr-4.9.2-complete.jar
 
 # download antlr jars
 jars/antlr-4.9.2-complete.jar: jars
@@ -52,8 +62,8 @@ build:
 	mkdir -p build
 
 # create a jar with the parser files
-build/crml_parser.jar: $(CLASS_FILES)
-	jar cf build/crml_parser.jar -C build crml/ -C build crml_parser/ 
+build/crmlTools.jar: $(CLASS_FILES)
+	jar cf build/crmlTools.jar -C build crml/
 
 # generate all the needed Java files from the grammar
 # see the available options here: https://github.com/antlr/antlr4/blob/master/doc/tool-options.md

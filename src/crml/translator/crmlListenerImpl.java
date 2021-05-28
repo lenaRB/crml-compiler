@@ -1,4 +1,4 @@
-package crml_parser;
+package crml.translator;
 
 import crml.crmlBaseListener;
 import crml.crmlParser;
