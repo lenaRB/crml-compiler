@@ -25,7 +25,9 @@ JAVA_FILES= build/crml/crmlBaseVisitor.java \
 
 JAVA_MAIN=  src/crml/parser/Main.java \
 						src/crml/translator/crmlListenerImpl.java \
-						src/crml/translator/Main.java
+						src/crml/translator/crmlVisitorImpl.java \
+						src/crml/translator/Main.java \
+						src/crml/translator/Value.java
 
 CLASS_FILES=build/crml/crmlBaseVisitor.class \
 			build/crml/crmlLexer.class \
@@ -34,8 +36,10 @@ CLASS_FILES=build/crml/crmlBaseVisitor.class \
 			build/crml/crmlBaseListener.class \
 			build/crml/crmlParser.class \
 			build/crml/parser/Main.class \
+			build/crml/translator/Value.class \
 			build/crml/translator/Main.class \
-			build/crml/translator/crmlListenerImpl.class
+			build/crml/translator/crmlListenerImpl.class \
+			build/crml/translator/crmlVisitorImpl.class 
 
 # build and test the crml parser
 test: all

@@ -12,6 +12,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import crml.crmlLexer;
 import crml.crmlParser;
+import crml.translator.crmlVisitorImpl;
 
 
 
@@ -49,10 +50,13 @@ public class Main {
     System.out.println(tree.toStringTree(parser));
       
     ParseTreeWalker walker = new ParseTreeWalker(); 
-    crmlListenerImpl listener = new crmlListenerImpl();
+    //crmlListenerImpl listener = new crmlListenerImpl();
 
-    walker.walk((ParseTreeListener) listener, tree);
+    //walker.walk((ParseTreeListener) listener, tree);
+    
+    crmlVisitorImpl visitor = new crmlVisitorImpl();
+    Value result = visitor.visit(tree);
      
-    System.out.println(listener.buffer);
+    System.out.println(result.contents);
   }
 }

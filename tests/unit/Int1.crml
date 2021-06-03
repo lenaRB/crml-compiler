@@ -1,0 +1,6 @@
+
+model Int1
+Integer i is 2;
+Integer j is 1 + 2;
+
+end Int1;

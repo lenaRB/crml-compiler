@@ -51,9 +51,11 @@ class_var_def : (('parameter' | 'external' | 'fixed')? type id ('is' exp)? ';' )
 
 boolean_value : 'true' |'false' | 'undecided' | 'undefined' ;
 
+constant : boolean_value | STRING | UNSIGNED_NUMBER;
+
 set_body : '{' (exp (',' exp)*)? '}';
 
-exp :  boolean_value | id | STRING | UNSIGNED_NUMBER | '(' exp ')' 
+exp :  id | constant | '(' exp ')' 
 	| exp binary_op exp | right_unary_op exp | exp left_unary_op | component_reference
 	| 'sum' '(' exp (',' exp)+')' |'trim' exp 'on' exp
 	|  id 'proj' ('(' id ')')?  id | period_op

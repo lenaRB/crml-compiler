@@ -1,0 +1,5 @@
+model String1
+
+String variable is "Hello";
+
+end String1;
