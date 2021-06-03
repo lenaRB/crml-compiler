@@ -1,4 +1,4 @@
-package crml_parser;
+package crml.parser;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import crml.crmlParser;
 
 
 
-public class GrammarTest {
+public class Main {
   public static void main( String[] args ) throws Exception {
     if (args[0] == null)
     {
@@ -44,12 +44,5 @@ public class GrammarTest {
       //parser.setTrace(true);
       ParseTree tree = parser.definition();
       System.out.println(tree.toStringTree(parser));
-      
-      ParseTreeWalker walker = new ParseTreeWalker(); 
-      crmlListenerImpl listener = new crmlListenerImpl();
-
-      walker.walk((ParseTreeListener) listener, tree);
-      
-      System.out.println(listener.buffer);
   }
 }
