@@ -1,6 +1,7 @@
 model Bool1
-Boolean b0 is true;
+Boolean b0 is true and true;
 Boolean b1 is false;
 Boolean b2 is undecided;
 Boolean b3 is undefined;
+Boolean b4;
 end Bool1;

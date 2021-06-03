@@ -14,7 +14,7 @@ endif
 ANTLR_FILES=build/crml/crml.tokens \
 			build/crml/crml.interp \
 			build/crml/crmlLexer.interp \
-      build/crml/crmlLexer.tokens
+      		build/crml/crmlLexer.tokens
 
 JAVA_FILES= build/crml/crmlBaseVisitor.java \
 			build/crml/crmlLexer.java \
@@ -44,6 +44,10 @@ test: all
 # build and run one test of the crml parser
 testone: all
 	java -cp "jars/antlr-4.9.2-complete.jar$(PATH_SEPARATOR)build/crmlTools.jar" crml.parser.Main $(TEST)
+	
+# translate 
+translateall: all
+	java -cp "jars/antlr-4.9.2-complete.jar$(PATH_SEPARATOR)build/crmlTools.jar" crml.translator.Main ./tests/unit
 
 # generate class files
 $(CLASS_FILES): build $(JAVA_FILES) $(JAVA_MAIN)

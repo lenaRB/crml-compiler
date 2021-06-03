@@ -10,11 +10,11 @@ import modelica;
 }
 
 definition : ('model' | 'package' | 'library') id // need to add package and library - clarify what is allowed where
-		(def)* 
+		(element_def)* 
 		'end' id  ';' EOF;	
 
 
-def : LINE_COMMENT
+element_def : LINE_COMMENT
 	| 'external' (type id | structure_type id)';'
 	| 'Template' template_def ';'
 	| 'class' id ('{' class_var_def+ '}' | 'extends' type class_params? id? )';'
@@ -26,8 +26,7 @@ def : LINE_COMMENT
 
 class_params : '(' (id '=' exp)+ ')';
 	
-template_def :  (id | USER_KEYWORD)+ '=' exp
-;
+template_def :  (id | USER_KEYWORD)+ '=' exp;
 
 operator_def :  (type id | USER_KEYWORD)+ '=' exp ;
 	 
@@ -53,20 +52,22 @@ class_var_def : (('parameter' | 'external' | 'fixed')? type id ('is' exp)? ';' )
 boolean_value : 'true' |'false' | 'undecided' | 'undefined' ;
 
 set_body : '{' (exp (',' exp)*)? '}';
+
 exp :  boolean_value | id | STRING | UNSIGNED_NUMBER | '(' exp ')' 
 	| exp binary_op exp | right_unary_op exp | exp left_unary_op | component_reference
 	| 'sum' '(' exp (',' exp)+')' |'trim' exp 'on' exp
 	|  id 'proj' ('(' id ')')?  id | period_op
-    | 'element' | user_function | 'terminate' | 'when' exp 'then' exp;
+    | 'element' | user_operator_call | 'terminate' | 'when' exp 'then' exp;
 
-// this is an operator call
-user_function : user_keyword+ exp (user_keyword+ exp)* user_keyword*;
+user_operator_call : user_keyword+ exp (user_keyword+ exp)* user_keyword*;
 	
 period_op : ('['| ']') exp ',' exp ('['| ']') ; 
 		
 binary_op : 'and' | 'not' | '*' | '+' | '-' | '/' |'with' | 'master' | 'on' | 'filter'
 				| '<=' | '<' | '>=' | '>' | 'par' | 'at' | '==' | '=' | 'or' | user_keyword ;	// take away or, fix user defined templates firsts
+
 right_unary_op : 'pre' | 'not'| '-' | 'card' | 'and' | 'evaluate';
+
 left_unary_op : 'start' | 'end';
 
 id: IDENT;
