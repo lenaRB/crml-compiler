@@ -32,7 +32,7 @@ public class crmlListenerImpl extends crmlBaseListener {
 	@Override public void enterElement_def(crmlParser.Element_defContext ctx) {
 		String var_t, mapped_t;
 		
-		if (!ctx.type().getText().isEmpty()) {
+	/*	if (!ctx.type().getText().isEmpty()) {
 			
 			var_t = ctx.type().getText();
 			if(types_mapping.containsKey(var_t))
@@ -44,7 +44,7 @@ public class crmlListenerImpl extends crmlBaseListener {
 			
 			if(!ctx.exp().isEmpty())
 				buffer.append(" = ");		
-		}				
+		}	*/			
 	}
 	
 	@Override public void exitElement_def(crmlParser.Element_defContext ctx){
