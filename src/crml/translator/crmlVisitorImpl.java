@@ -7,18 +7,21 @@ import crml.crmlBaseVisitor;
 import crml.crmlParser;
 import crml.crmlParser.DefinitionContext;
 import crml.crmlParser.Element_defContext;
+import crml.crmlParser.IdContext;
+import crml.crmlParser.User_keywordContext;
 
 public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		
 		private Integer counter;
 
 		//type mapping
-		HashMap<String, String> types_mapping;
+		private HashMap<String, String> types_mapping;
 		
 		
 		//types of variables for operator typing
-		HashMap<String, String> variable_types;
+		private HashMap<String, String> variable_types;
 		
+		private StringBuffer blockDefinitions;
 		
 		public crmlVisitorImpl () {		
 			
@@ -28,7 +31,10 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			
 			variable_types = new HashMap<String, String>();	
 			
+			blockDefinitions = new StringBuffer();
+			
 			counter = 0; //used to create unique names for automatically generated blocks
+			
 		}		
 		
 		@Override public Value visitDefinition(DefinitionContext ctx) {
@@ -40,23 +46,68 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				
 				for (Element_defContext e : cL)
 					buffer.append(visit(e).contents);
+				
+				buffer.append(blockDefinitions);
 					
 				buffer.append("end " + ctx.id(1).getText()+ ";\n"); 
+				
 				
 				return new Value (buffer.toString(), "Program");
 			}
 		
 		@Override public Value visitElement_def(crmlParser.Element_defContext ctx) {
 			
-			if(!ctx.var_def().isEmpty())
+			// the element is a definition
+			if(ctx.var_def() != null)
 				return visit(ctx.var_def());
+			
+			// the element is a template
+			if (ctx.template() != null)
+				return visit (ctx.template());
 			
 			return new Value ("Unknown "+ctx.getText()+ '\n', "Program");
 		}
 		
+		@Override public Value visitTemplate(crmlParser.TemplateContext ctx) {
+			
+			StringBuffer definition = new StringBuffer("model ");
+			StringBuffer modelName = new StringBuffer();
+			
+			HashMap<String, String> store_variable_types = (HashMap<String, String>) variable_types.clone();
+			
+			// generate function name
+			for (User_keywordContext k : ctx.user_keyword()) {
+				modelName.append(k.getText());
+			}
+			
+			definition.append(modelName);
+			definition.append("\n");
+			
+			// generate variables
+			for (IdContext v : ctx.id()) {
+				definition.append("input CRMLBool " + v.getText() + ";\n");
+				variable_types.put(v.getText(), "Boolean");
+			}
+			
+			definition.append("output CRMLBool out; \n");
+			
+			// append body
+			Value exp = visit(ctx.exp());
+			definition.append("equation \n out =" + exp.contents + ";\n");
+			
+			definition.append("end ");
+			definition.append(modelName);
+			definition.append(";\n");
+			
+			return new Value (definition.toString(), "Template");
+		}
+		
+		
 		@Override public Value visitVar_def(crmlParser.Var_defContext ctx) {
 			String var_t, mapped_t;
 			StringBuffer buffer = new StringBuffer();
+			
+			
 				
 				var_t = ctx.type().getText();
 				if(types_mapping.containsKey(var_t))
@@ -71,7 +122,6 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				
 				if(ctx.exp()!=null) {
 					buffer.append(" = " + visit(ctx.exp()).contents);	
-					
 				}
 				buffer.append(";\n");	
 			
@@ -98,7 +148,8 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				left = visit(ctx.exp(0));
 				right = visit(ctx.exp(1));
 				
-				Value result = apply_binary_op(left, right, ctx.binary_op().getText());
+				Boolean isUserOp = !(ctx.binary_op().user_keyword()==null);
+				Value result = apply_binary_op(left, right, ctx.binary_op().getText(), isUserOp);
 				return result;				
 			}
 			
@@ -110,39 +161,73 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			// if the expression is a right unary operator
 			
 			// if the expression is a right unary operator
-			
+			if(ctx.right_unary_op()!=null) {
+				right = visit(ctx.exp(0));
+				Value result = apply_unary_op(ctx.right_unary_op().getText(), right);
+				return result;
+			}
 			
 			
 			return null;
 		}
 
-		private Value apply_binary_op(Value left, Value right, String op) {
+		private Value apply_binary_op(Value left, Value right, String op, Boolean isUserOp) {
 			switch (left.type) {
 			case "Boolean":
-				return new Value (applyBooleanOp(left, right, op), "Boolean");
+				return new Value (applyBooleanOp(left, op, right, isUserOp), "Boolean");
 			case "Number":
+				if (isUserOp)
+					return new Value (op + "("+ left.contents + "," + right.contents + ")", "Number");
 				return new Value (left.contents + " " + op + " " + right.contents, "Number");
 			default:
 				break;
 			}
 			return new Value (op + " notParsed", "unknown");
 		}
+		
+		private Value apply_unary_op(String op, Value right) {
+			switch (right.type) {
+			case "Boolean":
+				return new Value (applyBooleanOp(op, right), "Boolean");
+			case "Number":
+				return new Value (op + " " + right.contents, "Number");
+			default:
+				break;
+			}
+			return new Value (op + " notParsed", "unknown");
+		}
 
-		private String applyBooleanOp(Value left, Value right, String op) {
+		private String applyBooleanOp(Value left, String op, Value right, Boolean isUserOp ) {
 			switch (op) {
 			case "+":
-				return ("CRMLBool.add("+ left.contents + "," + right.contents + ")");
+				return ("CRMLBool.addOp("+ left.contents + "," + right.contents + ")");
 			case "-":
 				return ("CRMLBool.minus("+ left.contents + "," + right.contents + ")");
 			case "*":
 				return ("CRMLBool.mult("+ left.contents + "," + right.contents + ")");
 			case "and":
-				return ("CRMLBool.and("+ left.contents + "," + right.contents + ")");
+				return ("CRMLBool.andOp("+ left.contents + "," + right.contents + ")");
 			default:
+				if (isUserOp)
+					return op + "("+ left.contents + "," + right.contents + ")";
 				break;
 			}
 			
-			return "unapplicable operator";
+			return "unapplicable operator" + op;
+		}
+		
+		private String applyBooleanOp(String op, Value right) {
+			switch (op) {
+			case "not":
+				return ("CRMLBool.notOp("+ right.contents +")");
+			case "pre": // pre is time dependent, need to generate a block
+				String bl = "pre"+counter++;
+				blockDefinitions.append("CRMLPre " + bl + "(" + right.contents + ");\n");
+				return (bl + ".out");
+			default:
+				break;
+			}
+			return "unapplicable operator" + op;
 		}
 		
 

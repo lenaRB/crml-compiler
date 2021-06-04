@@ -10,15 +10,13 @@ Boolean b4;
 
 // Logical operators
 Boolean b5 is b1 and b2;
-//Boolean b6 is not B1;
+Boolean b6 is not b1;
 
 // Temporal operators
-//Boolean B7 is pre B1;	// Previous
+Boolean b7 is pre b1;	// Previous
 Boolean b8 is b1 * b2;	// Filter
 Boolean b9 is b1 - b2;	// Difference
 Boolean b10 is b1 + b2 + b3;	// Accumulation
-//Boolean B11 is trim B on P;	// Trim
-
-Boolean b12 is (b1 - b2) + b3;
+Boolean b11 is (b1 - b2) + b3;
 
 end Bool1;

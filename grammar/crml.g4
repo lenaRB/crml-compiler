@@ -27,11 +27,9 @@ var_def : type id  (arg_list | 'is' (exp | set_body))? ';' ;
 
 operator : 'Operator' '[' type ']' operator_def ';' ;
 
-template : 'Template' template_def ';' ;
+template : 'Template' (id | user_keyword)+ '=' exp ';' ;
 
 class_params : '(' (id '=' exp)+ ')';
-	
-template_def :  (id | user_keyword)+ '=' exp;
 
 operator_def :  (type id | user_keyword)+ '=' exp ;
 	 

@@ -1,0 +1,9 @@
+model Temp
+
+Template  r1 _or r2 = not (not r1 and not r2);	// Logical disjunction
+
+Boolean b1 is true;
+Boolean b2 is false;
+Boolean b3 is b1 _or b2;
+
+end Temp;
