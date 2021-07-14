@@ -57,11 +57,16 @@ translateall: all
 $(CLASS_FILES): build $(JAVA_FILES) $(JAVA_MAIN)
 	javac -d build -cp jars/antlr-4.9.2-complete.jar $(JAVA_FILES) $(JAVA_MAIN)
 
-all: build jars build/crmlTools.jar jars/antlr-4.9.2-complete.jar
+all: build jars build/crmlTools.jar jars/antlr-4.9.2-complete.jar jars/log4j-slf4j-impl-2.14.1.jar
 
 # download antlr jars
 jars/antlr-4.9.2-complete.jar: jars
 	cd jars && curl -O https://www.antlr.org/download/antlr-4.9.2-complete.jar
+
+# download log4j2 jars
+jars/log4j-slf4j-impl-2.14.1.jar: jars
+	cd jars && curl -O https://laotzu.ftp.acc.umu.se/mirror/apache.org/logging/log4j/2.14.1/apache-log4j-2.14.1-bin.zip && \
+jar xvf apache-log4j-2.14.1-bin.zip && mv apache-log4j-2.14.1-bin/*.* . && rmdir apache-log4j-2.14.1-bin
 
 jars:
 	mkdir -p jars
@@ -75,7 +80,7 @@ build/crmlTools.jar: $(CLASS_FILES)
 
 # generate all the needed Java files from the grammar
 # see the available options here: https://github.com/antlr/antlr4/blob/master/doc/tool-options.md
-$(ANTLR_FILES) $(JAVA_FILES): jars jars/antlr-4.9.2-complete.jar grammar/crml.g4 grammar/modelica.g4
+$(ANTLR_FILES) $(JAVA_FILES): jars jars/antlr-4.9.2-complete.jar jars/log4j-slf4j-impl-2.14.1.jar grammar/crml.g4 grammar/modelica.g4
 	java -cp jars/antlr-4.9.2-complete.jar org.antlr.v4.Tool -Dlanguage=Java -long-messages -Xlog -listener -visitor -Xexact-output-dir -o build/crml/ -lib grammar grammar/crml.g4
 
 clean:

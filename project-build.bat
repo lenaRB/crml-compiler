@@ -1,7 +1,7 @@
 REM run this to download the files and compile everything
 @echo off
 set JAVA_FILES=build/crml/crmlBaseVisitor.java build/crml/crmlLexer.java build/crml/crmlListener.java build/crml/crmlVisitor.java build/crml/crmlBaseListener.java build/crml/crmlParser.java
-set JAVA_MAIN=src/crml/parser/Main.java src/crml/translator/crmlListenerImpl.java src/crml/translator/Main.java                   
+set JAVA_MAIN=src/crml/parser/Main.java src/crml/translator/crmlListenerImpl.java src/crml/translator/crmlVisitorImpl.java src/crml/translator/Value.java src/crml/translator/Main.java
 
 REM create the build directory
 if not exist ".\build\" (
@@ -17,9 +17,19 @@ if not exist ".\jars\" (
 
 REM download the ANTLR jars
 if not exist ".\jars\antlr-4.9.2-complete.jar" (
-  echo Creating the jars directory
+  echo Fetching antlr jars
   curl -O https://www.antlr.org/download/antlr-4.9.2-complete.jar
   move /Y .\antlr-4.9.2-complete.jar .\jars\
+)
+
+REM download the ANTLR jars
+if not exist ".\jars\log4j-slf4j-impl-2.14.1.jar" (
+  echo Fetching log4j2 jars
+  curl -O https://laotzu.ftp.acc.umu.se/mirror/apache.org/logging/log4j/2.14.1/apache-log4j-2.14.1-bin.zip
+  move /Y .\apache-log4j-2.14.1-bin.zip .\jars\
+  jar xvf .\jars\apache-log4j-2.14.1-bin.zip
+  move /Y .\apache-log4j-2.14.1-bin\*.* .\jars\
+  rmdir /S /Q .\apache-log4j-2.14.1-bin
 )
 
 @echo on
