@@ -1,7 +1,10 @@
 package crml.translator;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -31,23 +34,26 @@ public class Main {
     File dir = new File ( path );
     String tests[] = dir.list();
     
+    File out_dir = new File("generated");
+    out_dir.mkdir();
+    
     for (String test : tests) {
       System.out.println("-------------------------------");
       System.out.println("Translating: " + test);
-      test_parser(dir + "/" + test);
+      test_parser(path, test);
     }
 
   }
   
-  public static void test_parser (String file) throws IOException {
-    CharStream code = CharStreams.fromFileName(file);
+  public static void test_parser (String dir, String file) throws IOException {
+    CharStream code = CharStreams.fromFileName(dir + "/" + file);
 
     crmlLexer lexer = new crmlLexer(code);
     CommonTokenStream tokens = new CommonTokenStream( lexer );
     crmlParser parser = new crmlParser( tokens );
     //parser.setTrace(true);
     ParseTree tree = parser.definition();
-    System.out.println(tree.toStringTree(parser));
+    //System.out.println(tree.toStringTree(parser));
       
     ParseTreeWalker walker = new ParseTreeWalker(); 
     //crmlListenerImpl listener = new crmlListenerImpl();
@@ -56,7 +62,11 @@ public class Main {
     
     crmlVisitorImpl visitor = new crmlVisitorImpl();
     Value result = visitor.visit(tree);
-     
-    System.out.println(result.contents);
+    if(result != null)
+    	System.out.println("Tranlsated " + file);
+    
+    BufferedWriter writer = new BufferedWriter(new FileWriter("generated/" +file.substring(0, file.lastIndexOf('.'))+ ".mo"));
+    writer.write(result.contents);
+    writer.close();
   }
 }

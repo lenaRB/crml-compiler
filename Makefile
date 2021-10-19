@@ -1,5 +1,5 @@
 # Makefile 
-.PHONY : all runtool test clean
+.PHONY : all runtool translateall clean
 
 ifeq (MINGW,$(findstring MINGW,$(shell uname)))
 PATH_SEPARATOR=;
@@ -55,7 +55,7 @@ translateall: all
 
 # generate class files
 $(CLASS_FILES): build $(JAVA_FILES) $(JAVA_MAIN)
-	javac -d build -cp jars/antlr-4.9.2-complete.jar $(JAVA_FILES) $(JAVA_MAIN)
+	javac -d build -cp jars/antlr-4.9.2-complete.jar:jars/log4j-slf4j-impl-2.14.1.jar $(JAVA_FILES) $(JAVA_MAIN)
 
 all: build jars build/crmlTools.jar jars/antlr-4.9.2-complete.jar jars/log4j-slf4j-impl-2.14.1.jar
 

@@ -17,6 +17,9 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		//type mapping
 		private HashMap<String, String> types_mapping;
 		
+		//operator mapping
+	    private HashMap<String, String> operators_mapping;
+		
 		
 		//types of variables for operator typing
 		private HashMap<String, String> variable_types;
@@ -26,8 +29,15 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		public crmlVisitorImpl () {		
 			
 			types_mapping = new HashMap<String, String>();
-			types_mapping.put("Boolean", "CRMLBool");
-			types_mapping.put("Period",  "CRMLPeriod");
+			
+			types_mapping.put("Boolean", "CRML.Types.Boolean4");
+			types_mapping.put("Period",  "CRML.TemporalBlocks.Period");
+			
+			operators_mapping = new HashMap<String, String>();
+			operators_mapping.put("binbool+", 	"CRML.Operators.add4");
+			operators_mapping.put("binbool-", 	"CRML.Operators.sub4");
+			operators_mapping.put("binbool*", 	"CRML.Operators.mul4");
+			operators_mapping.put("binbooland", "CRML.Operators.and4");
 			
 			variable_types = new HashMap<String, String>();	
 			
@@ -40,6 +50,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		@Override public Value visitDefinition(DefinitionContext ctx) {
 			StringBuffer buffer = new StringBuffer();
 			
+				//TODO support for library and package
 				buffer.append("model " + ctx.id(0).getText() + " \n");
 				
 				List<Element_defContext> cL = ctx.element_def();
@@ -65,7 +76,9 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			if (ctx.template() != null)
 				return visit (ctx.template());
 			
-			return new Value ("Unknown "+ctx.getText()+ '\n', "Program");
+			// the element is a 
+			
+			return new Value ("Unknown "+ctx.getText()+ '\n', "Element");
 		}
 		
 		@Override public Value visitTemplate(crmlParser.TemplateContext ctx) {
@@ -83,13 +96,15 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			definition.append(modelName);
 			definition.append("\n");
 			
+			String bType = types_mapping.get("Boolean");
+			
 			// generate variables
 			for (IdContext v : ctx.id()) {
-				definition.append("input CRMLBool " + v.getText() + ";\n");
+				definition.append("input " + bType + " " + v.getText() + ";\n");
 				variable_types.put(v.getText(), "Boolean");
 			}
 			
-			definition.append("output CRMLBool out; \n");
+			definition.append("output " + bType + " out; \n");
 			
 			// append body
 			Value exp = visit(ctx.exp());
@@ -98,6 +113,9 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			definition.append("end ");
 			definition.append(modelName);
 			definition.append(";\n");
+			
+			// get rid of all local variables
+			variable_types = store_variable_types;
 			
 			return new Value (definition.toString(), "Template");
 		}
@@ -176,8 +194,13 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			case "Boolean":
 				return new Value (applyBooleanOp(left, op, right, isUserOp), "Boolean");
 			case "Number":
-				if (isUserOp)
-					return new Value (op + "("+ left.contents + "," + right.contents + ")", "Number");
+				if (isUserOp) {
+					String name=op+counter;
+					String res = op+ " " + name+ "(r1="+left+",r2="+right+");";
+					blockDefinitions.append(res);
+					String res2 = op+ " " + name+ "(r1="+left+",r2="+right+");";
+					counter++;
+					return new Value ("name.out", "Number");}
 				return new Value (left.contents + " " + op + " " + right.contents, "Number");
 			default:
 				break;
@@ -198,31 +221,27 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		}
 
 		private String applyBooleanOp(Value left, String op, Value right, Boolean isUserOp ) {
-			switch (op) {
-			case "+":
-				return ("CRMLBool.addOp("+ left.contents + "," + right.contents + ")");
-			case "-":
-				return ("CRMLBool.minus("+ left.contents + "," + right.contents + ")");
-			case "*":
-				return ("CRMLBool.mult("+ left.contents + "," + right.contents + ")");
-			case "and":
-				return ("CRMLBool.andOp("+ left.contents + "," + right.contents + ")");
-			default:
-				if (isUserOp)
-					return op + "("+ left.contents + "," + right.contents + ")";
-				break;
-			}
+			
+				if (isUserOp) {
+					String name=op+counter;
+					String res = op+ " " + name+ "(r1="+left.contents+",r2="+right.contents+");";
+					blockDefinitions.append(res);
+					counter++;
+					return name+".out";}
+			if(operators_mapping.containsKey("binbool"+op))
+				return operators_mapping.get("binbool"+op) + "("+ left.contents + "," + right.contents + ")";
 			
 			return "unapplicable operator" + op;
 		}
 		
 		private String applyBooleanOp(String op, Value right) {
+			
 			switch (op) {
 			case "not":
-				return ("CRMLBool.notOp("+ right.contents +")");
+				return ("CRML.Operators.not4("+ right.contents +")");
 			case "pre": // pre is time dependent, need to generate a block
 				String bl = "pre"+counter++;
-				blockDefinitions.append("CRMLPre " + bl + "(" + right.contents + ");\n");
+				blockDefinitions.append("CRML.Operators.PreBool4 " + bl + "(" + right.contents + ");\n");
 				return (bl + ".out");
 			default:
 				break;
@@ -253,10 +272,10 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			bool_val = ctx.getText();	
 			
 			switch(bool_val) {
-			  case "true":			return new Value ("CRMLBool.TRUE", "Boolean");
-			  case "false":			return new Value ("CRMLBool.FALSE", "Boolean");
-			  case "undecided": 	return new Value ("CRMLBool.UNDECIDED", "Boolean");
-			  case "undefined":		return new Value ("CRMLBool.UNDEFINED", "Boolean");
+			  case "true":			return new Value ("CRML.Types.Boolean4.true4", "Boolean");
+			  case "false":			return new Value ("CRML.Types.Boolean4.false4", "Boolean");
+			  case "undecided": 	return new Value ("CRML.Types.Boolean4.undecided", "Boolean");
+			  case "undefined":		return new Value ("CRML.Types.Boolean4.undefined", "Boolean");
 			  default:				return new Value ("error", "Error");
 			}
 			
