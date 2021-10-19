@@ -34,11 +34,13 @@ if not exist ".\jars\log4j-slf4j-impl-2.14.1.jar" (
 
 @echo on
 
+SET JJARS=jars/antlr-4.9.2-complete.jar;jars/log4j-api-2.14.1.jar
+
 REM generate the code from the grammar
-java -cp jars/antlr-4.9.2-complete.jar org.antlr.v4.Tool -Dlanguage=Java -long-messages -Xlog -listener -visitor -Xexact-output-dir -o build/crml/ -lib grammar grammar/crml.g4
+java -cp "%JJARS%" org.antlr.v4.Tool -Dlanguage=Java -long-messages -Xlog -listener -visitor -Xexact-output-dir -o build/crml/ -lib grammar grammar/crml.g4
 
 REM compile the parser
-javac -d build -cp jars/antlr-4.9.2-complete.jar %JAVA_FILES% %JAVA_MAIN%
+javac -d build -cp "%JJARS%" %JAVA_FILES% %JAVA_MAIN%
 
 REM build the parser jar
 jar cf build/crmlTools.jar -C build crml/
