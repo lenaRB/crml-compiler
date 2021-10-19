@@ -1,5 +1,5 @@
 # Makefile 
-.PHONY : all runtool translateall clean
+.PHONY : all runtool test clean
 
 ifeq (MINGW,$(findstring MINGW,$(shell uname)))
 PATH_SEPARATOR=;
@@ -41,21 +41,26 @@ CLASS_FILES=build/crml/crmlBaseVisitor.class \
 			build/crml/translator/crmlListenerImpl.class \
 			build/crml/translator/crmlVisitorImpl.class 
 
+# see https://logging.apache.org/log4j/2.x/runtime-dependencies.html
+JJ=jars/antlr-4.9.2-complete.jar$(PATH_SEPARATOR)jars/log4j-api-2.14.1.jar
+JJARS="$(JJ)"
+AJARS="$(JJ)$(PATH_SEPARATOR)build/crmlTools.jar"
+
 # build and test the crml parser
 test: all
-	java -cp "jars/antlr-4.9.2-complete.jar$(PATH_SEPARATOR)build/crmlTools.jar" crml.parser.Main ./tests/examples
+	java -cp $(AJARS) crml.parser.Main ./tests/examples
 
 # build and run one test of the crml parser
 testone: all
-	java -cp "jars/antlr-4.9.2-complete.jar$(PATH_SEPARATOR)build/crmlTools.jar" crml.parser.Main $(TEST)
+	java -cp $(AJARS) crml.parser.Main $(TEST)
 	
 # translate 
 translateall: all
-	java -cp "jars/antlr-4.9.2-complete.jar$(PATH_SEPARATOR)build/crmlTools.jar" crml.translator.Main ./tests/unit
+	java -cp $(AJARS) crml.translator.Main ./tests/unit
 
 # generate class files
 $(CLASS_FILES): build $(JAVA_FILES) $(JAVA_MAIN)
-	javac -d build -cp jars/antlr-4.9.2-complete.jar:jars/log4j-slf4j-impl-2.14.1.jar $(JAVA_FILES) $(JAVA_MAIN)
+	javac -d build -cp $(JJARS) $(JAVA_FILES) $(JAVA_MAIN)
 
 all: build jars build/crmlTools.jar jars/antlr-4.9.2-complete.jar jars/log4j-slf4j-impl-2.14.1.jar
 
@@ -81,7 +86,7 @@ build/crmlTools.jar: $(CLASS_FILES)
 # generate all the needed Java files from the grammar
 # see the available options here: https://github.com/antlr/antlr4/blob/master/doc/tool-options.md
 $(ANTLR_FILES) $(JAVA_FILES): jars jars/antlr-4.9.2-complete.jar jars/log4j-slf4j-impl-2.14.1.jar grammar/crml.g4 grammar/modelica.g4
-	java -cp jars/antlr-4.9.2-complete.jar org.antlr.v4.Tool -Dlanguage=Java -long-messages -Xlog -listener -visitor -Xexact-output-dir -o build/crml/ -lib grammar grammar/crml.g4
+	java -cp $(JJARS) org.antlr.v4.Tool -Dlanguage=Java -long-messages -Xlog -listener -visitor -Xexact-output-dir -o build/crml/ -lib grammar grammar/crml.g4
 
 clean:
 	rm -rf build jars antlr-*.log
