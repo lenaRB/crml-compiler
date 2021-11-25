@@ -66,12 +66,12 @@ all: build jars build/crmlTools.jar jars/antlr-4.9.2-complete.jar jars/log4j-slf
 
 # download antlr jars
 jars/antlr-4.9.2-complete.jar: jars
-	cd jars && curl -O https://www.antlr.org/download/antlr-4.9.2-complete.jar
+	test -f $@ || curl https://www.antlr.org/download/antlr-4.9.2-complete.jar --output $@ && touch $@
 
 # download log4j2 jars
 jars/log4j-slf4j-impl-2.14.1.jar: jars
-	cd jars && curl -O https://laotzu.ftp.acc.umu.se/mirror/apache.org/logging/log4j/2.14.1/apache-log4j-2.14.1-bin.zip && \
-jar xvf apache-log4j-2.14.1-bin.zip && mv apache-log4j-2.14.1-bin/*.* . && rmdir apache-log4j-2.14.1-bin
+	test -f $@ || (cd jars && curl -O https://downloads.apache.org/logging/log4j/2.14.1/apache-log4j-2.14.1-bin.zip && jar xvf apache-log4j-2.14.1-bin.zip && mv apache-log4j-2.14.1-bin/*.* . && rmdir apache-log4j-2.14.1-bin)
+	test -f $@ && touch $@
 
 jars:
 	mkdir -p jars
