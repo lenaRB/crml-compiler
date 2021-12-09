@@ -6,3 +6,9 @@ build
 
 # Ignore translated tests
 generated
+
+# Ignore jars
+jars/
+
+# Ignore log files
+antlr*log

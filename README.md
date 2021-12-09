@@ -12,7 +12,6 @@ make clean
 ## Windows
 To build and run the tests of the parser/translator on the crml files
 ```
-project-build.bat
 project-run.bat
 REM to clean call: project-clean.bat
 ```

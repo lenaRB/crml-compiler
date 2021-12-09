@@ -61,7 +61,7 @@ public class Main {
     Value result = visitor.visit(tree);
 
     if(result != null) {
-    	logger.trace("Tranlsated: " + file);
+    	logger.trace("Translated: " + file);
     	BufferedWriter writer = new BufferedWriter(new FileWriter(gen_dir + "/" +file.substring(0, file.lastIndexOf('.'))+ ".mo"));
         writer.write(result.contents);
         writer.close();
