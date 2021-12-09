@@ -62,12 +62,11 @@ public class Main {
     try {
     Value result = visitor.visit(tree);
     
-    if(result != null) {
-    	
+    if(result != null) {  	
     	BufferedWriter writer = new BufferedWriter(new FileWriter(gen_dir + "/" +file.substring(0, file.lastIndexOf('.'))+ ".mo"));
         writer.write(result.contents);
         writer.close();
-        logger.trace("Tranlsated: " + file);
+        logger.trace("Translated: " + file);
     }
     else
     	logger.error("Unable to translate: " + file);
