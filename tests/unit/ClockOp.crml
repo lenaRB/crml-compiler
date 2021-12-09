@@ -1,0 +1,5 @@
+model ClockOp
+
+//Operator [ Clock ] Clock C _inside Period P = C ticks (tick >= P start) and (tick <= P end);
+
+end ClockOp;

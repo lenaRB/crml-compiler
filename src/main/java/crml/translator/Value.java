@@ -1,6 +1,6 @@
 package crml.translator;
 
-public class Value {	
+public class Value {
 	public Value(String contents, String type) {
 		this.contents=contents;
 		this.type=type;

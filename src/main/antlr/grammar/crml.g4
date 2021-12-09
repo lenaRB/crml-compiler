@@ -5,10 +5,6 @@ grammar crml;
 
 import modelica;
 
-@header {
-    package crml;
-}
-
 definition : definition_type id 
 		(element_def)* 
 		'end' id  ';' EOF;	

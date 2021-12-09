@@ -1,6 +1,7 @@
 grammar modelica;
 
-options {
+@header {
+package grammar;
 }
 
 // Whitespace and comments
