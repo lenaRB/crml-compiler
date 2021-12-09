@@ -1,6 +1,6 @@
 model UserOp
 
-Template  R1 _or R2 = not (not R1 and not R2);	// Logical disjunction
+Operator [Boolean]  Boolean R1 _or Boolean R2 = not (not R1 and not R2);	// Logical disjunction
 
 Boolean b0 is true;
 Boolean b1 is false;

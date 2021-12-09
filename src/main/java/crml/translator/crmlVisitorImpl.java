@@ -3,6 +3,7 @@ package crml.translator;
 import java.util.HashMap;
 import java.util.List;
 
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -77,7 +78,8 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				return new Value (buffer.toString(), "Program");
 			}
 
-		@Override public Value visitElement_def(crmlParser.Element_defContext ctx) {
+		@Override public Value visitElement_def(crmlParser.Element_defContext ctx)  
+			{
 
 			// the element is a definition
 			if(ctx.var_def() != null)
@@ -91,8 +93,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			if (ctx.operator() != null)
 				return visit(ctx.operator());
 
-			// TODO add exception
-			return new Value ("Unknown "+ctx.getText()+ '\n', "Element");
+			throw new ParseCancellationException("Unknown element"+ctx.getText()+ '\n');
 		}
 
 		@Override public Value visitOperator(crmlParser.OperatorContext ctx) {
@@ -128,7 +129,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				sig.variable_types.add(bType);
 			}*/
 
-			System.out.println("stored name:" + modelName.toString() + "\n");
+		//	System.out.println("stored name:" + modelName.toString() + "\n");
 
 			user_operators.put(modelName.toString(), sig);
 
@@ -180,12 +181,12 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			for (IdContext v : ctx.id()) {
 				definition.append("input " + bType + " " + v.getText() + ";\n");
 				variable_types.put(v.getText(), "Boolean");
-				System.out.println("Added " + v.getText() + "\n");
+				//System.out.println("Added " + v.getText() + "\n");
 				sig.variable_names.add(v.getText());
 				sig.variable_types.add(bType);
 			}
 
-			System.out.println("stored name:" + modelName.toString() + "\n");
+			//System.out.println("stored name:" + modelName.toString() + "\n");
 
 			user_operators.put(modelName.toString(), sig);
 
@@ -236,7 +237,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		}
 
 		@Override public Value visitExp(crmlParser.ExpContext ctx) {
-			Value right, left, exp;
+			Value right, left;
 
 			// if it the expression is a constant
 			if(ctx.constant()!=null)
@@ -312,16 +313,17 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				if (isUserOp) {
 					String name=op+counter;
 					Signature sig = user_operators.get(op);
-					System.out.println("Looking for name" + op + "\n");
+					if (sig != null) {
+					
 					String res = op+ " " + name+ "("+ sig.variable_names.get(0) + " = "+left.contents+","
 							+ sig.variable_names.get(1) + " = "+right.contents+");";
 					localFunctionCalls.append(res);
 					counter++;
-					return name+".out";}
+					return name+".out";}}
 			if(operators_mapping.containsKey("binbool"+op))
 				return operators_mapping.get("binbool"+op) + "("+ left.contents + "," + right.contents + ")";
 
-			return "unapplicable operator" + op;
+			throw new ParseCancellationException("unapplicable boolean operator : " + op + '\n');
 		}
 
 		private String applyBooleanOp(String op, Value right) {
@@ -337,8 +339,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				break;
 			}
 
-			// TODO throw exception
-			return "unapplicable operator" + op;
+			throw new ParseCancellationException("Unapplicable operator " + op + '\n');
 		}
 
 
@@ -360,7 +361,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		}
 
 		@Override public Value visitBoolean_value(crmlParser.Boolean_valueContext ctx) {
-			String bool_val, translated_val;
+			String bool_val;
 
 			bool_val = ctx.getText();
 
@@ -371,8 +372,8 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			  case "undefined":		return new Value ("CRML.ETL.Types.Boolean4.undefined", "Boolean");
 			  default:
 				  logger.error("Not a valid value for a boolean");
-				// TODO throw exception
-				  return new Value ("error", "Error");
+			throw new ParseCancellationException("Not a valid value for a boolean " + ctx.getText() + '\n');
+					
 			}
 
 		}

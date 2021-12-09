@@ -1,6 +1,5 @@
 package crml.translator;
 
-import java.util.List;
 
 import org.antlr.v4.runtime.RuleContext;
 

@@ -8,6 +8,7 @@ import java.io.IOException;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import grammar.crmlLexer;
@@ -58,17 +59,22 @@ public class Main {
 
     crmlVisitorImpl visitor = new crmlVisitorImpl();
 
+    try {
     Value result = visitor.visit(tree);
-
+    
     if(result != null) {
-    	logger.trace("Tranlsated: " + file);
+    	
     	BufferedWriter writer = new BufferedWriter(new FileWriter(gen_dir + "/" +file.substring(0, file.lastIndexOf('.'))+ ".mo"));
         writer.write(result.contents);
         writer.close();
+        logger.trace("Tranlsated: " + file);
     }
     else
     	logger.error("Unable to translate: " + file);
-
+    } catch (ParseCancellationException e) {
+    	logger.error("Translation error: "+ e, e);
+    }
 
   }
+  
 }
