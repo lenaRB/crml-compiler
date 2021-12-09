@@ -12,6 +12,7 @@ else
 	GRADLE_CMD := ./gradlew
 endif
 
+all: translate-tests
 
 translate-tests:
 	$(GRADLE_CMD) translate --args="tests/unit/" --warning-mode all
