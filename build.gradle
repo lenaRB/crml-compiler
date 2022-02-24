@@ -7,18 +7,26 @@
 
 plugins {
     id 'application'
- 	id 'antlr'
- 	id 'eclipse'
+ 	  id 'antlr'
+ 	  id 'eclipse'
  }
- 
+
  repositories{
  	mavenCentral()
  }
 
  dependencies {
     antlr "org.antlr:antlr4:4.9.2"
-    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17'
-    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17'
+    implementation ('org.apache.logging.log4j:log4j-api') {
+        version {
+            strictly '[2.17.0]'
+        }
+    }
+    implementation ('org.apache.logging.log4j:log4j-core') {
+        version {
+            strictly '[2.17.0]'
+        }
+    }
 }
 
 /*sourceSets {
@@ -38,11 +46,11 @@ task(parse, dependsOn: 'classes', type: JavaExec) {
 }
 
 application {
-    mainClass = 'crml.parser.Main' 
+    mainClass = 'crml.parser.Main'
 }
 
 generateGrammarSource {
-    
+
     arguments += ["-visitor", "-long-messages", "-Xlog", "-listener",  "-lib", "src/main/antlr/grammar"]
- 
+
 }
