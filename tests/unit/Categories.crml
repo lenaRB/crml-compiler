@@ -1,0 +1,9 @@
+model Categories is {
+  Template  r1 'or' r2 = not ((not r1) and (not r2));	// Logical disjunction
+
+  Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end);
+
+  Category increasing1 is { (>, >), (>=, >=), (<, >=), (<=, >), (==, >), (<>, >) };
+
+  //Category {} C1 is associate increasing1 with _decide_over;
+};

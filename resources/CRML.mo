@@ -3034,11 +3034,6 @@ into your model.
       parameter String fileName "Name of the file that stores the results for the next run";
       parameter String decimalSeparator="," "Decimal separator in the result file";
       parameter Boolean reset "Reset file for a new set of runs";
-
-    protected
-      parameter Integer N=CRML.ETL.Types.nMaxOverlap;
-
-    public
       replaceable model Condition = Blocks.Math.Less4 annotation (Placement(transformation(extent={{0,10},{20,30}})),
         choices(choice(redeclare model Condition =
                 Blocks.Math.Less4                                    "<"),
@@ -3071,6 +3066,9 @@ into your model.
         annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
       Ensure ensure
         annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+
+protected
+      parameter Integer N=CRML.ETL.Types.nMaxOverlap;
     equation
       connect(u, probability.u)
         annotation (Line(points={{-110,0},{-81,0}}, color={162,29,33}));
@@ -3159,8 +3157,6 @@ into your model.
     package Events "Events blocks"
 
       block RisingEdge "Output y is true, if the input u has a rising edge (u becomes true), otherwise it is false"
-
-      public
         ETL.Connectors.BooleanInput u annotation (Placement(transformation(
                 extent={{-120,-10},{-100,10}}), iconTransformation(extent={{-120,
                   -10},{-100,10}})));
@@ -3703,16 +3699,16 @@ The usage is demonstrated, e.g., in example
 
       block EventDelay "Event delay"
       protected
-        parameter Integer Nmax=10; // Maximum number of elements in the stack
-        Integer N; // Number of elements in the stack
-        Real T[Nmax](each start = 0, each fixed = true); // Time stack
-        Boolean V[Nmax](each start = true, each fixed = true); // Value stack
-        Integer n1t; // Stack top (points above the last element pushed on the stack)
-        Integer n2t(start=1, fixed=true); // Stack top
-        Integer n1b; // Stack bottom (points to the first element pushed on the stack)
-        Integer n2b(start=1, fixed=true); // Stack bottom
-        Integer n; // Number of stack pushes
-
+        parameter Integer Nmax=10;         // Maximum number of elements in the stack
+        Integer N;         // Number of elements in the stack
+        Real T[Nmax](each start = 0, each fixed = true);         // Time stack
+        Boolean V[Nmax](each start = true, each fixed = true);         // Value stack
+        Integer n1t;         // Stack top (points above the last element pushed on the stack)
+        Integer n2t(start=1, fixed=true);         // Stack top
+        Integer n1b;         // Stack bottom (points to the first element pushed on the stack)
+        Integer n2b(start=1, fixed=true);         // Stack bottom
+        Integer n; 
+// Number of stack pushes
       public
         ETL.Connectors.BooleanInput u(start=false, fixed=true)
           annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
@@ -3788,19 +3784,19 @@ The usage is demonstrated, e.g., in example
 
       block EventClockedDelay "Boolean signal clocked delay"
       protected
-        parameter Integer Nmax=10; // Maximum number of elements in the stack
-        Integer N; // Number of elements in the stack
-        Real T[Nmax](each start = 0, each fixed = true); // Time stack
-        Boolean V[Nmax](each start = true, each fixed = true); // Value stack
-        Integer n1t; // Stack top (points above the last element pushed on the stack)
-        Integer n2t(start=1, fixed=true); // Stack top
-        Integer n1b; // Stack bottom (points to the first element pushed on the stack)
-        Integer n2b(start=1, fixed=true); // Stack bottom
-        Integer n; // Number of stack pushes
-        Integer ticks(start=0, fixed=true); // Clock ticks counter
-        Boolean u0(start= false, fixed=true); // True input delayed to next clock tick
-        Boolean u1(start= false, fixed=true); // True input delayed to next clock tick
-
+        parameter Integer Nmax=10;         // Maximum number of elements in the stack
+        Integer N;         // Number of elements in the stack
+        Real T[Nmax](each start = 0, each fixed = true);         // Time stack
+        Boolean V[Nmax](each start = true, each fixed = true);         // Value stack
+        Integer n1t;         // Stack top (points above the last element pushed on the stack)
+        Integer n2t(start=1, fixed=true);         // Stack top
+        Integer n1b;         // Stack bottom (points to the first element pushed on the stack)
+        Integer n2b(start=1, fixed=true);         // Stack bottom
+        Integer n;         // Number of stack pushes
+        Integer ticks(start=0, fixed=true);         // Clock ticks counter
+        Boolean u0(start= false, fixed=true);         // True input delayed to next clock tick
+        Boolean u1(start= false, fixed=true); 
+// True input delayed to next clock tick
       public
         ETL.Connectors.BooleanInput u(start=false, fixed=true)
           annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
@@ -4096,8 +4092,8 @@ The usage is demonstrated, e.g., in example
       block EventProjection "Event projection on a clock"
 
       protected
-        Boolean x(start=false, fixed=true); // Input event delayed until the next clock tick
-
+        Boolean x(start=false, fixed=true); 
+// Input event delayed until the next clock tick
       public
         ETL.Connectors.BooleanInput clock
           annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
@@ -4709,8 +4705,6 @@ For an example, see
       end ClockEvent;
 
       block ClockTick "Generates an event when the integer input changes"
-
-      public
         ETL.Connectors.IntegerInput u(start=0, fixed=true)
           annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
         ETL.Connectors.BooleanOutput y
@@ -4865,8 +4859,6 @@ For an example, see
       end ClockToBoolean;
 
       block ShowEvent "Event visualizer"
-
-      public
         ETL.Connectors.BooleanInput u(start=false, fixed=true)
           annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
         ClockEvent eventClock
@@ -5035,18 +5027,18 @@ For an example, see
 
       block BooleanClockedDelay "Boolean signal clocked delay"
       protected
-        parameter Integer Nmax=10; // Maximum number of elements in the stack
-        Integer N; // Number of elements in the stack
-        Real T[Nmax](each start = 0, each fixed = true); // Time stack
-        Boolean V[Nmax](each start = true, each fixed = true); // Value stack
-        Integer n1t; // Stack top (points above the last element pushed on the stack)
-        Integer n2t(start=1, fixed=true); // Stack top
-        Integer n1b; // Stack bottom (points to the first element pushed on the stack)
-        Integer n2b(start=1, fixed=true); // Stack bottom
-        Integer n; // Number of stack pushes
-        Integer ticks(start=0, fixed=true); // Clock ticks counter
-        Boolean u1(start= false, fixed=true); // True input delayed to next clock tick
-
+        parameter Integer Nmax=10;         // Maximum number of elements in the stack
+        Integer N;         // Number of elements in the stack
+        Real T[Nmax](each start = 0, each fixed = true);         // Time stack
+        Boolean V[Nmax](each start = true, each fixed = true);         // Value stack
+        Integer n1t;         // Stack top (points above the last element pushed on the stack)
+        Integer n2t(start=1, fixed=true);         // Stack top
+        Integer n1b;         // Stack bottom (points to the first element pushed on the stack)
+        Integer n2b(start=1, fixed=true);         // Stack bottom
+        Integer n;         // Number of stack pushes
+        Integer ticks(start=0, fixed=true);         // Clock ticks counter
+        Boolean u1(start= false, fixed=true); 
+// True input delayed to next clock tick
       public
         ETL.Connectors.BooleanInput u(start=false, fixed=true)
           annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
@@ -5122,16 +5114,16 @@ For an example, see
 
       block BooleanDelay "Boolean signal delay"
       protected
-        parameter Integer Nmax=10; // Maximum number of elements in the stack
-        Integer N; // Number of elements in the stack
-        Real T[Nmax](each start = 0, each fixed = true); // Time stack
-        Boolean V[Nmax](each start = true, each fixed = true); // Value stack
-        Integer n1t; // Stack top (points above the last element pushed on the stack)
-        Integer n2t(start=1, fixed=true); // Stack top
-        Integer n1b; // Stack bottom (points to the first element pushed on the stack)
-        Integer n2b(start=1, fixed=true); // Stack bottom
-        Integer n; // Number of stack pushes
-
+        parameter Integer Nmax=10;         // Maximum number of elements in the stack
+        Integer N;         // Number of elements in the stack
+        Real T[Nmax](each start = 0, each fixed = true);         // Time stack
+        Boolean V[Nmax](each start = true, each fixed = true);         // Value stack
+        Integer n1t;         // Stack top (points above the last element pushed on the stack)
+        Integer n2t(start=1, fixed=true);         // Stack top
+        Integer n1b;         // Stack bottom (points to the first element pushed on the stack)
+        Integer n2b(start=1, fixed=true);         // Stack bottom
+        Integer n; 
+// Number of stack pushes
       public
         ETL.Connectors.BooleanInput u(start=false, fixed=true)
           annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
@@ -5967,7 +5959,6 @@ into your model and specify the seed.
 
     package Logical4
       block BooleanToBoolean4
-      public
         ETL.Connectors.BooleanInput u
           annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
         ETL.Connectors.Boolean4Output y
@@ -7838,13 +7829,13 @@ u1, else it is set equal to u3.</p>
         parameter Integer p_start=0 "Clock start instant (in clock ticks)";
 
       protected
-        Real t(start=0, fixed=true); // Current time (in seconds)
-        Real p(start=0, fixed=true); // Clock period (in seconds)
-        Integer ticks(start=0, fixed = true); // Current time (in clock ticks)
-        Integer t0; // Start clock time (in number of clock ticks)
-        Integer ticks0; // Time at clock reset (in clock ticks)
-        Boolean r(start=false, fixed=true); // Maintained reset
-
+        Real t(start=0, fixed=true);         // Current time (in seconds)
+        Real p(start=0, fixed=true);         // Clock period (in seconds)
+        Integer ticks(start=0, fixed = true);         // Current time (in clock ticks)
+        Integer t0;         // Start clock time (in number of clock ticks)
+        Integer ticks0;         // Time at clock reset (in clock ticks)
+        Boolean r(start=false, fixed=true); 
+// Maintained reset
       public
         ETL.Connectors.IntegerOutput y
           annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -9019,8 +9010,6 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
       end ShowDiscretePeriods;
 
       block ShowDiscreteWhile "Visualizer of a discrete time while"
-
-      public
         Connectors.WhileInput       tl
           annotation (Placement(transformation(extent={{-10,90},{10,110}})));
         Blocks.Events.ClockEvent eventClock
@@ -9241,8 +9230,6 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
 
         block IsLeftBoundaryIncluded
           "Returns true if the left boundary of the time period is included"
-
-        public
           Connectors.TimeLocatorInput tl
             annotation (Placement(transformation(extent={{-10,90},{10,110}})));
           Connectors.BooleanOutput y
@@ -9273,8 +9260,6 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
 
         block IsRightBoundaryIncluded
           "Returns true if the right boundary of the time period is included"
-
-        public
           Connectors.TimeLocatorInput tl
             annotation (Placement(transformation(extent={{-10,90},{10,110}})));
           Connectors.BooleanOutput y
@@ -9304,8 +9289,6 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
         end IsRightBoundaryIncluded;
 
         block PeriodTimePeriod "Extracts the time period of a single time period"
-
-        public
           ETL.Connectors.BooleanOutput y
             annotation (Placement(transformation(extent={{100,-10},{120,10}})));
           ETL.Connectors.TimeLocatorInput tl annotation (Placement(transformation(
@@ -9336,8 +9319,6 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
         end PeriodTimePeriod;
 
         block WhileTimePeriod "Extracts the time period of a while locator"
-
-        public
           ETL.Connectors.BooleanOutput y
             annotation (Placement(transformation(extent={{100,-10},{120,10}})));
           ETL.Connectors.WhileInput tl annotation (Placement(transformation(
@@ -9518,12 +9499,6 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
       end Ensure;
 
       block IntegerEnsure
-
-      protected
-        parameter Integer N=CRML.ETL.Types.nMaxOverlap;
-        parameter String boxName=condition[1].name;
-
-      public
         Connectors.Boolean4Input u "Boolean4 condition"
                                                        annotation (
             Placement(transformation(extent={{-120,-10},{-100,10}}),
@@ -9563,6 +9538,10 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
           choice(redeclare model Condition =
                   ETL.Requirements.Conditions.MathInteger.IntegerNotEqual                            "<>")));
         Condition[N] condition annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+protected
+        parameter Integer N=CRML.ETL.Types.nMaxOverlap;
+        parameter String boxName=condition[1].name;
       equation
         connect(tl, eval.tl) annotation (Line(points={{0,100},{0,60},{40,60},{40,
                 10}},
@@ -9631,12 +9610,6 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
       end IntegerEnsure;
 
       block RealEnsure
-
-      protected
-        parameter Integer N=CRML.ETL.Types.nMaxOverlap;
-        parameter String boxName=condition[1].name;
-
-      public
         Connectors.Boolean4Input u "Boolean4 condition"
                                                        annotation (
             Placement(transformation(extent={{-120,-10},{-100,10}}),
@@ -9670,6 +9643,10 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
           choice(redeclare model Condition =
                   ETL.Requirements.Conditions.Math.LowerEqual                            "<=")));
         Condition[N] condition annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+protected
+        parameter Integer N=CRML.ETL.Types.nMaxOverlap;
+        parameter String boxName=condition[1].name;
       equation
         connect(tl, eval.tl) annotation (Line(points={{0,100},{0,60},{40,60},{40,
                 10}},
@@ -10928,8 +10905,6 @@ Real input u2, otherwise the output is <b>false</b>.
       end Accumulate;
 
       block Decide
-
-      public
         Connectors.BooleanInput  u
           annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
         Connectors.BooleanOutput y
@@ -11677,12 +11652,12 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
 
       protected
         parameter Integer MAX=size(A,1);
-        Integer p;              // Start index
-        Integer q;              // Pivot
-        Integer r;              // End index
-        Integer stack[MAX, 2];  // Stack
-        Integer n;              // Top of stack
-
+        Integer p;                      // Start index
+        Integer q;                      // Pivot
+        Integer r;                      // End index
+        Integer stack[MAX, 2];          // Stack
+        Integer n;              
+// Top of stack
       algorithm
 
         /* Initialize vector of indices */
@@ -11793,23 +11768,23 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
 
       protected
         parameter Real pi=Modelica.Constants.pi;
-        parameter Integer N=size(polygon,1); // Number of polygon vertices
-        Real int[N];      // Vector of intersection points on ray
-        Integer int_i[N]; // Vector of indices of the sorted vector
-        Real alpha[2*N];  // Vector of polygon edge and vertex angles
-        Real theta[2*N];  // Vector of consecutive polygon edge and vertex angles
-        Integer n;        // Number of intersection points
-        Real x0_R;        // Ray origin abscissa
-        Real y0_R;        // Ray origin ordinate
-        Real a_R;         // Ray direction abscissa
-        Real b_R;         // Ray direction ordinate
-        Real theta_max;   // Largest polygon angle
-        Real alpha_R;     // Ray angle
-        Integer i;        // Counter
-        Integer j;        // Counter
-        Integer k;        // Counter
-        Integer r;        // Counter
-
+        parameter Integer N=size(polygon,1);         // Number of polygon vertices
+        Real int[N];              // Vector of intersection points on ray
+        Integer int_i[N];         // Vector of indices of the sorted vector
+        Real alpha[2*N];          // Vector of polygon edge and vertex angles
+        Real theta[2*N];          // Vector of consecutive polygon edge and vertex angles
+        Integer n;                // Number of intersection points
+        Real x0_R;                // Ray origin abscissa
+        Real y0_R;                // Ray origin ordinate
+        Real a_R;                 // Ray direction abscissa
+        Real b_R;                 // Ray direction ordinate
+        Real theta_max;           // Largest polygon angle
+        Real alpha_R;             // Ray angle
+        Integer i;                // Counter
+        Integer j;                // Counter
+        Integer k;                // Counter
+        Integer r;        
+// Counter
       algorithm
 
         /* Polygon should have at least 3 vertices */
@@ -11915,18 +11890,18 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
 
       protected
         parameter Real pi=Modelica.Constants.pi;
-        Real p0[2];  // Edge origin
-        Real p1[2];  // Edge end
-        Real x0;     // Edge origin abscissa
-        Real y0;     // Edge origin ordinate
-        Real x1;     // Edge end abscissa
-        Real y1;     // Edge end ordinate
-        Real a;      // Edge direction abscissa
-        Real b;      // Edge direction ordinate
-        Real d;      // Edge length
-        Integer i;   // Counter
-        Integer j;   // Counter
-
+        Real p0[2];          // Edge origin
+        Real p1[2];          // Edge end
+        Real x0;             // Edge origin abscissa
+        Real y0;             // Edge origin ordinate
+        Real x1;             // Edge end abscissa
+        Real y1;             // Edge end ordinate
+        Real a;              // Edge direction abscissa
+        Real b;              // Edge direction ordinate
+        Real d;              // Edge length
+        Integer i;           // Counter
+        Integer j;   
+// Counter
       algorithm
 
         /* Polygon should have at least 3 vertices */
@@ -11983,18 +11958,18 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
 
       protected
         parameter Real pi=Modelica.Constants.pi;
-        Real p0[2];  // Vertex origin
-        Real p1[2];  // Vertex end
-        Real x0;     // Vertex origin abscissa
-        Real y0;     // Vertex origin ordinate
-        Real x1;     // Vertex end abscissa
-        Real y1;     // Vertex end ordinate
-        Real a;      // Vertex direction abscissa
-        Real b;      // Vertex direction ordinate
-        Real d;      // Vertex length
-        Integer i;   // Counter
-        Integer j;   // Counter
-
+        Real p0[2];          // Vertex origin
+        Real p1[2];          // Vertex end
+        Real x0;             // Vertex origin abscissa
+        Real y0;             // Vertex origin ordinate
+        Real x1;             // Vertex end abscissa
+        Real y1;             // Vertex end ordinate
+        Real a;              // Vertex direction abscissa
+        Real b;              // Vertex direction ordinate
+        Real d;              // Vertex length
+        Integer i;           // Counter
+        Integer j;   
+// Counter
       algorithm
 
         /* Polygon should have at least 3 vertices */
@@ -12048,19 +12023,19 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
         output Integer n "Number of intersection points. If -1, the result is undecided";
 
       protected
-        Real p0[2];  // Edge origin
-        Real p1[2];  // Edge end
-        Real x0;     // Edge origin abscissa
-        Real y0;     // Edge origin ordinate
-        Real x1;     // Edge end abscissa
-        Real y1;     // Edge end ordinate
-        Real a;      // Edge direction abscissa
-        Real b;      // Edge direction ordinate
-        Real t;      // Edge curvilinear abscissa
-        Real t_R;    // Ray curvilinear abscissa
-        Integer i;   // Counter
-        Integer j;   // Counter
-
+        Real p0[2];          // Edge origin
+        Real p1[2];          // Edge end
+        Real x0;             // Edge origin abscissa
+        Real y0;             // Edge origin ordinate
+        Real x1;             // Edge end abscissa
+        Real y1;             // Edge end ordinate
+        Real a;              // Edge direction abscissa
+        Real b;              // Edge direction ordinate
+        Real t;              // Edge curvilinear abscissa
+        Real t_R;            // Ray curvilinear abscissa
+        Integer i;           // Counter
+        Integer j;   
+// Counter
       algorithm
 
         /* Polygon should have at least 3 vertices */
@@ -14128,7 +14103,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
       end Spec;
 
       model Log1
-      public
         block Init
          annotation (
             Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
@@ -14144,8 +14118,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
             showDiagram=true,
             singleInstance=true);
         end Init;
-
-      public
         block Red
          annotation (
             Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
@@ -15237,6 +15209,28 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
             fillPattern=FillPattern.Solid,
             points={{-58.0,46.0},{42.0,-14.0},{-58.0,-74.0},{-58.0,46.0}})}));
   end Tests;
+
+  record CRMLClock
+  parameter Integer buffer_size=50;
+  CRML.ETL.Types.Boolean4 b;
+  Real ticks[buffer_size](each start = -1, each fixed = true);
+  discrete Integer counter(start=1, fixed=true);
+  end CRMLClock;
+
+  model CRMLClock_build
+  
+  CRMLClock clock;
+  
+  Boolean e(start = false);
+  
+  algorithm
+    e := (clock.b == CRML.ETL.Types.Boolean4.true4);
+    when (e) then
+      clock.ticks[clock.counter] := time;
+      clock.counter := pre(clock.counter)+1;
+    end when;
+
+  end CRMLClock_build;
   annotation (uses(Modelica(version="3.2.2"), Modelica_StateGraph2(version=
             "2.0.3")),                         Icon(graphics={
         Rectangle(

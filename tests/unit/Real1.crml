@@ -1,0 +1,7 @@
+model Real1 is {
+Real x is -28.775E+3;
+Real x is 0.28e-7;
+Real x is +3.E10;
+Real x is -25.3;
+Real x is 25;
+};

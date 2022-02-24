@@ -1,4 +1,4 @@
-model Bool1
+model Bool1 is {
 
 // Boolean definition with predefined values
 Boolean b0 is true;
@@ -6,17 +6,17 @@ Boolean b1 is false;
 Boolean b2 is undecided;
 Boolean b3 is undefined;
 
-Boolean b4;
+//external Boolean b4;
 
 // Logical operators
 Boolean b5 is b1 and b2;
 Boolean b6 is not b1;
 
 // Temporal operators
-//Boolean b7 is pre b1;	// Previous
+// Boolean b7 is pre b1;	// Previous
 //Boolean b8 is b1 * b2;	// Filter
 //Boolean b9 is b1 - b2;	// Difference
 //Boolean b10 is b1 + b2 + b3;	// Accumulation
 //Boolean b11 is (b1 - b2) + b3;
 
-end Bool1;
+};

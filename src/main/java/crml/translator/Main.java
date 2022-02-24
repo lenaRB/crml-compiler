@@ -49,15 +49,21 @@ public class Main {
   }
 
   public static void parse_file (String dir, String file, String gen_dir) throws IOException {
-    CharStream code = CharStreams.fromFileName(dir + "/" + file);
+    
+	CharStream code = CharStreams.fromFileName(dir + "/" + file);
 
     crmlLexer lexer = new crmlLexer(code);
     CommonTokenStream tokens = new CommonTokenStream( lexer );
     crmlParser parser = new crmlParser( tokens );
-
+     
     ParseTree tree = parser.definition();
-
-    crmlVisitorImpl visitor = new crmlVisitorImpl();
+    
+    if (tree == null)
+    	logger.error("Unable to parse: " + file);
+    
+    
+    
+    crmlVisitorImpl visitor = new crmlVisitorImpl(parser);
 
     try {
     Value result = visitor.visit(tree);
@@ -71,6 +77,7 @@ public class Main {
     else
     	logger.error("Unable to translate: " + file);
     } catch (ParseCancellationException e) {
+    	logger.trace("The AST for the program: \n" + tree.toStringTree(parser));
     	logger.error("Translation error: "+ e, e);
     }
 

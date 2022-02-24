@@ -1,9 +1,9 @@
-model Temp1
+model Temp1 is {
 
-Template  r1 _or r2 = not (not r1 and not r2);	// Logical disjunction
+Template  r1 'or' r2 = not ((not r1) and (not r2));	// Logical disjunction
 
 Boolean b1 is false;
 Boolean b2 is false;
-Boolean b3 is b1 _or b2;
+Boolean b3 is b1 'or' b2;
 
-end Temp1;
+};

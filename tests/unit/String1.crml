@@ -1,5 +1,5 @@
-model String1
+model String1 is {
 
 String variable is "Hello";
 
-end String1;
+};

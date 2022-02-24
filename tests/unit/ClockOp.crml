@@ -1,5 +1,5 @@
-model ClockOp
+model ClockOp is {
 
-//Operator [ Clock ] Clock C _inside Period P = C ticks (tick >= P start) and (tick <= P end);
+// Operator [ Integer ] _count Events E _inside Period P = card (E _inside P);
 
-end ClockOp;
+};

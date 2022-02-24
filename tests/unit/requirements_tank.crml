@@ -1,0 +1,8 @@
+model requirements_tank is {
+  external Real level;
+  external Real temperature;
+  Boolean R1 is level >= 7.5;
+  Boolean R2 is level >= 10;
+  Boolean R3 is R1 and not R2;
+  Boolean R4 is temperature <= 100; //this is a requirement
+};
