@@ -12,7 +12,7 @@ Boolean b3 is undefined;
 Boolean b5 is b1 and b2;
 Boolean b6 is not b1;
 
-// Temporal operators
+// Temporal operators - need to extend functions
 // Boolean b7 is pre b1;	// Previous
 //Boolean b8 is b1 * b2;	// Filter
 //Boolean b9 is b1 - b2;	// Difference

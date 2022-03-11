@@ -1,5 +1,5 @@
 model ClockOp is {
 
-// Operator [ Integer ] _count Events E _inside Period P = card (E _inside P);
+  //Operator [ Integer ] "count" Event {} E "inside" Period P = card (E "inside" P);
 
 };

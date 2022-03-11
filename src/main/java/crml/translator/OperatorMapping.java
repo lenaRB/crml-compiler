@@ -29,6 +29,8 @@ public class OperatorMapping {
 		List<String> bool1 = List.of("Boolean");
 		List<String> bool2 = List.of("Boolean", "Boolean");
 		
+		// String signatures
+		List<String> string2 = List.of("String", "String");
 		
 		// Default operand names in built-in functions
 		List<String> params = List.of("r1", "r2");
@@ -40,6 +42,7 @@ public class OperatorMapping {
 						new Signature("", int1, "Integer", true),
 						new Signature("+", real2, "Real", true),
 						new Signature("", real1, "Real", true),
+						new Signature("+", string2, "String", true),
 						new Signature("CRML.ETL.Evaluator.TemporalOperators.add4", bool2, params, "Boolean", false));
 		
 		
@@ -104,7 +107,18 @@ public class OperatorMapping {
 				built_in_operators.put("end", 
 						List.of(new Signature("CRML.end", List.of("Period"), params, "Boolean", false)));
 				
+				
+		// CONSTRUCTORS TODO finalize constructor table
+				
+		// String
+		List<Signature> string_sigs = 
+				List.of(new Signature("intToString", int1, params, "String", false),
+						new Signature("realToString", real1, params, "String", false));
 		
+				built_in_operators.put("String", string_sigs);
+				
+	
+				
 		return built_in_operators;
 	}
 	

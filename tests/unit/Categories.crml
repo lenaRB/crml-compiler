@@ -5,5 +5,5 @@ model Categories is {
 
   Category increasing1 is { (>, >), (>=, >=), (<, >=), (<=, >), (==, >), (<>, >) };
 
-  //Category {} C1 is associate increasing1 with _decide_over;
+ //  Category {} C1 is associate increasing1 with 'decide over';
 };

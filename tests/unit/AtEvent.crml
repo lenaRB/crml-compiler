@@ -1,0 +1,5 @@
+model AtEvent is {
+Real x1 is 3.0;
+Clock c is true;
+// Real x2 is x1 at c;
+}

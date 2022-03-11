@@ -72,11 +72,12 @@ proj : id 'proj' ('(' id ')')?  id ;
 when : 'when' exp 'then' exp;
 
     
- exp : id | constant | sub_exp | clock_constructor | sum |trim |  proj | period_op
- 	 | left=exp binary=op right=exp | right=exp runary=op | lunary=op left=exp   |  user_operator_call  | 'element' | 'terminate' | when;
+ exp : id | constant | sub_exp | clock_constructor | sum |trim |  proj | period_op 
+ 	 | left=exp binary=op right=exp | right=exp runary=op | lunary=op left=exp  
+ 	 |  user_operator_call  | 'element' | 'terminate' | when
+ 	 | constructor=builtin_type exp;
  	
- 	
-
+  
  
     
 clock_constructor : 'Clock' id ;
@@ -91,7 +92,7 @@ op : builtin_op | user_keyword
 builtin_op : 'and' | '*' | '+' | '-' | '/' | 'with' | 'master' | 'on' | 'filter'
 				| '<=' | '<' | '>=' | '>' | '<>' | 'par' | 'at' | '==' |
 				'pre' | 'not'| '-' | 'card' | 'and' | 'evaluate' |
-				'start' | 'end';
+				'start' | 'end' | 'at';
 
 id: IDENT;
 user_keyword : USER_KEYWORD;

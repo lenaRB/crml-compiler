@@ -53,6 +53,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			// table for mapping CRML built in types to Modelica types
 			types_mapping.put("Boolean", 	 "CRML.ETL.Types.Boolean4");
 			types_mapping.put("Period", 	 "CRML.Period");
+			types_mapping.put("Event", 	 	 "CRML.Event");
 			types_mapping.put("Requirement", "CRML.ETL.Types.Boolean4");
 			types_mapping.put("Clock", 		 "CRML.CRMLClock");
 			types_mapping.put("Real", 		 "Real");
@@ -154,7 +155,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 					var_names.append(" ,");
 			}
 			
-			return new Value(var_type + " " + var_names + ";", "var_type");
+			return new Value(var_type + " " + var_names + ";\n", "var_type");
 			
 		}	
 		
@@ -202,7 +203,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		
 		@Override public Value visitOperator(crmlParser.OperatorContext ctx) {
 			StringBuffer definition = new StringBuffer("model ");
-			StringBuffer modelName = new StringBuffer();
+			StringBuffer modelName = new StringBuffer("'");
 
 			HashMap<String, String> store_variable_types = new HashMap<String, String> (variable_types);
 			StringBuffer store_localFunctionCalls = new StringBuffer(localFunctionCalls);
@@ -211,10 +212,11 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 			// generate function name
 			for (User_keywordContext k : ctx.operator_def().user_keyword()) {
-				
-			modelName.append(k.getText()); 
+			
+			String s = k.getText().replace("'", "");
+			modelName.append(s); 
 			} 
-
+			modelName.append("'");
 			definition.append(modelName);
 			definition.append("\n");
 
@@ -226,6 +228,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			Signature sig = new Signature();
 			sig.return_type = bType;
 			sig.return_name = "out";
+			sig.function_name = modelName.toString();
 
 			// generate variables
 				int i=0;
@@ -265,7 +268,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		@Override public Value visitTemplate(crmlParser.TemplateContext ctx) {
 
 			StringBuffer definition = new StringBuffer("model ");
-			StringBuffer modelName = new StringBuffer();
+			StringBuffer modelName = new StringBuffer("'");
 
 			HashMap<String, String> store_variable_types = new HashMap<String, String> (variable_types);
 			StringBuffer store_localFunctionCalls = new StringBuffer(localFunctionCalls);
@@ -274,11 +277,11 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 			// generate function name
 			for (User_keywordContext k : ctx.user_keyword()) {
-				
-				modelName.append(k.getText());
+				String s = k.getText().replace("'", "");
+				modelName.append(s);
 				
 			}
-
+			modelName.append("'");
 			definition.append(modelName);
 			definition.append("\n");
 
@@ -288,6 +291,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			Signature sig = new Signature();
 			sig.return_type = "Boolean";
 			sig.return_name = "out";
+			sig.function_name = modelName.toString();
 
 			// generate variables
 			for (IdContext v : ctx.id()) {
@@ -396,6 +400,13 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			// expression is a constructor
 			if(ctx.clock_constructor()!= null)
 				return visit(ctx.clock_constructor());
+			
+			// expression is a constructor
+			if(ctx.constructor!= null) {
+				Value exp_val = visit(ctx.exp(0));
+				Value result = apply_lunary_op(ctx.constructor.getText(), exp_val);
+				return result;
+			}
 						
 
 			throw new ParseCancellationException("unable to parse expression : " + ctx.getText() + '\n');
@@ -413,7 +424,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			String varName = "c"+ counter++;
 			String clockType = types_mapping.get("Clock");
 			localFunctionCalls.append(clockType + " " + varName + "(b=" + ctx.id().getText() + ");\n");
-			localFunctionCalls.append("CRML.CRMLClock_build " + varName+"_init(clock =" + varName + ");");
+			localFunctionCalls.append("CRML.CRMLClock_build " + varName+"_init(clock =" + varName + ");\n");
 			return new Value (varName+".out", "Clock");
 			
 			}
@@ -432,12 +443,12 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				Value left = visit(exp.get(0));
 				Value right = visit(exp.get(1));
 				
-				res = op+ " " + name+ "(" + sign.variable_names.get(0) + "="+left.contents+"," +
-						sign.variable_names.get(1)+ "="+right.contents+");";
+				res = sign.function_name + " " + name+ "(" + sign.variable_names.get(0) + "="+left.contents+"," +
+						sign.variable_names.get(1)+ "="+right.contents+");\n";
 			} else {
 				Value operand = visit(exp.get(0));
 				
-				res = op+ " " + name+ "(" + sign.variable_names.get(0) + "="+operand.contents+");";
+				res = sign.function_name + " " + name+ "(" + sign.variable_names.get(0) + "="+operand.contents+");\n";
 			}
 				
 			localFunctionCalls.append(res);
@@ -467,7 +478,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				String name=op+counter;
 						
 						
-				String res = op+ " " + name+ "(" + op_t.variable_names.get(0) + " = "+right.contents+");";
+				String res = op_t.function_name + " " + name+ "(" + op_t.variable_names.get(0) + " = "+right.contents+");\n";
 				localFunctionCalls.append(res);
 				counter++;
 						
@@ -493,7 +504,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			// operator translates to function call
 			String name=op+counter;
 			
-			String res = op+ " " + name+ "(" + op_t.variable_names.get(0) + " = "+left.contents+");";
+			String res = op_t.function_name+ " " + name+ "(" + op_t.variable_names.get(0) + " = "+left.contents+");\n";
 			localFunctionCalls.append(res);
 			counter++;
 					
@@ -521,8 +532,8 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			String name=op+counter;
 			
 			
-			String res = op+ " " + name+ "("+ op_t.variable_names.get(0) + " = "+left.contents+","
-					+ op_t.variable_names.get(1) + " = "+right.contents+");";
+			String res = op_t.function_name+ " " + name+ "("+ op_t.variable_names.get(0) + " = "+left.contents+","
+					+ op_t.variable_names.get(1) + " = "+right.contents+");\n";
 			localFunctionCalls.append(res);
 			counter++;
 			
