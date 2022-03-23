@@ -1,0 +1,17 @@
+model TwoTanksRequirements is {
+
+		class TankModel is {
+		external Real waterLevel  ;
+		external Real tankVolume ;
+		};
+
+		class System is {
+			external TankModel S {};
+		};
+
+		TankModel tankm is TankModel;
+
+		Boolean R1 is tankm.waterLevel < 0.8 * tankVolume;
+		Boolean R2 is tankm.volume < 2;
+
+};
