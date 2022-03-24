@@ -13,11 +13,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-java@v2
+      with:
+        distribution: 'temurin'
+        java-version: '8'
+        cache: 'gradle'
     
-    - name: Build the tool
+    - name: build the crml-compiler
       run: make distribution
 
-    - name: upload tool
+    - name: upload the crml-compiler
       uses: actions/upload-artifact@v2
       with:
         name: crml-compiler-all.jar
