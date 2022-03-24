@@ -36,3 +36,7 @@ clean:
 # beware, this will remove *everything* that is was not added in the git repo
 gitclean:
 	git clean -fdx
+
+distribution: all
+	$(GRADLE_CMD) shadowJar
+	

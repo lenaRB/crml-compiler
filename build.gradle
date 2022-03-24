@@ -9,6 +9,8 @@ plugins {
     id 'application'
  	  id 'antlr'
  	  id 'eclipse'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'java'
  }
 
  repositories{
@@ -53,4 +55,10 @@ generateGrammarSource {
 
     arguments += ["-visitor", "-long-messages", "-Xlog", "-listener",  "-lib", "src/main/antlr/grammar"]
 
+}
+
+jar {
+  manifest {
+   attributes 'Main-Class': 'crml.translator.Main'
+  }
 }

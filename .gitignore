@@ -12,3 +12,6 @@ jars/
 
 # Ignore log files
 antlr*log
+
+# Ignore gradle-dependencies
+gradle-dependencies

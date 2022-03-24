@@ -14,6 +14,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Build and run
-      run: make
+    - name: Build the tool
+      run: make distribution
 
+    - name: upload tool
+      uses: actions/upload-artifact@v2
+      with:
+        name: crml-compiler-all.jar
+        path: ${{github.workspace}}/build/libs/crml-compiler-all.jar
