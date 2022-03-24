@@ -6,7 +6,7 @@ Go to: https://github.com/lenaRB/crml-compiler/actions then click on the last gr
 
 Unzip it to some place and run:
 ```
-java -jar crml-compiler-all.jar
+java -jar crml-compiler-all.jar c:\path\to\girepo\crml-compiler\tests\unit
 ```
 
 ## Build on Linux & MacOS

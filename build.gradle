@@ -48,7 +48,7 @@ task(parse, dependsOn: 'classes', type: JavaExec) {
 }
 
 application {
-    mainClass = 'crml.parser.Main'
+    mainClass = 'crml.translator.Main'
 }
 
 generateGrammarSource {
