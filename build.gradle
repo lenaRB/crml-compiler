@@ -60,5 +60,6 @@ generateGrammarSource {
 jar {
   manifest {
    attributes 'Main-Class': 'crml.translator.Main'
+   attributes 'Multi-Release': 'true'
   }
 }
