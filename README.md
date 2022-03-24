@@ -1,6 +1,15 @@
 # crml-compiler
 
-## Linux & MacOS
+## Download it via github actions
+
+Go to: https://github.com/lenaRB/crml-compiler/actions then click on the last green action and download the artifact.
+
+Unzip it to some place and run:
+```
+java -jar crml-compiler-all.jar
+```
+
+## Build on Linux & MacOS
 To build and run the tests of the parser on the crml files
 ```
 # build the parser/translator and run the tests
@@ -9,7 +18,7 @@ make
 make clean
 ```
 
-## Windows
+## Build on Windows
 To build and run the tests of the parser/translator on the crml files
 ```
 project-run.bat
