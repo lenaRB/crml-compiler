@@ -42,8 +42,10 @@ public class Main {
     logger.trace("Directory for generated .mo files: " + out_dir.getPath());
 
     for (String test : tests) {
-    	logger.trace("Translating: " + test);
-    	parse_file(path, test, out_dir.getPath());
+    	if(test.endsWith(".crml")) {
+    		logger.trace("Translating: " + test);
+    		parse_file(path, test, out_dir.getPath());
+    	}
     }
 
   }

@@ -45,7 +45,7 @@ arg_list : '(' exp (',' exp)* ')';
 crml_component_reference : '.'? id array_subscripts? ( '.' id array_subscripts? )*
   ;
 
-type :   builtin_type | id;
+type :   (builtin_type | id ) empty_set?;
 
 builtin_type : 'Integer' |'Real' | 'Boolean' | 'String' | 'Clock' | 'Set' | 'Period' ;
 
