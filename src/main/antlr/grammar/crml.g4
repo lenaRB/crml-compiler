@@ -23,7 +23,7 @@ category : 'Category' id 'is' '{' category_pair (',' category_pair)* '}' ';';
 
 category_pair : '(' op ',' op ')';
  
-var_def : type id  (arg_list | 'is' (exp | set_body)) ';' ;
+var_def : type id  (arg_list | 'is' (exp | set_body )) ';' ;
 
 operator : 'Operator' '[' type ']' operator_def ';' ;
 
@@ -71,14 +71,15 @@ proj : id 'proj' ('(' id ')')?  id ;
 
 when : 'when' exp 'then' exp;
 
+integrate : 'integrate' exp 'on' exp;
+
+tick : 'tick';
     
  exp : id | constant | sub_exp | clock_constructor | sum |trim |  proj | period_op 
  	 | left=exp binary=op right=exp | right=exp runary=op | lunary=op left=exp  
  	 |  user_operator_call  | 'element' | 'terminate' | when
- 	 | constructor=builtin_type exp;
+ 	 | constructor=builtin_type exp | exp 'at' at=exp | integrate | tick;
  	
-  
- 
     
 clock_constructor : 'Clock' id ;
 
@@ -90,9 +91,9 @@ op : builtin_op | user_keyword
 ;
 		
 builtin_op : 'and' | '*' | '+' | '-' | '/' | 'with' | 'master' | 'on' | 'filter'
-				| '<=' | '<' | '>=' | '>' | '<>' | 'par' | 'at' | '==' |
+				| '<=' | '<' | '>=' | '>' | '<>' | 'par' | '==' |
 				'pre' | 'not'| '-' | 'card' | 'and' | 'evaluate' |
-				'start' | 'end' | 'at';
+				'start' | 'end' ;
 
 id: IDENT;
 user_keyword : USER_KEYWORD;

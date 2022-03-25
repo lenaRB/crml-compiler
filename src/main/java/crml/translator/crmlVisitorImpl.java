@@ -220,8 +220,8 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			definition.append(modelName);
 			definition.append("\n");
 
-			String bType = types_mapping.get(ctx.type().getText());
-			if (bType == null)
+			String bType ;//= types_mapping.get(ctx.type().getText());
+			//if (bType == null)
 				bType=ctx.type().getText();
 			
 			// keep a list of operator signatures for typing calls
@@ -407,6 +407,11 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				Value result = apply_lunary_op(ctx.constructor.getText(), exp_val);
 				return result;
 			}
+			
+			// expression is a tick
+			if(ctx.tick() != null) {
+				return new Value ("time", "Real");
+			}
 						
 
 			throw new ParseCancellationException("unable to parse expression : " + ctx.getText() + '\n');
@@ -463,18 +468,21 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			Signature op_t = OperatorMapping.is_defined(operators_map, op, right.type);
 			
 			if (op_t== null) 
-				throw new ParseCancellationException("Built in operator undefined : " + op + '\n');
+				throw new ParseCancellationException("Built in operator undefined : " + op + " on " + right.type +'\n');
 			
-			if (op_t.isOperator) { // check if predefined operator maps to Modelica operator
+			if (op_t.mtype == Signature.Type.OPERATOR) { // check if predefined operator maps to Modelica operator
 							
 				// special case if the return is boolean and needs to be wrapped in a CRML boolean
 				if (op_t.return_type.equals("Boolean"))
 					return new Value ("CRML.ETL.Types.cvBooleanToBoolean4(" + op_t.function_name + " " + right.contents + ")", "Boolean");
 				
-				return new Value (op_t.return_type + " " + right.contents, op_t.return_type);
+				return new Value (op_t.function_name + " " + right.contents, op_t.return_type);
+			} else if (op_t.mtype == Signature.Type.FUNCTION) {
+				return new Value (op_t.function_name +"(" + right.contents + ")", op_t.return_type);
+				
 			}
 			
-			// operator translates to function call
+			// operator translates to block instantiation
 				String name=op+counter;
 						
 						
@@ -490,18 +498,21 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			Signature op_t = OperatorMapping.is_defined(operators_map, op, left.type);
 			
 			if (op_t== null) 
-				throw new ParseCancellationException("Built in operator undefined : " + op + '\n');
+				throw new ParseCancellationException("Built in operator undefined : " + op + " on " + left.type  +'\n');
 			
-			if (op_t.isOperator) { // check if predefined operator maps to Modelica operator
+			if (op_t.mtype == Signature.Type.OPERATOR) { // check if predefined operator maps to Modelica operator
 							
 				// special case if the return is boolean and needs to be wrapped in a CRML boolean
 				if (op_t.return_type.equals("Boolean"))
 					return new Value ("CRML.ETL.Types.cvBooleanToBoolean4(" + op_t.function_name + " " + left.contents + ")", "Boolean");
 				
-				return new Value (op_t.return_type + " " + left.contents, op_t.return_type);
+				return new Value (op_t.function_name + " " + left.contents, op_t.return_type);
+			} else if (op_t.mtype == Signature.Type.FUNCTION) {
+				return new Value (op_t.function_name +"(" + " " + left.contents + ")", op_t.return_type);
+				
 			}
 			
-			// operator translates to function call
+			// operator translates to block instantiation
 			String name=op+counter;
 			
 			String res = op_t.function_name+ " " + name+ "(" + op_t.variable_names.get(0) + " = "+left.contents+");\n";
@@ -519,16 +530,19 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			if (op_t== null) 
 				throw new ParseCancellationException("Built in operator undefined : " + op + " on " + left.type + " and " + right.type +'\n');
 			
-			if (op_t.isOperator) { // check if predefined operator maps to Modelica operator
+			if (op_t.mtype == Signature.Type.OPERATOR) { // check if predefined operator maps to Modelica operator
 				
 				// special case if the return is boolean and needs to be wrapped in a CRML boolean
 				if (op_t.return_type.equals("Boolean"))
 					return new Value ("CRML.ETL.Types.cvBooleanToBoolean4(" + left.contents + " " + op + " " + right.contents + ")", "Boolean");
 				
 				return new Value (left.contents + " " + op_t.function_name + " " + right.contents, op_t.return_type);
+			} else if (op_t.mtype == Signature.Type.FUNCTION) {
+				return new Value (op_t.function_name +"(" + right.contents + ", " + left.contents + ")", op_t.return_type);
+				
 			}
 			
-			// operator translates to function call
+			// operator translates to block instantiation
 			String name=op+counter;
 			
 			
