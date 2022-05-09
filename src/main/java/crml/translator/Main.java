@@ -34,8 +34,9 @@ public class Main {
     String path = new File(args[0]).getCanonicalPath();
     logger.trace("Directory for tests: " + path);
 
-    File dir = new File ( path );
-    String tests[] = dir.list();
+    File file = new File ( path );
+    if (file.isDirectory()) {
+    String tests[] = file.list();
 
     File out_dir = new File("generated");
     out_dir.mkdir();
@@ -46,6 +47,16 @@ public class Main {
     		logger.trace("Translating: " + test);
     		parse_file(path, test, out_dir.getPath());
     	}
+    }
+    } else if (file.isFile()) {
+    	File out_dir = new File("generated");
+        out_dir.mkdir();
+        logger.trace("Directory for generated .mo files: " + out_dir.getPath());
+        
+        logger.trace("Translating: " + file);
+		parse_file("", path, out_dir.getPath());
+    } else {
+    	logger.error("Translation error: " + path +  " is not a correct path");
     }
 
   }
@@ -83,6 +94,9 @@ public class Main {
     } catch (ParseCancellationException e) {
     	
     	logger.error("Translation error: "+ e, e);
+    }
+    catch(Exception e) {
+    	logger.error("Uncaught error: "+ e, e);
     }
 
   }
