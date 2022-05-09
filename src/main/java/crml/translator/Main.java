@@ -84,6 +84,7 @@ public class Main {
     
     
     if(result != null) {  	
+    	logger.trace("Try writing to file ");
     	BufferedWriter writer = new BufferedWriter(new FileWriter(gen_dir + "/" +file.substring(0, file.lastIndexOf('.'))+ ".mo"));
         writer.write(result.contents);
         writer.close();
