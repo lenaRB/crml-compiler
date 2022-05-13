@@ -63,7 +63,7 @@ public class Main {
 
   public static void parse_file (String dir, String file, String gen_dir) throws IOException {
     
-	CharStream code = CharStreams.fromFileName(dir + "/" + file);
+	CharStream code = CharStreams.fromFileName(dir + java.io.File.separator + file);
 
     crmlLexer lexer = new crmlLexer(code);
     CommonTokenStream tokens = new CommonTokenStream( lexer );
@@ -85,7 +85,7 @@ public class Main {
     
     if(result != null) {  	
     	logger.trace("Try writing to file ");
-    	BufferedWriter writer = new BufferedWriter(new FileWriter(gen_dir + "/" +file.substring(0, file.lastIndexOf('.'))+ ".mo"));
+    	BufferedWriter writer = new BufferedWriter(new FileWriter(gen_dir + java.io.File.separator +file.substring(0, file.lastIndexOf('.'))+ ".mo"));
         writer.write(result.contents);
         writer.close();
         logger.trace("Translated: " + file);
