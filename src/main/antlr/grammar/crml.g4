@@ -11,9 +11,9 @@ definition : definition_type id 'is' '{'
 
 definition_type : 'model' | 'package' | 'library'; // clarify what is allowed where
 
-element_def : comment | template | class_def | type_def | set_def | operator | var_def | category | external_def;
+element_def : comment | template | class_def | external_def | type_def | set_def | operator | var_def | category ;
 	
-class_def : 'class' id 'is' ('{' class_var_def+ '}' ('extends' type class_params? id? ))?';' ;
+class_def : 'class' id 'is' ('{' class_var_def+ '}' ('extends' type class_params? id? )?)';' ;
 
 set_def : 'Set' id 'of' type 'is' (set_body | exp op exp) ';';
 
@@ -36,7 +36,7 @@ operator_def :  (type id | user_keyword)+ '=' exp ;
 type_def : 'type' id ('extends' type  arg_list? id?)?  ('{' class_var_def * '}' )? ;
 	 
 class_var_def : (class_qualifier? var_def )|'alias' id ';'| comment
-			| 'forbid' (op| op) (',' (op| op))* ';';
+			| 'forbid' (op| op) (',' (op| op))* ';' | external_def ;
 
 class_qualifier : 'parameter' | 'external' | 'fixed';
 	 
