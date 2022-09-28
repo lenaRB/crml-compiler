@@ -2,8 +2,13 @@ model Temp1 is {
 
 Template  r1 'or' r2 = not ((not r1) and (not r2));	// Logical disjunction
 
+Template b1 'xor' b2 = (b1 'or' b2) and not (b1 and b2); // Logical inference
+
 Boolean b1 is false;
-Boolean b2 is false;
+Boolean b2 is true;
+
 Boolean b3 is b1 'or' b2;
+Boolean b3 is b1 'xor' b2;
+
 
 };

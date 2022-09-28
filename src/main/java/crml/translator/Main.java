@@ -74,7 +74,7 @@ public class Main {
     if (tree == null)
     	logger.error("Unable to parse: " + file);
     
-    logger.trace("The AST for the program: \n" + tree.toStringTree(parser));
+   
     
     
     crmlVisitorImpl visitor = new crmlVisitorImpl(parser);
@@ -84,7 +84,7 @@ public class Main {
     
     
     if(result != null) {  	
-    	logger.trace("Try writing to file ");
+    	
     	BufferedWriter writer = new BufferedWriter(new FileWriter(gen_dir + java.io.File.separator +file.substring(0, file.lastIndexOf('.'))+ ".mo"));
         writer.write(result.contents);
         writer.close();
@@ -95,9 +95,11 @@ public class Main {
     } catch (ParseCancellationException e) {
     	
     	logger.error("Translation error: "+ e, e);
+    	logger.trace("The AST for the program: \n" + tree.toStringTree(parser));
     }
     catch(Exception e) {
     	logger.error("Uncaught error: "+ e, e);
+    	logger.trace("The AST for the program: \n" + tree.toStringTree(parser));
     }
 
   }

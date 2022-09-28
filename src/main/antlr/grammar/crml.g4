@@ -11,19 +11,21 @@ definition : definition_type id 'is' '{'
 
 definition_type : 'model' | 'package' | 'library'; // clarify what is allowed where
 
-element_def : comment | template | class_def | external_def | type_def | set_def | operator | var_def | category ;
+element_def : comment | template | class_def | uninstantiated_def | type_def | set_def | operator | var_def | category;
 	
 class_def : 'class' id 'is' ('{' class_var_def+ '}' ('extends' type class_params? id? )?)';' ;
 
 set_def : 'Set' id 'of' type 'is' (set_body | exp op exp) ';';
 
-external_def : 'external' (type id (',' id)* | structure_type id (',' id)* )';' ;
+uninstantiated_def : static_qualifier (type id (',' id)* | structure_type id (',' id)* )';' ;
+
+static_qualifier : 'parameter' | 'external' ;
 
 category : 'Category' id 'is' '{' category_pair (',' category_pair)* '}' ';';
 
 category_pair : '(' op ',' op ')';
  
-var_def : type id  (arg_list | 'is' (exp | set_body )) ';' ;
+var_def : var_qualifier? type id  (arg_list | 'is' (exp | set_body ))? ';' ;
 
 operator : 'Operator' '[' type ']' operator_def ';' ;
 
@@ -35,15 +37,14 @@ operator_def :  (type id | user_keyword)+ '=' exp ;
 	 
 type_def : 'type' id ('extends' type  arg_list? id?)?  ('{' class_var_def * '}' )? ;
 	 
-class_var_def : (class_qualifier? var_def )|'alias' id ';'| comment
-			| 'forbid' (op| op) (',' (op| op))* ';' | external_def ;
+class_var_def : ( var_def )|'alias' id ';'| comment
+			| 'forbid' (op| op) (',' (op| op))* ';' | uninstantiated_def ;
 
-class_qualifier : 'parameter' | 'external' | 'fixed';
+var_qualifier : 'fixed';
 	 
 arg_list : '(' exp (',' exp)* ')';
 
-crml_component_reference : '.'? id array_subscripts? ( '.' id array_subscripts? )*
-  ;
+crml_component_reference : '.'? id array_subscripts? ( '.' id array_subscripts? )* ;
 
 type :   (builtin_type | id ) empty_set?;
 
@@ -69,7 +70,7 @@ sum: 'sum' '(' exp (',' exp)+')' ;
 
 proj : id 'proj' ('(' id ')')?  id ;
 
-when : 'when' exp 'then' exp;
+when_exp : 'when' when_e=exp 'then' then_e=exp;
 
 integrate : 'integrate' exp 'on' exp;
 
@@ -77,9 +78,10 @@ tick : 'tick';
     
  exp : id | constant | sub_exp | clock_constructor | sum |trim |  proj | period_op 
  	 | left=exp binary=op right=exp | right=exp runary=op | lunary=op left=exp  
- 	 |  user_operator_call  | 'element' | 'terminate' | when
- 	 | constructor=builtin_type exp | exp 'at' at=exp | integrate | tick;
- 	
+ 	 |  user_operator_call  | 'element' | 'terminate' | when_exp
+ 	 | 'new' constructor=id | exp 'at' at=exp | integrate | tick |crml_component_reference | if_exp ;
+ 	 
+if_exp : 'if' if_e=exp 'then' then_e=exp ('else' else_e=exp);
     
 clock_constructor : 'Clock' id ;
 

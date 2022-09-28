@@ -15,6 +15,8 @@ public class OperatorMapping {
 		
 		//TODO add full operator list
 		
+		//TODO add sets
+		
 		// Integer signatures
 		List<String> int1 = Arrays.asList("Integer");
 		List<String> int2 = Arrays.asList("Integer", "Integer");

@@ -18,23 +18,23 @@ import grammar.crmlParser.Component_referenceContext;
 import grammar.crmlParser.DefinitionContext;
 import grammar.crmlParser.Element_defContext;
 import grammar.crmlParser.ExpContext;
-import grammar.crmlParser.External_defContext;
 import grammar.crmlParser.IdContext;
+import grammar.crmlParser.If_expContext;
+import grammar.crmlParser.Uninstantiated_defContext;
 import grammar.crmlParser.User_keywordContext;
+
 
 public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 		private Integer counter;
 
-		//type mapping
+		//type mapping from CRML built-in to Modelica
 		private HashMap<String, String> types_mapping;
 
-		//operator mapping
-	    private HashMap<String, List<Signature>> operators_map;
-	    
+		//operator mapping CRML built-in to Modelica
+	    private HashMap<String, List<Signature>> operators_map;	    
 
-		//types of variables for operator typing
-		private HashMap<String, String> variable_types;
+	    private VariableData variableTable;
 
 		private HashMap<String, Signature> user_operators;
 
@@ -43,6 +43,8 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		private static final Logger logger = LogManager.getLogger();
 		
 		crmlParser parser;
+		
+		private String prefix= ""; //to keep track of variable prefix
 
 		public crmlVisitorImpl (crmlParser parser) {
 			
@@ -63,15 +65,13 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 			operators_map = OperatorMapping.get_operator_map();
 
-
-			variable_types = new HashMap<String, String>();
-
 			localFunctionCalls = new StringBuffer();
 
 			user_operators = new HashMap<String, Signature>();
 
 			counter = 0; //used to create unique names for automatically generated blocks
 
+			variableTable = new VariableData();
 		}
 
 		@Override public Value visitDefinition(DefinitionContext ctx) {
@@ -91,7 +91,6 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				buffer.append(localFunctionCalls);
 
 				buffer.append("end " + ctx.id().getText()+ ";\n");
-
 
 				return new Value (buffer.toString(), "Program");
 			}
@@ -119,45 +118,62 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			if(ctx.category() != null)
 				return visit(ctx.category());
 			
-			if(ctx.external_def()!= null)
-				return visit (ctx.external_def());
-			
+			// the element is a parameter or an external variable
+			if(ctx.uninstantiated_def()!= null)
+				return visit (ctx.uninstantiated_def());
 			
 			// TODO sets, comments, type
 
 			throw new ParseCancellationException("Unable to translate in element_def : "+ ctx.getText()+ '\n');
 		}
 		
-		@Override public Value visitExternal_def(External_defContext ctx) {
+		@Override public Value visitUninstantiated_def(Uninstantiated_defContext ctx) {
 			
-			String var_type = "";
+			String var_type="", var_modelica_type="";
 			String var_name;
 			StringBuffer var_names = new StringBuffer();
+			String var_prefix;
+			
+			if(ctx.static_qualifier().getText().contentEquals("parameter"))
+				var_prefix = "parameter ";
+			else
+				var_prefix = "external ";
 			
 			if (ctx.type() != null)
 				// convert the type if it is a built in
-				if(ctx.type().builtin_type()!=null)
-					var_type = types_mapping.get(ctx.type().builtin_type().getText());
-				else 
+				if(ctx.type().builtin_type()!=null) {
+					var_type = ctx.type().builtin_type().getText();
+					var_modelica_type = types_mapping.get(var_type);
+				}
+					
+				else {
 					var_type = ctx.type().id().getText();
+					var_modelica_type = var_type;
+				}
 			
 			// TODO translate structure types
-			if(ctx.structure_type()!=null)
+			else if(ctx.structure_type()!=null)
 				throw new ParseCancellationException("need to implement structure type translation : "+ ctx.getText()+ '\n');
+					
 			
-			int i =0;
+			int i = 0;
 			for (IdContext e:ctx.id()) {
 				var_name = e.getText();
 				var_names.append(var_name);
-				variable_types.put(var_name, var_type);
+				
+				//TODO fix set support
+				variableTable.putVariable(var_name, var_type, false, prefix);
+				
 				i++;
 				if (i< ctx.id().size())
 					var_names.append(" ,");
 			}
 			
-			return new Value(var_type + " " + var_names + ";\n", "var_type");
+			return new Value(var_prefix + var_modelica_type + " " + var_names + ";\n", var_type);
 			
 		}	
+		
+		 
 		
 		@Override public Value visitCategory(CategoryContext ctx) {
 			return new Value("", "Category");
@@ -168,17 +184,27 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			StringBuffer buffer = new StringBuffer();
 			Value val;
 			
+			String prefixTemp = prefix;
+			
+			if(prefix!="")
+				prefix+=".";
+			
+			prefix += ctx.id(0).getText();
+			
 			buffer.append("model "+ ctx.id(0).getText());
 			// parse class variables
 			if (ctx.class_var_def()!= null)
 				buffer.append("\n");
 				for (Class_var_defContext e : ctx.class_var_def()) {
 					val = visitClass_var_def(e);
+					
 					buffer.append(val.contents);
-				}				
+				}
+			
 			
 			if (ctx.type()!=null) {
 				buffer.append(" extends " + ctx.type().getText());
+				
 				// TODO translate class parameters
 				if(ctx.class_params()!= null)
 					throw new ParseCancellationException("class parameters not implemented yet");
@@ -187,25 +213,32 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			}
 			buffer.append("end "+ ctx.id(0).getText() + "; \n");
 			
+			prefix= prefixTemp;
+			
 			return new Value (buffer.toString(), "Class_Definition");
 		}
 
 		@Override public Value visitClass_var_def(Class_var_defContext ctx) {
 			
+			Value value=null;
 			
-			Value value = visit(ctx.var_def());			
+			if (ctx.var_def()!=null)
+				value = visit(ctx.var_def());
+			else if (ctx.uninstantiated_def()!=null)
+				value = visit(ctx.uninstantiated_def());
 			
+			else 
 			//TODO translate class qualifier
 			//TODO translate alias, comment, forbid
-			
-			return new Value (value.contents, "Class_Variable");
+				throw new ParseCancellationException("unable to translate class: " + ctx.var_def().getText() + '\n');
+	
+			 return value;
 		}
 		
 		@Override public Value visitOperator(crmlParser.OperatorContext ctx) {
 			StringBuffer definition = new StringBuffer("model ");
 			StringBuffer modelName = new StringBuffer("'");
 
-			HashMap<String, String> store_variable_types = new HashMap<String, String> (variable_types);
 			StringBuffer store_localFunctionCalls = new StringBuffer(localFunctionCalls);
 
 			localFunctionCalls = new StringBuffer();
@@ -236,9 +269,11 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				String type = ctx.operator_def().type().get(i).getText();
 				String mtype = types_mapping.get(type);
 				if(mtype == null) mtype = type;
-				definition.append("input " + types_mapping.get(type) + " " + v.getText() + ";\n");
-				variable_types.put(v.getText(), type);
-		
+				definition.append("input " + mtype + " " + v.getText() + ";\n");	
+				
+				// TODO fix set support
+				variableTable.putlocalVariable(v.getText(), type, false);
+				
 				sig.variable_names.add(v.getText());
 				sig.variable_types.add(bType);
 			    i++;
@@ -257,7 +292,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			definition.append(";\n");
 
 			// get rid of all local variables
-			variable_types = store_variable_types;
+			variableTable.cleanLocalVariables();
 
 			//restore local function calls
 			localFunctionCalls = store_localFunctionCalls;
@@ -270,7 +305,6 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			StringBuffer definition = new StringBuffer("model ");
 			StringBuffer modelName = new StringBuffer("'");
 
-			HashMap<String, String> store_variable_types = new HashMap<String, String> (variable_types);
 			StringBuffer store_localFunctionCalls = new StringBuffer(localFunctionCalls);
 
 			localFunctionCalls = new StringBuffer();
@@ -296,7 +330,9 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			// generate variables
 			for (IdContext v : ctx.id()) {
 				definition.append("input " + bType + " " + v.getText() + ";\n");
-				variable_types.put(v.getText(), "Boolean");
+				
+				// TODO fix sets
+				variableTable.putlocalVariable(v.getText(), "Boolean", null);
 			
 				sig.variable_names.add(v.getText());
 				sig.variable_types.add(bType);
@@ -315,7 +351,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			definition.append(";\n");
 
 			// get rid of all local variables
-			variable_types = store_variable_types;
+			variableTable.cleanLocalVariables();
 
 			//restore local function calls
 			localFunctionCalls = store_localFunctionCalls;
@@ -327,6 +363,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		@Override public Value visitVar_def(crmlParser.Var_defContext ctx) {
 			String var_t, mapped_t;
 			StringBuffer buffer = new StringBuffer();
+			
 
 				var_t = ctx.type().getText();
 				if(types_mapping.containsKey(var_t))
@@ -336,8 +373,13 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 				buffer.append(mapped_t + " ");
 				buffer.append(ctx.id().getText());
+				
 
-				variable_types.put(ctx.id().getText(), var_t);
+				//TODO fix set variables
+				
+				variableTable.putVariable(ctx.id().getText(), var_t, null, prefix);
+			
+				System.out.println("variable table updated with : "+ prefix+ctx.id().getText());
 
 
 				if(ctx.exp()!=null) {
@@ -357,22 +399,29 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 			// if the expression is a variable
 			if(ctx.id()!=null) {
-				if (variable_types.containsKey(ctx.id().getText()))
-					 return new Value (ctx.getText(), variable_types.get(ctx.getText()));
+				if (variableTable.getVariableType(ctx.id().getText())!=null)
+					 return new Value (ctx.getText(), variableTable.getVariableType(ctx.id().getText()));
 
 				else throw new ParseCancellationException("unable to get variable type : " + ctx.id().getText() + '\n');
 			}
-			
 			 
-			/*if the expression is a componenent reference
-			if(ctx.crml_component_reference()!=null)
-				return visit(ctx.crml_component_reference()); */
+			//if the expression is a componenent reference
+			if(ctx.crml_component_reference()!=null) {
+				return new Value (ctx.getText(), variableTable.getVariableType(ctx.getText()));
+			}
+				 
+
+				//else throw new ParseCancellationException("unable to get variable type : " + ctx.id().getText() + '\n');
 			
 			// if the expression is a user defined call
 			if(ctx.user_operator_call() != null) {
 				return visit(ctx.user_operator_call());
 			}
 			
+			// if expression is an if-then-else
+			if(ctx.if_exp() != null) {
+				return visit(ctx.if_exp());
+			}
 			
 			if(ctx.op()!= null)
 				if(ctx.op().user_keyword()!=null) { // if the expression is a user defined operator
@@ -411,10 +460,9 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			// expression is a tick
 			if(ctx.tick() != null) {
 				return new Value ("time", "Real");
-			}
-						
+			}						
 
-			throw new ParseCancellationException("unable to parse expression : " + ctx.getText() + '\n');
+			throw new ParseCancellationException("unable to parse expression : " + ctx.getParent().getText() + '\n');
 		}
 		
 		@Override 
@@ -423,6 +471,27 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			throw new ParseCancellationException("component references not implemented yet : " + ctx.toStringTree() + '\n');
 		}
 		
+		@Override
+		public Value visitIf_exp(If_expContext ctx) {
+			
+			Value value_if, value_then, value_else;
+			
+			value_if = visit(ctx.if_e);
+			
+			value_then = visit (ctx.then_e);
+			
+			if (ctx.else_e != null) {
+				value_else = visit(ctx.else_e);
+				
+				return new Value (" if (" + value_if.contents + "== CRML.ETL.Types.Boolean4.true4) then " 
+						+  value_then.contents + " else " +  value_else.contents, 
+						value_then.type);
+			
+			}
+			return new Value (" if " + value_if.contents + " then " 
+					+  value_then.contents, 
+					value_then.type);			
+			}
 		
 		@Override
 		public Value visitClock_constructor(Clock_constructorContext ctx) {
@@ -593,5 +662,5 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			}
 
 		}
-
+				
 }
