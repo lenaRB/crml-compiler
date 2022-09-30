@@ -9,7 +9,7 @@ definition : definition_type id 'is' '{'
 		(element_def)* 
 		'}'  ';' EOF;	
 
-definition_type : 'model' | 'package' | 'library'; // clarify what is allowed where
+definition_type : 'model' | 'package' | 'library';
 
 element_def : comment | template | class_def | uninstantiated_def | type_def | set_def | operator | var_def | category;
 	
@@ -46,7 +46,7 @@ arg_list : '(' exp (',' exp)* ')';
 
 crml_component_reference : '.'? id array_subscripts? ( '.' id array_subscripts? )* ;
 
-type :   (builtin_type | id ) empty_set?;
+type :   (builtin_type | id ) isset=empty_set?;
 
 builtin_type : 'Integer' |'Real' | 'Boolean' | 'String' | 'Clock' | 'Set' | 'Period' ;
 
@@ -76,14 +76,14 @@ integrate : 'integrate' exp 'on' exp;
 
 tick : 'tick';
     
- exp : id | constant | sub_exp | clock_constructor | sum |trim |  proj | period_op 
+ exp : id | constant | sub_exp | constructor | sum |trim |  proj | period_op 
  	 | left=exp binary=op right=exp | right=exp runary=op | lunary=op left=exp  
- 	 |  user_operator_call  | 'element' | 'terminate' | when_exp
- 	 | 'new' constructor=id | exp 'at' at=exp | integrate | tick |crml_component_reference | if_exp ;
+ 	 |  user_operator_call  | 'element' | 'terminate' | when_exp | exp 'at' at=exp 
+ 	 | integrate | tick |crml_component_reference | if_exp ;
  	 
 if_exp : 'if' if_e=exp 'then' then_e=exp ('else' else_e=exp);
-    
-clock_constructor : 'Clock' id ;
+
+constructor : 'new' type exp?;
 
 user_operator_call : (user_keyword exp)+; 
 	

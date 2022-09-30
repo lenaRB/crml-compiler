@@ -4,9 +4,9 @@ model ClockOp is {
 
  Operator [ Integer ] 'count' Clock C 'inside' Period P = card (C 'inside' P);
 
- Operator [ Clock ] Boolean b 'becomes true' = Clock b;
+ Operator [ Clock ] Boolean b 'becomes true' = new Clock b;
 
- //Operator [ Clock] Boolean b 'becomes false' = Clock not b;
+ //Operator [ Clock] Boolean b 'becomes false' = new Clock not b;
 
  Operator [ Clock] Boolean b 'becomes true inside' Period P = (b 'becomes true') 'inside' P;
 

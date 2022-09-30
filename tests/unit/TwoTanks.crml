@@ -8,12 +8,14 @@ model TwoTanks is {
 		};
 
 		class System is {
-			external TankModel {} S; // there will be 2 tanks here in the example
+			external TankModel {} t; // there will be 2 tanks here in the example
 		};
 
-		Boolean R2 is and (s.tankVolume < 2);
+		System S;
 
-		Boolean R1 is and s.R3;
+		Boolean R2 is and (S.t.tankVolume < 2);
+
+		//Boolean R1 is and S.t.R3;
 
 
 };

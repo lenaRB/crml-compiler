@@ -68,21 +68,26 @@ public class VariableData {
 			
 			String [] path = name.split("\\.");
 			
-			if (path.length >2) // TODO fix for nested classes
-				throw new ParseCancellationException("does not support nested classes : " + name + '\n');
 			
+			VariableType classType, v_data=null;
 			
-			VariableType classType = local_variable_types.get(path[0]);
+			classType = local_variable_types.get(path[0]);
 			if (classType == null) // try global vars
 				classType = variable_types.get(path[0]);
 			if (classType == null)
 				throw new ParseCancellationException("unable to find parent class : " + path[0] + '\n');
 			
+			for(int i=1; i<path.length; i++) {
 				
-			VariableType v_data= class_variable_types.get(classType.type).get(path[1]);
+				
+				v_data= class_variable_types.get(classType.type).get(path[i]);				
+
+				if (v_data == null)
+					throw new ParseCancellationException("unable to find type of variable : " + name + '\n');
+				
+				classType = v_data;
+			}
 			
-			if (v_data == null)
-				throw new ParseCancellationException("unable to find type of variable : " + name + '\n');
 			
 			return v_data.type;
 		}
@@ -93,15 +98,45 @@ public class VariableData {
 	
 	public Boolean isSetVariable(String name) {
 		
-		if(name.contains(".")==false && local_variable_types.containsKey(name)) {
+		if(!name.contains(".") && local_variable_types.containsKey(name)) {
 			return local_variable_types.get(name).isSet;
-		} else if(name.contains(".")==false && variable_types.containsKey(name)) {
+		} else if(!name.contains(".") && variable_types.containsKey(name)) {
 			return variable_types.get(name).isSet;
+		} else if (name.contains(".")) {
+			
+			String [] path = name.split("\\.");
+			
+			
+			VariableType classType, v_data=null;
+			
+			classType = local_variable_types.get(path[0]);
+			if (classType == null) // try global vars
+				classType = variable_types.get(path[0]);
+			if (classType == null)
+				throw new ParseCancellationException("unable to find parent class : " + path[0] + '\n');
+			
+			for(int i=1; i<path.length; i++) {
+				
+				if(classType.isSet)
+					return true;
+				
+				v_data= class_variable_types.get(classType.type).get(path[i]);	
+			
+
+				if (v_data == null)
+					throw new ParseCancellationException("unable to find type of variable : " + name + '\n');
+				
+				
+				classType = v_data;
+			}
+			
+			
+			return v_data.isSet;
 		}
-		
 		
 		throw new ParseCancellationException("unable to get variable type : " + name + '\n');
 	}
+	
 			
 			
 }

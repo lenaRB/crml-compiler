@@ -1,6 +1,6 @@
 model Events_test is {
 
-Operator [ Clock ] Boolean b 'becomes true' = Clock b;
+Operator [ Clock ] Boolean b 'becomes true' = new Clock b;
 
 external Boolean myB;
 

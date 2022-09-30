@@ -1,6 +1,6 @@
 model String1 is {
 
 String variable is "Hello";
-String variable2 is String 5.0;
+String variable2 is new String 5.0;
 
 };

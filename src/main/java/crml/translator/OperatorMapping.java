@@ -44,6 +44,13 @@ public class OperatorMapping {
 		// Default operand names in built-in functions
 		List<String> params = Arrays.asList("r1", "r2");
 		
+		// SetLists
+		List<Boolean> setOnset = Arrays.asList(true, true);
+		List<Boolean> setUnary = Arrays.asList(true);
+		List<Boolean> setOnvar = Arrays.asList(true, false);
+		List<Boolean> varOnset = Arrays.asList(false, true);
+		
+		
 		
 		// + operators
 		List<Signature> plus_sigs = 
@@ -100,6 +107,7 @@ public class OperatorMapping {
 								new Signature("<", real2, "Boolean", Type.OPERATOR),
 								new Signature("<", intreal, "Boolean", Type.OPERATOR),
 								new Signature("<", realint, "Boolean", Type.OPERATOR),
+								new Signature("CRML.leqArray", realint, params, "Boolean", Type.FUNCTION, setOnvar, true),
 								new Signature("CRML.realPeriodleq", realPeriod, params, "Boolean", Type.BLOCK),
 								new Signature("CRML.Blocks.Logical4.leq", bool2, params, "Boolean", Type.BLOCK));
 				
@@ -126,13 +134,18 @@ public class OperatorMapping {
 				built_in_operators.put(">", gr_sigs);
 
 		
-		// and operators		
-		built_in_operators.put("and", 
-				Arrays.asList(new Signature("CRML.Blocks.Logical4.and4", bool2, params, "Boolean", Type.FUNCTION)));
+		// and operators	
+		List<Signature> and_sigs = 
+						Arrays.asList(new Signature("CRML.Blocks.Logical4.and4", bool2, params, "Boolean", Type.FUNCTION),
+								new Signature("CRML.arrayAnd", bool1, params, "Boolean", Type.FUNCTION, setUnary, false));
+		built_in_operators.put("and", and_sigs);
 		
 		// not operators		
-		built_in_operators.put("not", 
-				Arrays.asList(new Signature("CRML.Blocks.Logical4.not4", bool1, params, "Boolean", Type.FUNCTION)));
+		List<Signature> not_sigs = 
+				Arrays.asList(new Signature("CRML.Blocks.Logical4.not4", bool1, params, "Boolean", Type.FUNCTION),
+						new Signature("CRML.arrayNot", bool1, params, "Boolean", Type.FUNCTION, setUnary, false));
+		built_in_operators.put("not", not_sigs);
+		
 		
 		// end operators	TODO proper implementation	
 				built_in_operators.put("end", 
@@ -162,7 +175,7 @@ public class OperatorMapping {
 		return built_in_operators;
 	}
 	
-	public static Signature is_defined (HashMap<String, List<Signature>> operator_map, String op, String type) {
+	public static Signature is_defined (HashMap<String, List<Signature>> operator_map, String op, String type, Boolean isSet) {
 		
 		List<Signature> sigs = operator_map.get(op);
 		
@@ -170,7 +183,7 @@ public class OperatorMapping {
 			return null;
 		
 		for (Signature s:sigs) {
-			if(s.variable_types.size()==1 && s.variable_types.get(0).equals(type))
+			if(s.variable_types.size()==1 && s.variable_types.get(0).equals(type) && s.variable_is_set.get(0) == isSet)
 				return s;
 		}
 		
@@ -178,14 +191,15 @@ public class OperatorMapping {
 	}
 
 	public static Signature is_defined(HashMap<String, List<Signature>> operator_map, String op, String type1,
-			String type2) {
+			String type2, Boolean isSet1, Boolean isSet2) {
 		List<Signature> sigs = operator_map.get(op);
 		
 		if(sigs==null)
 			return null;
 		
 		for (Signature s:sigs) {
-			if(s.variable_types.size()==2 && s.variable_types.get(0).equals(type1) && s.variable_types.get(1).equals(type2))
+			if(s.variable_types.size()==2 && s.variable_types.get(0).equals(type1) && s.variable_types.get(1).equals(type2)
+					&& s.variable_is_set.get(0) == isSet1 && s.variable_is_set.get(1) == isSet2)
 				return s;
 		}
 		
