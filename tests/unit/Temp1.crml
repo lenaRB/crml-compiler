@@ -8,7 +8,7 @@ Boolean b1 is false;
 Boolean b2 is true;
 
 Boolean b3 is b1 'or' b2;
-Boolean b3 is b1 'xor' b2;
+Boolean b4 is b1 'xor' b2;
 
 
 };
