@@ -1,6 +1,8 @@
 package crml.translator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
@@ -9,10 +11,19 @@ public class VariableData {
 	class VariableType{
 	String type;
 	Boolean isSet;
+	List<String> setPath;
 	
 	public VariableType(String type, Boolean isSet) {
 		this.type=type;
 		this.isSet=isSet;
+		this.setPath = null;
+		}
+	
+	
+	public VariableType(String type, Boolean isSet, List<String> setPath) {
+		this.type=type;
+		this.isSet=isSet;
+		this.setPath = setPath;
 		}
 	}
 	
@@ -58,18 +69,21 @@ public class VariableData {
 		local_variable_types = new HashMap<String, VariableType>();
 	}
 	
-	public String getVariableType(String name) {
+	public VariableType getVariableInfo(String name) {
 		
 		if(!name.contains(".") && local_variable_types.containsKey(name)) {
-			return local_variable_types.get(name).type;
+			return local_variable_types.get(name);
 		} else if(!name.contains(".") && variable_types.containsKey(name)) {
-			return variable_types.get(name).type;
+			return variable_types.get(name);
 		} else if (name.contains(".")) {
 			
 			String [] path = name.split("\\.");
 			
 			
-			VariableType classType, v_data=null;
+			VariableType classType, v_data;
+			List<String> setPath = new ArrayList<String>();
+			
+			
 			
 			classType = local_variable_types.get(path[0]);
 			if (classType == null) // try global vars
@@ -77,66 +91,36 @@ public class VariableData {
 			if (classType == null)
 				throw new ParseCancellationException("unable to find parent class : " + path[0] + '\n');
 			
+			StringBuffer setPath_e = new StringBuffer(classType.type);
+			Boolean isSet = false;
+			
 			for(int i=1; i<path.length; i++) {
+	
+				if(classType.isSet) {
+					setPath.add(setPath_e.toString());
+					setPath_e = new StringBuffer();
+					isSet = true;
+				}
 				
+				v_data= class_variable_types.get(classType.type).get(path[i]);
 				
-				v_data= class_variable_types.get(classType.type).get(path[i]);				
 
 				if (v_data == null)
 					throw new ParseCancellationException("unable to find type of variable : " + name + '\n');
 				
 				classType = v_data;
+				if(!setPath_e.toString().isEmpty())
+					setPath_e.append(".");
+				
+				setPath_e.append(classType.type);
 			}
 			
 			
-			return v_data.type;
+			return new VariableType(classType.type, isSet, setPath);
 		}
 			
 		
 		throw new ParseCancellationException("unable to get variable type : " + name + '\n');
 	}
-	
-	public Boolean isSetVariable(String name) {
-		
-		if(!name.contains(".") && local_variable_types.containsKey(name)) {
-			return local_variable_types.get(name).isSet;
-		} else if(!name.contains(".") && variable_types.containsKey(name)) {
-			return variable_types.get(name).isSet;
-		} else if (name.contains(".")) {
-			
-			String [] path = name.split("\\.");
-			
-			
-			VariableType classType, v_data=null;
-			
-			classType = local_variable_types.get(path[0]);
-			if (classType == null) // try global vars
-				classType = variable_types.get(path[0]);
-			if (classType == null)
-				throw new ParseCancellationException("unable to find parent class : " + path[0] + '\n');
-			
-			for(int i=1; i<path.length; i++) {
-				
-				if(classType.isSet)
-					return true;
-				
-				v_data= class_variable_types.get(classType.type).get(path[i]);	
-			
-
-				if (v_data == null)
-					throw new ParseCancellationException("unable to find type of variable : " + name + '\n');
-				
-				
-				classType = v_data;
-			}
-			
-			
-			return v_data.isSet;
-		}
-		
-		throw new ParseCancellationException("unable to get variable type : " + name + '\n');
-	}
-	
-			
 			
 }

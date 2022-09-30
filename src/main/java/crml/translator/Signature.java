@@ -9,7 +9,8 @@ public class Signature {
 	enum Type {
 		FUNCTION,
 		OPERATOR,
-		BLOCK
+		BLOCK,
+		SET_OP //arrays in set operators need to be expanded 
 	}
 	
 	List <String> variable_names;

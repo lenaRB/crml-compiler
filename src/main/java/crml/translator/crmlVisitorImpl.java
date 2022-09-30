@@ -420,16 +420,20 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 			// if the expression is a variable
 			if(ctx.id()!=null) {
-				if (variableTable.getVariableType(ctx.id().getText())!=null)
-					 return new Value (ctx.getText(), variableTable.getVariableType(ctx.id().getText()), variableTable.isSetVariable(ctx.id().getText()));
+				VariableData.VariableType v_type = variableTable.getVariableInfo(ctx.id().getText());
+				if (v_type!=null)
+					 return new Value (ctx.getText(), v_type.type, v_type.isSet, v_type.setPath);
 
 				else throw new ParseCancellationException("unable to get variable type : " + ctx.id().getText() + '\n');
 			}
 			 
 			//if the expression is a componenent reference
 			if(ctx.crml_component_reference()!=null) {
-				return new Value (ctx.getText(), variableTable.getVariableType(ctx.getText()),variableTable.isSetVariable(ctx.getText()));
-			}
+				VariableData.VariableType v_type = variableTable.getVariableInfo(ctx.crml_component_reference().getText());
+				if (v_type!=null)
+					 return new Value (ctx.getText(), v_type.type, v_type.isSet, v_type.setPath);
+
+				else throw new ParseCancellationException("unable to get variable type : " + ctx.crml_component_reference().getText() + '\n');}
 				
 			// if the expression is a user defined call
 			if(ctx.user_operator_call() != null) {
@@ -641,6 +645,20 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			} else if (op_t.mtype == Signature.Type.FUNCTION) {
 				return new Value (op_t.function_name +"(" + right.contents + ", " + left.contents + ")", op_t.return_type, op_t.is_return_set);
 				
+			} else if (op_t.mtype == Signature.Type.SET_OP) { // generate a set operator
+				if (left.isSet && right.isSet) {
+					
+				}
+				
+				String block_name = op_t.function_name + "int" + counter;
+				String block_type = op_t.function_name + counter++;
+				StringBuffer set_block = new StringBuffer("model " + block_type + "\n ") ;
+				
+				set_block.append("end " + block_type + ";\n");
+				
+				localFunctionCalls.append(set_block);
+				
+				return new Value (block_name + ".out", op_t.return_type, op_t.is_return_set);
 			}
 			
 			// operator translates to block instantiation

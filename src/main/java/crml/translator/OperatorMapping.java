@@ -107,7 +107,7 @@ public class OperatorMapping {
 								new Signature("<", real2, "Boolean", Type.OPERATOR),
 								new Signature("<", intreal, "Boolean", Type.OPERATOR),
 								new Signature("<", realint, "Boolean", Type.OPERATOR),
-								new Signature("CRML.leqArray", realint, params, "Boolean", Type.FUNCTION, setOnvar, true),
+								new Signature("leqArray", realint, params, "Boolean", Type.SET_OP, setOnvar, true),
 								new Signature("CRML.realPeriodleq", realPeriod, params, "Boolean", Type.BLOCK),
 								new Signature("CRML.Blocks.Logical4.leq", bool2, params, "Boolean", Type.BLOCK));
 				
@@ -137,13 +137,13 @@ public class OperatorMapping {
 		// and operators	
 		List<Signature> and_sigs = 
 						Arrays.asList(new Signature("CRML.Blocks.Logical4.and4", bool2, params, "Boolean", Type.FUNCTION),
-								new Signature("CRML.arrayAnd", bool1, params, "Boolean", Type.FUNCTION, setUnary, false));
+								new Signature("arrayAnd", bool1, params, "Boolean", Type.SET_OP, setUnary, false));
 		built_in_operators.put("and", and_sigs);
 		
 		// not operators		
 		List<Signature> not_sigs = 
 				Arrays.asList(new Signature("CRML.Blocks.Logical4.not4", bool1, params, "Boolean", Type.FUNCTION),
-						new Signature("CRML.arrayNot", bool1, params, "Boolean", Type.FUNCTION, setUnary, false));
+						new Signature("arrayNot", bool1, params, "Boolean", Type.SET_OP, setUnary, false));
 		built_in_operators.put("not", not_sigs);
 		
 		
