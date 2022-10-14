@@ -266,12 +266,13 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			sig.return_type = bType;
 			sig.return_name = "out";
 			sig.function_name = modelName.toString();
+			String mtype = bType;
 
 			// generate variables
 				int i=0;
 				for (IdContext v : ctx.operator_def().id()) {
 				String type = ctx.operator_def().type().get(i).getText();
-				String mtype = types_mapping.get(type);
+				mtype = types_mapping.get(type);
 				if(mtype == null) mtype = type;
 				definition.append("input " + mtype + " " + v.getText() + ";\n");	
 				
@@ -285,7 +286,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 	
 			user_operators.put(modelName.toString(), sig);
 
-			definition.append("output " + bType + " out; \n");
+			definition.append("output " + mtype + " out; \n");
 
 			// append body
 			Value exp = visit(ctx.operator_def().exp());
