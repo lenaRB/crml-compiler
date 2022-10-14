@@ -45,15 +45,14 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			types_mapping = new HashMap<String, String>();
 
 			// table for mapping CRML built in types to Modelica types
-			types_mapping.put("Boolean", 	 "CRML.ETL.Types.Boolean4");
-			types_mapping.put("Period", 	 "CRML.Period");
-			types_mapping.put("Event", 	 	 "CRML.Event");
-			types_mapping.put("Requirement", "CRML.ETL.Types.Boolean4");
-			types_mapping.put("Clock", 		 "CRML.CRMLClock");
+			types_mapping.put("Boolean", 	 "CRMLtoModelica.Types.Boolean4");
+			types_mapping.put("Period", 	 "CRMLtoModelica.Types.Period");
+			types_mapping.put("Event", 	 	 "CRMLtoModelica.Types.Event");
+			types_mapping.put("Requirement", "CRMLtoModelica.Types.Boolean4");
+			types_mapping.put("Clock", 		 "CRMLtoModelica.Types.CRMLClock");
 			types_mapping.put("Real", 		 "Real");
 			types_mapping.put("Integer", 	 "Integer");
 			types_mapping.put("String", 	 "String");
-			types_mapping.put("Set", 	 	 "CRML.CRMLSet");
 
 			operators_map = OperatorMapping.get_operator_map();
 
@@ -492,7 +491,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			
 		
 		localFunctionCalls.append(clockType + " " + varName + "(b=" + v.contents + ");\n");
-		localFunctionCalls.append("CRML.CRMLClock_build " + varName+"_init(clock =" + varName + ");\n");
+		localFunctionCalls.append("CRMLtoModelica.Types.CRMLClock_build " + varName+"_init(clock =" + varName + ");\n");
 		return new Value (varName+".out", "Clock");
 		}
 		
@@ -579,7 +578,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 							
 				// special case if the return is boolean and needs to be wrapped in a CRML boolean
 				if (op_t.return_type.equals("Boolean"))
-					return new Value ("CRML.ETL.Types.cvBooleanToBoolean4(" + op_t.function_name + " " + right.contents + ")", "Boolean");
+					return new Value ("CRMLtoModelica.functions.cvBooleanToBoolean4(" + op_t.function_name + " " + right.contents + ")", "Boolean");
 				
 				return new Value (op_t.function_name + " " + right.contents, op_t.return_type);
 			} else if (op_t.mtype == Signature.Type.FUNCTION) {
@@ -609,7 +608,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 							
 				// special case if the return is boolean and needs to be wrapped in a CRML boolean
 				if (op_t.return_type.equals("Boolean"))
-					return new Value ("CRML.ETL.Types.cvBooleanToBoolean4(" + op_t.function_name + " " + left.contents + ")", "Boolean");
+					return new Value ("CRMLtoModelica.functions.cvBooleanToBoolean4(" + op_t.function_name + " " + left.contents + ")", "Boolean");
 				
 				return new Value (op_t.function_name + " " + left.contents, op_t.return_type, op_t.is_return_set);
 			} else if (op_t.mtype == Signature.Type.FUNCTION) {
@@ -639,7 +638,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				
 				// special case if the return is boolean and needs to be wrapped in a CRML boolean
 				if (op_t.return_type.equals("Boolean"))
-					return new Value ("CRML.ETL.Types.cvBooleanToBoolean4(" + left.contents + " " + op + " " + right.contents + ")", "Boolean");
+					return new Value ("CRMLtoModelica.functions.cvBooleanToBoolean4(" + left.contents + " " + op + " " + right.contents + ")", "Boolean");
 				
 				return new Value (left.contents + " " + op_t.function_name + " " + right.contents, op_t.return_type, op_t.is_return_set);
 			} else if (op_t.mtype == Signature.Type.FUNCTION) {
@@ -721,10 +720,10 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			bool_val = ctx.getText();
 
 			switch(bool_val) {
-			  case "true":			return new Value ("CRML.ETL.Types.Boolean4.true4", "Boolean");
-			  case "false":			return new Value ("CRML.ETL.Types.Boolean4.false4", "Boolean");
-			  case "undecided": 	return new Value ("CRML.ETL.Types.Boolean4.undecided", "Boolean");
-			  case "undefined":		return new Value ("CRML.ETL.Types.Boolean4.undefined", "Boolean");
+			  case "true":			return new Value ("CRMLtoModelica.Types.Boolean4.true4", "Boolean");
+			  case "false":			return new Value ("CRMLtoModelica.Types.Boolean4.false4", "Boolean");
+			  case "undecided": 	return new Value ("CRMLtoModelica.Types.Boolean4.undecided", "Boolean");
+			  case "undefined":		return new Value ("CRMLtoModelica.Types.Boolean4.undefined", "Boolean");
 			  default:
 				  logger.error("Not a valid value for a boolean");
 			throw new ParseCancellationException("Not a valid value for a boolean " + ctx.getText() + '\n');
