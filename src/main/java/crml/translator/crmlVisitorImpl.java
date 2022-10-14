@@ -133,7 +133,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			if(ctx.static_qualifier().getText().contentEquals("parameter"))
 				var_prefix = "parameter ";
 			else
-				var_prefix = "external ";
+				var_prefix = "";
 			
 			if (ctx.type() != null) {
 				// convert the type if it is a built in
@@ -563,7 +563,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				
 			localFunctionCalls.append(res);
 			counter++;
-			return new Value ("name.out", sign.return_type);
+			return new Value (name+ ".out", sign.return_type);
 		
 		}
 		
@@ -646,13 +646,32 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				return new Value (op_t.function_name +"(" + right.contents + ", " + left.contents + ")", op_t.return_type, op_t.is_return_set);
 				
 			} else if (op_t.mtype == Signature.Type.SET_OP) { // generate a set operator
-				if (left.isSet && right.isSet) {
-					
-				}
+				
+				
 				
 				String block_name = op_t.function_name + "int" + counter;
 				String block_type = op_t.function_name + counter++;
 				StringBuffer set_block = new StringBuffer("model " + block_type + "\n ") ;
+				StringBuffer for_loops = new StringBuffer("") ;
+				StringBuffer for_loop_exp = new StringBuffer("") ;
+				
+				Signature singular_op = OperatorMapping.is_defined(operators_map, op, left.type, right.type, false, false);
+				if (singular_op== null) 
+					throw new ParseCancellationException("Cannot apply operator to set elements : " + op + " on " + left.type + " and " + right.type +'\n');
+				
+				if (left.isSet && right.isSet) {
+					
+					
+				}else if (left.isSet) {
+					
+					for (int i=0; i< left.setPath.size()-1; i++) {
+						for_loops.append("for i" +i+ " in " + left.setPath + "loop");
+						//for_loop_exp.append(left.setPath[i] + "[i"+i+"]");
+					}
+				}
+				else {
+					
+				}
 				
 				set_block.append("end " + block_type + ";\n");
 				
