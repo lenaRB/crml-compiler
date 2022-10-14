@@ -33,7 +33,41 @@ package CRMLtoModelica
           textString="")}));
   end Types;
   
-  package functions
+  package Functions
+  
+  function or4 "Boolean4 or operator"
+    import CRML.ETL.Types.Boolean4;
+  
+    input Boolean4 x1;
+    input Boolean4 x2;
+    output Boolean4 y;
+  
+  algorithm
+    y := not4(and4(not4(x1), not4(x2)));
+  end or4;
+  
+  function not4 "Boolean4 not operator"
+    import CRML.ETL.Types.Boolean4;
+  
+    input Boolean4 x;
+    output Boolean4 y;
+  
+  algorithm
+    y := TruthTables.not4[Integer(x)];
+  end not4;
+  
+  
+  function and4 "Boolean4 and operator"
+    import CRML.ETL.Types.Boolean4;
+  
+    input Boolean4 x1;
+    input Boolean4 x2;
+    output Boolean4 y;
+  
+  algorithm
+    y := TruthTables.and4[Integer(x1), Integer(x2)];
+  end and4;
+  
   
   function cvBooleanToBoolean4 "Conversion from Boolean to Boolean4"
   import CRML.ETL.Types.Boolean4;
@@ -200,7 +234,12 @@ package CRMLtoModelica
             extent={{-100,-100},{100,100}},
             radius=25.0)}));
   
-  end functions;
+  end Functions;
+  
+  package Blocks
+  
+  
+  end Blocks;
   
   
 end CRMLtoModelica;

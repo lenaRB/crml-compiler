@@ -59,7 +59,7 @@ public class OperatorMapping {
 						new Signature("+", real2, "Real", Type.OPERATOR),
 						new Signature(" ", real1, "Real", Type.OPERATOR),
 						new Signature("+", string2, "String", Type.OPERATOR),
-						new Signature("CRML.ETL.Evaluator.TemporalOperators.add4", bool2, params, "Boolean", Type.FUNCTION));
+						new Signature("CRMLtoModelica.Functions.add4", bool2, params, "Boolean", Type.FUNCTION));
 		
 		
 		
@@ -71,7 +71,7 @@ public class OperatorMapping {
 								new Signature("-", int1, "Integer", Type.OPERATOR),
 								new Signature("-", real1, "Real", Type.OPERATOR),
 								new Signature("-", real2, "Real", Type.OPERATOR),
-								new Signature("CRML.ETL.Evaluator.TemporalOperators.diff4", bool2, params, "Boolean", Type.FUNCTION));
+								new Signature("CRMLtoModelica.Functions.diff4", bool2, params, "Boolean", Type.FUNCTION));
 						
 		built_in_operators.put("-", minus_sigs);
 		
@@ -79,7 +79,7 @@ public class OperatorMapping {
 		List<Signature> mult_sigs = 
 				Arrays.asList(new Signature("*", int2, "Integer", Type.OPERATOR),
 						new Signature("*", real2, "Real", Type.OPERATOR),
-						new Signature("CRML.ETL.Evaluator.TemporalOperators.mul2x4", bool2, params, "Boolean", Type.FUNCTION));
+						new Signature("CRMLtoModelica.Functions.mul2x4", bool2, params, "Boolean", Type.FUNCTION));
 				
 		built_in_operators.put("*", mult_sigs);
 		
@@ -96,8 +96,8 @@ public class OperatorMapping {
 						new Signature("<=", real2, "Boolean", Type.OPERATOR),
 						new Signature("<=", intreal, "Boolean", Type.OPERATOR),
 						new Signature("<=", realint, "Boolean", Type.OPERATOR),
-						new Signature("CRML.realPeriodleq", realPeriod, params, "Boolean", Type.BLOCK),
-						new Signature("CRML.Blocks.Logical4.leq", bool2, params, "Boolean", Type.BLOCK));
+						new Signature("CRMLtoModelica.realPeriodleq", realPeriod, params, "Boolean", Type.BLOCK),
+						new Signature("CRMLtoModelica.Blocks.Logical4.leq", bool2, params, "Boolean", Type.BLOCK));
 		
 		built_in_operators.put("<=", leq_sigs);
 		
@@ -108,8 +108,8 @@ public class OperatorMapping {
 								new Signature("<", intreal, "Boolean", Type.OPERATOR),
 								new Signature("<", realint, "Boolean", Type.OPERATOR),
 								new Signature("leqArray", realint, params, "Boolean", Type.SET_OP, setOnvar, true),
-								new Signature("CRML.realPeriodleq", realPeriod, params, "Boolean", Type.BLOCK),
-								new Signature("CRML.Blocks.Logical4.leq", bool2, params, "Boolean", Type.BLOCK));
+								new Signature("CRMLtoModelica.realPeriodleq", realPeriod, params, "Boolean", Type.BLOCK),
+								new Signature("CRMLtoModelica.Blocks.Logical4.leq", bool2, params, "Boolean", Type.BLOCK));
 				
 				built_in_operators.put("<", le_sigs);
 		
@@ -119,7 +119,7 @@ public class OperatorMapping {
 								new Signature(">=", real2, "Boolean", Type.OPERATOR),
 								new Signature(">=", intreal, "Boolean", Type.OPERATOR),
 								new Signature(">=", realint, "Boolean", Type.OPERATOR),
-								new Signature("CRML.Blocks.Logical4.geq", bool2, params, "Boolean", Type.FUNCTION));
+								new Signature("CRMLtoModelica.Blocks.Logical4.geq", bool2, params, "Boolean", Type.FUNCTION));
 				
 				built_in_operators.put(">=", geq_sigs);
 				
@@ -129,37 +129,37 @@ public class OperatorMapping {
 								new Signature(">", real2, "Boolean", Type.OPERATOR),
 								new Signature(">", intreal, "Boolean", Type.OPERATOR),
 								new Signature(">", realint, "Boolean", Type.OPERATOR),
-								new Signature("CRML.Blocks.Logical4.geq", bool2, params, "Boolean", Type.FUNCTION));
+								new Signature("CRMLtoModelica.Functions.geq", bool2, params, "Boolean", Type.FUNCTION));
 				
 				built_in_operators.put(">", gr_sigs);
 
 		
 		// and operators	
 		List<Signature> and_sigs = 
-						Arrays.asList(new Signature("CRML.Blocks.Logical4.and4", bool2, params, "Boolean", Type.FUNCTION),
+						Arrays.asList(new Signature("CRMLtoModelica.Functions.and4", bool2, params, "Boolean", Type.FUNCTION),
 								new Signature("arrayAnd", bool1, params, "Boolean", Type.SET_OP, setUnary, false));
 		built_in_operators.put("and", and_sigs);
 		
 		// not operators		
 		List<Signature> not_sigs = 
-				Arrays.asList(new Signature("CRML.Blocks.Logical4.not4", bool1, params, "Boolean", Type.FUNCTION),
+				Arrays.asList(new Signature("CRMLtoModelica.Functions.not4", bool1, params, "Boolean", Type.FUNCTION),
 						new Signature("arrayNot", bool1, params, "Boolean", Type.SET_OP, setUnary, false));
 		built_in_operators.put("not", not_sigs);
 		
 		
 		// end operators	TODO proper implementation	
 				built_in_operators.put("end", 
-						Arrays.asList(new Signature("CRML.endP", Arrays.asList("Period"), params, "Real", Type.BLOCK)));
+						Arrays.asList(new Signature("CRMLtoModelica.endP", Arrays.asList("Period"), params, "Real", Type.BLOCK)));
 				built_in_operators.put("start", 
-						Arrays.asList(new Signature("CRML.startP", Arrays.asList("Period"), params, "Real", Type.BLOCK)));
+						Arrays.asList(new Signature("CRMLtoModelica.startP", Arrays.asList("Period"), params, "Real", Type.BLOCK)));
 		
 		// filter operator
 				built_in_operators.put("filter", 
-						Arrays.asList(new Signature("CRML.filterC", Arrays.asList("Clock", "Boolean"), params, "Clock", Type.BLOCK)));
+						Arrays.asList(new Signature("CRMLtoModelica.CRML.filterC", Arrays.asList("Clock", "Boolean"), params, "Clock", Type.BLOCK)));
 		
 		// card operator
 				built_in_operators.put("card", 
-						Arrays.asList(new Signature("CRML.cardClock", Arrays.asList("Clock"), params, "Integer", Type.BLOCK)));
+						Arrays.asList(new Signature("CRMLtoModelica.cardClock", Arrays.asList("Clock"), params, "Integer", Type.BLOCK)));
 		
 		// CONSTRUCTORS TODO finalize constructor table
 				
