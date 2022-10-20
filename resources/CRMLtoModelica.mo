@@ -7,7 +7,7 @@ package CRMLtoModelica
   Boolean e(start = false);
   
   algorithm
-    e := (clock.b == CRML.ETL.Types.Boolean4.true4);
+    e := (clock.b == CRMLtoModelica.Types.Boolean4.true4);
     when (e) then
       clock.ticks[clock.counter] := time;
       clock.counter := pre(clock.counter)+1;
@@ -16,7 +16,7 @@ package CRMLtoModelica
   end CRMLClock_build;
     record CRMLClock
     parameter Integer buffer_size=50;
-    CRML.ETL.Types.Boolean4 b;
+    CRMLtoModelica.Types.Boolean4 b;
     Real ticks[buffer_size](each start = -1, each fixed = true);
     discrete Integer counter(start=1, fixed=true);
   end CRMLClock;
@@ -47,7 +47,7 @@ package CRMLtoModelica
   end or4;
   
   function not4 "Boolean4 not operator"
-    import CRML.ETL.Types.Boolean4;
+    import CRMLtoModelica.Types.Boolean4;
   
     input Boolean4 x;
     output Boolean4 y;

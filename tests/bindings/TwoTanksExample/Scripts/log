@@ -1,3 +1,0 @@
-Absyn.PROGRAM([
-Absyn.CLASS("InheritedFullyQualifiedName", false, false, false, Absyn.R_MODEL, Absyn.PARTS([Absyn.PUBLIC([Absyn.ELEMENTITEM(Absyn.ELEMENT(false, _, Absyn.NOT_INNER_OUTER , Absyn.EXTENDS(Absyn.QUALIFIED("P2",Absyn.QUALIFIED("P",Absyn.IDENT("M"))), []), SOURCEINFO("<interactive>", false, 2, 3, 2, 17)),NONE()))])], NONE()), SOURCEINFO("<interactive>", false, 1, 1, 3, 32))
-],Absyn.TOP)

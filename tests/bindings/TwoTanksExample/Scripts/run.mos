@@ -1,8 +1,0 @@
-// script to test updating of bindings for a specific scenario
-
-loadFile("../package.mo");
-getErrorString();
-inferBindings(TwoTanksExample.UserDefinedVerificationModels.UDVModel1);
-getErrorString();
-list(test.TestModel);
-getErrorString();
