@@ -1,4 +1,4 @@
-model Bool1 is {
+model BooleanPrimitives is {
 
 // Boolean definition with predefined values
 Boolean b0 is true;
