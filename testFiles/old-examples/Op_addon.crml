@@ -1,8 +1,0 @@
-//Library Op_addon
-model Op_addon
-	Operator [ Requirements ] _for _all Requirements R = and R;
-
-	Operator [Boolean ] _stop _simulation _when Requirement R _becomes _violated = when ((evaluate R) == false)then terminate;
-
-	Boolean b is _stop _simulation _when R1 _becomes _violated;
-end Op_addon;

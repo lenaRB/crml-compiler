@@ -1,8 +1,0 @@
-model AtEvent is {
-Real x1 is 3.0;
-Clock c is new Clock true;
-
-//Real x2 is x1 at (not c) ;
-//Real x3 is x1 at c ;
-
-};
