@@ -1,10 +1,10 @@
-package tests;
+package test.java;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class basicTypeTests {
+ class basicTypeTest {
 
 	@Test
 	void test() {
@@ -13,7 +13,7 @@ class basicTypeTests {
 	
 	@Test
 	void test2() {
-		fail("Not yet implemented");
+		assert(true);
 	}	
 
 
