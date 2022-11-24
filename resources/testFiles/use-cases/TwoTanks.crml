@@ -1,0 +1,21 @@
+model TwoTanks is {
+
+		class TankModel is {
+		external Real waterLevel  ;
+		external Real tankVolume ;
+
+		Boolean R3 is waterLevel < (0.8 * tankVolume);
+		};
+
+		class System is {
+			external TankModel {} t; // there will be 2 tanks here in the example
+		};
+
+		System S;
+
+		Boolean R2 is and (S.t.tankVolume < 2);
+
+		//Boolean R1 is and S.t.R3;
+
+
+};

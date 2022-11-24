@@ -1,0 +1,273 @@
+// Flat property model for the cooling system. Translated into CRML from the FORM-L model.
+model Cooling_system_flattened_simple is {
+
+  ///////////////////////////////////////
+  // Definition of system architecture
+  ///////////////////////////////////////
+
+  // Definition of class Environment
+  class Environment is {
+    external Boolean plantIsOperating;
+  };
+
+  Environment env is Environment ();
+
+  // Definition of class Served_system
+  class Served_system is {
+    Environment env is Cooling_system_flattened_simple.env;			// Environment
+	Cooling_system sri is Cooling_system_flattened_simple.sri;		// SRI is the cooling system
+    constant Real powerMax;
+    constant Real tMax;
+    constant Real tRWMin; 		// Minimum temperature of refreshed water sent to served_system (in �C unit)
+    constant Real flowMax;
+    constant Real tdelay; 		// Operation after shutdown
+    external Boolean open; 		// State of served_system's valve
+    external Real temp; 		// Internal temperature of the served_system
+    external Real water_flow; 	// Water flow rate through served_system's heat exchanger
+
+    // Original requirement c11 = check tMax isIn [50.*C, 80.*C];
+    // Remark: It is a case where "always" may have a sense since tMax is a fixed Real.
+    Boolean served_system_1 is
+  	  during env.plantIsOperating ensure ((tMax >= 50) and (tMax <= 80));
+
+   // Original assumption cl2 = check temp < tMax;
+   Boolean served_system_2 is
+ 	  during env.plantIsOperating ensure temp <= tMax;
+
+    // Original requirement cl3 = check flowMax > 0;
+    Boolean served_system_3 is
+ 	  during env.plantIsOperating ensure flowMax > 0;
+
+    // Original requirement cl4 = check water_flow isIn [0., flowMax];
+    Boolean served_system_4 is
+	  during env.plantIsOperating ensure water_flow >= 0 and water_flow <= flowMax;
+
+    // Original requirement cl5 = check tRWMin isIn [7.*C, 15.*C];
+    Boolean served_system_5 is
+	  during env.plantIsOperating ensure tRWMin >= 7 and tRWMin <= 15;
+
+    // Original requirement cl8 = check tdelay isIn [0., 20.*mn];
+    Boolean served_system_6 is
+	  during env.plantIsOperating ensure tdelay >= 0 and tdelay <= 20;
+
+    // Requirements associated to the cooling contract between each served_system and the sri
+    // Original requirement cl6 = during tRW < (tRWMin-0.1*C) check not open;
+    Boolean cool_served_system_1 is
+	  during sri.tRW <= (tRWMin - 0.1) ensure not open;
+
+    // Original requirement cl7 = during tRW > tRWMin check open;
+    Boolean cool_served_system_2 is
+ 	  during sri.tRW >= tRWMin ensure open;
+  };
+
+  Served_system served_system1 is Served_system (
+    powerMax is 20.0, 			// in kW unit
+    tMax is 65.0, 				// in �C unit
+    tRWMin is 15.0, 			// in �C unit
+    flowMax is 100.0,			// in l/mn unit
+    tdelay is 0 				// in mn unit
+  );
+
+  Served_system served_system2 is Served_system (
+    powerMax is 25.0, 			// in kW unit
+    tMax is 65.0,				// in �C unit
+    tRWMin is 15.0, 			// in �C unit
+    flowMax is 130.0, 			// iCooling_system_flattened_simplen l/mn unit
+    tdelay is 20 				// in mn unit
+  );
+
+  Served_system served_system3 is Served_system (
+     powerMax is 40.0; 			// in kW unit
+    tMax is 55.0; 				// in �C unit
+    tRWMin is 7.0; 				// in �C unit
+    flowMax is 200.0; 			// in l/mn unit
+    tdelay is 20; 				// in mn unit
+  );
+
+  Served_system {} all_served_systems is { served_system1, served_system2, served_system3 };
+
+  Boolean all_served_systems_1 is and all_served_systems.served_system_1;
+  Boolean all_served_systems_2 is and all_served_systems.served_system_2;
+  Boolean all_served_systems_3 is and all_served_systems.served_system_3;
+  Boolean all_served_systems_4 is and all_served_systems.served_system_4;
+  Boolean all_served_systems_5 is and all_served_systems.served_system_5;
+  Boolean all_served_systems_6 is and all_served_systems.served_system_6;
+  Boolean all_cool_served_systems_1 is and all_served_systems.cool_served_system_1;
+  Boolean all_cool_served_systems_2 is and all_served_systems.cool_served_system_2;
+
+  Boolean all_served_systems_n = and { all_served_systems_1, all_served_systems_2, all_served_systems_3, all_served_systems_4,
+                                       all_served_systems_5, all_served_systems_6,
+									   all_cool_served_systems_1, all_cool_served_systems_2 };
+
+  // Definition of class op
+  class Op is {
+	external Boolean ePlantStartUp;
+	external Boolean ePlantShutDown;
+  };
+
+  Op op is Op();
+
+  // Definition of class coldSource
+  class ColdSource is {
+    constant Real tCWMax; 		// Maximum temperature of cold water (in �C unit)
+    constant Real deltaTMax; 	// Maximum temperature increase of cold water (in �C unit)
+	external Real tCW; 			// Temperature of cold water
+	external Real pCW; 			// Pressure of the cold water circuit
+  };
+
+  ColdSource sen is  ColdSource (
+	tCWMax is 27.2; 			// in �C unit
+	deltaTMax is 5	 			// in �C unit
+  );
+
+  // Definition of class demineralisedSource
+  class DemineralisedSource is {
+    external Real dWFlow; 		// Mass flow rate of the demineralised water circuit
+	external Real pDW; 			// Pressure of the demineralised water circuit
+  };
+
+  DemineralisedSource sed is DemineralisedSource ();
+
+  // Definition of class Cooling_system
+  class Cooling_system is {
+    DemineralisedSource sed is Cooling_system_flattened_simple.sed; 	// Demineralized water system
+    ColdSource sen is Cooling_system_flattened_simple.sen; 				// Cold source
+    external Real tWW; 			// Temperature of warmed water back to cold source
+	external Real dWDemand; 	// Flow of demineralised water requested by cooling_system
+	fixed Real dWFlowMax; 		// Maximum possible request of demineralised water by cooling_system
+
+	// Removed and declared as external
+	//	automaton state = (stopped, startupCold, startupWarm, normalOp, stopping)
+	//	start = stopped;
+	//	when stopped and ePlantStartUp and (tRW < 7.*C or not ready) then startupCold;
+		//when stopped and ePlantStartUp and tRW isIn [7.*C, 15.*C] and ready then startupWarm;
+		//when stopped and ePlantStartUp and tRW > 15.*C and ready then normalOp;
+		//when startupCold and ePlantShutDown then stopped;
+		//when startupCold and tRW > 7.*C and ready then startupWarm;
+		//when startupWarm and ePlantShutDown then stopping;
+		//when startupWarm and tRW > 15.*C then normalOp;
+		//when normalOp and ePlantShutDown then stopping;
+		//when stopping becomes true + 20.*mn then stopped;
+	//end state;
+
+	//	Alternative 1: Use of enumeration type
+	//	type State
+	//	  Enumeration is [stopped, startupCold, startupWarm, normalOp, stopping];
+	//	end State;
+
+	// external State state;
+
+	// Alternative 2: Use of Booleans to define sri state
+	external Boolean state_stopped;
+	external Boolean state_startupCold;
+	external Boolean state_startupWarm;
+	external Boolean state_normalOp;
+	external Boolean state_stopping;
+
+	// Removed and declared as external --> It is part of binding, in practice should be declared elsewhere
+	// Boolean ready = pDW > (pCW + 0.25*b);
+	external Boolean ready;
+
+    // Original requirement cl9 = during startupWarm or normalOp or stopping check tRW > 15.*C;
+    Boolean sri_1 is
+      during state_startupWarm or state_normalOp or state_stopping ensure tRW > 15;
+
+    // Requirements associated to contract between the coldSource sen and sri
+    // Original assumption sen1 =
+    //  during not (stopped or stopping) check tCW isIn [0.*C, tCWMax];
+    Boolean coldW_sri_1 is
+      during not (state_stopped or state_stopping)
+	  ensure sen.tCW >= 0 and sen.tCW <= sen.tCWMax;
+
+    // Original requirement sen2 =
+    //  during not (stopped or stopping) check tWW < (tCW + deltaTMax);
+    Boolean coldW_sri_2 is
+      during not (state_stopped or state_stopping)
+	  ensure tWW < (sen.tCW + sen.deltaTMax);
+
+    // Original requirement sen3 =
+    //  during startupWarm or normalOp or stopping check pDW > (pCW + 0.25*b);
+    Boolean coldW_sri_3 is
+      during state_startupWarm or state_normalOp or state_stopping
+	  ensure sed.pDW > (sen.pCW + 0.25); // To be discussed: Case of a tri-partite contract...
+
+    // Requirements associated to the contract between the demineralisedSource sed and the sri
+    // Original requirement sed1 =
+    //  during dWDemand <= dWFlowMax check dWFlow = dWDemand;
+    constant Real tolerance is 0.1; // A tolerance as been added since these are Reals
+    Boolean deminW_sed_1 is
+      during dWDemand <= dWFlowMax
+	  ensure sed.dWFlow >= (dWDemand - tolerance) and sed.dWFlow <= (dWDemand + tolerance);
+
+    // Original requirement sed2 =
+    //  during dWDemand > dWFlowMax check dWFlow = dWFlowMax;
+    Boolean deminW_sed_2 is
+	  during dWDemand > dWFlowMax
+	  ensure sed.dWFlow >= (dWFlowMax - tolerance) and sed.dWFlow <= (dWFlowMax + tolerance); // To be discussed: is it possible to define expr in requirement definition?
+
+    // Original requirement sed2 = dWDemand isIn [0.*l/s, dWFlowMax];
+    Boolean deminW_sri_1 is
+      during state_startupWarm or state_startupCold or state_normalOp or state_stopping
+	  ensure dWDemand >= 0 and dWDemand <= dWFlowMax;
+
+    // Original requirement startup1 =
+    //   after startupCold becomes true within 1.*h
+    //   check (startupWarm or normalOp or stopping or stopped) becomes true;
+    Clock e_sri_req_state_after_startupCold is Clock(state_startupWarm or state_normalOp or state_stopped);
+    Boolean sri_startup1 is
+      after state_startupCold becomes true for 1 // To be discussed: "within" has been replaced by "for" due to current restricted compiler scope
+	  ensure count e_sri_req_state_after_startupCold == 1;
+
+    // Original requirement startup2 =
+    //   after startupWarm becomes true within 30*mn
+    //   check (normalOp or stopping or stopped) becomes true;
+    Clock e_sri_req_state_after_startupWarm is Clock(state_normalOp or state_stopping or state_stopped);
+    Boolean sri_startup2 is
+      after state_startupWarm becomes true for 30 // To be discussed: "within" has been replaced by "for" due to current restricted compiler scope
+	  ensure count e_sri_req_state_after_startupWarm == 1;
+  };
+
+  Cooling_system sri is Cooling_system (
+    tRW is sri_tRW;
+	tWW is sri_tWW;
+	dWDemand is sri_dWDemand;
+	dWFlowMax is 400;
+	state_stopped is sri_state_stopped;
+	state_startupCold is sri_state_startupCold;
+	state_startupWarm is sri_state_startupWarm;
+	state_normalOp is sri_state_normalOp;
+	state_stopping is sri_state_stopping;
+	ready is sri_ready;
+  );
+
+  class ActiveComponent is {
+	Cooling_system sri is Cooling_system_flattened_simple.sri;		// SRI is the cooling system
+	external Boolean isOn;
+
+    // Original requirement stopping1 =
+    //   during stopping
+    //   forAll c in aComponents
+    //     check not c.on;
+    Boolean sri_stopping1 is
+	  during sri.state_stopping ensure not isOn;
+ };
+
+  ActiveComponent active_component1 is ActiveComponent ();
+  ActiveComponent active_component2 is ActiveComponent ();
+  ActiveComponent active_component3 is ActiveComponent ();
+
+  ActiveComponent {} all_active_components is { active_component1, active_component2, active_component3 };
+
+  Boolean all_sri_stopping1 is and all_active_components.sri_stopping1;
+};
+
+// Model Global provides global diagnostics on the satisfaction of requirements in model Cooling_system_flattened_simple
+model Global is {
+
+  // Conjunction of all requirements in model Cooling_system_flattened_simple
+  Boolean global is and flatten filter Cooling_system_flattened_simple (type element == Boolean);
+
+  // Conjunction of all requirements on Served_system
+  Boolean global is and flatten filter (flatten filter Cooling_system_flattened_simple (type element == Served_system))
+								       (type element == Boolean);
+};

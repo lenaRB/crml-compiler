@@ -1,0 +1,70 @@
+model Object_set
+
+	// Object definition
+	// in the most simple way
+	Operator [Real] alias f c = c*time;
+
+	class Component
+		external Boolean isOperating;
+		external Real temp;
+		fixed Real tempMax is 20; // To be discussed: difference between "fixed" and "parameter"
+		parameter Real length is 100;
+		private	// To be discussed: This corresponds to "protected" in Modelica
+			Real c is 17;
+			self.temp is f(c);
+	end Component;
+
+	Component Comp1(tempMax=23);
+	Component Comp2;
+	Component Comp3;
+
+	// Definition of set of objects
+	// (i.e. each object being of the same type)
+	external Set all_Components of Component ;
+	all_Components is {Comp1,Comp2,Comp3};
+
+	// Operator on set of objects
+	Operator [ Requirement ] req_on_temp Component c =
+			during c.isOperating
+			ensure c.temp <= c.tempMax;
+
+	and req_on_temp all_Components;
+
+
+	// Object definition
+	// in a more complex way
+	// with the use of inheritance
+	class Component_basic
+		external Boolean isOperating;
+	end Component_basic;
+
+	class Component_of_type1
+		extends Component_basic;
+		external Real temp;
+		external Real tempMax;
+
+		Operator [ Requirement ] req_1 self =
+			during self.b
+			ensure self.temp <= self.tempMax;
+	end Component_of_type1;
+
+	class Component_of_type2
+		extends Component_basic;
+		external Real flow;
+
+		Operator [ Requirement ] req_1 self =
+			during self.b
+			ensure self.flow >= 0;
+	end Component_of_type2;
+
+	// Definition of set of objects
+	// (i.e. each object possibly being of different type)
+	Component_of_type1 c1;
+	Component_of_type2 c2;
+	Component_of_type2 c3;
+	Set all_different_Components of any_type := {c1, c2, c3};
+
+	// Operator on set of objects
+	and c.req_1 all_different_Components;
+
+end Class_set;

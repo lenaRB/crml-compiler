@@ -1,0 +1,9 @@
+model Evt1 is {
+
+// Temporal operators
+	//Event E2 is E proj C;	// Projection
+	//Event E3 is (E proj (D) C);	// Projection
+	//Event E4 is E + D;	// Delay
+	//Event E5 is E proj C + N;	// Delay
+
+};

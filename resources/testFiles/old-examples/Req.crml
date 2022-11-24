@@ -1,0 +1,19 @@
+model Req
+	external Boolean B;
+	external Periods P;
+
+	// Requirement definition
+	external Requirement R1;
+	external Requirement R2;
+
+	// Constructor
+	Requirement R is B on P; // trim b on P?
+
+	// Logical operators
+	Boolean B2 is R1 and R2;	// Conjunction
+	Boolean B3 is not R1;	// Negation
+
+	// Temporal operators
+	Periods P1 is R1;
+
+end Req;

@@ -1,0 +1,16 @@
+model Clas
+	external class c1; // To be discussed: does it have sense to have "external Class"?
+
+	// Constructor
+	class c { // do we need is?
+		parameter Real P1;
+		parameter Real P2;
+		parameter Integer N;
+		external Real X;
+		Real A;	// To be discussed: how to assign a value/definition to a?
+	};
+
+	// Operators
+	class c1 extends c;
+
+end Clas;

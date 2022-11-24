@@ -1,0 +1,33 @@
+model Evt
+	external Boolean B;
+	external Clock C;
+	external Real D;
+	external Integer N;
+
+	// Event definition
+	external Event E;
+
+	// Constructor
+	Event E1 is B;	// To be discussed
+	// Event E1 is event B;
+
+	// Temporal operators
+	Event E2 is E proj C;	// Projection
+	Event E3 is (E proj (D) C);	// Projection
+	Event E4 is E + D;	// Delay
+	Event E5 is E proj C + N;	// Delay
+
+	Real D1 is E2 - E3;	//Elapsed time
+
+	Integer N1 is (E1 proj C) - (E2 proj C);	//Elapsed time
+
+	Boolean B1 is (E1 <= E2); // Before
+	Boolean B2 is (E1 >= E2); // After
+	Boolean B3 is (E1 < E2);	// Strictly before
+	Boolean B4 is (E1 > E2);	// Strictly after
+	Boolean B5 is ((B1 == B2) at E);	// Equality
+
+	// Logical operators
+	Clock C1 is E1 or E2;	// Union
+
+end Evt;

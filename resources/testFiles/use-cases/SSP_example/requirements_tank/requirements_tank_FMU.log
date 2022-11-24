@@ -1,0 +1,3 @@
+rm -f requirements_tank.fmutmp/sources/requirements_tank_init.xml
+cp -a "/Users/olero90/OpenModelica/build/share/omc/runtime/c/fmi/buildproject/"* requirements_tank.fmutmp/sources
+cp -a requirements_tank_FMU.libs requirements_tank.fmutmp/sources/

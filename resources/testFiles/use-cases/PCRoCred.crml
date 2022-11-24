@@ -1,0 +1,8 @@
+model PCToCred is {
+  external  Real RPE_metric;
+  parameter Real thresholdCL1;
+  parameter Real thresholdCL2;
+
+  Real credibility_level is if (RPE_metric > thresholdCL1) then 3
+    else if (RPE_metric > thresholdCL2) then 2 else 1;
+};

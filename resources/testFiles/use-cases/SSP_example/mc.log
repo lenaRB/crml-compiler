@@ -1,0 +1,5 @@
+Fri Jul 01 14:27:37 2022 | info:    Initializing logging (OMSimulator v2.1.1.post156-g47fd5e0-mac-notlm)
+Fri Jul 01 14:27:38 2022 | error:   [fmiLogger] module FMILIB: Could not change to the DLL directory /Users/olero90/eclipse-workspace/crml-compiler/SSP_example/SRI-80oa66qd/temp/0001_system/binaries/darwin64/
+Fri Jul 01 14:27:38 2022 | error:   [fmiLogger] module FMILIB: The FMU contains no binary for this platform.
+Fri Jul 01 14:27:38 2022 | error:   [instantiate] Could not load "resources/0001_system.fmu" which is associated with "SRI.root.system"; it may be corrupted or may not support your platform
+Fri Jul 01 14:27:38 2022 | info:    Logging completed properly

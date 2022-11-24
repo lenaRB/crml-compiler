@@ -1,0 +1,8 @@
+model RealOperators is {
+external Real x1, x2;
+Real x3 is x1 + x2;
+Real x4 is x1 - x2;
+Real x5 is + x1;
+Real x6 is x1 * x2;
+Real x7 is x1 / x2;
+};
