@@ -22,3 +22,9 @@ jobs:
       with:
         name: crml-compiler-all.jar
         path: ${{github.workspace}}/build/libs/crml-compiler-all.jar
+        
+    - name: publish the test report
+      uses: mikepenz/action-junit-report@v3
+      if: always() # always run even if the previous step fails
+      with:
+        report_paths: '**/build/test-results/test/TEST-*.xml'
