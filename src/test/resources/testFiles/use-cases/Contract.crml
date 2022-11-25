@@ -1,0 +1,45 @@
+model Interaction_ECS_Consumer is {
+          /* Abstract class for a system */
+          partial class System is {
+                  /* Boolean that states whether the system is in operation.
+                  The values of the Boolean can be provided by a behavioral model of the system via the FMI, or by the system itself via a sensor */
+                  Boolean inOperation is external;
+          };
+
+        /* Class that defines the ECS for the purpose of the contract between the ECS and the consumer */
+        class ECS is {
+        /* The time dependent values for deltaT from the ECS.
+               They are provided by a behavioral model of the ECS via the FMI, or by the ECS itself via sensors. */
+               TemperatureDifference deltaT is external;
+        } extends System;
+
+
+/* Class that defines the consumer for the purpose of the contract between the ECS and the consumer */
+class Consumer is {
+/* The time dependent values for deltaT from the consumer.
+    They are provided by a behavioral model of the consumer via the FMI, or by the consumer itself via sensors. */
+                               TemperatureDifference deltaT is external;
+} extends System;
+
+/* Class that defines the contract between the ECS and the consumer */
+class Contract is {
+      /* Instance of the ECS that cools the consumer */
+      ECS ecs;
+
+      /* Instance of the consumer cooled by the ECS */
+      Consumer consumer;
+
+                                /* Conditions to be verified by the contract to ensure the proper functioning of the complete system ECS + consumer  */
+                                Boolean r1 is while consumer.inOperation ensure (ecs.inOperation and ecs.deltaT <= consumer.deltaT);
+                               Boolean r2 is ….;
+};
+
+/* Create and instance of the ECS and an instance of the consumer */
+ECS ecs is new ECS;
+Consumer consumer is new Consumer;
+
+/* Create an instance of the contract between the ECS and the consumer.
+     Once the contract is created, the conditions of the contract are active.
+     The simulation must cover the time period while the consumer is in operation. */
+Contract contract is new Contract (ecs is ecs, consumer is consumer);
+};

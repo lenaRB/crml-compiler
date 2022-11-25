@@ -1,6 +1,4 @@
-package specificationTests;
-
-import nl.altindag.log.LogCaptor;
+package useCaseTests;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -18,9 +16,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import crml.translator.Main;
+import nl.altindag.log.LogCaptor;
 
- class specificationTests {
-	 
+public class useCaseTest {
+	
 	 static LogCaptor logCaptor;
 	 static String testFolder,  outputFolder;
 	 private static final Logger logger = LogManager.getLogger();
@@ -29,18 +28,11 @@ import crml.translator.Main;
 	    public static void setupLogCaptor() {
 	        logCaptor = LogCaptor.forClass(Main.class);
 	        
-	        testFolder = Thread.currentThread().getContextClassLoader().getResource("testFiles/specification").getPath(); 
+	        testFolder = Thread.currentThread().getContextClassLoader().getResource("testFiles/use-cases").getPath();  
 	        
-	       outputFolder = new File("output").getAbsolutePath();
+	        outputFolder = new File("output").getAbsolutePath();
 	        
-	    }
-	 
-	 	@Test
-	 	@DisplayName("Check test suite is running")
-		void testDummy() {
-			
-	    	assert(true);
-		}	
+	    }	
 
 
 	    @AfterEach
@@ -53,11 +45,11 @@ import crml.translator.Main;
 	        logCaptor.close();
 	    } 
 
-	    @DisplayName("Testing primitive type translation")
+	    @DisplayName("Testing use-cases")
 	    @ParameterizedTest
-	    @ValueSource(strings = {"PrimitiveDataTypes/IntegerPrimitives.crml", 
-	    		"PrimitiveDataTypes/BooleanPrimitives.crml", 
-	    		"PrimitiveDataTypes/RealPrimitives.crml"})
+	    @ValueSource(strings = {"requirements_tank.crml", 
+	    		"TwoTanks.crml", 
+	    		"Contract.crml"})
 	    void testPrimitiveTypes(String fileName) {
 	    	try {
 	    		
@@ -68,7 +60,6 @@ import crml.translator.Main;
 			}
 	    	
 	}	
-	
 	
 
 }
