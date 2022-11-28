@@ -64,6 +64,7 @@ test {
 	 testLogging {
 		events "passed", "skipped", "failed"
 	}
+	test.ignoreFailures true
 }
 
 jar {

@@ -4,11 +4,6 @@ import nl.altindag.log.LogCaptor;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -22,23 +17,18 @@ import crml.translator.Main;
  class specificationTests {
 	 
 	 static LogCaptor logCaptor;
-	 static String testFolder,  outputFolder;
-	 private static final Logger logger = LogManager.getLogger();
+	 static String testFolderIn,  outputFolder;
 	 
 	 @BeforeAll
 	    public static void setupLogCaptor() {
 	        logCaptor = LogCaptor.forClass(Main.class);
 	        
-	        testFolder = Thread.currentThread().getContextClassLoader().getResource("testFiles/specification").getPath(); 
-	        
-	       outputFolder = new File("output").getAbsolutePath();
-	        
+	        testFolderIn = Thread.currentThread().getContextClassLoader().getResource("testFiles" + java.io.File.separator + "specification").getPath();        	    
 	    }
 	 
 	 	@Test
 	 	@DisplayName("Check test suite is running")
-		void testDummy() {
-			
+		void testDummy() {		
 	    	assert(true);
 		}	
 
@@ -61,10 +51,10 @@ import crml.translator.Main;
 	    void testPrimitiveTypes(String fileName) {
 	    	try {
 	    		
-				crml.translator.Main.parse_file(testFolder, fileName, outputFolder);
+				crml.translator.Main.parse_file(testFolderIn, fileName, "tmpCRML", true);
 				
-			} catch (IOException e) {
-				fail("Unable to translate " + fileName);
+	    	} catch (Exception e) {
+				fail("Unable to translate " + fileName + ":\n" + e.getMessage());
 			}
 	    	
 	}	
