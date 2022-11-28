@@ -16,3 +16,6 @@ antlr*log
 # Ignore gradle-dependencies
 gradle-dependencies
 /bin/
+
+#ignore generated directory
+tmpCRML/
