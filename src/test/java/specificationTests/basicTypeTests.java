@@ -1,6 +1,7 @@
 package specificationTests;
 
 import nl.altindag.log.LogCaptor;
+import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -23,7 +24,8 @@ import crml.translator.Main;
 	    public static void setupLogCaptor() {
 	        logCaptor = LogCaptor.forClass(Main.class);
 	        
-	        testFolderIn = Thread.currentThread().getContextClassLoader().getResource("testFiles" + java.io.File.separator + "specification").getPath();        	    
+	        testFolderIn = Thread.currentThread().getContextClassLoader().getResource("testFiles").getPath();
+				  testFolderIn = new File(testFolderIn).getAbsolutePath() + java.io.File.separator + "specification";
 	    }
 	 
 	 	@Test

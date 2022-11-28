@@ -63,54 +63,61 @@ public class Main {
   }
 
   public static void parse_file (String dir, String file, String gen_dir, Boolean testMode) throws IOException {
-   
-	File in_file = new File(dir + java.io.File.separator + file);  
-	
-	in_file.getParentFile().mkdirs();
-	
-	CharStream code = CharStreams.fromFileName(in_file.getAbsolutePath());
-	
-    crmlLexer lexer = new crmlLexer(code);
-    CommonTokenStream tokens = new CommonTokenStream( lexer );
-    crmlParser parser = new crmlParser( tokens );
-     
-    ParseTree tree = parser.definition();
-    
-    if (tree == null)
-    	logger.error("Unable to parse: " + file);
-       
-    crmlVisitorImpl visitor = new crmlVisitorImpl(parser);
-
+  
     try {
-    Value result = visitor.visit(tree);
+      String fullName = dir + java.io.File.separator + file;
+      File in_file = new File(fullName);
+      
+      in_file.getParentFile().mkdirs();
     
+      CharStream code = CharStreams.fromFileName(in_file.getAbsolutePath());
     
-    if(result != null) {  	
-    	
-    	File out_file = new File(gen_dir + java.io.File.separator +file.substring(0, file.lastIndexOf('.'))+ ".mo");  
-    	
-    	out_file.getParentFile().mkdirs();   	
-    	
-    	BufferedWriter writer = new BufferedWriter(new FileWriter(out_file));
-        writer.write(result.contents);
-        writer.close();
-        logger.trace("Translated: " + file);
+      crmlLexer lexer = new crmlLexer(code);
+      CommonTokenStream tokens = new CommonTokenStream( lexer );
+      crmlParser parser = new crmlParser( tokens );
+      
+      ParseTree tree = parser.definition();
+      
+      if (tree == null)
+        logger.error("Unable to parse: " + file);
+        
+      crmlVisitorImpl visitor = new crmlVisitorImpl(parser);
+
+      try {
+        Value result = visitor.visit(tree);
+      
+      
+        if (result != null) {  	
+        
+          File out_file = new File(gen_dir + java.io.File.separator +file.substring(0, file.lastIndexOf('.'))+ ".mo");  
+        
+          out_file.getParentFile().mkdirs();   	
+        
+          BufferedWriter writer = new BufferedWriter(new FileWriter(out_file));
+          writer.write(result.contents);
+          writer.close();
+          logger.trace("Translated: " + file);
+        }
+        else
+          logger.error("Unable to translate: " + file);
+      } catch (ParseCancellationException e) {
+        
+        logger.error("Translation error: "+ e, e);
+        logger.trace("The AST for the program: \n" + tree.toStringTree(parser));
+        if (testMode) throw e;
+      }
+      catch(Exception e) {
+        logger.error("Uncaught error: "+ e, e);
+        logger.trace("The AST for the program: \n" + tree.toStringTree(parser));
+        if (testMode) throw e;
+      }
     }
-    else
-    	logger.error("Unable to translate: " + file);
-    } catch (ParseCancellationException e) {
-    	
-    	logger.error("Translation error: "+ e, e);
-    	logger.trace("The AST for the program: \n" + tree.toStringTree(parser));
-    	if(testMode) throw e;
-    }
-    catch(Exception e) {
-    	logger.error("Uncaught error: "+ e, e);
-    	logger.trace("The AST for the program: \n" + tree.toStringTree(parser));
-    	if(testMode) throw e;
+    catch(Exception e)
+    {
+      logger.error("Uncaught error: "+ e, e);
+      if (testMode) throw e;
     }
 
   }
-  
-  
+
 }
