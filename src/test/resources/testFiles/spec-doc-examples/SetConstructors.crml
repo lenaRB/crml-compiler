@@ -1,0 +1,11 @@
+model SetConstructors is {
+	// Non-empty typed set 
+	Real e1 is external;
+	Real e2 is external;
+	Real en is external; 
+	[Real {} S1 is] { e1, e2, en };
+	// Empty typed set 
+	[Boolean {} S2 is] {}; 
+	// Special set 
+	model S3 is { e1, S2 };
+};

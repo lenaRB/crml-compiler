@@ -1,0 +1,11 @@
+model SetOperatorsExample3 is {
+	// Getting the values of same attribute for a set of objects.
+	class C is {
+		Real x;
+		Real y;
+	};
+
+	C {} S is { C O1(x is 1, y is 1), C O2(x is 2, y is 1), C O3(x is 3, y is 1) } ;
+	Real {} R is S.x;
+	// The value of R is { 1, 2, 3 }.
+};

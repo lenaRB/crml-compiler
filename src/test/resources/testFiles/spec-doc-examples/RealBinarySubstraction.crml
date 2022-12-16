@@ -1,0 +1,5 @@
+model RealBinarySubstraction is {
+	Real x1 is external;
+	Real x2 is external;
+	Real x_binary_substraction is x1 - x2;
+};

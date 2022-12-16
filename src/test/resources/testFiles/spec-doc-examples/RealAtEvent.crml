@@ -1,0 +1,5 @@
+model RealAtEvent is {
+	Real x1 is external;
+	Clock c1 is external;
+	Real x_at event is x1 at c1;
+};

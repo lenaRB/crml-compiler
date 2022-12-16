@@ -1,0 +1,4 @@
+model RealBase10Logarithm is {
+	Real x1 is external;
+	Real x_log10 is log10 x1;
+};

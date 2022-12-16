@@ -1,0 +1,4 @@
+model RealUnarySubstraction is {
+	Real x1 is external;
+	Real x_unary_substraction is -x1;
+};

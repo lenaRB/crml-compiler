@@ -1,0 +1,4 @@
+model RealCosine is {
+	Real x1 is external;
+	Real x_cos is cos x1;
+};

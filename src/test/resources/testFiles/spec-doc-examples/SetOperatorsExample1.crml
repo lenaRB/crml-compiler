@@ -1,0 +1,12 @@
+model SetOperatorsExample1 is {
+	// Negation of a set of Booleans.
+	Boolean R1 is external;
+	Boolean R2 is external;
+	Boolean R3 is external;
+	Boolean R4 is external;
+	Boolean S1 is not { R1, R2, R3, R4 }; 
+	// The value of S1 is { not R1, not R2, not R3, not R4}. 
+	// Note that { R1, R2, R3, R4 } is an anonymous set.
+	
+	Boolean S2 is { not R1, not R2, not R3, not R4};
+};

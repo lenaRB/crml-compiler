@@ -1,0 +1,12 @@
+model SetOperatorsExample2 is {
+	// Frame period P applied to a set of time periods.
+	Periods P is external;
+	Periods P1 is external;
+	Periods P2 is external;
+	Periods P3 is external;
+	Periods P4 is external;
+	Periods {} S1 is { P1, P2, P3, P4 } while P;
+	// The value of S1 is { P1 while P, P2 while P, P3 while P, P4 while P }.
+	
+	Periods {} S2 is { P1 while P, P2 while P, P3 while P, P4 while P };
+};

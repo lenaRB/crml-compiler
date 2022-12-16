@@ -1,0 +1,4 @@
+model RealAsin is {
+	Real x1 is external;
+	Real x_asin is asin x1;
+};

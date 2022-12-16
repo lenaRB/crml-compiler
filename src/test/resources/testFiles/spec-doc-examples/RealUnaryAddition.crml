@@ -1,0 +1,4 @@
+model RealUnaryAddition is {
+	Real x1 is external;
+	Real x_unary_addition is +x1;
+};

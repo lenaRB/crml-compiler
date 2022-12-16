@@ -1,0 +1,11 @@
+model SetOperatorsExample4 is {
+	// Conjunction of a set of Booleans.
+	Boolean R1 is external;
+	Boolean R2 is external;
+	Boolean R3 is external;
+	Boolean R4 is external;
+	Boolean R5 is and { R1, R2, R3, R4 };
+	// The value of R5 is R1 and R2 and R3 and R4.
+	
+	Boolean R6 is R1 and R2 and R3 and R4;
+};

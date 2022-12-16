@@ -1,0 +1,18 @@
+model SetOperatorsExample9 is {
+	// flattening of a set
+	
+	type Requirement is Boolean forbid { *, +, integrate };
+	
+	Requirement a1 is external;
+	Requirement a2 is external;
+	Requirement a3 is external;
+	Requirement b1 is external;
+	Requirement b2 is external;
+	Requirement b3 is external;
+	Requirement b4 is external;
+	Requirement c1 is external;
+	Requirement c2 is external;
+	Requirement {} R1 is { a1, a2, { b1, b2, b3, { c1, c2 } }, { b3, b4 }, a3 };
+	Requirement {} R2 is flatten R1;
+	// The value of R2 is { a1, a2, b1, b2, b3, c1, c2, b3, b4,  a3 }.
+};

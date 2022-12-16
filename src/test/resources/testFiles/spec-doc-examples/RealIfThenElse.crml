@@ -1,0 +1,6 @@
+model RealIfThenElse is {
+	Real x1 is external;
+	Real x2 is external;
+	Boolean b1 is external;
+	Real x_if_then_else is if b1 then x1 else x2;
+};

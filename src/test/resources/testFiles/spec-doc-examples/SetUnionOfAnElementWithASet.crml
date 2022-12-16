@@ -1,0 +1,6 @@
+model SetUnionOfAnElementWithASet is {
+	// Example with Integers
+	Integer e1 is external;
+	Integer {} S2 is external;
+	Integer {} S_union is e1 union S2;
+};

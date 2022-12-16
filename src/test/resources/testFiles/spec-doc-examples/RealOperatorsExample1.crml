@@ -1,0 +1,9 @@
+model RealOperatorsExample1 is {
+	Real x1 is external;
+	Real x2 is external;
+	Real y is external;
+	Clock c is Clock (y > 0);
+	// b1 is equivalent to b2
+	Boolean b1 is (x1 > x2) at c;
+	Boolean b2 is (x1 at c) > (x2 at c);
+};

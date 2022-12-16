@@ -1,0 +1,5 @@
+model RealDivision is {
+	Real x1 is external;
+	Real x2 is external;
+	Real x_division is x1 / x2;
+};

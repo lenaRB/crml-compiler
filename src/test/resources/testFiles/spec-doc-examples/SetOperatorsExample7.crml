@@ -1,0 +1,9 @@
+model SetOperatorsExample7 is {
+	// extracting from a set of pieces of equipment 
+	// the pieces of equipment that are in operation 
+	class Equipment is {
+		String id; // Equipment identification
+		Boolean inOperation is external; // inOperation is true if the equipment is in operation
+	};
+	Equipment {} S is filter { Equipment (id is "E1"), Equipment (id is "E2") } (element.inOperation == true);
+};

@@ -1,0 +1,5 @@
+model StringConcatenation is {
+	String s1 is external;
+	String s2 is external;
+	String s is s1 + s2;
+};

@@ -1,0 +1,5 @@
+model RealGreaterThan is {
+	Real x1 is external;
+	Real x2 is external;
+	Boolean b_greater_than is x1 >= x2;
+};

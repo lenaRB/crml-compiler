@@ -1,0 +1,5 @@
+model SetCard is {
+	// Example with set of Real variables
+	Real {} S is external;
+	Integer n is card S;
+};

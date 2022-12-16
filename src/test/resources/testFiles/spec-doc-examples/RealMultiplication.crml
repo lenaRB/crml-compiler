@@ -1,0 +1,5 @@
+model RealMultiplication is {
+	Real x1 is external;
+	Real x2 is external;
+	Real x_multiplication is x1 * x2;
+};

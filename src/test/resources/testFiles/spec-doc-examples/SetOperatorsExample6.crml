@@ -1,0 +1,18 @@
+model SetOperatorsExample6 is {
+	// Extracting requirements from a model.
+
+	type Requirement is Boolean forbid { *, +, integrate };
+
+	model M is { 
+		Boolean b1 is external;
+		Requirement R1 is external;
+		Requirement R2 is external;
+		Clock c1 is external;
+		Requirement R3 is external;
+		Requirement R4 is external;
+		};	
+	// where R1, R2, R3, R4 are of the type Requirement, and b1, c1 stands for elements of other types than Requirement.
+	// The set of requirements of M is obtained with
+	Requirement {} R is filter M (type element == Requirement);
+	// The value of R is { R1, R2, R3, R4 }.
+};

@@ -1,0 +1,7 @@
+model SetFilter is {
+	// Example with set of Real variables
+	Real {} S1 is external;
+	Operator [ Boolean ] cond Real e = value;
+
+	Real {} S2 is filter S1 cond element;
+};

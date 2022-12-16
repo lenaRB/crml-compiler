@@ -1,0 +1,5 @@
+model RealExponentiation is {
+	Real x1 is external;
+	Real x2 is external;
+	Real x_exponentiation is x1 ^ x2;
+};

@@ -1,0 +1,5 @@
+model RealSine is {
+	Real x1 is external;
+	Real x2 is external;
+	Real x_sin is sin x1;
+};

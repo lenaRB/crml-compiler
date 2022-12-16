@@ -1,0 +1,6 @@
+model SetUnionOfTwoSets is {
+	// Example with sets of Boolean variables
+	Boolean {} S1 is external;
+	Boolean {} S2 is external;
+	Boolean {} S_union is S1 union S2;
+};
