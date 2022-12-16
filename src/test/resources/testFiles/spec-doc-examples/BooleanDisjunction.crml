@@ -1,0 +1,5 @@
+model BooleanDisjunction is {
+	Boolean b1 is external;
+	Boolean b2 is external;
+	Boolean b_disjunction is b1 or b2;
+};

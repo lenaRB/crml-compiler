@@ -1,0 +1,5 @@
+model BooleanEquality is {
+	Boolean b1 is external;
+	Boolean b2 is external;
+	Boolean b_equality is b1 == b2;
+};

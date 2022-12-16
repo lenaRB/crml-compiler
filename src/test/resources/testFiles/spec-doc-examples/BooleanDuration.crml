@@ -1,0 +1,5 @@
+model BooleanDuration is {
+	Boolean a is external;
+	Period P is external;
+	Real d_duration is duration a on P;
+};

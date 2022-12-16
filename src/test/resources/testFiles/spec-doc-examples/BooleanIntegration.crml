@@ -1,0 +1,5 @@
+model BooleanIntegration is {
+	Boolean a is external;
+	Period P is external;
+	Boolean b_integration is integrate a on P;
+};

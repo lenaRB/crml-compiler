@@ -1,0 +1,5 @@
+model BooleanFilter is {
+	Boolean b1 is external;
+	Booelan b2 is external;
+	Boolean b_filter is b1 * b2;
+};

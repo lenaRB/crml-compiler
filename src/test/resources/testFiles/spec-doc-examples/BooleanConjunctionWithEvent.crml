@@ -1,0 +1,5 @@
+model BooleanConjunctionWithEvent is {
+	Boolean b1 is external;
+	Event e is external;
+	Boolean b_conjunction_with_event is b1 and e;
+};

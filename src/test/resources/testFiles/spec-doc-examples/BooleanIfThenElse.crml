@@ -1,0 +1,5 @@
+model BooleanIfThenElse is {
+	Boolean b1 is external;
+	Boolean b2 is external;
+	Boolean b_if_then_else is if b then b1 else b2;
+};

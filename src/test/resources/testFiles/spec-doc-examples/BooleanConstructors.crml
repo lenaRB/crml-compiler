@@ -1,0 +1,9 @@
+model BooleanConstructors is {
+	// Constructors
+	Boolean b1 is true;
+	Boolean b2 is false;
+	Boolean b3 is undecided;
+	Boolean b4 is undefined;
+	Clock c1 is external;
+	Boolean b5 is Boolean c1;
+};

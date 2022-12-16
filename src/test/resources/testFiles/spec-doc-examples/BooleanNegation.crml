@@ -1,0 +1,4 @@
+model BooleanNegation is {
+	Boolean b is external;
+	Boolean b_negation is not a;
+};

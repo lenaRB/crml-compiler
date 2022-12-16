@@ -1,0 +1,5 @@
+model BooleanAtEvent is {
+	Boolean b1 is external;
+	Clock c is external;
+	Boolean b_at_event is b1 at c;
+};

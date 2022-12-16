@@ -1,0 +1,5 @@
+model BooleanDisjunctionWithEvent is {
+	Boolean b1 is external;
+	Event e is external;
+	Boolean b_disjunction_with_event is b1 or e;
+};
