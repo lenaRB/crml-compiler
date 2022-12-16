@@ -1,0 +1,4 @@
+model IntegerUnaryAddition is {
+	Integer n1 is external;
+	Integer n_unary_addition is +n1;
+};

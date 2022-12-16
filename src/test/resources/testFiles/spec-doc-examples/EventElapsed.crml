@@ -1,0 +1,5 @@
+model EventElapsed is {
+	Event e1 is external;
+	Event e2 is external;
+	Real d_elapsed is e2 - e1;
+};

@@ -1,0 +1,5 @@
+model EventAfter is {
+	Event e1 is external;
+	Event e2 is external;
+	Boolean b_after is e1 >= e2;
+};

@@ -1,0 +1,9 @@
+model IntegerOperatorsExample1 is {
+	Integer n1 is external;
+	Integer n2 is external;
+	Real y is external;
+	Clock c is Clock (y > 0);
+	// b1 is equivalent to b2
+	Boolean b1 is (n1 > n2) at c;
+	Boolean b2 is (n1 at c) > (n2 at c);
+};

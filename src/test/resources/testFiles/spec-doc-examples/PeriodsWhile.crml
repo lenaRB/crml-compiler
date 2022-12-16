@@ -1,0 +1,5 @@
+model PeriodsWhile is {
+	Periods P1 is external;
+	Periods P2 is external;
+	Periods P is P2 while P1;
+};

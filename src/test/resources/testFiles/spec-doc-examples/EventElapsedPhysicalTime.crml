@@ -1,0 +1,4 @@
+model EventElapsedPhysicalTime is {
+	Event e is external;
+	Real d_elapsed_physical_time is time from e;
+};

@@ -1,0 +1,5 @@
+model IntegerBinarySubstraction is {
+	Integer n1 is external;
+	Integer n2 is external;
+	Integer n_binary_substraction is n1 - n2;
+};

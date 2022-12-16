@@ -1,0 +1,5 @@
+model IntegerAtEvent is {
+	Integer n1 is external;
+	Clock c is external;
+	Integer n_at_event is n1 at c;
+};

@@ -1,0 +1,8 @@
+model PeriodConstructors is {
+	Event e1 is external;
+	Event e2 is external;
+	Period P1 is [ e1, e2 ];
+	Period P2 is ] e1, e2 ];
+	Period P3 is [ e1, e2 [;
+	Period P4 is ] e1, e2 [;
+};

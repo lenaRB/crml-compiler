@@ -1,0 +1,4 @@
+model PeriodOpeningEvent is {
+	Period P is external;
+	Event e is P start;
+};

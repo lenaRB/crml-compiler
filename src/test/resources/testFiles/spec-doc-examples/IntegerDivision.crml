@@ -1,0 +1,5 @@
+model IntegerDivision is {
+	Integer n1 is external;
+	Integer n2 is external;
+	Integer n_integer_division is n1 / n2;
+};

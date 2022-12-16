@@ -1,0 +1,4 @@
+model IntegerUnarySubstraction is {
+	Integer n1 is external;
+	Integer n_unary_substraction is -n1;
+};

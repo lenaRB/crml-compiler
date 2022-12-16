@@ -1,0 +1,6 @@
+model ClockBoundedProjection is {
+	Clock c1 is external;
+	Clock c2 is external;
+	Real d is external;
+	Clock c_bounded_projection is c1 proj (d) c2;
+};

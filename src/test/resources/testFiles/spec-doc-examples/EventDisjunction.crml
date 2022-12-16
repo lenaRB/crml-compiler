@@ -1,0 +1,5 @@
+model EventDisjunction is {
+	Event e1 is external;
+	Event e2 is external;
+	Clock e_disjunction is e1 or e2;
+};

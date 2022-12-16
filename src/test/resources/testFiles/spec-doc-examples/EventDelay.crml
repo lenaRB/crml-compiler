@@ -1,0 +1,5 @@
+model EventDelay is {
+	Event e1 is external;
+	Real d is external;
+	Event e_delay is e1 + d;
+};

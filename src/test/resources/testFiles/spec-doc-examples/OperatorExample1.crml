@@ -1,0 +1,10 @@
+model OperatorExample1 is {
+	// Definition of an operator (i.e. function) that returns a clock 
+	// with the ticks of another clock c that are within a given time period P.
+	Operator [ Clock ] ticks Clock c inside Period P = c filter (tick >= P start) and (tick <= P end);
+	
+	// Example of function call
+	Period P is external;
+	Clock c1 is external;
+	Clock c2 is ticks c1 inside P;
+};

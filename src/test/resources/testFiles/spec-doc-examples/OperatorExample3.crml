@@ -1,0 +1,10 @@
+model OperatorExample3 is {
+	// Definition of the <= operator in the domain of integers 
+	// from the operators < and ==
+	Operator [ Boolean ] Integer n1 '<=' Integer n2 = (n1 < n2) or (n1 == n2);
+
+	// Example of function call
+	Integer n1 is external;
+	Integer n2 is external;
+	Boolean b is n1 '<=' n2;
+};

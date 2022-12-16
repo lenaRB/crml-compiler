@@ -1,0 +1,6 @@
+model IntegerIfThenElse is {
+	Integer n1 is external;
+	Integer n2 is external;
+	Boolean b is external;
+	Integer n_if_then_else is if b then n1 else n2;
+};

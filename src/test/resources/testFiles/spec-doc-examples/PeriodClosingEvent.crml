@@ -1,0 +1,5 @@
+model PeriodClosingEvent is {
+	Period P is external;
+	Event e is P end;
+
+};

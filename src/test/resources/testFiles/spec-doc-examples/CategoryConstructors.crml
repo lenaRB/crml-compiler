@@ -1,0 +1,3 @@
+model CategoryOperatorsExample1 is {
+	Category increasing = { (>, >), (>=, >=), (==, >), (<>, >), (<, >=), (<=, >) };
+};

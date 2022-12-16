@@ -1,0 +1,4 @@
+model ClockNumberOfTicks is {
+	Clock c is external;
+	Integer n_number_of_ticks is card c;
+};

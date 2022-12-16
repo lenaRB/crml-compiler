@@ -1,0 +1,5 @@
+model IntegerMultiplication is {
+	Integer n1 is external;
+	Integer n2 is external;
+	Integer n_multiplication is n1 * n2;
+};

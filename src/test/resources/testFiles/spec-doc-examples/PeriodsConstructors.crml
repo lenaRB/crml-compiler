@@ -1,0 +1,12 @@
+model PeriodsConstructors is {
+	Period P1 is external;
+	Period P2 is external;
+	Period Pn is external;
+	Periods P3 is { P1, P2, Pn };
+	Clock c1 is external;
+	Clock c2 is external;
+	Periods P4 is [ c1, c2 ];
+	Periods P5 is ] c1, c2 ];
+	Periods P6 is [ c1, c2 [;
+	Periods P7 is ] c1, c2 [;
+};

@@ -1,0 +1,5 @@
+model IntegerEqualTo is {
+	Integer n1 is external;
+	Integer n2 is external;
+	Boolean b_equal_to is n1 == n2;
+};

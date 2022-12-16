@@ -1,0 +1,5 @@
+model ClockConstructors is {
+	// Constructors
+	Boolean b is external;
+	Clock c is Clock b;
+};

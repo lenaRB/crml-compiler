@@ -1,0 +1,5 @@
+model IntegerDifferentFrom is {
+	Integer n1 is external;
+	Integer n2 is external;
+	Boolean b_different_from is n1 <> n2;
+};

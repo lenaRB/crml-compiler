@@ -1,0 +1,7 @@
+model IntegerConstructorsExample1 is {
+	Integer x1 is 25;
+	Integer x2 is + 25;
+	Integer x3 is -25;
+	Integer x4 is -28E3;
+	Integer x5 is Integer -25.8; // The value of x5 is -25
+};

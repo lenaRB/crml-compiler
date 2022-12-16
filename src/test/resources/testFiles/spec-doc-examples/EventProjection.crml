@@ -1,0 +1,5 @@
+model EventProjection is {
+	Event e1 is external;
+	Clock c is external;
+	Event e_projection is e1 proj c;
+};

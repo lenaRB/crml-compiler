@@ -1,0 +1,5 @@
+model EventConjunction is {
+	Event e1 is external;
+	Event e2 is external;
+	Clock e_conjunction is e1 and e2;
+};

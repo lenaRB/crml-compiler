@@ -1,0 +1,5 @@
+model ClockDisjunctionOfClocks is {
+	Clock c1 is external;
+	Clock c2 is external;
+	Clock c_disjunction_of_clocks is c1 or c2;
+};

@@ -1,0 +1,5 @@
+model IntegerModulo is {
+	Integer n1 is external;
+	Integer n2 is external;
+	Integer n_modulo is n1 mod n2;
+};

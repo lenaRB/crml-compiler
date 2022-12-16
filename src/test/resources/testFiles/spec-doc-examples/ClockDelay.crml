@@ -1,0 +1,5 @@
+model ClockDelay is {
+	Clock c1 is external;
+	Integer d is external;
+	Clock c_delay is c1 + d;
+};

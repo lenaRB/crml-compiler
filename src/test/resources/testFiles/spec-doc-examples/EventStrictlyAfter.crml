@@ -1,0 +1,5 @@
+model EventStrictlyAfter is {
+	Event e1 is external;
+	Event e2 is external;
+	Boolean b_strictly_after is e1 > e2;
+};

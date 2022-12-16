@@ -1,0 +1,5 @@
+model ClockDisjunctionOfClockAndEvent is {
+	Event e is external;
+	Clock c1 is external;
+	Clock c_disjunction_of_clock_and_event is c1 or e;
+};

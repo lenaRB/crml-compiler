@@ -1,0 +1,5 @@
+model EventBefore is {
+	Event e1 is external;
+	Event e2 is external;
+	Boolean b_before is e1 <= e2;
+};

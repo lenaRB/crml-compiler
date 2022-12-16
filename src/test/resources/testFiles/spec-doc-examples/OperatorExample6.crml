@@ -1,0 +1,9 @@
+model OperatorExample6 is {
+	// Definition of count function, cf. Eq. (82) with a natural language notation.
+	Operator [ Integer ] count [ Boolean ] b inside [ Period ] P = card ticks Clock b inside P;
+
+	// Example of function call
+	Boolean b1 is external;
+	Period P1 is external;
+	Integer n is count b1 inside P1;
+};

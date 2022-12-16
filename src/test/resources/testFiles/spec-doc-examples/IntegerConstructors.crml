@@ -1,0 +1,5 @@
+model IntegerConstructors is {
+	Integer n1 is 11;
+	Real x is -2.6;
+	Integer n2 is Integer x;
+};

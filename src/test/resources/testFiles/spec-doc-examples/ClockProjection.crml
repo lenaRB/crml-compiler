@@ -1,0 +1,5 @@
+model ClockProjection is {
+	Clock c1 is external;
+	Clock c2 is external;
+	Clock c_projection is c1 proj c2;
+};

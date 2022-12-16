@@ -1,0 +1,5 @@
+model IntegerStrictlyGreaterThan is {
+	Integer n1 is external;
+	Integer n2 is external;
+	Boolean b_strictly_greater_than is n1 > n2;
+};
