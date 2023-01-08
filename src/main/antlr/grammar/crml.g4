@@ -19,13 +19,13 @@ set_def : 'Set' id 'of' type 'is' (set_body | exp op exp) ';';
 
 uninstantiated_def : static_qualifier (type id (',' id)* | structure_type id (',' id)* )';' ;
 
-static_qualifier : 'parameter' | 'external' ;
+static_qualifier : 'parameter' ;
 
 category : 'Category' id 'is' '{' category_pair (',' category_pair)* '}' ';';
 
 category_pair : '(' op ',' op ')';
  
-var_def : var_qualifier? type id  (arg_list | 'is' (exp | set_body ))? ';' ;
+var_def : var_qualifier? type id  (arg_list | 'is' (exp | set_body | 'external'))? ';' ;
 
 operator : 'Operator' '[' type ']' operator_def ';' ;
 
@@ -48,7 +48,7 @@ crml_component_reference : '.'? id array_subscripts? ( '.' id array_subscripts? 
 
 type :   (builtin_type | id ) isset=empty_set?;
 
-builtin_type : 'Integer' |'Real' | 'Boolean' | 'String' | 'Clock' | 'Set' | 'Period' ;
+builtin_type : 'Integer' |'Real' | 'Boolean' | 'String' | 'Clock' | 'Set' | 'Period' |'Periods'| 'Event';
 
 structure_type : 'type' | 'class';
 
@@ -95,7 +95,8 @@ op : builtin_op | user_keyword
 builtin_op : 'and' | '*' | '+' | '-' | '/' | 'with' | 'master' | 'on' | 'filter'
 				| '<=' | '<' | '>=' | '>' | '<>' | 'par' | '==' |
 				'pre' | 'not'| '-' | 'card' | 'and' | 'evaluate' |
-				'start' | 'end' ;
+				'start' | 'end' |
+				'acos' | 'asin'  ;
 
 id: IDENT;
 user_keyword : USER_KEYWORD;

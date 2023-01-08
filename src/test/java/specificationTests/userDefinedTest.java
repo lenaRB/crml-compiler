@@ -15,7 +15,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import crml.translator.Main;
 
- class specificationTests {
+ class userDefinedTest {
 	 
 	 static LogCaptor logCaptor;
 	 static String testFolderIn,  outputFolder;
@@ -34,6 +34,7 @@ import crml.translator.Main;
 	    	assert(true);
 		}	
 
+
 	    @AfterEach
 	    public void clearLogs() {
 	        logCaptor.clearLogs();
@@ -46,9 +47,8 @@ import crml.translator.Main;
 
 	    @DisplayName("Testing primitive type translation")
 	    @ParameterizedTest
-	    @ValueSource(strings = {"PrimitiveDataTypes/IntegerPrimitives.crml", 
-	    		"PrimitiveDataTypes/BooleanPrimitives.crml", 
-	    		"PrimitiveDataTypes/RealPrimitives.crml"})
+	    @ValueSource(strings = {"Templates/LogicalTemplate.crml", 
+	    		"Templates/UserOp.crml"})
 	    void testPrimitiveTypes(String fileName) {
 	    	try {
 	    		

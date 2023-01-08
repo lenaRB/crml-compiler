@@ -1,23 +1,21 @@
 package specificationTests;
 
-import nl.altindag.log.LogCaptor;
-import java.io.File;
-
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.io.File;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import crml.translator.Main;
+import nl.altindag.log.LogCaptor;
 
- class specificationTests {
-	 
-	 static LogCaptor logCaptor;
+public class SetsTests {
+	static LogCaptor logCaptor;
 	 static String testFolderIn,  outputFolder;
 	 
 	 @BeforeAll
@@ -28,11 +26,7 @@ import crml.translator.Main;
 				  testFolderIn = new File(testFolderIn).getAbsolutePath() + java.io.File.separator + "specification";
 	    }
 	 
-	 	@Test
-	 	@DisplayName("Check test suite is running")
-		void testDummy() {		
-	    	assert(true);
-		}	
+
 
 	    @AfterEach
 	    public void clearLogs() {
@@ -44,11 +38,9 @@ import crml.translator.Main;
 	        logCaptor.close();
 	    } 
 
-	    @DisplayName("Testing primitive type translation")
+	    @DisplayName("Testing Sets")
 	    @ParameterizedTest
-	    @ValueSource(strings = {"PrimitiveDataTypes/IntegerPrimitives.crml", 
-	    		"PrimitiveDataTypes/BooleanPrimitives.crml", 
-	    		"PrimitiveDataTypes/RealPrimitives.crml"})
+	    @ValueSource(strings = {"Sets/NegationSet.crml"})
 	    void testPrimitiveTypes(String fileName) {
 	    	try {
 	    		
@@ -61,5 +53,4 @@ import crml.translator.Main;
 	}	
 	
 	
-
 }

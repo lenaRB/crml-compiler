@@ -1,9 +1,8 @@
 package specificationTests;
 
-import nl.altindag.log.LogCaptor;
-import java.io.File;
-
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.io.File;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -14,9 +13,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import crml.translator.Main;
+import nl.altindag.log.LogCaptor;
 
- class specificationTests {
-	 
+public class ClockedTests {
 	 static LogCaptor logCaptor;
 	 static String testFolderIn,  outputFolder;
 	 
@@ -28,11 +27,7 @@ import crml.translator.Main;
 				  testFolderIn = new File(testFolderIn).getAbsolutePath() + java.io.File.separator + "specification";
 	    }
 	 
-	 	@Test
-	 	@DisplayName("Check test suite is running")
-		void testDummy() {		
-	    	assert(true);
-		}	
+
 
 	    @AfterEach
 	    public void clearLogs() {
@@ -44,11 +39,10 @@ import crml.translator.Main;
 	        logCaptor.close();
 	    } 
 
-	    @DisplayName("Testing primitive type translation")
+	    @DisplayName("Testing clock, period, event")
 	    @ParameterizedTest
-	    @ValueSource(strings = {"PrimitiveDataTypes/IntegerPrimitives.crml", 
-	    		"PrimitiveDataTypes/BooleanPrimitives.crml", 
-	    		"PrimitiveDataTypes/RealPrimitives.crml"})
+	    @ValueSource(strings = {"Templates/LogicalTemplate.crml", 
+	    		"Templates/UserOp.crml"})
 	    void testPrimitiveTypes(String fileName) {
 	    	try {
 	    		
@@ -61,5 +55,4 @@ import crml.translator.Main;
 	}	
 	
 	
-
 }
