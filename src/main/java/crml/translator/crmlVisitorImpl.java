@@ -472,13 +472,23 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			// expression is a tick
 			if(ctx.tick() != null) {
 				return new Value ("time", "Real");
-			}						
+			}	
+			
+			// expression is an object set
+			
+			if(ctx.set_def() != null)
+				return visit(ctx.set_def());
 			
 		//	if(ctx.at!= null) //TODO implement 'at'
 		//		return visit(ctx.at());
 
 			throw new ParseCancellationException("unable to parse expression : " + ctx.getParent().getText() + '\n');
 		}
+		
+	@Override
+	public Value visitSet_def(crmlParser.Set_defContext cxt) {
+		return new Value ("Set", "{}", true);
+	}
 		
 	@Override
 	public Value visitConstructor(crmlParser.ConstructorContext ctx) {

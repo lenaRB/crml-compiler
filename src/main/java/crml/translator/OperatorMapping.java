@@ -145,7 +145,48 @@ public class OperatorMapping {
 								new Signature("CRMLtoModelica.Blocks.Logical4.eq", bool2, params, "Boolean", Type.BLOCK));
 				
 				built_in_operators.put("==", eq_sigs);
+				
+		// == operators
+				List<Signature> neq_sigs = 
+						Arrays.asList(new Signature("<>", int2,  "Boolean", Type.OPERATOR),
+								new Signature("<>", real2, "Boolean", Type.OPERATOR),
+								new Signature("<>", intreal, "Boolean", Type.OPERATOR),
+								new Signature("<>", realint, "Boolean", Type.OPERATOR),
+								new Signature("neqArray", realint, params, "Boolean", Type.SET_OP, setOnvar, true),
+								new Signature("CRMLtoModelica.realPeriodneq", realPeriod, params, "Boolean", Type.BLOCK),
+								new Signature("CRMLtoModelica.Blocks.Logical4.neq", bool2, params, "Boolean", Type.BLOCK));
+				
+				built_in_operators.put("<>", neq_sigs);
+				
+		// cos operators
+				
+				List<Signature> cos_sigs = 
+						Arrays.asList(new Signature("Modelica.Math.cos", int1,  "Boolean", Type.FUNCTION),
+								new Signature("Modelica.Math.cos", real1, "Boolean", Type.FUNCTION));
+				
+				built_in_operators.put("cos", cos_sigs);
 
+	    // acos operators
+				
+				List<Signature> acos_sigs = 
+						Arrays.asList(new Signature("Modelica.Math.acos", int1,  "Boolean", Type.FUNCTION),
+								new Signature("Modelica.Math.acos", real1, "Boolean", Type.FUNCTION));
+				
+				built_in_operators.put("acos", acos_sigs);
+				
+		// sin operators
+				List<Signature> sin_sigs = 
+						Arrays.asList(new Signature("Modelica.Math.sin", int1,  "Boolean", Type.FUNCTION),
+								new Signature("Modelica.Math.sin", real1, "Boolean", Type.FUNCTION));
+				
+				built_in_operators.put("sin", sin_sigs);
+				
+		// asin operators
+				List<Signature> asin_sigs = 
+						Arrays.asList(new Signature("Modelica.Math.asin", int1,  "Boolean", Type.FUNCTION),
+								new Signature("Modelica.Math.asin", real1, "Boolean", Type.FUNCTION));
+				
+				built_in_operators.put("asin", asin_sigs);
 		
 		// and operators	
 		List<Signature> and_sigs = 
