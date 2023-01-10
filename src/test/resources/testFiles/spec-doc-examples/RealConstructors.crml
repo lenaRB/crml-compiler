@@ -3,7 +3,7 @@ model RealConstructors is {
 	// Constructors
 	Real x1 is 12.3;
 	Integer n1 is 2;
-	Real x2 is Real n1;
+	Real x2 is new Real n1;
 
 };
 
