@@ -2,9 +2,9 @@ model StringConstructors is {
 	// Constructors
 	String s1 is "toto";
 	Real x is 25.2;
-	String s2 is String x;
+	String s2 is new String x;
 	Integer n is 2;
-	String s3 is String n;
+	String s3 is new String n;
 	Boolean b is true;
-	String s4 is String b;
+	String s4 is new String b;
 };
