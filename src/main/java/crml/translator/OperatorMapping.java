@@ -161,23 +161,23 @@ public class OperatorMapping {
 		// cos operators
 				
 				List<Signature> cos_sigs = 
-						Arrays.asList(new Signature("Modelica.Math.cos", int1,  "Boolean", Type.FUNCTION),
-								new Signature("Modelica.Math.cos", real1, "Boolean", Type.FUNCTION));
+						Arrays.asList(new Signature("Modelica.Math.cos", int1,  "Real", Type.FUNCTION),
+								new Signature("Modelica.Math.cos", real1, "Real", Type.FUNCTION));
 				
 				built_in_operators.put("cos", cos_sigs);
 
 	    // acos operators
 				
 				List<Signature> acos_sigs = 
-						Arrays.asList(new Signature("Modelica.Math.acos", int1,  "Boolean", Type.FUNCTION),
-								new Signature("Modelica.Math.acos", real1, "Boolean", Type.FUNCTION));
+						Arrays.asList(new Signature("Modelica.Math.acos", int1,  "Real", Type.FUNCTION),
+								new Signature("Modelica.Math.acos", real1, "Real", Type.FUNCTION));
 				
 				built_in_operators.put("acos", acos_sigs);
 				
 		// sin operators
 				List<Signature> sin_sigs = 
-						Arrays.asList(new Signature("Modelica.Math.sin", int1,  "Boolean", Type.FUNCTION),
-								new Signature("Modelica.Math.sin", real1, "Boolean", Type.FUNCTION));
+						Arrays.asList(new Signature("Modelica.Math.sin", int1,  "Real", Type.FUNCTION),
+								new Signature("Modelica.Math.sin", real1, "Real", Type.FUNCTION));
 				
 				built_in_operators.put("sin", sin_sigs);
 				
@@ -187,12 +187,50 @@ public class OperatorMapping {
 								new Signature("Modelica.Math.asin", real1, "Boolean", Type.FUNCTION));
 				
 				built_in_operators.put("asin", asin_sigs);
+				
+		// exp operators
+				List<Signature> exp_sigs = 
+						Arrays.asList(new Signature("Modelica.Math.exp", int1,  "Real", Type.FUNCTION),
+								new Signature("Modelica.Math.exp", real1, "Real", Type.FUNCTION));
+				
+				built_in_operators.put("exp", exp_sigs);
+	    
+		// mod operators
+				List<Signature> mod_sigs = 
+						Arrays.asList(new Signature("Modelica.Math.exp", int2,  "Integer", Type.FUNCTION),
+								new Signature("Modelica.Math.exp", real2, "Real", Type.FUNCTION),
+								new Signature("Modelica.Math.exp", intreal, "Real", Type.FUNCTION),
+								new Signature("Modelica.Math.exp", realint, "Real", Type.FUNCTION));
+				
+				built_in_operators.put("mod", mod_sigs);
+				
+		// log operators
+				
+				List<Signature> log_sigs = 
+						Arrays.asList(new Signature("Modelica.Math.log", int1,  "Real", Type.FUNCTION),
+								new Signature("Modelica.Math.log", real1, "Real", Type.FUNCTION));
+				
+				built_in_operators.put("log", log_sigs);
+				
+		// log10 operators
+				
+				List<Signature> log10_sigs = 
+						Arrays.asList(new Signature("Modelica.Math.log10", int1,  "Real", Type.FUNCTION),
+								new Signature("Modelica.Math.log10", real1, "Real", Type.FUNCTION));
+				
+				built_in_operators.put("log10", log10_sigs);
 		
 		// and operators	
 		List<Signature> and_sigs = 
 						Arrays.asList(new Signature("CRMLtoModelica.Functions.and4", bool2, params, "Boolean", Type.FUNCTION),
 								new Signature("arrayAnd", bool1, params, "Boolean", Type.SET_OP, setUnary, false));
 		built_in_operators.put("and", and_sigs);
+		
+		// or operators	
+				List<Signature> or_sigs = 
+								Arrays.asList(new Signature("CRMLtoModelica.Functions.or4", bool2, params, "Boolean", Type.FUNCTION),
+										new Signature("arrayOr", bool1, params, "Boolean", Type.SET_OP, setUnary, false));
+				built_in_operators.put("or", or_sigs);
 		
 		// not operators		
 		List<Signature> not_sigs = 

@@ -23,6 +23,7 @@ public class Signature {
 	Boolean wrapBoolean; // needs to be wrapped into a boolean return
 	Type 	mtype = Type.BLOCK; // maps to a block by default
 	Boolean is_return_set;
+	String temp_var_name; // sets a name to avoid variable names like '==0'
 
 	public Signature() {
 		variable_names = new Vector<String>();

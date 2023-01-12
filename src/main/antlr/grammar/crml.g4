@@ -92,8 +92,9 @@ op : builtin_op | user_keyword
 		
 builtin_op : 'and' | '*' | '+' | '-' | '/' | 'with' | 'master' | 'on' | 'filter'
 				| '<=' | '<' | '>=' | '>' | '<>' | 'par' | '==' |
-				'pre' | 'not'| '-' | 'card' | 'and' | 'evaluate' |
+				'pre' | 'not'| '-' | 'card' | 'and' | 'or' | 'evaluate' |
 				'start' | 'end' | 'mod' |
+				'exp' | 'log' | 'log10' |
 				'cos' |'acos' | 'sin' | 'asin'  ;
 
 id: IDENT;
