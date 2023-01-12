@@ -1,4 +1,5 @@
-model RealExp i s {
-	Real x1 is external;
-	Real x_exp is exp x1;
+model RealExp is {
+	Real x1 is 0;
+	Real x_exp_0 is exp x1;
+	Real x_exp_1 is exp 1;
 };

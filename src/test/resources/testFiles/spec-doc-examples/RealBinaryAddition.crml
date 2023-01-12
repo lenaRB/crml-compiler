@@ -1,5 +1,5 @@
 model RealBinaryAddition is {
-	Real x1 is external;
-	Real x2 is external;
+	Real x1 is -28.775E+3;
+	Real x2 is 0.28e-7;
 	Real x_binary_addition is x1 + x2;
 };

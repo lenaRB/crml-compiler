@@ -1,4 +1,4 @@
 model RealLogarithm is {
-	Real x1 is external;
-	Real x_log is log x1;
+	constant Real e is 2,71828;
+	Real x_log_1 is log e;
 };
