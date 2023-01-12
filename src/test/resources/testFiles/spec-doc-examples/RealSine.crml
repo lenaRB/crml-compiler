@@ -1,5 +1,7 @@
 model RealSine is {
-	Real x1 is external;
-	Real x2 is external;
-	Real x_sin is sin x1;
+	constant Real pi is 3.141592;
+	Real x1 is 0;
+	Real x_sin_1 is sin x1;
+	Real x_sin_2 is sin pi/2;
+	Real x_sin_3 is sin pi;
 };

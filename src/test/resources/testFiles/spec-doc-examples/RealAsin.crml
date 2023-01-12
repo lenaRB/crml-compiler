@@ -1,4 +1,7 @@
 model RealAsin is {
-	Real x1 is external;
-	Real x_asin is asin x1;
+	constant Real pi is 3.141592;
+	Real x1 is 0;
+	Real x_asin_1 is asin x1;
+	Real x_asin_2 is asin pi/2;
+	Real x_asin_3 is asin pi;
 };

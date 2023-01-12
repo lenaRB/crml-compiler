@@ -1,4 +1,7 @@
 model RealCosine is {
-	Real x1 is external;
-	Real x_cos is cos x1;
+	constant Real pi is 3.141592;
+	Real x1 is 0;
+	Real x_cos_1 is cos x1;
+	Real x_cos_2 is cos pi/2;
+	Real x_cos_3 is cos pi;
 };
