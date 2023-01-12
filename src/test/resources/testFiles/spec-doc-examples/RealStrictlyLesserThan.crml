@@ -2,6 +2,6 @@ model RealStrictlyLesserThan is {
 	Real x1 is 12.3;
 	Real x2 is 2;
 	Real x4 is 1.1;
-	Boolean b_x1_strictly_lesser_than_x2 is x1 < x2;
-	Boolean b_x4_strictly_lesser_than_x2 is x4 < x2;
+	Boolean b_x1_strictly_lesser_than_x2 is x1 < x2; //value should be false
+	Boolean b_x4_strictly_lesser_than_x2 is x4 < x2; //value should be true
 };
