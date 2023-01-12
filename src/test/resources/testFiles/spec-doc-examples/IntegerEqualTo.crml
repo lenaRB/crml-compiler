@@ -1,5 +1,7 @@
 model IntegerEqualTo is {
-	Integer n1 is external;
-	Integer n2 is external;
-	Boolean b_equal_to is n1 == n2;
+	Integer n1 is 25;
+	Integer n2 is -3;
+	Integer n3 is -3;
+	Boolean b_n1_equal_to_n2 is n1 == n2; //value should be false
+	Boolean b_n3_equal_to_n2 is n3 == n2; //value should be true
 };

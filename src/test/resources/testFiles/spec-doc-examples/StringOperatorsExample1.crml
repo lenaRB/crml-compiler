@@ -1,6 +1,6 @@
 model StringOperatorsExample1 is {
 	Integer n is 3;
 	Real x is 2.5;
-	String s is "The " + String n + " ships follow each other from a distance of " + String x + " kilometers.";
+	String s is "The " + new String n + " ships follow each other from a distance of " + new String x + " kilometers.";
 	// The value of s is "The 3 ships follow each other from a distance of 2.5 kilometers."
 };

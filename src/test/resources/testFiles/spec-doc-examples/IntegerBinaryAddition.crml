@@ -1,5 +1,5 @@
 model IntegerBinaryAddition is {
-	Integer n1 is external;
-	Integer n2 is external;
+	Integer n1 is 25;
+	Integer n2 is -3;
 	Integer n_binary_addition is n1 + n2;
 };

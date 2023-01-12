@@ -1,5 +1,8 @@
 model BooleanConjunctionWithEvent is {
-	Boolean b1 is external;
-	Event e is external;
+	Boolean b_true is true;
+	Boolean b_false is false;
+	Boolean b_undecided is undecided;
+	Boolean b_undefined is undefined;
+	
 	Boolean b_conjunction_with_event is b1 and e;
 };

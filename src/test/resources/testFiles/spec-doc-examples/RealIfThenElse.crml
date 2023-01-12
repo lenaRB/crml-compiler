@@ -1,8 +1,8 @@
 model RealIfThenElse is {
 	Real x1 is -28.775E+3;
 	Real x2 is 0.28e-7;
-	Real if_true_then_else is if true then x1 else x2;
-	Real if_false_then_else is if false then x1 else x2;
-	Real if_undecided_then_else is if undecided then x1 else x2;
-	Real if_undefined_then_else is if undefined then x1 else x2;
+	Real if_true_then_else is if true then x1 else x2; //value should be x1
+	Real if_false_then_else is if false then x1 else x2; //value should be x2
+	Real if_undecided_then_else is if undecided then x1 else x2; //value should be x2
+	Real if_undefined_then_else is if undefined then x1 else x2; //value should be x2
 };

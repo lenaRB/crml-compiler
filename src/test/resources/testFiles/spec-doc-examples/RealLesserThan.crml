@@ -3,7 +3,7 @@ model RealLesserThan is {
 	Real x2 is 2;
 	Real x3 is 2;
 	Real x4 is 1.1;
-	Boolean b_x1_lesser_than_x2 is x1 <= x2;
-	Boolean b_x3_lesser_than_x2 is x3 <= x2;
-	Boolean b_x4_lesser_than_x2 is x4 <= x2;
+	Boolean b_x1_lesser_than_x2 is x1 <= x2; //value should be false
+	Boolean b_x3_lesser_than_x2 is x3 <= x2; //value should be true
+	Boolean b_x4_lesser_than_x2 is x4 <= x2; //value should be true
 };
