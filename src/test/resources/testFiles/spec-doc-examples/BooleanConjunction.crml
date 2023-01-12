@@ -1,5 +1,27 @@
 model BooleanConjunction is {
-	Boolean b1 is external;
-	Boolean b2 is external;
-	Boolean b_conjunction is b1 and b2;
+	Boolean b_true is true;
+	Boolean b_false is false;
+	Boolean b_undecided is undecided;
+	Boolean b_undefined is undefined;
+	//Test truth table for the logical conjunction
+	//First row
+	Boolean b_true_and_true is b_true and b_true; //value should be true
+	Boolean b_true_and_false is b_true and b_false; //value should be false
+	Boolean b_true_and_undecided is b_true and b_undecided; //value should be undecided
+	Boolean b_true_and_undefined is b_true and b_undefined; //value should be true
+	//Second row
+	Boolean b_false_and_true is b_false and b_true; //value should be false
+	Boolean b_false_and_false is b_false and b_false; //value should be false
+	Boolean b_false_and_undecided is b_false and b_undecided; //value should be false
+	Boolean b_false_and_undefined is b_false and b_undefined; //value should be false
+	//Third row
+	Boolean b_undecided_and_true is b_undecided and b_true; //value should be undecided
+	Boolean b_undecided_and_false is b_undecided and b_false; //value should be false
+	Boolean b_undecided_and_undecided is b_undecided and b_undecided; //value should be undecided
+	Boolean b_undecided_and_undefined is b_undecided and b_undefined; //value should be undecided
+	//Fourth row
+	Boolean b_undefined_and_true is b_undefined and b_true; //value should be true
+	Boolean b_undefined_and_false is b_undefined and b_false; //value should be false
+	Boolean b_undefined_and_undecided is b_undefined and b_undecided; //value should be undecided
+	Boolean b_undefined_and_undefined is b_undefined and b_undefined; //value should be undefined
 };

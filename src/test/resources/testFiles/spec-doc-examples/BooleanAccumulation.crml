@@ -1,5 +1,27 @@
 model BooleanAccumulation is {
-	Boolean b1 is external;
-	Boolean b2 is external;
-	Boolean b_accumulation is b1 + b2;
+	Boolean b_true is true;
+	Boolean b_false is false;
+	Boolean b_undecided is undecided;
+	Boolean b_undefined is undefined;
+	//Test truth table for the Boolean accumulation operator
+	//First row
+	Boolean b_true_accumulates_true is b_true + b_true; //value is true
+	Boolean b_true_accumulates_false is b_true + b_false; //value is false
+	Boolean b_true_accumulates_undecided is b_true + b_undecided; //value is true
+	Boolean b_true_accumulates_undefined is b_true + b_undefined; //value is true
+	//Second row
+	Boolean b_false_accumulates_true is b_false + b_true; //value is false
+	Boolean b_false_accumulates_false is b_false + b_false; //value is false
+	Boolean b_false_accumulates_undecided is b_false + b_undecided; //value is false
+	Boolean b_false_accumulates_undefined is b_false + b_undefined; //value is false
+	//Third row
+	Boolean b_undecided_accumulates_true is b_undecided + b_true; //value is true
+	Boolean b_undecided_accumulates_false is b_undecided + b_false; //value is false
+	Boolean b_undecided_accumulates_undecided is b_undecided + b_undecided; //value is undecided
+	Boolean b_undecided_accumulates_undefined is b_undecided + b_undefined; //value is undecided
+	//Fourth row
+	Boolean b_undefined_accumulates_true is b_undefined + b_true; //value is true
+	Boolean b_undefined_accumulates_false is b_undefined + b_false; //value is false
+	Boolean b_undefined_accumulates_undecided is b_undefined + b_undecided; //value is undecided
+	Boolean b_undefined_accumulates_undefined is b_undefined + b_undefined; //value is undefined
 };
