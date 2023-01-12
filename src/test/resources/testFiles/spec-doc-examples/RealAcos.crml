@@ -1,4 +1,7 @@
 model RealAcos is {
-	Real x1 is external;
-	Real x_acos is acos x1;
+	constant Real pi is 3.141592;
+	Real x1 is 0;
+	Real x_acos_1 is acos x1;
+	Real x_acos_2 is acos pi/2;
+	Real x_acos_3 is acos pi;
 };
