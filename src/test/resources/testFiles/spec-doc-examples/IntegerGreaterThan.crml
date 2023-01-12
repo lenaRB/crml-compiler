@@ -1,5 +1,9 @@
 model IntegerGreaterThan is {
-	Integer n1 is external;
-	Integer n2 is external;
-	Boolean b_greater_than is n1 >= n2;
+	Integer n1 is 25;
+	Integer n2 is -3;
+	Integer n3 is -3;
+	Integer n4 is -5;
+	Boolean b_n1_greater_than_n2 is n1 >= n2; //value should be true
+	Boolean b_n3_greater_than_n2 is n3 >= n2; //value should be true
+	Boolean b_n4_greater_than_n2 is n4 >= n2; //value should be false
 };

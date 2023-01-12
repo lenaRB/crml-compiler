@@ -1,5 +1,5 @@
 model IntegerModulo is {
-	Integer n1 is external;
-	Integer n2 is external;
+	Integer n1 is 25;
+	Integer n2 is -3;
 	Integer n_modulo is n1 mod n2;
 };

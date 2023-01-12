@@ -1,5 +1,7 @@
 model IntegerStrictlyLessThan is {
-	Integer n1 is external;
-	Integer n2 is external;
-	Boolean b_strictly_less_than is n1 < n2;
+	Integer n1 is 25;
+	Integer n2 is -3;
+	Integer n4 is -5;
+	Boolean b_n1_strictly_less_than_n2 is n1 < n2; //value should be false
+	Boolean b_n4_strictly_less_than_n2 is n4 < n2; //value should be true
 };
