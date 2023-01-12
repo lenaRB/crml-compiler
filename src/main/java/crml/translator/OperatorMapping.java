@@ -86,7 +86,9 @@ public class OperatorMapping {
 		// / operators
 				List<Signature> div_sigs = 
 						Arrays.asList(new Signature("/", int2, "Integer", Type.OPERATOR),
-								new Signature("/", real2, "Real", Type.OPERATOR));
+								new Signature("/", real2, "Real", Type.OPERATOR),
+								new Signature("/", intreal, "Real", Type.OPERATOR),
+								new Signature("/", realint, "Real", Type.OPERATOR));
 						
 				built_in_operators.put("/", div_sigs);
 
