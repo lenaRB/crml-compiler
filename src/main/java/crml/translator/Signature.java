@@ -40,6 +40,20 @@ public class Signature {
 		else
 			this.variable_is_set = Arrays.asList(false, false);
 		this.is_return_set=false;
+		this.temp_var_name = name; // unless otherwise specified
+	}
+	
+	public Signature(String name, List<String> params, String return_t, String out_var_name, Type t) {
+		this.function_name = name;
+		this.mtype = t;
+		this.variable_types = params;
+		this.return_type = return_t;
+		if(params.size()==1)
+			this.variable_is_set = Arrays.asList(false);
+		else
+			this.variable_is_set = Arrays.asList(false, false);
+		this.is_return_set=false;
+		this.temp_var_name = out_var_name; 
 	}
 	
 	public Signature(String name, List<String> params, List<String> param_names, String return_t, Type t) {
@@ -53,6 +67,21 @@ public class Signature {
 		else
 			this.variable_is_set = Arrays.asList(false, false);
 		this.is_return_set=false;
+		this.temp_var_name = name; // unless otherwise specified
+	}
+	
+	public Signature(String name, List<String> params, List<String> param_names, String return_t, String out_var_name, Type t) {
+		this.function_name = name;
+		this.mtype = t;
+		this.variable_types = params;
+		this.variable_names= param_names;
+		this.return_type = return_t;
+		if(params.size()==1)
+			this.variable_is_set = Arrays.asList(false);
+		else
+			this.variable_is_set = Arrays.asList(false, false);
+		this.is_return_set=false;
+		this.temp_var_name = out_var_name; // unless otherwise specified
 	}
 	
 	public Signature(String name, List<String> params, List<String> param_names, String return_t, Type t, List<Boolean> isSet, Boolean returnSet) {
@@ -63,6 +92,18 @@ public class Signature {
 		this.return_type = return_t;
 		this.variable_is_set = isSet;
 		this.is_return_set=returnSet;
+		this.temp_var_name = name; // unless otherwise specified
+	}
+	
+	public Signature(String name, List<String> params, List<String> param_names, String return_t, Type t, String out_var_name, List<Boolean> isSet, Boolean returnSet) {
+		this.function_name = name;
+		this.mtype = t;
+		this.variable_types = params;
+		this.variable_names= param_names;
+		this.return_type = return_t;
+		this.variable_is_set = isSet;
+		this.is_return_set=returnSet;
+		this.temp_var_name = out_var_name;
 	}
 	
 

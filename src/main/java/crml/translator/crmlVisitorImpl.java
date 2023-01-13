@@ -109,6 +109,10 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			if(ctx.category() != null)
 				return visit(ctx.category());
 			
+			// the element is a category association
+			if(ctx.association() != null)
+				return visit(ctx.association());
+			
 			// the element is a parameter or an external variable
 			if(ctx.uninstantiated_def()!= null)
 				return visit (ctx.uninstantiated_def());
@@ -179,7 +183,12 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		@Override public Value visitCategory(crmlParser.CategoryContext ctx) {
 			return new Value("", "Category");
 			
-		}		
+		}	
+		
+		@Override public Value visitAssociation(crmlParser.AssociationContext ctx) {
+			return new Value("", "Association");
+			
+		}	
 		
 		@Override public Value visitClass_def(crmlParser.Class_defContext ctx) {
 			StringBuffer buffer = new StringBuffer();
@@ -598,7 +607,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			}
 			
 			// operator translates to block instantiation
-				String name=op+counter;
+				String name=op_t.temp_var_name+counter;
 						
 						
 				String res = op_t.function_name + " " + name+ "(" + op_t.variable_names.get(0) + " = "+right.contents+");\n";
@@ -628,7 +637,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			}
 			
 			// operator translates to block instantiation
-			String name=op+counter;
+			String name=op_t.temp_var_name+counter;
 			
 			String res = op_t.function_name+ " " + name+ "(" + op_t.variable_names.get(0) + " = "+left.contents+");\n";
 			localFunctionCalls.append(res);
@@ -691,7 +700,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			}
 			
 			// operator translates to block instantiation
-			String name=op+counter;
+			String name=op_t.temp_var_name+counter;
 			
 			
 			String res = op_t.function_name+ " " + name+ "("+ op_t.variable_names.get(0) + " = "+left.contents+","
