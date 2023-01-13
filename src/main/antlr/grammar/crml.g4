@@ -56,7 +56,9 @@ external_type : type | structure_type ;
 
 boolean_value : 'true' |'false' | 'undecided' | 'undefined' ;
 
-constant : boolean_value | string | number;
+constant : boolean_value | string | number | time;
+
+time : 'time';
 
 set_def : '{' (exp (',' exp)*) '}' | empty_set;
 
