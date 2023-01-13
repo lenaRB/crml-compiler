@@ -3,10 +3,10 @@ model StringConstructorsExample1 is {
 	String s2 is String "This is a \"nice\" string"; // The value of s2 is " This is a "nice" string "
 	String s3 is ""; // Empty string
 	String s4 is "$PO1_ is the identifier of the pump";
-	String s5 is String -23; // The value of s5 is "-23"
-	String s6 is String 10.5E7; // The value of s6 is "10.5E7"
-	String s7 is String true; // The value of s7 is "true"
-	String s8 is String false; // The value of s8 is "false"
-	String s9 is String undecided; // The value of s9 is "undecided"
-	String s10 is String undefined; // The value of s10 is "undefined"
+	String s5 is String new String  -23; // The value of s5 is "-23"
+	String s6 is String new String 10.5E7; // The value of s6 is "10.5E7"
+	String s7 is String new String true; // The value of s7 is "true"
+	String s8 is String new String false; // The value of s8 is "false"
+	String s9 is String new String undecided; // The value of s9 is "undecided"
+	String s10 is String new String undefined; // The value of s10 is "undefined"
 };

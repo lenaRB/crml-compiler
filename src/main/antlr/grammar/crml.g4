@@ -11,7 +11,7 @@ definition : definition_type id 'is' '{'
 
 definition_type : 'model' | 'package' | 'library';
 
-element_def : comment | template | class_def | uninstantiated_def | type_def | operator | var_def | category;
+element_def : comment | template | class_def | uninstantiated_def | type_def | operator | var_def | category | association;
 	
 class_def : 'class' id 'is' ('{' class_var_def+ '}' ('extends' type class_params? id? )?)';' ;
 
@@ -22,6 +22,8 @@ static_qualifier : 'parameter' ;
 category : 'Category' id 'is' '{' category_pair (',' category_pair)* '}' ';';
 
 category_pair : '(' op ',' op ')';
+
+association : 'Category' empty_set id 'is' 'associate' id 'with' id;
  
 var_def : var_qualifier? type id  (arg_list | 'is' (exp | 'external'))? ';' ;
 

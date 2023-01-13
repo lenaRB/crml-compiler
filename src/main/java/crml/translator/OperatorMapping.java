@@ -98,8 +98,8 @@ public class OperatorMapping {
 						new Signature("<=", real2, "Boolean", Type.OPERATOR),
 						new Signature("<=", intreal, "Boolean", Type.OPERATOR),
 						new Signature("<=", realint, "Boolean", Type.OPERATOR),
-						new Signature("CRMLtoModelica.realPeriodleq", realPeriod, params, "Boolean", Type.BLOCK),
-						new Signature("CRMLtoModelica.Blocks.Logical4.leq", bool2, params, "Boolean", Type.BLOCK));
+						new Signature("CRMLtoModelica.realPeriodleq", realPeriod, params, "Boolean", "leq", Type.BLOCK),
+						new Signature("CRMLtoModelica.Blocks.Logical4.leq", bool2, params, "Boolean", "leq", Type.BLOCK));
 		
 		built_in_operators.put("<=", leq_sigs);
 		
@@ -111,7 +111,7 @@ public class OperatorMapping {
 								new Signature("<", realint, "Boolean", Type.OPERATOR),
 								new Signature("leqArray", realint, params, "Boolean", Type.SET_OP, setOnvar, true),
 								new Signature("CRMLtoModelica.realPeriodleq", realPeriod, params, "Boolean", Type.BLOCK),
-								new Signature("CRMLtoModelica.Blocks.Logical4.leq", bool2, params, "Boolean", Type.BLOCK));
+								new Signature("CRMLtoModelica.Blocks.Logical4.leq", bool2, params, "Boolean", "leq", Type.BLOCK));
 				
 				built_in_operators.put("<", le_sigs);
 		
@@ -144,19 +144,19 @@ public class OperatorMapping {
 								new Signature("==", realint, "Boolean", Type.OPERATOR),
 								new Signature("eqArray", realint, params, "Boolean", Type.SET_OP, setOnvar, true),
 								new Signature("CRMLtoModelica.realPeriodeq", realPeriod, params, "Boolean", Type.BLOCK),
-								new Signature("CRMLtoModelica.Blocks.Logical4.eq", bool2, params, "Boolean", Type.BLOCK));
+								new Signature("CRMLtoModelica.Blocks.Logical4.eq", bool2, params, "Boolean", "eq", Type.BLOCK));
 				
 				built_in_operators.put("==", eq_sigs);
 				
-		// == operators
+		// <> operators
 				List<Signature> neq_sigs = 
 						Arrays.asList(new Signature("<>", int2,  "Boolean", Type.OPERATOR),
 								new Signature("<>", real2, "Boolean", Type.OPERATOR),
 								new Signature("<>", intreal, "Boolean", Type.OPERATOR),
 								new Signature("<>", realint, "Boolean", Type.OPERATOR),
 								new Signature("neqArray", realint, params, "Boolean", Type.SET_OP, setOnvar, true),
-								new Signature("CRMLtoModelica.realPeriodneq", realPeriod, params, "Boolean", Type.BLOCK),
-								new Signature("CRMLtoModelica.Blocks.Logical4.neq", bool2, params, "Boolean", Type.BLOCK));
+								new Signature("CRMLtoModelica.realPeriodneq", realPeriod, params, "Boolean",  Type.BLOCK),
+								new Signature("CRMLtoModelica.Blocks.Logical4.neq", bool2, params, "Boolean", "neq", Type.BLOCK));
 				
 				built_in_operators.put("<>", neq_sigs);
 				
@@ -259,11 +259,25 @@ public class OperatorMapping {
 				
 		// String
 		List<Signature> string_sigs = 
-				Arrays.asList(new Signature("intToString", int1, params, "String", Type.FUNCTION),
-						new Signature("realToString", real1, params, "String", Type.FUNCTION));
+				Arrays.asList(new Signature("String", int1, params, "String", Type.FUNCTION),
+						new Signature("String", real1, params, "String", Type.FUNCTION),
+						new Signature("CRMLtoModelica.Functions.Bool4toString", bool1, params, "String", Type.FUNCTION));
 		
 				built_in_operators.put("String", string_sigs);
+		
+		// Integer
+				List<Signature> integer_sigs = 
+						Arrays.asList(new Signature("Integer", int1, params, "integer", Type.FUNCTION),
+								new Signature("Integer", real1, params, "integer", Type.FUNCTION));
 				
+				built_in_operators.put("Integer", integer_sigs);
+				
+		// Real
+				List<Signature> real_sigs = 
+						Arrays.asList(new Signature("Real", int1, params, "real", Type.FUNCTION),
+								new Signature("Real", real1, params, "real", Type.FUNCTION));
+				
+				built_in_operators.put("Real", real_sigs);
 	
 				
 		return built_in_operators;
