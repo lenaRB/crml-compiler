@@ -1,5 +1,6 @@
 model BooleanIntegration is {
-	Boolean a is external;
-	Period P is external;
+	Boolean a is if 2.0 < time and time < 3.5 then true else false;
+	Boolean b is if 2.5 < time and time < 5 then true else false;
+	Period P is [ new Event b, new Event not b ];
 	Boolean b_integration is integrate a on P;
 };
