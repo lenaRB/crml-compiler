@@ -1,9 +1,9 @@
 model BooleanOperatorsExample1 is {
 	// Verify that b1 is equal to b2 when y becomes positive.
-	Boolean b1 is external;
-	Boolean b2 is external;
-	Real y is external;
-	Clock c is Clock (y > 0);
+	Boolean b1 is true;
+	Boolean b2 is true;
+	Real y is sin time;
+	Clock c is new Clock (y > 0);
 	Boolean b_out1 is (b1 == b2) at c;
 	Boolean b_out2 is (b1 at c) == (b2 at c); // b_out1 is equivalent to b_out2
 };

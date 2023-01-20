@@ -15,16 +15,43 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: build the crml-compiler
-      run: make distribution
+      run: |
+        make distribution
+        # create a runTests.mos file to run some tests
+        # this is just an example, we should create .mos 
+        # files for each .mo file to run each as a JUnit test
+        # load the library
+        echo 'loadFile("./resources/CRMLtoModelica.mo"); getErrorString();' >> runTests.mos
+        # load a translated file
+        echo 'loadFile("./tmpCRML/BooleanAccumulation.mo"); getErrorString();' >> runTests.mos
+        # check the translated file
+        echo 'checkModel(BooleanAccumulation); getErrorString();' >> runTests.mos
+        cat runTests.mos
+        
+    # run omc runTest.mos using docker!
+    - name: run OM docker
+      uses: docker://openmodelica/openmodelica:v1.19.2-minimal
+      with: 
+        args: omc runTests.mos
 
     - name: upload the crml-compiler
       uses: actions/upload-artifact@v2
       with:
         name: crml-compiler-all.jar
         path: ${{github.workspace}}/build/libs/crml-compiler-all.jar
-        
+  
     - name: publish the test report
       uses: mikepenz/action-junit-report@v3
       if: always() # always run even if the previous step fails
       with:
         report_paths: '**/build/test-results/test/TEST-*.xml'
+
+## you can use this to run everything in a Docker container
+##  test:
+##    runs-on: ubuntu-latest
+##    container: openmodelica/openmodelica:v1.19.2-minimal
+##    
+##    steps:
+##    - name: text the generated .mo files with OMC
+##      run: omc --help
+    

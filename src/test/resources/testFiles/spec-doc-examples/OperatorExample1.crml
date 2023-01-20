@@ -4,7 +4,8 @@ model OperatorExample1 is {
 	Operator [ Clock ] 'ticks' Clock c 'inside' Period P = c filter (tick >= P start) and (tick <= P end);
 	
 	// Example of function call
-	Period P is external;
-	Clock c1 is external;
+	Boolean b is if 2.5 < time and time < 15 then true else false;
+	Period P is [ new Event b, new Event not b ];
+	Clock c1 is new Clock (sin time);
 	Clock c2 is 'ticks' c1 'inside' P;
 };
