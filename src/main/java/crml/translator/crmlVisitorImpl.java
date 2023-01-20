@@ -546,7 +546,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			if (ctx.else_e != null) {
 				value_else = visit(ctx.else_e);
 				
-				return new Value (" if (" + value_if.contents + "== CRML.ETL.Types.Boolean4.true4) then " 
+				return new Value (" if (" + value_if.contents + "== CRMLtoModelica.Types.Boolean4.true4) then " 
 						+  value_then.contents + " else " +  value_else.contents, 
 						value_then.type);
 			
