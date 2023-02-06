@@ -1,0 +1,64 @@
+<NotepadPlus>
+    <UserLang name="crml" ext="crml" udlVersion="2.1">
+        <Settings>
+            <Global caseIgnored="no" allowFoldOfComments="no" foldCompact="no" forcePureLC="0" decimalSeparator="0" />
+            <Prefix Keywords1="no" Keywords2="no" Keywords3="yes" Keywords4="no" Keywords5="no" Keywords6="no" Keywords7="no" Keywords8="no" />
+        </Settings>
+        <KeywordLists>
+            <Keywords name="Comments">00// 01 02 03/* 04*/</Keywords>
+            <Keywords name="Numbers, prefix1">E e + -</Keywords>
+            <Keywords name="Numbers, prefix2"></Keywords>
+            <Keywords name="Numbers, extras1"></Keywords>
+            <Keywords name="Numbers, extras2"></Keywords>
+            <Keywords name="Numbers, suffix1"></Keywords>
+            <Keywords name="Numbers, suffix2"></Keywords>
+            <Keywords name="Numbers, range"></Keywords>
+            <Keywords name="Operators1">( ) [ ] { } , ; . = + - * / &lt; &lt;= &gt; &gt;= == &lt;&gt;</Keywords>
+            <Keywords name="Operators2">= + - * / &lt; &lt;= &gt; &gt;= == &lt;&gt; ^ acos alias and asin associate at card cos duration element end else exp extends filter flatten forbid if integrate is log log10 mod nil not of on pre proj redeclare sin start tick &apos;time from&apos; trim union with while</Keywords>
+            <Keywords name="Folders in code1, open"></Keywords>
+            <Keywords name="Folders in code1, middle"></Keywords>
+            <Keywords name="Folders in code1, close"></Keywords>
+            <Keywords name="Folders in code2, open"></Keywords>
+            <Keywords name="Folders in code2, middle"></Keywords>
+            <Keywords name="Folders in code2, close"></Keywords>
+            <Keywords name="Folders in comment, open">//</Keywords>
+            <Keywords name="Folders in comment, middle"></Keywords>
+            <Keywords name="Folders in comment, close"></Keywords>
+            <Keywords name="Keywords1">Boolean Category class Clock Event Integer library model Operator package Period Periods Real String Template type</Keywords>
+            <Keywords name="Keywords2">constant external partial</Keywords>
+            <Keywords name="Keywords3">false true undecided undefined</Keywords>
+            <Keywords name="Keywords4">expr</Keywords>
+            <Keywords name="Keywords5">after &apos;becomes false&apos; &apos;becomes false inside&apos; &apos;becomes true&apos; &apos;becomes true inside&apos; before check &apos;check anytime&apos; &apos;check at end&apos; count cte_false cte_true decide diff during evaluate ensure for from id implies inside or over until when xor</Keywords>
+            <Keywords name="Keywords6">increasing1 increasing2 varying1 varying2</Keywords>
+            <Keywords name="Keywords7">ActiveComponent Assumption bar CAD CAD_ Celsius ColdSource Cooling_system CoolingSystem Cooling_system_flattened_simple DemineralisedSource Environment Equipment ETL FORM_L Global h HeatExchanger K kg kW l m3 MassFlowRate MassFlowRateKilogrammePerSecond MonetaryQuantity mn MW Pa PhysicalQuantity Power PowerKilowatt PowerMegawatt PowerWatt Pressure PressureBar PressurePascal Pump Requirement s Served_system ServedSystem Temperature TemperatureCelsius TemperatureKelvin Time TimeHour TimeMinute TimeSecond Units USD USD_ VolumeFlowRate VolumeFlowRateKilogrammePerSecond VolumeFlowRateLiterPerMinute W</Keywords>
+            <Keywords name="Keywords8"></Keywords>
+            <Keywords name="Delimiters">00&apos; 01 02&apos; 03&quot; 04 05&quot; 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23</Keywords>
+        </KeywordLists>
+        <Styles>
+            <WordsStyle name="DEFAULT" fgColor="000000" bgColor="FFFFFF" fontName="&#x7375;&#x7265;&#x6544;&#x6966;&#x656E;&#x632E;&#x6D6F;&#x656D;&#x746E;s&#x6C43;&#x636F;k" fontStyle="1" fontSize="10" nesting="0" />
+            <WordsStyle name="COMMENTS" fgColor="000000" bgColor="DCDCDC" fontName="&#x000F;" fontStyle="1" nesting="0" />
+            <WordsStyle name="LINE COMMENTS" fgColor="000000" bgColor="DCDCDC" fontName="&#x7375;&#x7265;&#x6544;&#x6966;&#x656E;&#x702E;&#x6572;&#x6966;&#x4B78;&#x7965;&#x6F77;&#x6472;&#x3873;" fontStyle="1" fontSize="10" nesting="0" />
+            <WordsStyle name="NUMBERS" fgColor="FF0000" bgColor="FFFFFF" fontName="&#x7375;&#x7265;&#x6544;&#x6966;&#x656E;&#x662E;&#x6C6F;&#x4364;&#x6D6F;&#x6170;&#x7463;" fontStyle="1" fontSize="10" nesting="0" />
+            <WordsStyle name="KEYWORDS1" fgColor="008040" bgColor="FFFFFF" fontName="&#x7375;&#x7265;&#x6544;&#x6966;&#x656E;&#x612E;&#x6C6C;&#x776F;&#x6F46;&#x646C;&#x664F;&#x6F43;&#x6D6D;&#x6E65;&#x7374;" fontStyle="1" fontSize="10" nesting="0" />
+            <WordsStyle name="KEYWORDS2" fgColor="800000" bgColor="FFFFFF" fontName="&#x7375;&#x7265;&#x6544;&#x6966;&#x656E;&#x6E2E;&#x6D75;&#x6562;&#x5372;&#x6675;&#x6966;&#x3278;" fontStyle="3" fontSize="10" nesting="0" />
+            <WordsStyle name="KEYWORDS3" fgColor="00BF30" bgColor="FFFFFF" fontName="&#x7375;&#x7265;&#x6544;&#x6966;&#x656E;&#x6E2E;&#x7365;&#x6974;&#x676E;&#x302E;2" fontStyle="3" fontSize="10" nesting="0" />
+            <WordsStyle name="KEYWORDS4" fgColor="000000" bgColor="FFFFFF" fontName="&#x7375;&#x7265;&#x6544;&#x6966;&#x656E;&#x702E;&#x6572;&#x6966;&#x4B78;&#x7965;&#x6F77;&#x6472;&#x3273;&#x2F00;&#x202F;&#x6544;&#x616C;y&#x000A;" fontStyle="2" fontSize="10" nesting="0" />
+            <WordsStyle name="KEYWORDS5" fgColor="FF8040" bgColor="FFFFFF" fontName="&#x7375;&#x7265;&#x6544;&#x6966;&#x656E;&#x6E2E;&#x7365;&#x6974;&#x676E;&#x312E;4" fontStyle="1" fontSize="10" nesting="0" />
+            <WordsStyle name="KEYWORDS6" fgColor="FF0000" bgColor="FFFFFF" fontName="&#x7375;&#x7265;&#x6544;&#x6966;&#x656E;&#x6E2E;&#x7365;&#x6974;&#x676E;&#x312E;2&#x3278;" fontStyle="3" fontSize="10" nesting="0" />
+            <WordsStyle name="KEYWORDS7" fgColor="B73C00" bgColor="FFFFFF" fontName="&#x7375;&#x7265;&#x6544;&#x6966;&#x656E;&#x702E;&#x6572;&#x6966;&#x4B78;&#x7965;&#x6F77;&#x6472;&#x3273;" fontStyle="1" fontSize="10" nesting="0" />
+            <WordsStyle name="KEYWORDS8" fgColor="8000FF" bgColor="FFFFFF" fontName="&#x000F;" fontStyle="3" nesting="0" />
+            <WordsStyle name="OPERATORS" fgColor="0000FF" bgColor="FFFFFF" fontName="&#x7375;&#x7265;&#x6544;&#x6966;&#x656E;&#x6E2E;&#x7365;&#x6974;&#x676E;&#x322E;2el" fontStyle="1" fontSize="10" nesting="0" />
+            <WordsStyle name="FOLDER IN CODE1" fgColor="000000" bgColor="FFFFFF" fontName="&#x000F;" fontStyle="1" nesting="0" />
+            <WordsStyle name="FOLDER IN CODE2" fgColor="000080" bgColor="FFFFFF" fontName="&#x000F;" fontStyle="3" nesting="0" />
+            <WordsStyle name="FOLDER IN COMMENT" fgColor="000000" bgColor="FFFFFF" fontName="&#x000F;" fontStyle="1" nesting="0" />
+            <WordsStyle name="DELIMITERS1" fgColor="FF8040" bgColor="FFFFFF" fontName="&#x7375;&#x7265;&#x6544;&#x6966;&#x656E;&#x6E2E;&#x7365;&#x6974;&#x676E;&#x322E;1" fontStyle="1" fontSize="11" nesting="1" />
+            <WordsStyle name="DELIMITERS2" fgColor="000000" bgColor="FFFFFF" fontName="&#x000F;" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS3" fgColor="000000" bgColor="FFFFFF" fontName="&#x7375;&#x7265;&#x6544;&#x6966;&#x656E;&#x6E2E;&#x7365;&#x6974;&#x676E;&#x302E;8" fontStyle="0" fontSize="10" nesting="0" />
+            <WordsStyle name="DELIMITERS4" fgColor="000000" bgColor="FFFFFF" fontName="&#x000F;" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS5" fgColor="000000" bgColor="FFFFFF" fontName="&#x7375;&#x7265;&#x6544;&#x6966;&#x656E;&#x662E;&#x726F;&#x6563;&#x7550;&#x6572;&#x434C;&#x6400;&#x3873;" fontStyle="0" fontSize="10" nesting="0" />
+            <WordsStyle name="DELIMITERS6" fgColor="000000" bgColor="FFFFFF" fontName="&#x000F;" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS7" fgColor="000000" bgColor="FFFFFF" fontName="&#x000F;" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS8" fgColor="000000" bgColor="FFFFFF" fontName="&#x000F;" fontStyle="0" nesting="0" />
+        </Styles>
+    </UserLang>
+</NotepadPlus>

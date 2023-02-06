@@ -1,0 +1,64 @@
+<NotepadPlus>
+    <UserLang name="Modelica" ext="mo mos" udlVersion="2.1">
+        <Settings>
+            <Global caseIgnored="no" allowFoldOfComments="yes" foldCompact="no" forcePureLC="0" decimalSeparator="0" />
+            <Prefix Keywords1="no" Keywords2="no" Keywords3="no" Keywords4="no" Keywords5="no" Keywords6="no" Keywords7="no" Keywords8="no" />
+        </Settings>
+        <KeywordLists>
+            <Keywords name="Comments">00// 01 02((EOL)) 03/* 04*/</Keywords>
+            <Keywords name="Numbers, prefix1"></Keywords>
+            <Keywords name="Numbers, prefix2"></Keywords>
+            <Keywords name="Numbers, extras1"></Keywords>
+            <Keywords name="Numbers, extras2"></Keywords>
+            <Keywords name="Numbers, suffix1"></Keywords>
+            <Keywords name="Numbers, suffix2"></Keywords>
+            <Keywords name="Numbers, range"></Keywords>
+            <Keywords name="Operators1">[ ] ( ) { } . , ; ^ * / .* ./ + - .+ .- &lt; &lt;= &gt; &gt;= == &lt;&gt; : = :=</Keywords>
+            <Keywords name="Operators2"></Keywords>
+            <Keywords name="Folders in code1, open"></Keywords>
+            <Keywords name="Folders in code1, middle"></Keywords>
+            <Keywords name="Folders in code1, close"></Keywords>
+            <Keywords name="Folders in code2, open"></Keywords>
+            <Keywords name="Folders in code2, middle"></Keywords>
+            <Keywords name="Folders in code2, close"></Keywords>
+            <Keywords name="Folders in comment, open"></Keywords>
+            <Keywords name="Folders in comment, middle"></Keywords>
+            <Keywords name="Folders in comment, close"></Keywords>
+            <Keywords name="Keywords1">algorithm&#x000D;&#x000A;and&#x000D;&#x000A;annotation&#x000D;&#x000A;assert&#x000D;&#x000A;block&#x000D;&#x000A;break&#x000D;&#x000A;class&#x000D;&#x000A;connect&#x000D;&#x000A;connector&#x000D;&#x000A;constant&#x000D;&#x000A;constrainedby&#x000D;&#x000A;der&#x000D;&#x000A;discrete&#x000D;&#x000A;each&#x000D;&#x000A;else&#x000D;&#x000A;elseif&#x000D;&#x000A;elsewhen&#x000D;&#x000A;encapsulated&#x000D;&#x000A;end&#x000D;&#x000A;enumeration&#x000D;&#x000A;equation&#x000D;&#x000A;expandable&#x000D;&#x000A;extends&#x000D;&#x000A;external&#x000D;&#x000A;false&#x000D;&#x000A;final&#x000D;&#x000A;flow&#x000D;&#x000A;for&#x000D;&#x000A;function&#x000D;&#x000A;if&#x000D;&#x000A;import&#x000D;&#x000A;impure&#x000D;&#x000A;in&#x000D;&#x000A;initial&#x000D;&#x000A;inner&#x000D;&#x000A;input&#x000D;&#x000A;loop&#x000D;&#x000A;model&#x000D;&#x000A;not&#x000D;&#x000A;operator&#x000D;&#x000A;or&#x000D;&#x000A;outer&#x000D;&#x000A;output&#x000D;&#x000A;package&#x000D;&#x000A;parameter&#x000D;&#x000A;partial&#x000D;&#x000A;protected&#x000D;&#x000A;public&#x000D;&#x000A;pure&#x000D;&#x000A;record&#x000D;&#x000A;redeclare&#x000D;&#x000A;replaceable&#x000D;&#x000A;return&#x000D;&#x000A;stream&#x000D;&#x000A;then&#x000D;&#x000A;true&#x000D;&#x000A;type&#x000D;&#x000A;when&#x000D;&#x000A;while&#x000D;&#x000A;within</Keywords>
+            <Keywords name="Keywords2">abs&#x000D;&#x000A;acos&#x000D;&#x000A;actualStream&#x000D;&#x000A;asin&#x000D;&#x000A;atan&#x000D;&#x000A;atan2&#x000D;&#x000A;cardinality&#x000D;&#x000A;ceil&#x000D;&#x000A;cos&#x000D;&#x000A;cosh&#x000D;&#x000A;delay&#x000D;&#x000A;div&#x000D;&#x000A;edge&#x000D;&#x000A;exp&#x000D;&#x000A;floor&#x000D;&#x000A;getInstanceName&#x000D;&#x000A;homotopy&#x000D;&#x000A;inStream&#x000D;&#x000A;integer&#x000D;&#x000A;log&#x000D;&#x000A;log10&#x000D;&#x000A;mod&#x000D;&#x000A;pre&#x000D;&#x000A;reinit&#x000D;&#x000A;rem&#x000D;&#x000A;semiLinear&#x000D;&#x000A;sign&#x000D;&#x000A;sin&#x000D;&#x000A;sinh&#x000D;&#x000A;spatialDistribution&#x000D;&#x000A;sqrt&#x000D;&#x000A;tan&#x000D;&#x000A;tanh</Keywords>
+            <Keywords name="Keywords3">Real&#x000D;&#x000A;Boolean&#x000D;&#x000A;Integer&#x000D;&#x000A;String</Keywords>
+            <Keywords name="Keywords4">addClassAnnotation&#x000D;&#x000A;appendEnvironmentVar&#x000D;&#x000A;basename&#x000D;&#x000A;basePlotFunction&#x000D;&#x000A;buildOpenTURNSInterface&#x000D;&#x000A;cd&#x000D;&#x000A;checkAllModelsRecursive&#x000D;&#x000A;checkModel&#x000D;&#x000A;checkSettings&#x000D;&#x000A;CheckSettingsResult&#x000D;&#x000A;clear&#x000D;&#x000A;clearMessages&#x000D;&#x000A;clearVariables&#x000D;&#x000A;closeSimulationResultFile&#x000D;&#x000A;codeToString&#x000D;&#x000A;compareSimulationResults&#x000D;&#x000A;deleteFile&#x000D;&#x000A;dirname&#x000D;&#x000A;dumpXMLDAE&#x000D;&#x000A;echo&#x000D;&#x000A;ErrorKind&#x000D;&#x000A;ErrorLevel&#x000D;&#x000A;ErrorMessage&#x000D;&#x000A;extendsFrom&#x000D;&#x000A;generateCode&#x000D;&#x000A;generateHeader&#x000D;&#x000A;generateSeparateCode&#x000D;&#x000A;getAlgorithmCount&#x000D;&#x000A;getAlgorithmItemsCount&#x000D;&#x000A;getAnnotationCount&#x000D;&#x000A;getAnnotationVersion&#x000D;&#x000A;getAstAsCorbaString&#x000D;&#x000A;getAvailableIndexReductionMethods&#x000D;&#x000A;getAvailableMatchingAlgorithms&#x000D;&#x000A;getClassComment&#x000D;&#x000A;getClassesInModelicaPath&#x000D;&#x000A;getClassNames&#x000D;&#x000A;getCompileCommand&#x000D;&#x000A;getCompiler&#x000D;&#x000A;getCXXCompiler&#x000D;&#x000A;getDefaultOpenCLDevice&#x000D;&#x000A;getDocumentationAnnotation&#x000D;&#x000A;getEnvironmentVar&#x000D;&#x000A;getEquationCount&#x000D;&#x000A;getEquationItemsCount&#x000D;&#x000A;getErrorString&#x000D;&#x000A;getImportCount&#x000D;&#x000A;getIndexReductionMethod&#x000D;&#x000A;getInitialAlgorithmCount&#x000D;&#x000A;getInitialAlgorithmItemsCount&#x000D;&#x000A;getInitialEquationCount&#x000D;&#x000A;getInitialEquationItemsCount&#x000D;&#x000A;getInstallationDirectoryPath&#x000D;&#x000A;getLanguageStandard&#x000D;&#x000A;getLinker&#x000D;&#x000A;getMatchingAlgorithm&#x000D;&#x000A;getMessagesString&#x000D;&#x000A;getMessagesStringInternal&#x000D;&#x000A;getModelicaPath&#x000D;&#x000A;getNoSimplify&#x000D;&#x000A;getNthAlgorithm&#x000D;&#x000A;getNthAlgorithmItem&#x000D;&#x000A;getNthAnnotationString&#x000D;&#x000A;getNthEquation&#x000D;&#x000A;getNthEquationItem&#x000D;&#x000A;getNthImport&#x000D;&#x000A;getNthInitialAlgorithm&#x000D;&#x000A;getNthInitialAlgorithmItem&#x000D;&#x000A;getNthInitialEquation&#x000D;&#x000A;getNthInitialEquationItem&#x000D;&#x000A;getOrderConnections&#x000D;&#x000A;getPackages&#x000D;&#x000A;getPlotSilent&#x000D;&#x000A;getSettings&#x000D;&#x000A;getShowAnnotations&#x000D;&#x000A;getSourceFile&#x000D;&#x000A;getTempDirectoryPath&#x000D;&#x000A;getVectorizationLimit&#x000D;&#x000A;getVersion&#x000D;&#x000A;help&#x000D;&#x000A;iconv&#x000D;&#x000A;importFMU&#x000D;&#x000A;importFMUOld&#x000D;&#x000A;instantiateModel&#x000D;&#x000A;Internal&#x000D;&#x000A;isExperiment&#x000D;&#x000A;isModel&#x000D;&#x000A;isOperator&#x000D;&#x000A;isOperatorFunction&#x000D;&#x000A;isOperatorRecord&#x000D;&#x000A;isPackage&#x000D;&#x000A;isPartial&#x000D;&#x000A;isProtectedClass&#x000D;&#x000A;isShortDefinition&#x000D;&#x000A;linearize&#x000D;&#x000A;LinearSystemSolver&#x000D;&#x000A;list&#x000D;&#x000A;listVariables&#x000D;&#x000A;loadFile&#x000D;&#x000A;loadFileInteractive&#x000D;&#x000A;loadFileInteractiveQualified&#x000D;&#x000A;loadModel&#x000D;&#x000A;loadModelica3D&#x000D;&#x000A;loadString&#x000D;&#x000A;parseFile&#x000D;&#x000A;parseString&#x000D;&#x000A;plot&#x000D;&#x000A;plotAll&#x000D;&#x000A;plotParametric&#x000D;&#x000A;readFile&#x000D;&#x000A;readFileNoNumeric&#x000D;&#x000A;readFilePostprocessLineDirective&#x000D;&#x000A;readFileShowLineNumbers&#x000D;&#x000A;readSimulationResult&#x000D;&#x000A;readSimulationResultSize&#x000D;&#x000A;readSimulationResultVars&#x000D;&#x000A;regex&#x000D;&#x000A;regexBool&#x000D;&#x000A;regularFileExists&#x000D;&#x000A;reopenStandardStream&#x000D;&#x000A;runOpenTURNSPythonScript&#x000D;&#x000A;runScript&#x000D;&#x000A;save&#x000D;&#x000A;saveAll&#x000D;&#x000A;saveModel&#x000D;&#x000A;saveTotalModel&#x000D;&#x000A;saveTotalSCode&#x000D;&#x000A;searchClassNames&#x000D;&#x000A;setAnnotationVersion&#x000D;&#x000A;setCheapMatchingAlgorithm&#x000D;&#x000A;setClassComment&#x000D;&#x000A;setCommandLineOptions&#x000D;&#x000A;setCompileCommand&#x000D;&#x000A;setCompiler&#x000D;&#x000A;setCompilerFlags&#x000D;&#x000A;setCompilerPath&#x000D;&#x000A;setCXXCompiler&#x000D;&#x000A;setDebugFlags&#x000D;&#x000A;setDefaultOpenCLDevice&#x000D;&#x000A;setDocumentationAnnotation&#x000D;&#x000A;setEnvironmentVar&#x000D;&#x000A;setIndexReductionMethod&#x000D;&#x000A;setInitXmlStartValue&#x000D;&#x000A;setInstallationDirectoryPath&#x000D;&#x000A;setLanguageStandard&#x000D;&#x000A;setLinker&#x000D;&#x000A;setLinkerFlags&#x000D;&#x000A;setMatchingAlgorithm&#x000D;&#x000A;setModelicaPath&#x000D;&#x000A;setNoSimplify&#x000D;&#x000A;setOrderConnections&#x000D;&#x000A;setPastOptModules&#x000D;&#x000A;setPlotCommand&#x000D;&#x000A;setPlotSilent&#x000D;&#x000A;setPreOptModules&#x000D;&#x000A;setShowAnnotations&#x000D;&#x000A;setSourceFile&#x000D;&#x000A;setTempDirectoryPath&#x000D;&#x000A;setVectorizationLimit&#x000D;&#x000A;simulate&#x000D;&#x000A;solveLinearSystem&#x000D;&#x000A;SourceInfo&#x000D;&#x000A;StandardStream&#x000D;&#x000A;strictRMLCheck&#x000D;&#x000A;stringReplace&#x000D;&#x000A;strtok&#x000D;&#x000A;system&#x000D;&#x000A;system_parallel&#x000D;&#x000A;translateGraphics&#x000D;&#x000A;typeNameString&#x000D;&#x000A;typeNameStrings&#x000D;&#x000A;typeOf&#x000D;&#x000A;uriToFilename&#x000D;&#x000A;val&#x000D;&#x000A;verifyCompiler&#x000D;&#x000A;visualize&#x000D;&#x000A;writeFile</Keywords>
+            <Keywords name="Keywords5"></Keywords>
+            <Keywords name="Keywords6"></Keywords>
+            <Keywords name="Keywords7"></Keywords>
+            <Keywords name="Keywords8"></Keywords>
+            <Keywords name="Delimiters">00&quot; 01\ 02&quot; 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23</Keywords>
+        </KeywordLists>
+        <Styles>
+            <WordsStyle name="DEFAULT" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="COMMENTS" fgColor="008080" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="LINE COMMENTS" fgColor="008080" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="NUMBERS" fgColor="FF0000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="KEYWORDS1" fgColor="0000FF" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="KEYWORDS2" fgColor="0000FF" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="KEYWORDS3" fgColor="0000FF" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="KEYWORDS4" fgColor="0080FF" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="KEYWORDS5" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="KEYWORDS6" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="KEYWORDS7" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="KEYWORDS8" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="OPERATORS" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="FOLDER IN CODE1" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="FOLDER IN CODE2" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="FOLDER IN COMMENT" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS1" fgColor="FF8040" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS2" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS3" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS4" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS5" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS6" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS7" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+            <WordsStyle name="DELIMITERS8" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" nesting="0" />
+        </Styles>
+    </UserLang>
+</NotepadPlus>
