@@ -1,5 +1,28 @@
 package CRMLtoModelica
   package Types
+  
+  record CRMLClock
+  parameter Integer buffer_size=50;
+  CRMLtoModelicaTypes.Boolean4 b;
+  Real ticks[buffer_size](each start = -1, each fixed = true);
+  discrete Integer counter(start=1, fixed=true);
+  end CRMLClock;
+  
+  model CRMLClock_build
+  
+  CRMLClock clock;
+  
+  Boolean e(start = false);
+  
+  algorithm
+    e := (clock.b == CRMLtoModelica.Types.Boolean4.true4);
+    when (e) then
+      clock.ticks[clock.counter] := time;
+      clock.counter := pre(clock.counter)+1;
+    end when;
+  
+  end CRMLClock_build;
+  
     type Boolean4 = enumeration(
       undefined,
       undecided,
