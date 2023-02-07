@@ -1,0 +1,34 @@
+class TypicalRequirement is ETL union FORM_L union {
+
+	type Requirement is Boolean forbid { *, +, integrate };
+
+	Boolean inOperation is external;
+	Boolean inNormalDomain is external;
+	Boolean inBackupDomain is external;
+	Boolean inSystemOperatingLife is external;
+	
+	Real x, y is external;
+	Integer n is external;
+	
+	Real p is 0.99;
+	
+	// r1 is “During operation, the system should stay within its normal domain."
+	Requirement r1 is 'during' inOperation 'ensure' inNormalDomain;
+	
+	// r2 is “If the system fails to stay within its operating domain, then it should not stay outside of its normal domain for more than x minutes."
+	Requirement r2 is 'during' inOperation 'ensure' (not inNormalDomain 'implies' r2_outside);
+	Requirement r2_outside is 'during' [inNormalDomain 'becomes false', inNormalDomain 'becomes false' + x mn] 'check at end' b;
+	Boolean b is inOperation 'implies' inNormalDomain;
+		
+	// r3 is "The system should not go outside its normal domain more than n times per year.”
+	Requirement r3 is 'count' ((b 'becomes false') on [b 'becomes false', b 'becomes false' + 1 year] <= n;
+	
+	// r4 is “If (r1 and r2 and r3) fail, then the system should go to its backup domain within y minutes as soon as the failure is detected.”
+	Requirement r4 is not (r1 and r2 and r3) 'implies' 
+							'during' [(r1 and r2 and r3) 'becomes false', (r1 and r2 and r3) 'becomes false' + y mn] 'check at end' inBackupDomain;
+	
+	// R is “During system operating life, r1 and r2 and r3 and r4 should be satisfied with a probability of success of p%.”
+	Real prob is estimator Probability (r1 and r2 and r3 and r4) at inSystemOperatingLife 'becomes false';
+	Requirement R is 'during' inSystemOperatingLife 'check at end prob' > p;
+};
+

@@ -1,0 +1,13 @@
+model MissionChange is ETL union FORM_L union {
+	type Requirement is Boolean forbid { *, +, integrate };
+	
+	Requirement R1 is external;
+	Requirement R2 is external;
+	Real n is external;
+	
+	//Requirement R2 should be satisfied at most n seconds after requirement R1 is violated
+	Boolean systemInOperation is external;
+	Requirement R is
+		'during' systemInOperation 
+			'ensure' ((not R1) 'implies' R2 'becomes true inside' [R1 'becomes false'; R1 'becomes false' + n seconds])
+};
