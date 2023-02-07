@@ -1,4 +1,4 @@
-model logical_op is {
+model LogicalTemplate is {
 
 Template R1 'or' R2 = not (not R1 and not R2);
 Template R1 'xor' R2 = (R1 'or' R2) and not (R1 and R2);
@@ -9,5 +9,6 @@ Boolean R1 is true;
 Boolean R2 is false;
 
 Boolean R3 is R1 'xor' R2;
+Boolean R4 is b1 'or' b2;
 
 };

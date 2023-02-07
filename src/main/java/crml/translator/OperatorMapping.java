@@ -110,7 +110,7 @@ public class OperatorMapping {
 								new Signature("<", intreal, "Boolean", Type.OPERATOR),
 								new Signature("<", realint, "Boolean", Type.OPERATOR),
 								new Signature("leqArray", realint, params, "Boolean", Type.SET_OP, setOnvar, true),
-								new Signature("CRMLtoModelica.realPeriodleq", realPeriod, params, "Boolean", Type.BLOCK),
+								new Signature("CRMLtoModelica.Blocks.realPeriodleq", realPeriod, params, "Boolean", Type.BLOCK),
 								new Signature("CRMLtoModelica.Blocks.Logical4.leq", bool2, params, "Boolean", "leq", Type.BLOCK));
 				
 				built_in_operators.put("<", le_sigs);
@@ -143,7 +143,7 @@ public class OperatorMapping {
 								new Signature("==", intreal, "Boolean", Type.OPERATOR),
 								new Signature("==", realint, "Boolean", Type.OPERATOR),
 								new Signature("eqArray", realint, params, "Boolean", Type.SET_OP, setOnvar, true),
-								new Signature("CRMLtoModelica.realPeriodeq", realPeriod, params, "Boolean", Type.BLOCK),
+								new Signature("CRMLtoModelica.Blocks.realPeriodeq", realPeriod, params, "Boolean", Type.BLOCK),
 								new Signature("CRMLtoModelica.Blocks.Logical4.eq", bool2, params, "Boolean", "eq", Type.BLOCK));
 				
 				built_in_operators.put("==", eq_sigs);

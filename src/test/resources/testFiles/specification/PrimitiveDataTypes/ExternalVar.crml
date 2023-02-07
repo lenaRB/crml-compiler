@@ -1,0 +1,5 @@
+model ExternalVar is {
+
+String variable is external;
+
+};

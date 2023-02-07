@@ -1,4 +1,4 @@
-model ClockOp is {
+model EvaluationOps is {
 
  Operator [ Clock ] Clock C 'inside' Period P = C filter ((tick >= (P start)) and ((P end) >= tick ));
 

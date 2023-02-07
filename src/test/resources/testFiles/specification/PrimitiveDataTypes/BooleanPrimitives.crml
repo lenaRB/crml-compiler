@@ -16,4 +16,23 @@ Boolean b6 is not b1;
 Boolean b8 is b1 * b2;	// Filter
 Boolean b10 is b1 + b2 + b3;	// Accumulation
 
+/** Left to test/implement
+
+Name
+Conjunction
+Disjunction
+Conjunction with event
+Disjunction with event
+Negation
+Filter
+Accumulation
+Integration
+Duration
+Equality
+If then else
+At event
+
+
+*/
+
 };

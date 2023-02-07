@@ -598,7 +598,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 							
 				// special case if the return is boolean and needs to be wrapped in a CRML boolean
 				if (op_t.return_type.equals("Boolean"))
-					return new Value ("CRMLtoModelica.functions.cvBooleanToBoolean4(" + op_t.function_name + " " + right.contents + ")", "Boolean");
+					return new Value ("CRMLtoModelica.Functions.cvBooleanToBoolean4(" + op_t.function_name + " " + right.contents + ")", "Boolean");
 				
 				return new Value (op_t.function_name + " " + right.contents, op_t.return_type);
 			} else if (op_t.mtype == Signature.Type.FUNCTION) {
@@ -628,7 +628,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 							
 				// special case if the return is boolean and needs to be wrapped in a CRML boolean
 				if (op_t.return_type.equals("Boolean"))
-					return new Value ("CRMLtoModelica.functions.cvBooleanToBoolean4(" + op_t.function_name + " " + left.contents + ")", "Boolean");
+					return new Value ("CRMLtoModelica.Functions.cvBooleanToBoolean4(" + op_t.function_name + " " + left.contents + ")", "Boolean");
 				
 				return new Value (op_t.function_name + " " + left.contents, op_t.return_type, op_t.is_return_set);
 			} else if (op_t.mtype == Signature.Type.FUNCTION) {
@@ -658,7 +658,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				
 				// special case if the return is boolean and needs to be wrapped in a CRML boolean
 				if (op_t.return_type.equals("Boolean"))
-					return new Value ("CRMLtoModelica.functions.cvBooleanToBoolean4(" + left.contents + " " + op + " " + right.contents + ")", "Boolean");
+					return new Value ("CRMLtoModelica.Functions.cvBooleanToBoolean4(" + left.contents + " " + op + " " + right.contents + ")", "Boolean");
 				
 				return new Value (left.contents + " " + op_t.function_name + " " + right.contents, op_t.return_type, op_t.is_return_set);
 			} else if (op_t.mtype == Signature.Type.FUNCTION) {

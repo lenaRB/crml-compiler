@@ -47,7 +47,8 @@ public class SetsTests {
 				crml.translator.Main.parse_file(testFolderIn, fileName, "tmpCRML", true);
 				
 	    	} catch (Exception e) {
-				fail("Unable to translate " + fileName + ":\n" + e.getMessage());
+	    		
+				fail("Unable to translate " + fileName + ": \n" + e.getMessage() + "\n");
 			}
 	    	
 	}	
