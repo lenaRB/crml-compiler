@@ -1,0 +1,22 @@
+model FormlReadability is ETL union FORM_L union {
+	
+	Boolean system.inOperation is external;
+	Boolean pump.isStarted is external;
+	Real pump.temperature is external;
+	
+	// When the system is in operation check the pump starts no more than 2 times
+	// and the pump temperature is below 50 °C
+	
+	// FORM-L translation
+	Boolean R_forml is 
+		'during' system.inOperation 'check count' (pump.isStarted 'becomes true') '<=' 2
+			and 'during' pump.isStarted 'ensure' pump.temperature < 50*degC;
+
+	// ETL translation
+	Periods P1 is [system.inOperation 'becomes true', system.inOperation 'becomes false'];
+	Periods P2 is [pump.isStarted 'becomes true', pump.isStarted 'becomes false'];
+	
+	Boolean R_etl is
+		check (count (pump.isStarted 'becomes true' 'inside' P1) <= 2 over P1)
+			and check ( count( pump.temperature >= 50*degC 'becomes true' 'inside' P2) == 0) over P2;
+};
