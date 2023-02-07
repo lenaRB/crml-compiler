@@ -3,7 +3,7 @@ package CRMLtoModelica
   
   record CRMLClock
   parameter Integer buffer_size=50;
-  CRMLtoModelicaTypes.Boolean4 b;
+  CRMLtoModelica.Types.Boolean4 b;
   Real ticks[buffer_size](each start = -1, each fixed = true);
   discrete Integer counter(start=1, fixed=true);
   end CRMLClock;

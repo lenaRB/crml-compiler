@@ -1,0 +1,35 @@
+model TemplateExample1 is {
+	// Definition of disjunction of two Booleans.
+	Template b1 'or' b2 = not (not b1 and not b2);
+	
+	// Example of function call
+	Boolean b_true is true;
+	Boolean b_false is false;
+	Boolean b_undecided is undecided;
+	Boolean b_undefined is undefined;
+	
+	//Test truth table for the logical disjunction
+	//Values should be the same as for the built-in or operator
+	
+	//First row
+	Boolean b_true_or_true is b_true 'or' b_true; //value should be true
+	Boolean b_true_or_false is b_true 'or' b_false; //value should be true
+	Boolean b_true_or_undecided is b_true 'or' b_undecided; //value should be true
+	Boolean b_true_or_undefined is b_true 'or' b_undefined; //value should be true
+	//Second row
+	Boolean b_false_or_true is b_false 'or' b_true; //value should be true
+	Boolean b_false_or_false is b_false 'or' b_false; //value should be false
+	Boolean b_false_or_undecided is b_false 'or' b_undecided; //value should be undecided
+	Boolean b_false_or_undefined is b_false 'or' b_undefined; //value should be false
+	//Third row
+	Boolean b_undecided_or_true is b_undecided 'or' b_true; //value should be true
+	Boolean b_undecided_or_false is b_undecided 'or' b_false; //value should be undecided
+	Boolean b_undecided_or_undecided is b_undecided 'or' b_undecided; //value should be undecided
+	Boolean b_undecided_or_undefined is b_undecided 'or' b_undefined; //value should be undecided
+	//Fourth row
+	Boolean b_undefined_or_true is b_undefined 'or' b_true; //value should be true
+	Boolean b_undefined_or_false is b_undefined 'or' b_false; //value should be false
+	Boolean b_undefined_or_undecided is b_undefined 'or' b_undecided; //value should be undecided
+	Boolean b_undefined_or_undefined is b_undefined 'or' b_undefined; //value should be undefined
+
+};

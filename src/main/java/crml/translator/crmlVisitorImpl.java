@@ -503,7 +503,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 	public Value visitConstructor(crmlParser.ConstructorContext ctx) {
 		
 		if(ctx.type().getText().equals("Clock")) { // Clock constructor
-		String varName = "c"+ counter++;
+		String varName = "c" + counter++;
 		String clockType = types_mapping.get("Clock");
 		
 		//TODO add return type checking
@@ -512,7 +512,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		
 		localFunctionCalls.append(clockType + " " + varName + "(b=" + v.contents + ");\n");
 		localFunctionCalls.append("CRMLtoModelica.Types.CRMLClock_build " + varName+"_init(clock =" + varName + ");\n");
-		return new Value (varName+".out", "Clock");
+		return new Value (varName, "Clock");
 		}
 		
 		// Constructor with no expression - translates to nothing in Modelica
