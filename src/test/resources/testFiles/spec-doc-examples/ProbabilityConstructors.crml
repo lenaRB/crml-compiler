@@ -1,0 +1,11 @@
+model ProbabilityConstructors is {
+	// External inputs
+	Boolean b is external;
+	Clock c is external;
+
+	// Probability that b is true at all time instants t
+	Probability p_of_b is Probability b;
+
+	// Probability that b is true at all ticks of clock c
+	Probability p_of_b_at_c is Probability b at c;
+};

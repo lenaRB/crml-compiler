@@ -1,0 +1,4 @@
+model ProbabilityEstimator is {
+	Probability x is external; 
+	Real y_estimator_of_x is estimator x;
+};

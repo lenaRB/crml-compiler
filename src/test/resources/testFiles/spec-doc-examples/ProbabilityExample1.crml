@@ -1,0 +1,39 @@
+model ProbabilityExample1 is ETL union FORM_L union {
+	// While the system is in operation, 
+	// there should not be more than two pump failures in a sliding time period of one month
+	//	with a probability greater than 99%.
+	
+	// Type Requirement is aimed at providing a dedicated keyword
+	// to requirements and forbid the use of temporal operators by the user.
+	type Requirement is Boolean forbid { *, +, integrate };
+
+	// Type Events synonymous to Clock
+	type Events is Clock;
+
+	// Operator that defines time periods while a Boolean is true,
+	// including the opening events and excluding the closing events
+	Operator [ Periods ] 'during' Boolean b 'excluding closing events' = [ b 'becomes true', b 'becomes false' [;
+
+	// Operator that defines a sliding time period deltaT over a given time period P for occurring events e
+	Operator [ Periods ] 'during' Time deltaT 'sliding while' Periods P 'for' Events e = [ e 'or' P start, (e 'or' P start) + deltaT [ while P;
+
+	// Class pump that contains the requirements on pumps.
+	// The operators used in this example are defined in the ETL and FORM-L libraries.
+	class Pump is {
+		// External variable that tells whether the system is in operation
+		Boolean inOperation is external;
+		// External variable that tells whether the pump is in a failure state
+		Boolean failure is external;
+		Events failures is new Clock failure;
+		// No-start non-probabilistic requirement. 
+		// It is not declared as a requirement because it is not the final requirement to be satisfied.
+		Boolean nostart is ('during' inOperation 'excluding closing events') 
+			'ensure' (('during' 1 month 'sliding while' inOperation 'for' Events failures) 
+				'check count' Events failures '<=' 2);
+		// Probability that requirement no-start is true at end of the system operation
+		Real p is estimator Probability noStart at inOperation 'becomes false';
+		// Probabilistic no-start requirement. 
+		// It is declared as a requirement because it is the final requirement to be satisfied.
+		Requirement noStartProb is 'during' inOperation 'check at end' p > 0.99;
+	};
+};
