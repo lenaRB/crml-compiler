@@ -1,0 +1,84 @@
+// FORM-L library
+// include "ETL.crml"
+
+library FORM_L is ETL union {
+	// Operators to define time periods
+	// From events occur
+	Operator [ Periods ] 'from' Clock ev = Periods [ ev, new Clock false ]; 
+	
+	// After events occur
+	Operator [ Periods ] 'after' Clock ev = Periods ] ev, new Clock false ]; 
+	
+	// Before events occur
+	Operator [ Periods ] 'before' Clock ev = Periods [ new Clock false, ev [; 
+	
+	// Until events occur
+	Operator [ Periods ] 'until' Clock ev = Periods [ new Clock false, ev ]; 
+	
+	// While a Boolean is true
+	Operator [ Periods ] 'during' Boolean b = Periods [ Clock b, Clock not b ]; 
+	
+	// After events occur and before events occur
+	Operator [ Periods ] 'after' Clock ev1 'before' Clock ev2 = Periods ] ev1, ev2 [; 
+	
+	// After events occur and until events occur
+	Operator [ Periods ] 'after' Clock ev1 'until' Clock ev2 = Periods ] ev1, ev2 ]; 
+	
+	// After events occur and for an elapsed time
+	Operator [ Periods ] 'after' Clock ev 'for' Real d = Periods ] ev, d ]; 
+	
+	// After events occur and within an elapsed time
+	Operator [ Periods ] 'after' Clock ev 'within' Real d = Periods ] ev, d [; 
+	
+	// From events occur and before events occur
+	Operator [ Periods ] 'from' Clock ev1 'before' Clock ev2 = Periods [ ev1, ev2 [; 
+	
+	// From events occur and until events occur
+	Operator [ Periods ] 'from' Clock ev1 'until' Clock ev2 = Periods [ ev1, ev2 ]; 
+	
+	// From events occur and for an elapsed time
+	Operator [ Periods ] 'from' Clock ev 'for' Real d = Periods [ ev, d ]; 
+	
+	// From events occur and within an elapsed time
+	Operator [ Periods ] 'from' Clock ev 'within' Real d = Periods [ ev, d [; 
+	
+	// When events occur
+	Operator [ Periods ] 'when' Clock ev = Periods [ ev, ev ];
+
+
+	// Operators for the evaluation of requirements
+	
+	// Checking that a requirement is satisfied at the end of a time period
+	Operator [ Boolean ] Periods P 'check at end' Boolean b = 'check' varying1 'id' b 'over' P;
+	
+	// Checking that a requirement is satisfied at any time instant of a time period
+	Operator [ Boolean ] Periods P 'check anytime' Boolean b = 'check' varying2 'id' b 'over' P;
+	
+	// Ensuring that a requirement is satisfied all along a time period
+	Operator [ Boolean ] Periods P 'ensure' Boolean b 
+		= ('check' ('count' (b 'becomes true') == 0) 'over' P) and (P 'check anytime' b);
+		
+	// Checking that the number of event occurrences at the end of a time period is lower or higher than a threshold
+	Operator [ Boolean ] Periods P 'check count' Clock E '<' constant Integer n 
+		= 'check'(('count' E 'inside' P) increasing1 '<' n) 'over' P;
+	Operator [ Boolean ] Periods P 'check count' Clock E '<=' constant Integer n 
+		= 'check'(('count' E 'inside' P) increasing1 '<=' n) 'over' P;
+	Operator [ Boolean ] Periods P 'check count' Clock E '>' constant Integer n 
+		= 'check'(('count' E 'inside' P) increasing1 '>' n) 'over' P;
+	Operator [ Boolean ] Periods P 'check count' Clock E '>=' constant Integer n 
+		= 'check'(('count' E 'inside' P) increasing1 '>=' n) 'over' P;
+	Operator [ Boolean ] Periods P 'check count' Clock E '==' constant Integer n 
+		= 'check'(('count' E 'inside' P) increasing1 '==' n) 'over' P;
+	Operator [ Boolean ] Periods P 'check count' Clock E '<>' constant Integer n 
+		= 'check'(('count' E 'inside' P) increasing1 '<>' n) 'over' P;
+
+	// Checking that the duration of a condition at the end of a time period is lower or higher than a threshold 
+	Operator [ Boolean ] Periods P 'check duration' Boolean b '<' constant Real d 
+		= 'check' (('duration' b 'on' P) increasing2 '<' d) 'over' P;
+	Operator [ Boolean ] Periods P 'check duration' Boolean b '<=' constant Real d 
+		= 'check' (('duration' b 'on' P) increasing2 '<=' d) 'over' P;
+	Operator [ Boolean ] Periods P 'check duration' Boolean b '>' constant Real d 
+		= 'check' (('duration' b 'on' P) increasing2 '>' d) 'over' P;
+	Operator [ Boolean ] Periods P 'check duration' Boolean b '>=' constant Real d 
+		= 'check' (('duration' b 'on' P) increasing2 '>=' d) 'over' P;
+};
