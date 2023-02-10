@@ -11,4 +11,4 @@ Author Daniel Bouskela, EDF
 
 ## Contents
 
-[Syntax](https://github.com/lenaRB/crml-compiler/blob/b22ab0e8b3904a776eda70143810b887094bb511/language_specification/syntax.md)
+[Syntax](https://github.com/lenaRB/crml-compiler/tree/main/language_specification/syntax.md)
