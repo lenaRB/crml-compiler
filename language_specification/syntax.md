@@ -12,7 +12,7 @@ expr_1 | expr_2 | … | expr_n denotes n possible alternatives between the expre
 
 "keyword" denotes the String keyword.
 
-Built-in keywords are written in ${\color{blue}blue}$.
+Built-in keywords are written in ${\color{blue}blue}$, ${\color{cyan}cyan}$, ${\color{teal}teal}$.
 
 User-defined objects names are written in ${\color{orange}orange}$.
 
