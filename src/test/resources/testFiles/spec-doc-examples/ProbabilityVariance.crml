@@ -1,0 +1,4 @@
+model ProbabilityVariance is {
+	Probability x is external; 
+	Real y_estimator_of_x is estimator variance x;
+};

@@ -13,7 +13,8 @@ library ETL is {
 
 	// Operators on clocks
 	// Filter clock ticks inside a time period
-	Operator [ Clock ] Clock C 'inside' Period P = C filter (tick >= P start) and (tick <= P end);
+	Operator [ Clock ] Clock C 'inside' Period P 
+		= C filter (tick >= P start) and (tick <= P end);
   
 	// Count the occurrences of events inside a time period
 	Operator [ Integer ] 'count' Clock C 'inside' Period P = card (C 'inside' P);
@@ -26,25 +27,32 @@ library ETL is {
 	Operator [ Clock] Boolean b 'becomes false' = not b 'becomes true';
 
 	// Events generated when a Boolean becomes true inside a time period
-	Operator [ Clock] Boolean b 'becomes true inside' Period P = (b 'becomes true') 'inside' P;
+	Operator [ Clock] Boolean b 'becomes true inside' Period P 
+		= (b 'becomes true') 'inside' P;
 
 	// Events generated when a Boolean becomes false inside a time period
-	Operator [ Clock] Boolean b 'becomes false inside' Period P = (b 'becomes false') 'inside' P; 
+	Operator [ Clock] Boolean b 'becomes false inside' Period P 
+		= (b 'becomes false') 'inside' P; 
 
 	// Operators for the evaluation of requirements
 	// Check
-	Operator [ Boolean ] 'check' Boolean phi 'over' Periods P = and ('evaluate' phi 'over' P);
+	Operator [ Boolean ] 'check' Boolean phi 'over' Periods P 
+		= and ('evaluate' phi 'over' P);
   
 	// Evaluate
-	Operator [ Boolean ] 'evaluate' Boolean phi 'over' Period P = 'integrate' (('decide' phi 'over' P) * phi) on P;
+	Operator [ Boolean ] 'evaluate' Boolean phi 'over' Period P 
+		= integrate (('decide' phi 'over' P) * phi) on P;
   
 	// Decide
-	Operator 'decide' is Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end));
+	Operator 'decide' is 
+		Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end));
   
-	Category c1 is Category increasing1 = { (>, >), (>=, >=), (<, >=), (<=, >), (==, >), (<>, >) };
+	Category c1 is Category increasing1 
+		= { (>, >), (>=, >=), (<, >=), (<=, >), (==, >), (<>, >) };
 	Category {} C1 is associate increasing1 with 'decide';
 
-	Category c2 is Category increasing2 = { (>, >), (>=, >=), (<, >=), (<=, >) };
+	Category c2 is Category increasing2 
+		= { (>, >), (>=, >=), (<, >=), (<=, >) };
 	Category {} C2 is associate increasing2 with 'decide';
 
 	Operator [ Boolean ] 'id' Boolean b = b;
@@ -57,3 +65,4 @@ library ETL is {
 	Category c4 is Category varying2 = { ('id', 'cte_true') };
 	Category {} C4 is associate varying2 with 'decide';
 };
+
