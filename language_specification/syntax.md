@@ -56,7 +56,7 @@ The semicolon (;) can be replaced by the comma (,), and is only mandatory when t
 
 `type ident` is the declaration of the element of `type` type and name `ident`.
 
-`type` is the type of the expression, to be chosen among ${\color{blue}Real}, ${\color{blue}Integer}, ${\color{blue}String}, ${\color{blue}Boolean}, ${\color{blue}Event}, etc., or user-defined types.
+`type` is the type of the expression, to be chosen among ${\color{blue}Real}$, ${\color{blue}Integer}$, ${\color{blue}String}$, ${\color{blue}Boolean}$, ${\color{blue}Event}$, etc., or user-defined types.
 
 `ident` is the identifier of the expression which is unique within its scope (or namespace). An identifier is a character string composed of a non-digit optionally followed by digits or non-digits:
 
@@ -84,13 +84,19 @@ The value of the expression is always explicit: it cannot be obtained by solving
 If the name of the constructor is the same as the name of a user-defined class, then the keyword new must be used to create an instance of the class.
 
 There are two kinds of CRML elements: sets and set elements. Sets contain set elements. A set can be a set element of another set.
+
 A set can depend on time, depending on its type, which means that the set elements can be added or removed dynamically. Dynamic sets are of the type Clock or Periods.
+
 A set can be empty.
+
 There are three kinds of sets: typed sets, special sets, and the universal set. In a typed set, all elements are of the same type. In a special set, elements can be of different types. The special sets are of the type type, class, model, library or package. The universal set is the only set that has no expression: it has no identifier and is implicitly defined as being the set that contains all sets except itself.
+
 The scope of an expression is the set where it belongs.
+
 The implicit type of the universal set (the set that contains all sets) is package, because package is the only set that can contain (directly or indirectly) all sets of the language.
+
 An expression refers to another expression outside of its scope by appending the relative path of the outside expression to the identifier of the outside expression (absolute path is not possible because the universal set has no identifier).
 
-https://github.dev/lenaRB/crml-compiler/blob/8bbadeda07f4ced60b67d1fd83a2ad9369ea7dc1/src/test/resources/testFiles/spec-doc-examples/RealConstructorsExample1.crml#L1-L6
+https://github.com/lenaRB/crml-compiler/blob/a55b07c31721a470f8e92894090474308ff142e1/src/test/resources/testFiles/spec-doc-examples/RealConstructorsExample1.crml#L1-L7
 
 
