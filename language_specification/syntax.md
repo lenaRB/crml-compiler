@@ -12,7 +12,7 @@ expr_1 | expr_2 | … | expr_n denotes n possible alternatives between the expre
 
 "keyword" denotes the String keyword.
 
-Built-in keywords are written in ${\color{blue}blue}$, ${\color{cyan}cyan}$, ${\color{teal}teal}$.
+Built-in keywords are written in ${\color{teal}blue}$.
 
 User-defined objects names are written in ${\color{orange}orange}$.
 
@@ -56,7 +56,7 @@ The semicolon (;) can be replaced by the comma (,), and is only mandatory when t
 
 `type ident` is the declaration of the element of `type` type and name `ident`.
 
-`type` is the type of the expression, to be chosen among ${\color{blue}Real}$, ${\color{blue}Integer}$, ${\color{blue}String}$, ${\color{blue}Boolean}$, ${\color{blue}Event}$, etc., or user-defined types.
+`type` is the type of the expression, to be chosen among ${\color{teal}Real}$, ${\color{teal}Integer}$, ${\color{teal}String}$, ${\color{teal}Boolean}$, ${\color{teal}Event}$, etc., or user-defined types.
 
 `ident` is the identifier of the expression which is unique within its scope (or namespace). An identifier is a character string composed of a non-digit optionally followed by digits or non-digits:
 
@@ -97,6 +97,29 @@ The implicit type of the universal set (the set that contains all sets) is packa
 
 An expression refers to another expression outside of its scope by appending the relative path of the outside expression to the identifier of the outside expression (absolute path is not possible because the universal set has no identifier).
 
+## 4.4	Comments
+
+Comments are identical to C++ (or Modelica).
+
+There are two kinds of comments, single-line comment and multiline comments.
+
+```
+// This is a single-line comment
+```
+
+The characters from ```//``` until the end of the line are ignored.
+
+```
+/* This is a 
+multiline comment */ 
+```
+The characters enclosed between ```/*``` and ```*/``` are ignored, including return carriages. Multiline comments cannot be nested.
+Expressions in comments are not part of the CRML language.
+
+## 4.5	Type Real
+### 4.5.1	Constructors
+
 https://github.com/lenaRB/crml-compiler/blob/a55b07c31721a470f8e92894090474308ff142e1/src/test/resources/testFiles/spec-doc-examples/RealConstructorsExample1.crml#L1-L7
+
 
 
