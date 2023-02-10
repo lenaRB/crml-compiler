@@ -28,4 +28,6 @@ project-run.bat
 REM to clean call: project-clean.bat
 ```
 
+# CRML specification
 
+The documentation for CRML can be found [HERE](https://github.com/lenaRB/crml-compiler/blob/233c3b39db196033b7572c4f87a1a52560fa1cc4/language_specification/README.md)
