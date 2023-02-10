@@ -43,4 +43,4 @@ Author Daniel Bouskela, EDF
 
 ## Contents
 
-[Syntax](https://github.com/lenaRB/crml-compiler/language_specification/syntax.md)
+[Syntax](https://github.com/lenaRB/crml-compiler/tree/main/language_specification)
