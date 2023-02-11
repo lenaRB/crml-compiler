@@ -1,6 +1,5 @@
 # crml-compiler
 
-[![Makefile CI](https://github.com/lenaRB/crml-compiler/actions/workflows/makefile.yml/badge.svg)](https://github.com/lenaRB/crml-compiler/actions/workflows/makefile.yml)
 
 ## Download it via github actions
 
