@@ -122,4 +122,11 @@ Expressions in comments are not part of the CRML language.
 https://github.com/lenaRB/crml-compiler/blob/a55b07c31721a470f8e92894090474308ff142e1/src/test/resources/testFiles/spec-doc-examples/RealConstructorsExample1.crml#L1-L7
 
 
-
+```mermaid
+classDiagram
+    Cold source "1" o-- "n" Heat exchanger
+    Cooling System "1" --o "n" Heat exchanger
+    Cooling System "1" --o "n" Pump
+    Cooling System "1" --o "n" Served System
+    
+```
