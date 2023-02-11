@@ -11,4 +11,5 @@ Author Daniel Bouskela, EDF
 
 ## Contents
 
-[Syntax](https://github.com/lenaRB/crml-compiler/tree/main/language_specification/syntax.md)
+1. [Rationale](https://github.com/lenaRB/crml-compiler/tree/main/language_specification/rationale.md)
+4. [Syntax](https://github.com/lenaRB/crml-compiler/tree/main/language_specification/syntax.md)
