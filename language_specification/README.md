@@ -12,4 +12,6 @@ Author Daniel Bouskela, EDF
 ## Contents
 
 1. [Rationale](https://github.com/lenaRB/crml-compiler/tree/main/language_specification/rationale.md)
+2. [Architecture](https://github.com/lenaRB/crml-compiler/tree/main/language_specification/architecture.md)
+3. [Semantics](https://github.com/lenaRB/crml-compiler/tree/main/language_specification/semantics.md)
 4. [Syntax](https://github.com/lenaRB/crml-compiler/tree/main/language_specification/syntax.md)
