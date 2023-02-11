@@ -1,8 +1,10 @@
 # crml-compiler
 
+[![Makefile CI](https://github.com/lenaRB/crml-compiler/actions/workflows/makefile.yml/badge.svg)](https://github.com/lenaRB/crml-compiler/actions/workflows/makefile.yml)
+
 ## Download it via github actions
 
-Go to: https://github.com/lenaRB/crml-compiler/actions then click on the last green action and download the artifact.
+Go to: [![Makefile CI](https://github.com/lenaRB/crml-compiler/actions/workflows/makefile.yml/badge.svg)](https://github.com/lenaRB/crml-compiler/actions/workflows/makefile.yml) then click on the last green action and download the artifact.
 
 Unzip it to some place and run:
 ```
