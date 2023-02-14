@@ -10,7 +10,7 @@ expr_1 | expr_2 | … | expr_n denotes n possible alternatives between the expre
 
 'c' denotes the character c.
 
-"keyword" denotes the String keyword.
+```keyword``` denotes the String keyword.
 
 Built-in keywords are written in ${\color{teal}blue}$.
 
@@ -22,26 +22,88 @@ Categories names are written in ${\color{red}red}$.
 
 ## 4.2 Keywords 
 
+### 4.2.1 Types
+
 
 |Keyword	| Semantics	        | Comments |
 | ----------- | ----------- |----------- |
-|Boolean	| $\mathbb{B}$      |4-valued Booleans |
-|Category	| $\mathcal{C} (\mathbb{O}_1 \rightarrow \mathbb{O}_2)$      |Categories |
-| class | $\mathcal{C}$ |Class definitions |
-| Clock | $2^\mathcal{E}$ or $\mathcal{D}$ |Clocks |
-| Event | $\mathcal{E}$ |Events |
-| Integer | $\mathbb{Z}$ |Positive and negative integers |
-| library | $\mathcal{C}$ |Libraries|
-| model | M |Models |
-| Operator | $\mathcal{O} (\mathbb{D}_1 \rightarrow \mathbb{D}_2)$ |Operators. The names of the domains D_1 and D_2 are given in the declaration of the operator. |
-| package | T |Packages |
-| Period | P |Single time periods |
-| Periods | 2^P |Multiple time periods |
-| Probability | $\mathcal{O} (\mathbb{B}_2 \rightarrow \mathbb{R})$ |Probabilities |
-| Real | R |Real numbers |
-| String | S |Strings |
-| Template | $\mathcal{O} (\mathbb{B}^n \rightarrow \mathbb{B})$ |Templates |
-| type| T |Type definitions |
+|${\color{teal}Boolean}$	| $\mathbb{B}$      |4-valued Booleans |
+|${\color{teal} \mathcal{C}}$	| $\mathcal{C} (\mathbb{O}_1 \rightarrow \mathbb{O}_2)$      |Categories |
+| ${\color{teal}class}$ | $\mathcal{C}$ |Class definitions |
+| ${\color{teal}Clock}$ | $2^\mathcal{E}$ or $\mathcal{D}$ |Clocks |
+| ${\color{teal}Event}$ | $\mathcal{E}$ |Events |
+| ${\color{teal}Integer}$ | $\mathbb{Z}$ |Positive and negative integers |
+| ${\color{teal}library}$ | $\mathcal{C}$ |Libraries|
+| ${\color{teal}model}$ | M |Models |
+| ${\color{teal}Operator}$ | $\mathcal{O} (\mathbb{D}_1 \rightarrow \mathbb{D}_2)$ |Operators. The names of the domains D_1 and D_2 are given in the declaration of the operator. |
+| ${\color{teal}package}$ | T |Packages |
+| ${\color{teal}Period}$ | P |Single time periods |
+| ${\color{teal}Periods}$ | 2^P |Multiple time periods |
+| ${\color{teal}Probability}$ | $\mathcal{O} (\mathbb{B}_2 \rightarrow \mathbb{R})$ |Probabilities |
+| ${\color{teal}Real}$ | R |Real numbers |
+| ${\color{teal}String}$ | S |Strings |
+| ${\color{teal}Template}$ | $\mathcal{O} (\mathbb{B}^n \rightarrow \mathbb{B})$ |Templates |
+| ${\color{teal}type}$ | T |Type definitions |
+
+### 4.2.2 Special Values
+
+
+|Keyword	| Semantics	        | Comments |
+| ----------- | ----------- |----------- |
+| ${\color{teal}false}$ | false | |
+| ${\color{teal}true}$ | true | |
+| ${\color{teal}undecided}$  | undecided  | |
+| ${\color{teal}undefined}$ | undefined | |
+
+### 4.2.2 Special Characters
+
+|Keyword	| Semantics	        | Comments |
+| ----------- | ----------- |----------- |
+| ) | ( | |
+| ( | ) | |
+| { | {  | |
+| } | } | |
+
+### 4.2.4 Operators
+
+| Operators | Comments/Support status |
+| ----------- | ----------- |
+| = |:white_check_mark: |
+| + |:white_check_mark: |
+| - |:white_check_mark: |
+| * |:white_check_mark: |
+| / |:white_check_mark: |
+| < |:white_check_mark: |
+| <= |:white_check_mark: |
+| > |:white_check_mark: |
+| >= |:white_check_mark: |
+| == |:white_check_mark: |
+| <> |:white_check_mark: |
+| ^ |:white_check_mark: |
+| acos |:white_check_mark: |
+| alias |:x: |
+| and |:white_check_mark: |
+| asin |:white_check_mark: |
+| associate |:x: |
+| at |:x: |
+| card |:x: |
+| constant |:white_check_mark: |
+| cos |:white_check_mark: |
+| duration |:x: |
+| element |:x: |
+| else |:white_check_mark: |
+| end |:white_check_mark: |
+| estimator |:x: |
+| exp |:white_check_mark: |
+| extends |:x: |
+| external |:white_check_mark: |
+| filter |:x: |
+| flatten |:x: |
+| forbid |:x: |
+| end |:white_check_mark: |
+
+
+
 
 ## 4.3 Expressions
 The CRML expression for the declaration and/or definition of any CRML element is of the form:
@@ -119,7 +181,9 @@ Expressions in comments are not part of the CRML language.
 ## 4.5	Type Real
 ### 4.5.1	Constructors
 
-https://github.com/lenaRB/crml-compiler/blob/a55b07c31721a470f8e92894090474308ff142e1/src/test/resources/testFiles/spec-doc-examples/RealConstructorsExample1.crml#L1-L7
+https://github.com/lenaRB/crml-compiler/blob/a4ab9f7dcc78ca5ae964feeaeef5ca7414cb5d5e/src/test/resources/testFiles/spec-doc-examples/RealConstructorsExample1.crml#L1-L7
+
+
 
 
 ```mermaid
