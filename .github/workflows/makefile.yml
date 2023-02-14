@@ -38,13 +38,14 @@ jobs:
 
     - name: run OMC tests
       run: |
+        pwd
         # create a runTests.mos file to run some tests
         # this is just an example, we should create .mos 
         # files for each .mo file to run each as a JUnit test
         # load the library
-        echo 'loadFile("./resources/CRMLtoModelica.mo"); getErrorString();' >> runTests.mos
+        echo 'loadFile("./resources/modelica_libraries/CRMLtoModelica.mo"); getErrorString();' >> runTests.mos
         # load a translated file
-        echo 'loadFile("./tmpCRML/BooleanAccumulation.mo"); getErrorString();' >> runTests.mos
+        echo 'loadFile("./testSuiteGenerated/BooleanAccumulation.mo"); getErrorString();' >> runTests.mos
         # check the translated file
         echo 'checkModel(BooleanAccumulation); getErrorString();' >> runTests.mos
         cat runTests.mos
