@@ -100,9 +100,28 @@ Categories names are written in ${\color{red}red}$.
 | filter |:x: |
 | flatten |:x: |
 | forbid |:x: |
-| end |:white_check_mark: |
-
-
+| if |:white_check_mark: |
+| integrate |:x: |
+| is |:white_check_mark: |
+| log |:white_check_mark: |
+| log10 |:white_check_mark: |
+| new |:white_check_mark: |
+| not |:white_check_mark: |
+| on |:x: |
+| or |:white_check_mark: |
+| parameter |:white_check_mark: |
+| partial |:x: |
+| proj |:x: |
+| redeclare |:x: |
+| sin |:white_check_mark: |
+| start |:white_check_mark: |
+| then |:white_check_mark: |
+| tick |:white_check_mark: |
+| time from |:x: |
+| union |:x: |
+| variance |:x: |
+| while |:x: |
+| with |:x: |
 
 
 ## 4.3 Expressions
@@ -147,11 +166,11 @@ If the name of the constructor is the same as the name of a user-defined class, 
 
 There are two kinds of CRML elements: sets and set elements. Sets contain set elements. A set can be a set element of another set.
 
-A set can depend on time, depending on its type, which means that the set elements can be added or removed dynamically. Dynamic sets are of the type Clock or Periods.
+A set can depend on time, depending on its type, which means that the set elements can be added or removed dynamically. Dynamic sets are of the type ${\color{teal}Clock}$ or ${\color{teal}Periods}$.
 
 A set can be empty.
 
-There are three kinds of sets: typed sets, special sets, and the universal set. In a typed set, all elements are of the same type. In a special set, elements can be of different types. The special sets are of the type type, class, model, library or package. The universal set is the only set that has no expression: it has no identifier and is implicitly defined as being the set that contains all sets except itself.
+There are three kinds of sets: typed sets, special sets, and the universal set. In a typed set, all elements are of the same type. In a special set, elements can be of different types. The special sets are of the type ${\color{teal}type}$, ${\color{teal}class}$, ${\color{teal}model}$, ${\color{teal}library}$ or ${\color{teal}package}$. The universal set is the only set that has no expression: it has no identifier and is implicitly defined as being the set that contains all sets except itself.
 
 The scope of an expression is the set where it belongs.
 
@@ -182,6 +201,57 @@ Expressions in comments are not part of the CRML language.
 ### 4.5.1	Constructors
 
 https://github.com/lenaRB/crml-compiler/blob/a4ab9f7dcc78ca5ae964feeaeef5ca7414cb5d5e/src/test/resources/testFiles/spec-doc-examples/RealConstructorsExample1.crml#L1-L7
+
+Example 2: incorrect expressions
+
+```
+Real x is .7; // No digit before the decimal point
+Real x is -28.775E +3; // Space after the decimal exponent
+Real x is -28.775 E+3; // Space before the decimal exponent
+Real x is -28.775E+ 3; // Space after the + sign
+Real x is E+3; // No digit before the decimal exponent
+Real x is 1.E+3.14; // Decimal point in the decimal exponent
+```
+
+A decimal value is defined as 
+
+```
+decimal_value: [sign] [{' '}] {digit} ['.'] [{digit}] [exponent]
+sign: '+' | '-'
+exponent: ('E' | 'e') [sign] {digit}
+digit: characters '0' to '9'
+```
+
+where:
+•	```'+' | '-'```  denotes the + or the - sign,
+•	```{' '}``` denotes one or more spaces,
+•	```{digit}``` denotes one or more digits,
+•	```'.'``` is the decimal point,
+•	```'E'``` is the decimal exponent: 1En = 10n where n is a positive or negative integer,
+•	```'e'``` can be used instead of ```'E'```.
+
+### 4.5.2 Operators
+
+|Name|Natural language syntax|Mathematical syntax |	 Semantics|Reference|
+|--|--|--|--|--|
+|Binary addition|```Real x1, x2; Real x is x1 + x2;```|--|--|--|--|
+|--|--|--|--|--|--|
+|--|--|--|--|--|--|
+|--|--|--|--|--|--|
+
+The expression 
+
+``` x2 is x1 at c;```
+
+takes the value of ```x1``` at every tick of clock c. The value of ```x2``` between two ticks ```t1``` and ```t2``` is equal to the value of ```x1``` at tick ```t1```.
+
+Example 1: verifying that ```x1``` is greater than ```x2``` when y becomes positive.
+
+https://github.com/lenaRB/crml-compiler/blob/a4ab9f7dcc78ca5ae964feeaeef5ca7414cb5d5e/src/test/resources/testFiles/spec-doc-examples/RealConstructorsExample1.crml#L1-L7
+
+It is also possible to write:
+
+``` Boolean b is (x1 at c) > (x2 at c); ```
 
 
 

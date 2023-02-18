@@ -29,7 +29,7 @@ Unless specified otherwise, the values of all variables x_i are taken at the sam
 
 $$ φ∶= φ | ¬φ |  φ_1∧ φ_2  $$ 
 
-The logical negation (¬) and conjunction (ᴧ) operators are defined with the following truth tables:
+The logical negation ($¬$) and conjunction ($ᴧ$) operators are defined with the following truth tables:
 
 Table 1. Truth table for the logical negation
 
@@ -49,6 +49,7 @@ Table 2. Truth table for the logical conjunction
 |undefined|	true|	false|	undecided|	undefined|
 
 The rationale for Table 1 and Table 2 is the following:
+
 1. The truth table reduced to the values true and false are the same as the one for the classical 2-valued Booleans. 
 2. $φ$ is undecided means that it not known whether $φ$ is true or false. Hence, if  $φ$ is undecided, then it is not known whether $¬φ$ is true or false, and therefore $¬φ$ is undecided. If $φ_1$ is undecided and $φ_2$ is true, then it is not known whether $φ_1∧ φ_2$ is true or false, because it is true if $φ_1$ is true, and false if $φ_1$ is false. Therefore $φ_1∧ φ_2$ is undecided. However, if $φ_2$ is false, then $φ_1∧ φ_2$ is false whatever the value of $φ_1$.
 3. $φ$ is undefined means that $φ$ should not have any influence on the result of the Boolean operation because it is not applicable (cf. Section 1.2.2). Therefore, undefined is the neutral element for all Boolean operators.
@@ -1424,4 +1425,7 @@ Elements e_i that belong to package P are denoted e_i∈P or P.e_i.
 The domain of packages is denoted T. T⊂S
 
 Example 1: a package for the cooling system of Example 1 in Section 3.25.
+
+```
 T:CoolingSystemPackage={ CoolingLib,CoolingSystem }
+```
