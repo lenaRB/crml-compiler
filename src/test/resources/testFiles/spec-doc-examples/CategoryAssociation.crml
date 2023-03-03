@@ -1,14 +1,6 @@
-model CategoryAssociationExample1 is {
-	// //Operator f is external;
-	// Category increasing = { (>, >), (>=, >=), (==, >), (<>, >), (<, >=), (<=, >) };
-	// Category {} C is associate increasing with f;
-	// // The value of C is the set of categories { increasing, … } where … denotes the categories previously associated with f.
-	Operator [Boolean] Real x1 'greater than' Real x2 = x1 >= x2;
-	Category strictly = { (>=, >), ()<=,<) }; // change parantesis
-	Category {} C is associate strictly with 'greater than';
-
-	Real x1 is 2;
-	Real x2 is 2;
-	Boolean b_x1_strictly_greater_than_x2 is x1 'greater than' x2; //value should be false
-
+model CategoryAssociation is {
+	Operator f is external;
+	Category increasing = { (>, >), (>=, >=), (==, >), (<>, >), (<, >=), (<=, >) };
+	Category {} C is associate increasing with f;
+	// The value of C is the set of categories { increasing, … } where … denotes the categories previously associated with f.
 };
