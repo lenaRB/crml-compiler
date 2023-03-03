@@ -81,7 +81,7 @@ tick : 'tick';
  exp : id | constant | sub_exp | constructor | sum |trim |  proj | period_op 
  	 | left=exp binary=op right=exp | right=exp runary=op | lunary=op left=exp  
  	 |  user_operator_call  | 'element' | 'terminate' | when_exp | exp 'at' at=exp 
- 	 | integrate | tick |crml_component_reference | if_exp | set_def ;
+ 	 | integrate | tick |crml_component_reference | if_exp | set_def | 'evaluate' exp ;
  	 
 if_exp : 'if' if_e=exp 'then' then_e=exp ('else' else_e=exp);
 
@@ -96,7 +96,7 @@ op : builtin_op | user_keyword
 		
 builtin_op : 'and' | '*' | '+' | '-' | '/' | 'with' | 'master' | 'on' | 'filter'
 				| '<=' | '<' | '>=' | '>' | '<>' | 'par' | '==' |
-				'pre' | 'not'| '-' | 'card' | 'and' | 'or' | 'evaluate' |
+				'pre' | 'not'| '-' | 'card' | 'and' | 'or' | 
 				'start' | 'end' | 'mod' |
 				'exp' | 'log' | 'log10' |
 				'cos' |'acos' | 'sin' | 'asin'  ;

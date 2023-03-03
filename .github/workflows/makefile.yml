@@ -14,9 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: build the crml-compiler
-      run: make distribution
-        
     # run omc runTest.mos using docker!
     #- name: run OM docker
     #  uses: docker://openmodelica/openmodelica:v1.19.2-minimal
@@ -35,6 +32,9 @@ jobs:
           $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/openmodelica.list > /dev/null
         sudo apt update
         sudo apt install omc omlibrary
+    
+    - name: build the crml-compiler
+      run: make distribution
 
     - name: run OMC tests
       run: |

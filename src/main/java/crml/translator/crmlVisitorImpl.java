@@ -34,6 +34,8 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 		private static final Logger logger = LogManager.getLogger();
 		
+		private CategoryMapping category_map;
+		
 		crmlParser parser;
 		
 		private String prefix= ""; //to keep track of variable prefix
@@ -55,6 +57,8 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			types_mapping.put("String", 	 "String");
 
 			operators_map = OperatorMapping.get_operator_map();
+			
+			category_map = new CategoryMapping();
 
 			localFunctionCalls = new StringBuffer();
 
@@ -181,6 +185,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		 
 		
 		@Override public Value visitCategory(crmlParser.CategoryContext ctx) {
+			
 			return new Value("", "Category");
 			
 		}	
