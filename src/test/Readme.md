@@ -19,11 +19,15 @@ When adding a new test case:
 - the simulation models and comparison results should be added ```verificationModels``` with the following structure:
 ```
     verificationModels
-      | <model>_validation
+      | <test_folder>/<model>_validation - these files will be copied into the test directory 
           | model_validation.mo - contains the overall system to be simulated
-          | 
+          | ... - any other files necessary
+    ref_results
+       | <test_folder>/<model>_verif_ref.mat - the file containing the reference results
     
 ```
+
+Check the ```Boolean_accumulation```example for reference
 
 ## Running JUnit tests
 
