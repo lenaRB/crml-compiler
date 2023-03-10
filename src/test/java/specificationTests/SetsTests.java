@@ -44,7 +44,7 @@ public class SetsTests {
 	    void testPrimitiveTypes(String fileName) {
 	    	try {
 	    		
-				crml.translator.Main.parse_file(testFolderIn, fileName, parameters.Values.generatedTestRepository, true);
+				crml.translator.Main.parse_file(testFolderIn, fileName, parameters.Values.generatedTestRepository, true, true);
 				
 	    	} catch (Exception e) {
 	    		

@@ -4,6 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -45,7 +48,7 @@ public class Main {
     for (String test : tests) {
     	if(test.endsWith(".crml")) {
     		logger.trace("Translating: " + test);
-    		parse_file(path, test, out_dir.getPath(), false);
+    		parse_file(path, test, out_dir.getPath(), false, false);
     	}
     }
     } else if (file.isFile()) {
@@ -54,14 +57,14 @@ public class Main {
         logger.trace("Directory for generated .mo files: " + out_dir.getPath());
         
         logger.trace("Translating: " + file);
-		parse_file("", path, out_dir.getPath(), false);
+		parse_file("", path, out_dir.getPath(), false, false);
     } else {
     	logger.error("Translation error: " + path +  " is not a correct path");
     }
 
   }
 
-  public static void parse_file (String dir, String file, String gen_dir, Boolean testMode) throws IOException {
+  public static void parse_file (String dir, String file, String gen_dir, Boolean testMode, Boolean generateExternal) throws IOException {
   
     try {
       String fullName = dir + java.io.File.separator + file;
@@ -79,8 +82,13 @@ public class Main {
       
       if (tree == null)
         logger.error("Unable to parse: " + file);
-        
-      crmlVisitorImpl visitor = new crmlVisitorImpl(parser);
+       
+      List<String> external_var = new ArrayList<String>();
+      crmlVisitorImpl visitor;
+      if (generateExternal)
+        visitor = new crmlVisitorImpl(parser, external_var);
+      else
+      visitor = new crmlVisitorImpl(parser);
 
       try {
         Value result = visitor.visit(tree);
@@ -88,7 +96,7 @@ public class Main {
       
         if (result != null) {  	
         
-          File out_file = new File(gen_dir + java.io.File.separator +file.substring(0, file.lastIndexOf('.'))+ ".mo");  
+          File out_file = new File(gen_dir + java.io.File.separator + Utilities.stripNameEnding(file)+ ".mo");  
         
           out_file.getParentFile().mkdirs();   	
         
@@ -96,6 +104,18 @@ public class Main {
           writer.write(result.contents);
           writer.close();
           logger.trace("Translated: " + file);
+
+          if(generateExternal && !external_var.isEmpty()){
+            File ext_file = new File(gen_dir + java.io.File.separator + Utilities.stripNameEnding(file)+ "_external.txt");
+            BufferedWriter ext_writer = new BufferedWriter(new FileWriter(ext_file));
+            logger.trace("External variables saved in: " + ext_file);
+
+            for(String s : external_var){
+              ext_writer.write(s + "\n");
+            }
+            ext_writer.close();
+          }
+            
         }
         else
           logger.error("Unable to translate: " + file);
