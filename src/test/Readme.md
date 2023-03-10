@@ -31,4 +31,4 @@ Check the ```Boolean_accumulation```example for reference
 
 ## Running JUnit tests
 
-To load and simulate models you need to have the (OpenModelica)[https://github.com/OpenModelica/OpenModelica] compiler installed 
+To load and simulate models you need to have the [OpenModelica](https://github.com/OpenModelica/OpenModelica) compiler installed 
