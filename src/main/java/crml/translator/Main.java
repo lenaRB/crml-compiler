@@ -88,7 +88,7 @@ public class Main {
       
         if (result != null) {  	
         
-          File out_file = new File(gen_dir + java.io.File.separator +file.substring(0, file.lastIndexOf('.'))+ ".mo");  
+          File out_file = new File(gen_dir + java.io.File.separator + Utilities.stripNameEnding(file)+ ".mo");  
         
           out_file.getParentFile().mkdirs();   	
         
