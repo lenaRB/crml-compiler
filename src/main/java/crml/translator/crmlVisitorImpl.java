@@ -2,6 +2,7 @@ package crml.translator;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
@@ -39,6 +40,15 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		crmlParser parser;
 		
 		private String prefix= ""; //to keep track of variable prefix
+
+		Boolean saveExtrnal = false;
+		List<String> external_variables;
+
+		public crmlVisitorImpl (crmlParser parser, List<String> external_variables){
+			this(parser);
+			saveExtrnal= true;
+			this.external_variables = external_variables;
+		}
 
 		public crmlVisitorImpl (crmlParser parser) {
 			
@@ -139,8 +149,10 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			
 			if(ctx.static_qualifier().getText().contentEquals("parameter"))
 				var_prefix = "parameter ";
-			else
+			else{
 				var_prefix = "";
+
+			}
 			
 			if (ctx.type() != null) {
 				// convert the type if it is a built in
@@ -176,7 +188,11 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				i++;
 				if (i< ctx.id().size())
 					var_names.append(" ,");
+				
+				
 			}
+
+			
 			
 			return new Value(var_prefix + var_modelica_type + " " + var_names + ";\n", var_type);
 			
@@ -404,6 +420,11 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				
 
 				//TODO fix set variables
+
+				if(saveExtrnal && ctx.is_external!=null){
+
+					external_variables.add(mapped_t + " " +ctx.id().getText() + "\n");
+			}
 				
 				variableTable.putVariable(ctx.id().getText(), var_t, isSet, prefix);
 				variableTable.putlocalVariable(ctx.id().getText(), var_t, isSet);

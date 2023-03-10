@@ -25,7 +25,7 @@ category_pair : '(' op ',' op ')';
 
 association : 'Category' empty_set id 'is' 'associate' id 'with' id;
  
-var_def : var_qualifier? type id  (arg_list | 'is' (exp | 'external'))? ';' ;
+var_def : var_qualifier? type id  (arg_list | 'is' (exp | is_external = 'external'))? ';' ;
 
 operator : 'Operator' '[' type ']' operator_def ';' ;
 

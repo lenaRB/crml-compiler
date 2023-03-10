@@ -81,7 +81,7 @@ public class TestSuite {
 		// try compiling crml to modelica
 		try {
     		
-			crml.translator.Main.parse_file(testFolderIn, fileName, out_dir, true);
+			crml.translator.Main.parse_file(testFolderIn, fileName, out_dir, true, true);
 			
     	} catch (Exception e) {
 			fail("Unable to translate " + fileName + "to Modelica :\n" + e.getMessage());
