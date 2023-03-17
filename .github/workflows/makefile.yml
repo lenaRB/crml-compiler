@@ -60,8 +60,10 @@ jobs:
     - name: upload the tests and results
       uses: actions/upload-artifact@v2
       with:
-        name: tests-and-results.zip
-        path: ${{github.workspace}}/build/test-results/test/
+        name: tests-and-results
+        path: |
+          ${{github.workspace}}/testSuiteGenerated
+          ${{github.workspace}}/build/test-results
         if-no-files-found: warn
   
     - name: publish the test report
