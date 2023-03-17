@@ -56,6 +56,13 @@ jobs:
       with:
         name: crml-compiler-all.jar
         path: ${{github.workspace}}/build/libs/crml-compiler-all.jar
+    
+    - name: upload the tests and results
+      uses: actions/upload-artifact@v2
+      with:
+        name: tests-and-results.zip
+        path: ${{github.workspace}}/build/test-results/test/
+        if-no-files-found: warn
   
     - name: publish the test report
       uses: mikepenz/action-junit-report@v3
