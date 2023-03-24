@@ -19,3 +19,6 @@ gradle-dependencies
 
 #ignore generated directory
 testSuiteGenerated/
+
+# ignore user related gradle.properties
+gradle.properties
