@@ -1,4 +1,4 @@
-
+within CRML_test.Spec_doc.BooleanAccumulation;
 model BooleanAccumulation_verif
   extends BooleanAccumulation;
   BooleanAccumulation_externals externals

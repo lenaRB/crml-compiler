@@ -1,4 +1,4 @@
-
+within CRML_test.Spec_doc.BooleanAccumulation;
 model BooleanAccumulation_externals
   CRML.Blocks.Logical4.Boolean4Constant boolean4Constant1(K=CRML.ETL.Types.Boolean4.true4)
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
