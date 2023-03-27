@@ -1,6 +1,6 @@
-within CRML_test.Spec_doc;
+within CRML_test.Spec_doc.BooleanConjunction;
 model BooleanConjunction_verif
-  extends Spec_doc.BooleanConjunction;
+  extends BooleanConjunction;
   BooleanConjunction_externals externals
     annotation (Placement(transformation(extent={{-200,0},{-140,60}})));
 equation
