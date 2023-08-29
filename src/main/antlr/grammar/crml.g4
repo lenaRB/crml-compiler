@@ -23,7 +23,7 @@ category : 'Category' id 'is' '{' category_pair (',' category_pair)* '}' ';';
 
 category_pair : '(' op ',' op ')';
 
-association : 'Category' empty_set id 'is' 'associate' id 'with' id;
+association : 'Category' empty_set c_set=id 'is' 'associate' c_name=id 'with' c_op_name=id;
  
 var_def : var_qualifier? type id  (arg_list | 'is' (exp | is_external = 'external'))? ';' ;
 

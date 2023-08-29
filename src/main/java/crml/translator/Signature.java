@@ -105,6 +105,5 @@ public class Signature {
 		this.is_return_set=returnSet;
 		this.temp_var_name = out_var_name;
 	}
-	
 
 }

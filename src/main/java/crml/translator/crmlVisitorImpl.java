@@ -2,7 +2,6 @@ package crml.translator;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Vector;
 
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
@@ -146,7 +145,6 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			Boolean isSet=null;
 			
 			
-			
 			if(ctx.static_qualifier().getText().contentEquals("parameter"))
 				var_prefix = "parameter ";
 			else{
@@ -158,9 +156,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				// convert the type if it is a built in
 				if(ctx.type().builtin_type()!=null) {
 					var_type = ctx.type().builtin_type().getText();
-					var_modelica_type = types_mapping.get(var_type);
-					
-					 
+					var_modelica_type = types_mapping.get(var_type);				 
 				}
 					
 				else {
@@ -188,27 +184,21 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				i++;
 				if (i< ctx.id().size())
 					var_names.append(" ,");
-				
-				
+							
 			}
 
-			
-			
 			return new Value(var_prefix + var_modelica_type + " " + var_names + ";\n", var_type);
 			
-		}	
+		}	 
 		
-		 
-		
-		@Override public Value visitCategory(crmlParser.CategoryContext ctx) {
-			
-			return new Value("", "Category");
-			
+		@Override public Value visitCategory(crmlParser.CategoryContext ctx) {		
+			category_map.add_mapping(ctx.id().getText(), ctx.category_pair());
+			return new Value("", "Category");		
 		}	
 		
 		@Override public Value visitAssociation(crmlParser.AssociationContext ctx) {
-			return new Value("", "Association");
-			
+			category_map.add_association(ctx.c_set.getText(), ctx.c_op_name.getText(), ctx.c_name.getText());
+			return new Value("", "Association");	
 		}	
 		
 		@Override public Value visitClass_def(crmlParser.Class_defContext ctx) {

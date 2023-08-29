@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
+import grammar.crmlParser.Category_pairContext;
+
 public class CategoryMapping {
 	
 	HashMap<String, List<Category>> categoryMap;
@@ -22,6 +24,12 @@ public class CategoryMapping {
 			
 		categoryMap.put(name, cs);
 	}
+
+    public void add_mapping(String text, List<Category_pairContext> category_pair) {
+    }
+
+    public void add_association(String text, String text2, String text3) {
+    }
 
 
 }
