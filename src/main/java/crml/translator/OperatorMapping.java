@@ -36,6 +36,12 @@ public class OperatorMapping {
 		
 		// String signatures
 		List<String> string2 = Arrays.asList("String", "String");
+
+		// string + int/real mix and match
+		List<String> stringint = Arrays.asList("String", "Integer");
+		List<String> intstring = Arrays.asList("Integer", "String");
+		List<String> stringreal = Arrays.asList("String", "Real");
+		List<String> realstring = Arrays.asList("Real", "String");
 		
 		// Period mix and match signatures
 		List<String> periodReal = Arrays.asList("Period", "Real");
@@ -59,6 +65,10 @@ public class OperatorMapping {
 						new Signature("+", real2, "Real", Type.OPERATOR),
 						new Signature(" ", real1, "Real", Type.OPERATOR),
 						new Signature("+", string2, "String", Type.OPERATOR),
+						new Signature("+", stringint, "String", Type.OPERATOR),
+						new Signature("+", intstring, "String", Type.OPERATOR),
+						new Signature("+", stringreal, "String", Type.OPERATOR),
+						new Signature("+", realstring, "String", Type.OPERATOR),
 						new Signature("CRMLtoModelica.Functions.add4", bool2, params, "Boolean", Type.FUNCTION));
 		
 		
@@ -91,6 +101,12 @@ public class OperatorMapping {
 								new Signature("/", realint, "Real", Type.OPERATOR));
 						
 				built_in_operators.put("/", div_sigs);
+
+		// ^ operators
+		List<Signature> expo_sigs = 
+				Arrays.asList(new Signature("^", int2, "Integer", Type.OPERATOR),
+						new Signature("^", realint, "Real", Type.OPERATOR));
+		built_in_operators.put("^", expo_sigs);
 
 		// <= operators
 		List<Signature> leq_sigs = 

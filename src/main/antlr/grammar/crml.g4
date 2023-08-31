@@ -85,7 +85,7 @@ tick : 'tick';
  	 
 if_exp : 'if' if_e=exp 'then' then_e=exp ('else' else_e=exp);
 
-constructor : 'new' type exp?;
+constructor : 'new' type exp;
 
 user_operator_call : (user_keyword exp)+; 
 	
@@ -96,7 +96,7 @@ op : builtin_op | user_keyword
 		
 builtin_op : 'and' | '*' | '+' | '-' | '/' | 'with' | 'master' | 'on' | 'filter'
 				| '<=' | '<' | '>=' | '>' | '<>' | 'par' | '==' |
-				'pre' | 'not'| '-' | 'card' | 'and' | 'or' | 
+				'pre' | 'not'| '-' | 'card' | 'and' | 'or' | '^' |
 				'start' | 'end' | 'mod' |
 				'exp' | 'log' | 'log10' |
 				'cos' |'acos' | 'sin' | 'asin'  ;

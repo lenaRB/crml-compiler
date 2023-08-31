@@ -22,3 +22,6 @@ testSuiteGenerated/
 
 # ignore user related gradle.properties
 gradle.properties
+
+# ignore generated antlr files
+src/main/antlr/grammar/.antlr/
