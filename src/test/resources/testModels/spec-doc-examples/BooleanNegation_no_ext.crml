@@ -1,0 +1,11 @@
+model BooleanNegation_no_ext is {
+	Boolean b_true is true;
+	Boolean b_false is false;
+	Boolean b_undecided is undecided;
+	Boolean b_undefined is undefined;
+	// Test truth table for the logical negation
+	Boolean b_not_true is not b_true; //value should be false
+	Boolean b_not_false is not b_false; //value should be true
+	Boolean b_not_undecided is not b_undecided; //value should be undecided
+	Boolean b_not_undefined is not b_undefined; //value should be undefined
+};

@@ -1,7 +1,7 @@
-within CRML_test.Spec_doc.BooleanConjunction;
-model BooleanConjunction_verif
-  extends BooleanConjunction;
-  BooleanConjunction_externals externals
+within CRML_test.Spec_doc.OperatorExample2;
+model OperatorExample2_verif
+  extends OperatorExample2;
+  OperatorExample2_externals       externals
     annotation (Placement(transformation(extent={{-200,0},{-140,60}})));
 equation
   // Bindings
@@ -24,4 +24,4 @@ equation
         extent={{-200,-100},{100,100}},
         initialScale=0.1)),
     experiment(StopTime=14));
-end BooleanConjunction_verif;
+end OperatorExample2_verif;

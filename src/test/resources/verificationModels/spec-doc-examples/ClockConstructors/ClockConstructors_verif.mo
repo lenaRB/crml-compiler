@@ -1,12 +1,11 @@
-within CRML_test.Spec_doc.BooleanConjunction;
-model BooleanConjunction_verif
-  extends BooleanConjunction;
-  BooleanConjunction_externals externals
+within CRML_test.Spec_doc.ClockConstructors;
+model ClockConstructors_verif
+  extends ClockConstructors;
+  ClockConstructors_externals externals
     annotation (Placement(transformation(extent={{-200,0},{-140,60}})));
 equation
   // Bindings
-  b1 = externals.b1;
-  b2 = externals.b2;
+  b = externals.b;
     annotation (Placement(transformation(extent={{0,-20},{60,40}})),
               Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-200,-100},{100,100}},
@@ -24,4 +23,4 @@ equation
         extent={{-200,-100},{100,100}},
         initialScale=0.1)),
     experiment(StopTime=14));
-end BooleanConjunction_verif;
+end ClockConstructors_verif;

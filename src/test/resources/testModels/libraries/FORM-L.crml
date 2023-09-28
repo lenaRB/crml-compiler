@@ -25,10 +25,10 @@ library FORM_L is ETL union {
 	Operator [ Periods ] 'after' Clock ev1 'until' Clock ev2 = Periods ] ev1, ev2 ]; 
 	
 	// After events occur and for an elapsed time
-	Operator [ Periods ] 'after' Clock ev 'for' Real d = Periods ] ev, d ]; 
+	Operator [ Periods ] 'after' Clock ev 'for' Real d = Periods ] ev, ev + d ]; 
 	
 	// After events occur and within an elapsed time
-	Operator [ Periods ] 'after' Clock ev 'within' Real d = Periods ] ev, d [; 
+	Operator [ Periods ] 'after' Clock ev 'within' Real d = Periods ] ev, ev + d [; 
 	
 	// From events occur and before events occur
 	Operator [ Periods ] 'from' Clock ev1 'before' Clock ev2 = Periods [ ev1, ev2 [; 
@@ -37,10 +37,10 @@ library FORM_L is ETL union {
 	Operator [ Periods ] 'from' Clock ev1 'until' Clock ev2 = Periods [ ev1, ev2 ]; 
 	
 	// From events occur and for an elapsed time
-	Operator [ Periods ] 'from' Clock ev 'for' Real d = Periods [ ev, d ]; 
+	Operator [ Periods ] 'from' Clock ev 'for' Real d = Periods [ ev, ev + d ]; 
 	
 	// From events occur and within an elapsed time
-	Operator [ Periods ] 'from' Clock ev 'within' Real d = Periods [ ev, d [; 
+	Operator [ Periods ] 'from' Clock ev 'within' Real d = Periods [ ev, ev + d [; 
 	
 	// When events occur
 	Operator [ Periods ] 'when' Clock ev = Periods [ ev, ev ];
