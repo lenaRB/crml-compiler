@@ -14,7 +14,7 @@ public class CategoryMapping {
 	
 		List<Category> cs = categoryMap.get(name); // check if already present
 		
-		Category nc = new Category(category_name, operator_mapping);
+		//Category nc = new Category(category_name, operator_mapping);
 	
 		if (cs == null) {
 			cs = new Vector<Category>();

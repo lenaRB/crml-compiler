@@ -22,6 +22,8 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -69,6 +71,21 @@ public class TestSuite {
     public static void tearDown() {
         logCaptor.close();
     } 
+
+	@DisplayName("Traffic lights use-case test")
+	@Test
+	void testTraficLight () throws InterruptedException, IOException{
+		String filePath = "resources/crml_tutorial/traffic_light/";
+		
+		// try compiling crml to modelica
+		try {
+    		
+			crml.translator.Main.parse_file(filePath, "Spec.crml", parameters.Values.generatedTestRepository+"/traffic", true, true);
+			
+    	} catch (Exception e) {
+			fail("Unable to translate " + "Traffic light example" + "to Modelica :\n" + e.getMessage());
+		}
+	}
 
 	@ParameterizedTest
 	@MethodSource("fileNameSource")

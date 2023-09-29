@@ -28,6 +28,19 @@ package CRMLtoModelica
       undecided,
       false4,
       true4) "4-valued logic" annotation (Icon(graphics = {Text(extent = {{-58, 48}, {76, -38}}, textString = "")}, coordinateSystem(extent = {{-100, -100}, {100, 100}})));
+
+    model CRMLEvent
+    
+    Reat occurence_time;
+    
+    Boolean occurence_condition;
+
+    end CRMLEvent;
+
+    model CRMLPeriod
+    equation
+
+    end CRMLPeriod;
   end Types;
 
   
