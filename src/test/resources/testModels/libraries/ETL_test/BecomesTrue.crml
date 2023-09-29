@@ -5,5 +5,5 @@ model BecomesTrue is {
 	
 	// Example of function call
 	Boolean b1 is external;
-	Boolean b1_becomes_true is b1 'becomes true';
+	Clock c_b1_becomes_true is b1 'becomes true';
 };

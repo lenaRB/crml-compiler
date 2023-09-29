@@ -9,8 +9,8 @@ model BecomesTrue_no_ext is {
 	Boolean b2 is true;
 	Boolean b3 is false;
 	
-	Boolean b1 is b1 'becomes true'; //Two events should be generated at instants 2.5s and 7.5s
-	Boolean b2 is b2 'becomes true'; // No event should be generated
-	Boolean b3 is b3 'becomes true'; // No event should be generated
+	Clock c1 is b1 'becomes true'; //Two events should be generated at instants 2.5s and 7.5s
+	Clock c2 is b2 'becomes true'; // No event should be generated
+	Clock c3 is b3 'becomes true'; // No event should be generated
 	
 };
