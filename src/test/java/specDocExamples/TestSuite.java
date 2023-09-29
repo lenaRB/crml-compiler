@@ -87,6 +87,21 @@ public class TestSuite {
 		}
 	}
 
+	@DisplayName("Traffic lights use-case test")
+	@Test
+	void testTraficLight () throws InterruptedException, IOException{
+		String filePath = "resources/crml_tutorial/pumping_system/";
+		
+		// try compiling crml to modelica
+		try {
+    		
+			crml.translator.Main.parse_file(filePath, "Spec.crml", parameters.Values.generatedTestRepository+"/traffic", true, true);
+			
+    	} catch (Exception e) {
+			fail("Unable to translate " + "Traffic light example" + "to Modelica :\n" + e.getMessage());
+		}
+	}
+
 	@ParameterizedTest
 	@MethodSource("fileNameSource")
 	void test(final String fileName) throws InterruptedException, IOException {
