@@ -1,0 +1,11 @@
+model DecideOver is {
+	// Decide
+	Operator 'decide' is 
+		Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end));
+	
+	// Example of function call
+	Boolean phi1 is external;
+	Period P1 is external;
+			
+	Boolean b_decide_over is 'decide' phi1 'over' P1;
+};
