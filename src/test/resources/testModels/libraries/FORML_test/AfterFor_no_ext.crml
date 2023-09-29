@@ -1,0 +1,10 @@
+model AfterFor_no_ext is {
+	// After events occur and for an elapsed time
+	Operator [ Periods ] 'after' Clock ev 'for' Real d = Periods ] ev, ev + d ];
+	
+	// Example of function call
+	Boolean b1 is if 2.0 < time and time < 3.5 then true else false;
+	Clock c1 is Clock b1;
+	Boolean d1 is 3;
+	Periods p_after_b1_for_d1 is 'after' c1 'for' d1;
+};
