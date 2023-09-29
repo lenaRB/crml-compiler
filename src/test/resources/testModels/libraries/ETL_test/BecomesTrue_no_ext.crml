@@ -1,0 +1,16 @@
+model BecomesTrue_no_ext is {
+	// Operators on events
+	// Events generated when a Boolean becomes true
+	Operator [ Clock ] Boolean b 'becomes true' = Clock b;
+	
+	// Example of function call
+	
+	Boolean b1 is if (2.5 < time and time < 5) or (7.5 < time and time < 9) then true else false;
+	Boolean b2 is true;
+	Boolean b3 is false;
+	
+	Boolean b1 is b1 'becomes true'; //Two events should be generated at instants 2.5s and 7.5s
+	Boolean b2 is b2 'becomes true'; // No event should be generated
+	Boolean b3 is b3 'becomes true'; // No event should be generated
+	
+};
