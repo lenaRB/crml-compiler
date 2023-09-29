@@ -1,4 +1,4 @@
-model Spec is ETL union FORM_L union {
+model Spec is {
 // Requirement model for the traffic light example
 
 	// User-defined types and operators
