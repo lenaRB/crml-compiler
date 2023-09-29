@@ -1,12 +1,16 @@
 model CountInside is {
+	// Filter clock ticks inside a time period
+	Operator [ Clock ] Clock C 'inside' Period P 
+		= C filter (tick >= P start) and (tick <= P end);
+
 	// Operators on clocks
 	// Count the occurrences of events inside a time period
 	Operator [ Integer ] 'count' Clock C 'inside' Period P = card (C 'inside' P);
 	
 	// Example of function call
 	Boolean b1 is external;
-	Period P1 is [ b, not b ];
+	Period P1 is [ b1, not b1 ];
 	Clock C1 is external;
 	
-	Boolean count_ticks_of_c1_inside_p1 is 'count' C1 'inside' P1;
+	Integer i_count_ticks_of_c1_inside_p1 is 'count' C1 'inside' P1;
 };
