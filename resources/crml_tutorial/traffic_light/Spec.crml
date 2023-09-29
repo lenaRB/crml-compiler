@@ -25,6 +25,6 @@ model Spec is //ETL union FORM_L union
   //        next step should turn yellow within 0.2 seconds"
   Requirement req3 is
     "after" (green "becomes true" + 30) "for" 0.2
-    "check" yellow; 
+    "check at end" yellow; 
 
 };
