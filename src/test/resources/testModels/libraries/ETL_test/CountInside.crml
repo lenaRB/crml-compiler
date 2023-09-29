@@ -1,0 +1,12 @@
+model CountInside is {
+	// Operators on clocks
+	// Count the occurrences of events inside a time period
+	Operator [ Integer ] 'count' Clock C 'inside' Period P = card (C 'inside' P);
+	
+	// Example of function call
+	Boolean b1 is external;
+	Period P1 is [ b, not b ];
+	Clock C1 is external;
+	
+	Boolean count_ticks_of_c1_inside_p1 is 'count' C1 'inside' P1;
+};

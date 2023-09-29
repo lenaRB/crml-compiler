@@ -1,0 +1,13 @@
+model CountInside_no_ext is {
+	// Operators on clocks
+	// Count the occurrences of events inside a time period
+	Operator [ Integer ] 'count' Clock C 'inside' Period P = card (C 'inside' P);
+	
+	// Example of function call
+	Boolean b1 is if 2.5 < time and time < 5 then true else false;
+	Period P1 is [ b, not b ];
+	Boolean b2 is if (2 < time and time < 3) or (3.5 < time and time < 4.5) then true else false;
+	Clock C1 is Clock b2;
+	
+	Boolean count_ticks_of_c1_inside_p1 is 'count' C1 'inside' P1; // Value should be 1
+};
