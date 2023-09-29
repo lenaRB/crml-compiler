@@ -8,5 +8,5 @@ model Inside is {
 	Period P1 is [ b, not b ];
 	Clock C1 is external;
 	
-	Boolean filtered_ticks_of_c1_inside_p1 is C1 'inside' P1;
+	Clock c_filtered_ticks_of_c1_inside_p1 is C1 'inside' P1;
 };

@@ -5,9 +5,9 @@ model Inside_no_ext is {
 	
 	// Example of function call
 	Boolean b1 is if 2.5 < time and time < 5 then true else false;
-	Period P1 is [ b, not b ];
+	Period P1 is [ b1, not b1 ];
 	Boolean b2 is if (2 < time and time < 3) or (3.5 < time and time < 4.5) then true else false;
 	Clock C1 is Clock b2;
 	
-	Boolean filtered_ticks_of_c1_inside_p1 is C1 'inside' P1; // Only one event should be kept at instant 3.5 s
+	Clock c_filtered_ticks_of_c1_inside_p1 is C1 'inside' P1; // Only one event should be kept at instant 3.5 s
 };
