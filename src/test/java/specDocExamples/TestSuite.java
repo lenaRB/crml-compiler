@@ -87,9 +87,9 @@ public class TestSuite {
 		}
 	}
 
-	@DisplayName("Traffic lights use-case test")
+	@DisplayName("Pumping System use-case test")
 	@Test
-	void testTraficLight () throws InterruptedException, IOException{
+	void testPumpingSystem () throws InterruptedException, IOException{
 		String filePath = "resources/crml_tutorial/pumping_system/";
 		
 		// try compiling crml to modelica
