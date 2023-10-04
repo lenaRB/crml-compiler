@@ -1,0 +1,12 @@
+model Inside is {
+	// Filter clock ticks inside a time period
+	Operator [ Clock ] Clock C 'inside' Period P 
+		= C filter (tick >= P start) and (tick <= P end);
+	
+	// Example of function call
+	Boolean b1 is external;
+	Period P1 is [ b, not b ];
+	Clock C1 is external;
+	
+	Clock c_filtered_ticks_of_c1_inside_p1 is C1 'inside' P1;
+};

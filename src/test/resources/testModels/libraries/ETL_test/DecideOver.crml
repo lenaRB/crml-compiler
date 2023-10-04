@@ -1,0 +1,15 @@
+model DecideOver is {
+	// Operators on Boolean
+	// Logical disjunction
+	Template b1 'or' b2 = not (not b1 and not b2);
+
+	// Decide
+	Operator 'decide' is 
+		Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end));
+	
+	// Example of function call
+	Boolean phi1 is external;
+	Period P1 is external;
+			
+	Boolean b_decide_over is 'decide' phi1 'over' P1;
+};

@@ -1,0 +1,9 @@
+model BecomesTrue is {
+	// Operators on events
+	// Events generated when a Boolean becomes true
+	Operator [ Clock ] Boolean b 'becomes true' = Clock b;
+	
+	// Example of function call
+	Boolean b1 is external;
+	Clock c_b1_becomes_true is b1 'becomes true';
+};

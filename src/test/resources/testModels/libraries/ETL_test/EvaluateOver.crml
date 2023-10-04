@@ -1,0 +1,19 @@
+model EvaluateOver is {
+	// Operators on Boolean
+	// Logical disjunction
+	Template b1 'or' b2 = not (not b1 and not b2);
+	
+	// Decide
+	Operator 'decide' is 
+		Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end));
+		
+	// Evaluate
+	Operator [ Boolean ] 'evaluate' Boolean phi 'over' Period P 
+		= integrate (('decide' phi 'over' P) * phi) on P;
+	
+	// Example of function call
+	Boolean phi1 is external;
+	Period P1 is external;
+			
+	Boolean b_evaluate_over is 'evaluate' phi1 'over' P1;
+};

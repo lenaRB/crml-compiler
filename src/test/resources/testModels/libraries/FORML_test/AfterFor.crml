@@ -1,0 +1,11 @@
+model AfterFor is {
+	// After events occur and for an elapsed time
+	Operator [ Periods ] 'after' Clock ev 'for' Real d = Periods ] ev, ev + d ];
+	
+	// Example of function call
+	Boolean b1 is external;
+	Clock c1 is Clock b1;
+	Real d1 is external;
+	
+	Periods p_after_b1_for_d is 'after' c1 'for' d1;
+};
