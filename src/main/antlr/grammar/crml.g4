@@ -33,7 +33,7 @@ template : 'Template' (id | user_keyword)+ '=' exp ';' ;
 
 class_params : '(' (id '=' exp)+ ')';
 
-operator_def :  (type id | user_keyword)+ '=' ('apply' assoc=id)? exp ;
+operator_def :  (type id | user_keyword)+ '=' ('apply' assoc=id 'on')? exp ;
 	 
 type_def : 'type' id ('extends' type  arg_list? id?)?  ('{' class_var_def * '}' )? ;
 	 
