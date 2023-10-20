@@ -26,7 +26,7 @@ public class Main {
 
    public static void main( String[] args ) throws Exception {
 
-    if (args[0] == null)
+    if (args.length == 0)
     {
       System.out.println("usage: crml.translator.Test path/to/tests/[test.crml] [-o /path/to/output]");
       System.out.println("       provide an input directory or a test to translate all or the given .crml files to .mo files");
