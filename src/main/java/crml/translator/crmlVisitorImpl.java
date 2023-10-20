@@ -1,5 +1,6 @@
 package crml.translator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -122,10 +123,6 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			if(ctx.category() != null)
 				return visit(ctx.category());
 			
-			// the element is a category association
-			if(ctx.association() != null)
-				return visit(ctx.association());
-			
 			// the element is a parameter or an external variable
 			if(ctx.uninstantiated_def()!= null)
 				return visit (ctx.uninstantiated_def());
@@ -196,10 +193,11 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			return new Value("", "Category");		
 		}	
 		
-		@Override public Value visitAssociation(crmlParser.AssociationContext ctx) {
+		// TO DO move to association
+		/*@Override public Value visitAssociation(crmlParser.AssociationContext ctx) {
 			category_map.add_association(ctx.c_set.getText(), ctx.c_op_name.getText(), ctx.c_name.getText());
 			return new Value("", "Association");	
-		}	
+		}*/
 		
 		@Override public Value visitClass_def(crmlParser.Class_defContext ctx) {
 			StringBuffer buffer = new StringBuffer();
@@ -461,8 +459,12 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				else throw new ParseCancellationException("unable to get variable type : " + ctx.crml_component_reference().getText() + '\n');}
 				
 			// if the expression is a user defined call
-			if(ctx.user_operator_call() != null) {
-				return visit(ctx.user_operator_call());
+			if(ctx.user_keyword() != null) {
+				List<crmlParser.ExpContext> args = new ArrayList<>();
+				// put together user operator name
+				UserOperatorCall uc = reconstructUserOperator(ctx, "", args);
+
+				return apply_user_operator("'"+uc.name+"'", uc.args);
 			}
 			
 			// if expression is an if-then-else
@@ -470,22 +472,20 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				return visit(ctx.if_exp());
 			}
 			
-			if(ctx.op()!= null)
-				if(ctx.op().user_keyword()!=null) { // if the expression is a user defined operator
-					Value result = apply_user_operator(ctx.op().user_keyword().getText(), ctx.exp());
-					return result;
-				} else if (ctx.binary!=null){
+			// if the expression is a built in operator
+			if(ctx.builtin_op()!= null)
+				if (ctx.binary!=null){
 				left = visit(ctx.left);
 				right = visit(ctx.right);
-				Value result = apply_binary_op(ctx.op().getText(), left, right);
+				Value result = apply_binary_op(ctx.builtin_op().getText(), left, right);
 				return result;
 				} else if(ctx.lunary!= null) {
 					left = visit(ctx.left);					
-					Value result = apply_lunary_op(ctx.op().getText(), left);
+					Value result = apply_lunary_op(ctx.builtin_op().getText(), left);
 					return result;
 				}  else if(ctx.runary!= null) {
 					right = visit(ctx.right);					
-					Value result = apply_runary_op(ctx.op().getText(), right);
+					Value result = apply_runary_op(ctx.builtin_op().getText(), right);
 					return result;
 				}
 
@@ -507,9 +507,29 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		//	if(ctx.at!= null) //TODO implement 'at'
 		//		return visit(ctx.at());
 
+		// if expression is integrate TO DO fix integrate
+		if (ctx.integrate()!=null)
+			return new Value ("integrate", "Real");
+
 			throw new ParseCancellationException("unable to parse expression : " + ctx.getParent().getText() + '\n');
 		}
 		
+	private UserOperatorCall reconstructUserOperator(ExpContext ctx, String string, List<ExpContext> args) {
+			if(ctx.user_keyword()!= null)// is part of the user operator
+				if(ctx.ubinary!=null){// binary operator
+					UserOperatorCall left, right;
+					left = reconstructUserOperator(ctx.left, "", args);
+					right = reconstructUserOperator(ctx.right, "", args);
+				return new UserOperatorCall(left.name+ ctx.user_keyword().getText().replace("'", "")+right.name, args);
+				} else {
+				return reconstructUserOperator(ctx.exp(0), string+ctx.user_keyword().getText().replace("'", ""), args);
+				}
+
+		    
+			args.add(0, ctx);
+			return new UserOperatorCall(string, args);
+		}
+
 	@Override
 	public Value visitSet_def(crmlParser.Set_defContext cxt) {
 		return new Value ("Set", "{}", true);

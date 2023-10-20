@@ -119,6 +119,7 @@ public class Main {
         }
         else
           logger.error("Unable to translate: " + file);
+          logger.trace("The AST for the program: \n" + tree.toStringTree(parser));
       } catch (ParseCancellationException e) {
         
         logger.error("Translation error: "+ e, e);
