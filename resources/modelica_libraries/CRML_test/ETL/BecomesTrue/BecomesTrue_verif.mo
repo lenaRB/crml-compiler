@@ -1,13 +1,15 @@
-within CRML_test.ETL;
-model EnsureAtEnd_verif
-  extends EnsureAtEnd;
-  EnsureAtEnd_externals externals
+within CRML_test.ETL.BecomesTrue;
+model BecomesTrue_verif
+  extends BecomesTrue;
+  BecomesTrue_externals externals
     annotation (Placement(transformation(extent={{-200,0},{-140,60}})));
+  CRML.Blocks.Events.ShowEvent show_c_b1_becomes_true
+    annotation (Placement(transformation(extent={{52,-44},{60,-36}})));
 equation
   // Bindings
-  e1 = externals.event1;
-  e2 = externals.event2;
-  u = externals.u;
+  b1 = externals.b1;
+  connect(show_c_b1_becomes_true.u, event4ToEvent.y) annotation (Line(points={{
+          51.6,-40},{-20,-40},{-20,0},{-45.6,0}}, color={217,67,180}));
     annotation (Placement(transformation(extent={{0,-20},{60,40}})),
               Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-200,-100},{100,100}},
@@ -25,4 +27,4 @@ equation
         extent={{-200,-100},{100,100}},
         initialScale=0.1)),
     experiment(StopTime=14));
-end EnsureAtEnd_verif;
+end BecomesTrue_verif;

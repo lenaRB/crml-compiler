@@ -2,7 +2,7 @@ within CRML_test.Temp;
 model EnsureAtEnd_verif
   EnsureAtEnd req
     annotation (Placement(transformation(extent={{0,-20},{60,40}})));
-  ETL.EnsureAtEnd_externals externals
+  FORML.EnsureAtEnd_externals externals
     annotation (Placement(transformation(extent={{-80,-20},{-20,40}})));
 equation
   // Bindings

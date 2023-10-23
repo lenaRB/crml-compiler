@@ -1,7 +1,7 @@
-within CRML_test.ETL;
+within CRML_test.FORML.EnsureAtEnd;
 model EnsureAtEnd_verif_ref
-  extends EnsureAtEnd_ref;
-  EnsureAtEnd_externals externals
+  extends EnsureAtEnd.EnsureAtEnd_ref;
+  EnsureAtEnd.EnsureAtEnd_externals externals
     annotation (Placement(transformation(extent={{-200,0},{-140,60}})));
 equation
   // Bindings

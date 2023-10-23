@@ -1,12 +1,13 @@
-within CRML_test.Spec_doc.wip_ClockFilter;
-model ClockFilter_verif
-  extends ClockFilter;
-  ClockFilter_externals externals
+within CRML_test.FORML.EnsureAtEnd;
+model EnsureAtEnd_verif
+  extends EnsureAtEnd.EnsureAtEnd;
+  EnsureAtEnd.EnsureAtEnd_externals externals
     annotation (Placement(transformation(extent={{-200,0},{-140,60}})));
 equation
   // Bindings
-  c1 =externals.c1;
-  c2 =externals.c2;
+  e1 = externals.event1;
+  e2 = externals.event2;
+  u = externals.u;
     annotation (Placement(transformation(extent={{0,-20},{60,40}})),
               Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-200,-100},{100,100}},
@@ -24,4 +25,4 @@ equation
         extent={{-200,-100},{100,100}},
         initialScale=0.1)),
     experiment(StopTime=14));
-end ClockFilter_verif;
+end EnsureAtEnd_verif;

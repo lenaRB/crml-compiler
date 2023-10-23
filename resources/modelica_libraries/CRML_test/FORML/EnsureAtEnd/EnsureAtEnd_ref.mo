@@ -1,4 +1,4 @@
-within CRML_test.ETL;
+within CRML_test.FORML.EnsureAtEnd;
 partial model EnsureAtEnd_ref
   CRML.ETL.TimeLocators.Periods timePeriod(leftBoundaryIncluded=false,
       rightBoundaryIncluded=false)

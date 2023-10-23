@@ -1,12 +1,12 @@
-within CRML_test.Spec_doc.wip_ClockFilter;
-model ClockFilter_verif
-  extends ClockFilter;
-  ClockFilter_externals externals
+within CRML_test.ETL.TemplateOr;
+model TemplateOr_verif
+  extends TemplateOr;
+  TemplateOr_externals externals
     annotation (Placement(transformation(extent={{-200,0},{-140,60}})));
 equation
   // Bindings
-  c1 =externals.c1;
-  c2 =externals.c2;
+  b1 = externals.b1;
+  b2 = externals.b2;
     annotation (Placement(transformation(extent={{0,-20},{60,40}})),
               Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-200,-100},{100,100}},
@@ -24,4 +24,4 @@ equation
         extent={{-200,-100},{100,100}},
         initialScale=0.1)),
     experiment(StopTime=14));
-end ClockFilter_verif;
+end TemplateOr_verif;

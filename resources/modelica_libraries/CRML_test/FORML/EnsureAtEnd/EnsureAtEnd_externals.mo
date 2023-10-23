@@ -1,4 +1,4 @@
-within CRML_test.ETL;
+within CRML_test.FORML.EnsureAtEnd;
 model EnsureAtEnd_externals
 
   CRML.Blocks.Logical.BooleanStep eventPeriodic(startTime=5)
