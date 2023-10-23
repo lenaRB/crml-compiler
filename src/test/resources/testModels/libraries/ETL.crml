@@ -14,14 +14,14 @@ library ETL is {
 	// Operators on clocks
 	// Filter clock ticks inside a time period
 	Operator [ Clock ] Clock C 'inside' Period P 
-		= C filter (tick >= P start) and (tick <= P end);
+		= C filter (tick C >= P start) and (tick C <= P end);
   
 	// Count the occurrences of events inside a time period
 	Operator [ Integer ] 'count' Clock C 'inside' Period P = card (C 'inside' P);
   
 	// Operators on events
 	// Events generated when a Boolean becomes true
-	Operator [ Clock ] Boolean b 'becomes true' = Clock b;
+	Operator [ Clock ] Boolean b 'becomes true' = new Clock b;
   
 	// Events generated when a Boolean becomes false
 	Operator [ Clock] Boolean b 'becomes false' = not b 'becomes true';
@@ -44,8 +44,8 @@ library ETL is {
 		= integrate (('decide' phi 'over' P) * phi) on P;
   
 	// Decide
-	Operator 'decide' is 
-		Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end));
+	// Operator 'decide' is 
+	Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end));
   
 	Category c1 is Category increasing1 
 		= { (>, >), (>=, >=), (<, >=), (<=, >), (==, >), (<>, >) };
