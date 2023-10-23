@@ -1,6 +1,5 @@
 model ClockFilter is {
 	Clock c1 is external;
 	Clock c2 is external;
-	Operator 'cond' [ Boolean ] Integer i = value (i);
-	Clock c_filter is c1 filter 'cond' tick c1;
+	Clock c_filter is c1 filter tick c2;
 };
