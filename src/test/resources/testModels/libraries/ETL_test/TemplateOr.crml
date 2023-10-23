@@ -1,4 +1,4 @@
-model TemplateExample1 is {
+model TemplateOr is {
 	// Definition of disjunction of two Booleans.
 	Template b1 'or' b2 = not (not b1 and not b2);
 	

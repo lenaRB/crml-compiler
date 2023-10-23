@@ -4,8 +4,7 @@ model EvaluateOver is {
 	Template b1 'or' b2 = not (not b1 and not b2);
 	
 	// Decide
-	Operator 'decide' is 
-		Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end));
+	Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end));
 		
 	// Evaluate
 	Operator [ Boolean ] 'evaluate' Boolean phi 'over' Period P 
