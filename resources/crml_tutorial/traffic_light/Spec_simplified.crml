@@ -82,18 +82,21 @@ model Spec is {
 
 	// Definition of requirements
 	// req1: "After green, next step is yellow"
-	Requirement req1 is
+	// Requirement req1 is
+	Boolean req1 is
 		'after' (green 'becomes true') 'before' (yellow 'becomes true')
 		'check count' (red 'becomes true') '==' 0;
 
 	// req2: "Step green should stay active for at least 30 seconds"
-	Requirement req2 is
+	// Requirement req2 is
+	Boolean req2 is
 		'after' (green 'becomes true') 'for' 30
 		'ensure' green;
 
 	// req3: "After green becomes active + 30 seconds,
 	//        next step should turn yellow within 0.2 seconds"
-	Requirement req3 is
+	// Requirement req3 is
+	Boolean req3 is
 		'after' (green 'becomes true' + 30) 'for' 0.2
 		'check at end' yellow;
 };
