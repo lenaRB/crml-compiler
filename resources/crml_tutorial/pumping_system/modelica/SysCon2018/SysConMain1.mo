@@ -1,18 +1,22 @@
 within SysCon2018;
-model SysConMain
+model SysConMain1
   SysCon sysCon annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   CRML.Blocks.Logical.BooleanPulse      system_inOperation(
     width=3600,
     startTime=60,
     period=4000)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  Modelica.Blocks.Sources.Sine
+                            pump_temperature(
+    freqHz=1/600,
+    offset=39,
+    amplitude=1.1)
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   CRML.Blocks.Logical.BooleanPulse pump_isStarted1(
     width=1140,
     period=1200,
     startTime=600)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  CRML.Blocks.Math.Constant pump_temperature(k=40)
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   CRML.Blocks.Logical4.ShowBoolean4 showValue
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Modelica.Blocks.Logical.And pump_isStarted
@@ -50,4 +54,4 @@ equation
                 fillPattern = FillPattern.Solid,
                 points={{-36,60},{64,0},{-36,-60},{-36,60}})}),  Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end SysConMain;
+end SysConMain1;
