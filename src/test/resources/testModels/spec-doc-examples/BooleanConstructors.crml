@@ -4,7 +4,6 @@ model BooleanConstructors is {
 	Boolean b2 is false;
 	Boolean b3 is undecided;
 	Boolean b4 is undefined;
-	Boolean b is if 2.5 < time and time < 5 then true else false;
-	Clock c is new Clock b;
+	Clock c is external;
 	Boolean b5 is new Boolean c;
 };

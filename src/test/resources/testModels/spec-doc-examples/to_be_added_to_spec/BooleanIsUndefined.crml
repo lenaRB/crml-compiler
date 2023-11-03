@@ -1,0 +1,4 @@
+model BooleanIsUndefined is {
+	// Constructors
+	Boolean b4 is undefined;
+};	
