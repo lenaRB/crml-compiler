@@ -1,0 +1,12 @@
+model CteFalse_no_ext is {
+	Operator [ Boolean ]  'cte_false'  Boolean b = false;
+
+	b_true is true;
+	b_false is false;
+	b_undecided is undecided;
+	b_undefined is undefined;
+	b_cte_false_true is 'cte_false' b_true; // value should be false
+	b_cte_false_false is 'cte_false' b_false; // value should be false
+	b_cte_false_undecided is 'cte_false' b_undecided; // value should be false
+	b_cte_false_undefined is 'cte_false' b_undefined; // value should be false
+};
