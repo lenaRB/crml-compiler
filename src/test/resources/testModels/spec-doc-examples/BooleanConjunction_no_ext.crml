@@ -1,4 +1,4 @@
-model BooleanConjunction is {
+model BooleanConjunction_no_ext is {
 	Boolean b_true is true;
 	Boolean b_false is false;
 	Boolean b_undecided is undecided;

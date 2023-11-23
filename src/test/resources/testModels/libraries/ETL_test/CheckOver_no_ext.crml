@@ -1,4 +1,4 @@
-model EvaluateOver_no_ext is {
+model CheckOver_no_ext is {
 	// Operators on Boolean
 	// Logical disjunction
 	Template b1 'or' b2 = not (not b1 and not b2);
@@ -7,15 +7,14 @@ model EvaluateOver_no_ext is {
 	// Check
 	Operator [ Boolean ] 'check' Boolean phi 'over' Periods P 
 		= and ('evaluate' phi 'over' P);
-	
-	// Decide
-	Operator 'decide' is 
-		Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end));
-		
+
 	// Evaluate
 	Operator [ Boolean ] 'evaluate' Boolean phi 'over' Period P 
 		= integrate (('decide' phi 'over' P) * phi) on P;
 	
+	// Decide
+	Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end));
+		
 	// Example of function call
 	Boolean phi1 is if 2.0 < time and time < 3.5 then true else false;
 	Boolean b1 is if 2.5 < time and time < 5 then true else false;

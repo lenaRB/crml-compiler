@@ -1,0 +1,6 @@
+model BooleanIsNewClock is {
+	// Constructors
+	Boolean b is if 2.5 < time and time < 5 then true else false;
+	Clock c is new Clock b;
+	Boolean b5 is new Boolean c;
+};

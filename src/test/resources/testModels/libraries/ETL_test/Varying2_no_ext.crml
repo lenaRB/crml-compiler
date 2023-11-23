@@ -1,0 +1,5 @@
+model Varying2_no_ext is {
+	Category varying2 = { ('id', 'cte_true') };
+	Operator [ Boolean ]  'id'  Boolean b = b;
+	Operator [ Boolean ]  'cte_true'  Boolean b = true;
+};

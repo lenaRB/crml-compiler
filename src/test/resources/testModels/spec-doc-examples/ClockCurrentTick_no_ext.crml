@@ -1,0 +1,5 @@
+model ClockCurrentTick_no_ext is {
+	Boolean b is if 2.0 < time and time < 3.5 then true else false;
+	Clock c is new Clock b;
+	Event e_current_tick is tick c;
+};

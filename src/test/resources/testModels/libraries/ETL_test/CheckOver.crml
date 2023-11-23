@@ -7,15 +7,14 @@ model CheckOver is {
 	// Check
 	Operator [ Boolean ] 'check' Boolean phi 'over' Periods P 
 		= and ('evaluate' phi 'over' P);
-	
-	// Decide
-	Operator 'decide' is 
-		Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end));
-		
+
 	// Evaluate
 	Operator [ Boolean ] 'evaluate' Boolean phi 'over' Period P 
 		= integrate (('decide' phi 'over' P) * phi) on P;
 	
+	// Decide
+	Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end));
+		
 	// Example of function call
 	Boolean phi1 is external;
 	Period P1 is external;

@@ -1,7 +1,7 @@
 model BecomesTrue_no_ext is {
 	// Operators on events
 	// Events generated when a Boolean becomes true
-	Operator [ Clock ] Boolean b 'becomes true' = Clock b;
+	Operator [ Clock ] Boolean b 'becomes true' = new Clock b;
 	
 	// Example of function call
 	

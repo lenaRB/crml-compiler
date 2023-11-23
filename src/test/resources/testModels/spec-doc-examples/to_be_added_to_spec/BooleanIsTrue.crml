@@ -1,0 +1,4 @@
+model BooleanIsTrue is {
+	// Constructors
+	Boolean b1 is true;
+};

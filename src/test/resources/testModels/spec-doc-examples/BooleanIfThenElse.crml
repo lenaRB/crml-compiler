@@ -1,12 +1,8 @@
 model BooleanIfThenElse is {
-	Boolean b_true is true;
-	Boolean b_false is false;
-	Boolean b_undecided is undecided;
-	Boolean b_undefined is undefined;
-	Boolean b1 is b_true;
-	Boolean b2 is b_false;
-	Boolean b_if_true_then_else is if b_true then b1 else b2; //value should be b1
-	Boolean b_if_false_then_else is if b_false then b1 else b2; //value should be b2
-	Boolean b_if_undecided_then_else is if b_undecided then b1 else b2; //value should be b2
-	Boolean b_if_undefined_then_else is if b_undefined then b1 else b2; //value should be b2	
+	Boolean b1 is external;
+	Boolean b2 is external;
+	Boolean bc is external;
+	
+	Boolean b_if_true_then_else is if bc then b1 else b2;
+	
 };

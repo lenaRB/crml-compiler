@@ -1,0 +1,14 @@
+model BooleanDisjunctionWithEvent_no_ext is {
+	Boolean b_true is true;
+	Boolean b_false is false;
+	Boolean b_undecided is undecided;
+	Boolean b_undefined is undefined;
+	
+	Boolean b is if 2.5 < time and time < 5 then true else false;
+	Event e is new Event b;
+	
+	Boolean b_disjunction_true_with_event is b_true or e;
+	Boolean b_disjunction_false_with_event is b_false or e;
+	Boolean b_disjunction_undecided_with_event is b_undecided or e;
+	Boolean b_disjunction_undefined_with_event is b_undefined or e;
+};

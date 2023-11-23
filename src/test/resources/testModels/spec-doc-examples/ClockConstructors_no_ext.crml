@@ -1,0 +1,5 @@
+model ClockConstructors_no_ext is {
+	// Constructors
+	Boolean b is if 2.0 < time and time < 3.5 then true else false;;
+	Clock c is new Clock b; // one event should be generated at instant t=2.0
+};
