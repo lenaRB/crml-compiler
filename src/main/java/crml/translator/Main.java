@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
@@ -119,7 +120,11 @@ public class Main {
         }
         else
           logger.error("Unable to translate: " + file);
-          logger.trace("The AST for the program: \n" + tree.toStringTree(parser));
+        
+        List<String> ruleNamesList = Arrays.asList(parser.getRuleNames());
+
+        String prettyTree = Utilities.toPrettyTree(tree, ruleNamesList);
+        logger.trace("The AST for the program: \n" + prettyTree);
       } catch (ParseCancellationException e) {
         
         logger.error("Translation error: "+ e, e);
