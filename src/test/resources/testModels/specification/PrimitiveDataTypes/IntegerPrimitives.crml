@@ -1,4 +1,0 @@
-model Int1 is {
-Integer i is 2;
-Integer j is 1 + 2;
-};

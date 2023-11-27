@@ -1,7 +1,0 @@
-model NegationSet is {
-Boolean R1 is true;
-Boolean R2 is false;
-Boolean R3 is undefined;
-Boolean R4 is true;
-Boolean S is not {R1, R2, R3, R4};
-};

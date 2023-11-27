@@ -1,9 +1,0 @@
-model Events_test is {
-
-Operator [ Clock ] Boolean b 'becomes true' = new Clock b;
-
-external Boolean myB;
-
-Clock c is 'becomes true' myB;
-
-};
