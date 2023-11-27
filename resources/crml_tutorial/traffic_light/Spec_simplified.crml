@@ -70,10 +70,10 @@ model Spec is {
 				= ('check' ('count' (b 'becomes true') == 0) 'over' P) and (P 'check anytime' b);
 
 			// Checking that a requirement is satisfied at any time instant of a time period
-			Operator [ Boolean ] Periods P 'check anytime' Boolean b =  apply varying2 'check' 'id' b 'over' P;
+			Operator [ Boolean ] Periods P 'check anytime' Boolean b =  apply varying2 on 'check' 'id' b 'over' P;
 
 			// Checking that a requirement is satisfied at the end of a time period
-			Operator [ Boolean ] Periods P 'check at end' Boolean b = apply varying1 'check'  'id' b 'over' P;
+			Operator [ Boolean ] Periods P 'check at end' Boolean b = apply varying1 on 'check'  'id' b 'over' P;
 
 	// List of external variables
 	Boolean red is external;

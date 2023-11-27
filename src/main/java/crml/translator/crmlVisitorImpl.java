@@ -490,8 +490,10 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				}
 
 			// if the expression is in parenthesis
-			if(ctx.sub_exp()!=null)
+			if(ctx.sub_exp()!=null){
+				System.out.println("SUB EXPRESSION FOUND");
 				return visit(ctx.sub_exp().exp());
+				}
 
 			
 			// expression is a tick
