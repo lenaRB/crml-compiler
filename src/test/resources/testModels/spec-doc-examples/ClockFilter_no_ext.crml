@@ -1,0 +1,8 @@
+model ClockFilter_no_ext is {
+	Boolean b1 is if 2.5 < time and time < 5 then true else false;
+	Boolean b is if (2.0 <= time and time < 3.5) or (4.0 <= time and time < 5.5) then true else false;
+		
+	Event e is new Event b1; // One event at t=2.5s
+	Clock c is new Clock b;  // Two ticks at t=2.0s and t=4.0s
+	Clock c_filter is c filter (tick c >= e); // Should only keep tick at t=4.0s.
+};
