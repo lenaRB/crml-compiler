@@ -1,4 +1,4 @@
-package CRMLTests;
+package ctests;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+
 import crml.compiler.CRMLC;
 import crml.compiler.Utilities;
 import nl.altindag.log.LogCaptor;
@@ -31,7 +32,7 @@ import nl.altindag.log.LogCaptor;
  * @author Lena B
  *
  */
-public class TestSuite {
+public class CRMLUnitTests {
 	
 	static LogCaptor logCaptor;
 	static String testFolderIn;

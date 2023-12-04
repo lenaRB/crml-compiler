@@ -26,32 +26,40 @@ plugins {
             strictly '[2.17.0]'
         }
     }
-    implementation(platform('org.junit:junit-bom:5.9.1'))
-    implementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+   
+    implementation(platform("org.junit:junit-bom:5.10.1"))
+    implementation 'org.junit.jupiter:junit-jupiter:5.10.1'
+    implementation "org.junit.platform:junit-platform-launcher"
+
     implementation 'io.github.hakky54:logcaptor:2.7.10'
-    implementation("org.junit.platform:junit-platform-launcher")
-
     implementation "org.jcommander:jcommander:1.83"
-    implementation "org.junit.platform:junit-platform-suite:1.8.1"
 
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
-    testImplementation(platform('org.junit:junit-bom:5.9.1'))
-    testImplementation('org.junit.jupiter:junit-jupiter')
-    testImplementation 'io.github.hakky54:logcaptor:2.7.10'
 }
 
-/** sourceSets {
-    generated {
-    	java.srcDirs += 'target/generated-src/antlr/main/'
+    sourceSets { // adding tests to source directories to run test suite
+    main {
+        java {
+            srcDir 'src/test/java'
+        }
     }
-} */
+}
+    
 
 task(crmlc, dependsOn: 'classes', type: JavaExec) {
    mainClass = 'crml.compiler.CRMLC'
    classpath = sourceSets.main.runtimeClasspath
 }
 
+task printSourceSetInformation { // for debugging purposes
+    doLast{
+        sourceSets.each { srcSet ->
+            println "["+srcSet.name+"]"
+            print "-->Source directories: "+srcSet.allJava.srcDirs+"\n"
+            print "-->Output directories: "+srcSet.output.classesDirs.files+"\n"
+            println ""
+        }
+    }
+}
 application {
     mainClass = 'crml.compiler.CRMLC'
 }

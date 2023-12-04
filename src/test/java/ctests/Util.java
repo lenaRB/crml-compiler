@@ -1,4 +1,4 @@
-package CRMLTests;
+package ctests;
 
 import java.io.BufferedReader;
 import java.io.IOException;

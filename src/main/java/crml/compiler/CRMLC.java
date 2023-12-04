@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,25 +21,37 @@ import grammar.crmlParser;
 import org.apache.logging.log4j.Logger;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
+import org.junit.platform.launcher.LauncherSession;
 import org.junit.platform.launcher.TestPlan;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
 import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
-
+import org.junit.platform.launcher.listeners.TestExecutionSummary;
 
 import com.beust.jcommander.JCommander;
 
 import org.apache.logging.log4j.LogManager;
-
+import org.junit.platform.engine.discovery.ClassNameFilter;
 import org.junit.platform.engine.discovery.DiscoverySelectors;
 
 
+
+/**
+ * Main entry point for the crmlc compiler
+ * @author Lena Buffoni
+ * @version 1.0
+ */
 public class CRMLC {
 
    private static final Logger logger = LogManager.getLogger();	
+   private static 
    SummaryGeneratingListener listener = new SummaryGeneratingListener();
+   
     
-
+  private class Settings{
+    Boolean debug = false;
+    Boolean printAST = false;
+  }
    public static void main( String[] args ) throws Exception {
 
     CommandLineArgs cmd = new CommandLineArgs();
@@ -50,13 +63,20 @@ public class CRMLC {
 
     if (cmd.help) {
         jc.usage();
+        return;
       }
 
     // incorrect arguments
-    if (cmd.files.isEmpty()&&cmd.runTestSuite==null){
+    if (cmd.files.isEmpty()&&!cmd.runTestSuite){
       System.err.println(" incorrect arguments");
       jc.usage();
-      return;}
+      return;
+    }
+
+    if(cmd.runTestSuite){
+      runTestSuite("ctests");
+      return;  
+    }
 
     // TODO support multiple file loop 
     String path = new File(cmd.files.get(0)).getCanonicalPath();
@@ -168,15 +188,22 @@ public class CRMLC {
     }
   }
 
-  public void runTestSuite(String packageName) {
+  public static void runTestSuite(String packageName) {
+     System.out.println(" - Running test suite -");
      LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
-      .selectors(DiscoverySelectors.selectPackage("packageName"))
-      //.filters(includeClassNamePatterns(".*Test"))
+      .selectors(
+          DiscoverySelectors.selectPackage(packageName))
+      .filters(ClassNameFilter.includeClassNamePatterns(".*Tests"))
       .build(); 
-    Launcher launcher = LauncherFactory.create();
+    LauncherSession launcherSession = LauncherFactory.openSession();
+    Launcher launcher = launcherSession.getLauncher();
+  
     TestPlan testPlan = launcher.discover(request);
+    System.out.println("Found tests: " + testPlan.containsTests()); 
     launcher.registerTestExecutionListeners(listener);
     launcher.execute(request); 
+    TestExecutionSummary summary = listener.getSummary();
+    summary.printTo(new PrintWriter(System.out));
     
   }
 }
