@@ -1,0 +1,5 @@
+model SetCard_no_ext is {
+	// Example with set of Real variables
+	Real {} S is {3.0, 1.5, 237};
+	Integer n is card S; // Should be equal to 3.
+};
