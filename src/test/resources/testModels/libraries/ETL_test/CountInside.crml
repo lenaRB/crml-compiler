@@ -9,7 +9,7 @@ model CountInside is {
 	
 	// Example of function call
 	Boolean b1 is external;
-	Period P1 is [ b1, not b1 ];
+	Period P1 is [ new Event b1, new Event not b1 ];
 	Clock C1 is external;
 	
 	Integer i_count_ticks_of_c1_inside_p1 is 'count' C1 'inside' P1;
