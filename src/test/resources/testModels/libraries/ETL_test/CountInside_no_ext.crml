@@ -1,7 +1,7 @@
 model CountInside_no_ext is {
 	// Filter clock ticks inside a time period
 	Operator [ Clock ] Clock C 'inside' Period P 
-		= C filter (tick >= P start) and (tick <= P end);
+		= C filter (tick C >= P start) and (tick C <= P end);
 		
 	// Operators on clocks
 	// Count the occurrences of events inside a time period
@@ -11,7 +11,7 @@ model CountInside_no_ext is {
 	Boolean b1 is if 2.5 < time and time < 5 then true else false;
 	Period P1 is [ b1, not b1 ];
 	Boolean b2 is if (2 < time and time < 3) or (3.5 < time and time < 4.5) then true else false;
-	Clock C1 is Clock b2;
+	Clock C1 is new Clock b2;
 	
-	Integer i_count_ticks_of_c1_inside_p1 is 'count' C1 'inside' P1; // Value should be 1
+	Integer i_count_ticks_of_c1_inside_p1 is 'count' C1 'inside' P1; // Value should be 1 (there is only one tick of C1 inside Period P1)
 };
