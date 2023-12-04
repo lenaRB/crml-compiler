@@ -1,4 +1,4 @@
-package crml.translator;
+package crml.compiler;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Vector;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -19,23 +18,48 @@ import grammar.crmlLexer;
 import grammar.crmlParser;
 
 import org.apache.logging.log4j.Logger;
+import org.junit.platform.launcher.Launcher;
+import org.junit.platform.launcher.LauncherDiscoveryRequest;
+import org.junit.platform.launcher.TestPlan;
+import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
+import org.junit.platform.launcher.core.LauncherFactory;
+import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
+
+
+import com.beust.jcommander.JCommander;
+
 import org.apache.logging.log4j.LogManager;
 
-public class Main {
+import org.junit.platform.engine.discovery.DiscoverySelectors;
+
+
+public class CRMLC {
 
    private static final Logger logger = LogManager.getLogger();	
+   SummaryGeneratingListener listener = new SummaryGeneratingListener();
+    
 
    public static void main( String[] args ) throws Exception {
 
-    if (args.length == 0)
-    {
-      System.out.println("usage: crml.translator.Test path/to/tests/[test.crml] [-o /path/to/output]");
-      System.out.println("       provide an input directory or a test to translate all or the given .crml files to .mo files");
-      System.out.println("       provide an output directory via -o on where to write the .mo files");
-      System.out.println("       if no output directory via -o is given then the .mo files are generated in the current directory");
-      return;
-    }
-    String path = new File(args[0]).getCanonicalPath();
+    CommandLineArgs cmd = new CommandLineArgs();
+
+    JCommander jc = JCommander.newBuilder().addObject(cmd).build();
+
+    jc.setProgramName("crmlc");
+    jc.parse(args);
+
+    if (cmd.help) {
+        jc.usage();
+      }
+
+    // incorrect arguments
+    if (cmd.files.isEmpty()&&cmd.runTestSuite==null){
+      System.err.println(" incorrect arguments");
+      jc.usage();
+      return;}
+
+    // TODO support multiple file loop 
+    String path = new File(cmd.files.get(0)).getCanonicalPath();
     logger.trace("Directory for tests: " + path);
 
     File file = new File ( path );
@@ -142,7 +166,17 @@ public class Main {
       logger.error("Uncaught error: "+ e, e);
       if (testMode) throw e;
     }
-
   }
 
+  public void runTestSuite(String packageName) {
+     LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
+      .selectors(DiscoverySelectors.selectPackage("packageName"))
+      //.filters(includeClassNamePatterns(".*Test"))
+      .build(); 
+    Launcher launcher = LauncherFactory.create();
+    TestPlan testPlan = launcher.discover(request);
+    launcher.registerTestExecutionListeners(listener);
+    launcher.execute(request); 
+    
+  }
 }

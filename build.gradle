@@ -4,7 +4,7 @@
 
 plugins {
     id 'application'
- 	  id 'antlr'
+ 	id 'antlr'
     id 'com.github.johnrengelman.shadow' version "8.1.1" 
     id 'java'
  }
@@ -26,10 +26,19 @@ plugins {
             strictly '[2.17.0]'
         }
     }
+    implementation(platform('org.junit:junit-bom:5.9.1'))
+    implementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+    implementation 'io.github.hakky54:logcaptor:2.7.10'
+    implementation("org.junit.platform:junit-platform-launcher")
+
+    implementation "org.jcommander:jcommander:1.83"
+    implementation "org.junit.platform:junit-platform-suite:1.8.1"
+
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
     testImplementation(platform('org.junit:junit-bom:5.9.1'))
     testImplementation('org.junit.jupiter:junit-jupiter')
     testImplementation 'io.github.hakky54:logcaptor:2.7.10'
-   
 }
 
 /** sourceSets {
@@ -38,18 +47,13 @@ plugins {
     }
 } */
 
-task(translate, dependsOn: 'classes', type: JavaExec) {
-   mainClass = 'crml.translator.Main'
-   classpath = sourceSets.main.runtimeClasspath
-}
-
-task(parse, dependsOn: 'classes', type: JavaExec) {
-   mainClass = 'crml.parser.Main'
+task(crmlc, dependsOn: 'classes', type: JavaExec) {
+   mainClass = 'crml.compiler.CRMLC'
    classpath = sourceSets.main.runtimeClasspath
 }
 
 application {
-    mainClass = 'crml.translator.Main'
+    mainClass = 'crml.compiler.CRMLC'
 }
 
 generateGrammarSource {
@@ -68,7 +72,7 @@ test {
 
 jar {
   manifest {
-   attributes 'Main-Class': 'crml.translator.Main'
+   attributes 'Main-Class': 'crml.compiler.CRMLC'
    attributes 'Multi-Release': 'true'
   }
 }

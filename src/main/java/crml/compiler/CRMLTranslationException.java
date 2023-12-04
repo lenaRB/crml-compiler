@@ -1,4 +1,4 @@
-package crml.translator;
+package crml.compiler;
 
 public class CRMLTranslationException extends Exception{
 
