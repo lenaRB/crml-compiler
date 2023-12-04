@@ -1,0 +1,5 @@
+model RealBinaryAddition_no_ext is {
+	Real x1 is 2.5;
+	Real x2 is 3.0;
+	Real x_binary_addition is x1 + x2; //Value is 5.5
+};
