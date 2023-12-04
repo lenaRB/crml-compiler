@@ -1,0 +1,4 @@
+model StringOperatorsExample2 is {
+	String s is "The set of 4-valued Booleans is { " + new String undecided + ", "  + new String undefined + ", " + new String false + ", " + new String true + " }. ";
+	// The value of s is "The set of 4-valued Booleans is { undecided, undefined, false, true }."
+};
