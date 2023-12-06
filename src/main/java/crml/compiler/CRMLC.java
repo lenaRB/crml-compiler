@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -19,6 +20,7 @@ import grammar.crmlLexer;
 import grammar.crmlParser;
 
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.util.ArrayUtils;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.LauncherSession;
@@ -46,12 +48,7 @@ public class CRMLC {
    private static final Logger logger = LogManager.getLogger();	
    private static 
    SummaryGeneratingListener listener = new SummaryGeneratingListener();
-   
-    
-  private class Settings{
-    Boolean debug = false;
-    Boolean printAST = false;
-  }
+
    public static void main( String[] args ) throws Exception {
 
     CommandLineArgs cmd = new CommandLineArgs();
@@ -78,38 +75,37 @@ public class CRMLC {
       return;  
     }
 
-    // TODO support multiple file loop 
-    String path = new File(cmd.files.get(0)).getCanonicalPath();
-    logger.trace("Directory for tests: " + path);
-
-    File file = new File ( path );
-    if (file.isDirectory()) {
-    String tests[] = file.list();
-
-    File out_dir = new File("generated");
+    File out_dir = new File(cmd.outputDir);
     out_dir.mkdir();
+
     logger.trace("Directory for generated .mo files: " + out_dir.getPath());
 
-    for (String test : tests) {
-    	if(test.endsWith(".crml")) {
-    		logger.trace("Translating: " + test);
-    		parse_file(path, test, out_dir.getPath(), false, false);
-    	}
-    }
-    } else if (file.isFile()) {
-    	File out_dir = new File("generated");
-        out_dir.mkdir();
-        logger.trace("Directory for generated .mo files: " + out_dir.getPath());
-        
-        logger.trace("Translating: " + file);
-		parse_file("", path, out_dir.getPath(), false, false);
-    } else {
-    	logger.error("Translation error: " + path +  " is not a correct path");
-    }
 
+    for(String f : cmd.files){
+       String path = new File(f).getCanonicalPath();
+       File file = new File ( path );
+       String [] testFiles;
+       if (file.isDirectory()){
+          testFiles=file.list();
+           for (String test : testFiles) {
+    	      if(test.endsWith(".crml")) {
+    		    logger.trace("Translating: " + test);
+    		    parse_file(path, test, out_dir.getPath(), cmd.stacktrace, cmd.printAST , cmd.generateExternal);
+            }
+          }
+        } else if (file.isFile()){
+        logger.trace("Translating: " + file);
+		     parse_file("", path, out_dir.getPath(), cmd.stacktrace, cmd.printAST ,cmd.generateExternal);
+        } else
+        logger.error("Translation error : " + path +  " is not a correct path");
+      }
+    
   }
 
-  public static void parse_file (String dir, String file, String gen_dir, Boolean testMode, Boolean generateExternal) throws IOException {
+  public static void parse_file (
+      String dir, String file, 
+      String gen_dir, Boolean testMode, Boolean printAST,
+      Boolean generateExternal) throws Exception {
   
     try {
       String fullName = dir + java.io.File.separator + file;
@@ -130,18 +126,20 @@ public class CRMLC {
        
       List<String> external_var = new ArrayList<String>();
       crmlVisitorImpl visitor;
+      List<String> ruleNamesList = Arrays.asList(parser.getRuleNames());
+
       if (generateExternal)
         visitor = new crmlVisitorImpl(parser, external_var);
       else
-      visitor = new crmlVisitorImpl(parser);
+        visitor = new crmlVisitorImpl(parser);
 
       try {
         Value result = visitor.visit(tree);
-      
-      
+  
         if (result != null) {  	
         
-          File out_file = new File(gen_dir + java.io.File.separator + Utilities.stripNameEnding(file)+ ".mo");  
+          File out_file = new File(gen_dir + java.io.File.separator + 
+            Utilities.stripNameEnding(file)+ ".mo");  
         
           out_file.getParentFile().mkdirs();   	
         
@@ -151,7 +149,8 @@ public class CRMLC {
           logger.trace("Translated: " + file);
 
           if(generateExternal && !external_var.isEmpty()){
-            File ext_file = new File(gen_dir + java.io.File.separator + Utilities.stripNameEnding(file)+ "_external.txt");
+            File ext_file = new File(gen_dir + java.io.File.separator + 
+              Utilities.stripNameEnding(file)+ "_external.txt");
             BufferedWriter ext_writer = new BufferedWriter(new FileWriter(ext_file));
             logger.trace("External variables saved in: " + ext_file);
 
@@ -159,35 +158,47 @@ public class CRMLC {
               ext_writer.write(s + "\n");
             }
             ext_writer.close();
-          }
-            
+          }           
         }
-        else
-          logger.error("Unable to translate: " + file);
+        else {
+          logger.error("Unable to translate: " + file + "\n");
+          if (printAST){
+            String prettyTree = Utilities.toPrettyTree(tree, ruleNamesList);
+            logger.trace("\nThe AST for the program: \n" + prettyTree);
+          }
+          if(testMode)
+            throw new Exception("Translation error");
+        }
         
-        List<String> ruleNamesList = Arrays.asList(parser.getRuleNames());
-
-        String prettyTree = Utilities.toPrettyTree(tree, ruleNamesList);
-        logger.trace("The AST for the program: \n" + prettyTree);
       } catch (ParseCancellationException e) {
         
         logger.error("Translation error: "+ e, e);
-        logger.trace("The AST for the program: \n" + tree.toStringTree(parser));
+        if (printAST){
+            String prettyTree = Utilities.toPrettyTree(tree, ruleNamesList);
+            logger.trace("\nThe AST for the program: \n" + prettyTree);
+          }
         if (testMode) throw e;
       }
       catch(Exception e) {
-        logger.error("Uncaught error: "+ e, e);
-        logger.trace("The AST for the program: \n" + tree.toStringTree(parser));
+        logger.error("Uncaught error: " + e, e);
+        if (printAST){
+            String prettyTree = Utilities.toPrettyTree(tree, ruleNamesList);
+            logger.trace("\nThe AST for the program: \n" + prettyTree);
+          }
         if (testMode) throw e;
       }
     }
     catch(Exception e)
     {
-      logger.error("Uncaught error: "+ e, e);
+      logger.error("Uncaught error: " + e, e);
       if (testMode) throw e;
     }
   }
 
+  /**
+   * Run JUnit tests
+   * @param packageName
+   */
   public static void runTestSuite(String packageName) {
      System.out.println(" - Running test suite -");
      LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()

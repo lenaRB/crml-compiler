@@ -34,6 +34,8 @@ plugins {
     implementation 'io.github.hakky54:logcaptor:2.7.10'
     implementation "org.jcommander:jcommander:1.83"
 
+    implementation "org.junit.platform:junit-platform-reporting:1.10.1"
+
 }
 
     sourceSets { // adding tests to source directories to run test suite
@@ -89,4 +91,14 @@ apply plugin: 'java'
 compileJava {
     sourceCompatibility = '1.8'
     targetCompatibility = '1.8'
+}
+
+tasks.withType(Test).configureEach {
+    def outputDir = reports.junitXml.outputLocation
+    jvmArgumentProviders << ({
+        [
+            "-Djunit.platform.reporting.open.xml.enabled=true",
+            "-Djunit.platform.reporting.output.dir=${outputDir.get().asFile.absolutePath}"
+        ]
+    } as CommandLineArgumentProvider)
 }
