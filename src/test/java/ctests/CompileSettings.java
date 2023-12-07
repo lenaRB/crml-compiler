@@ -1,6 +1,7 @@
 package ctests;
 
 import java.io.File;
+import java.net.URL;
 
 public class CompileSettings {
     
@@ -23,6 +24,12 @@ public class CompileSettings {
         referenceResFolder = getResourcePath(refResF) + sf;
     }
 
+     public void initTestDir(String testF){
+        
+        testFolderIn = getResourcePath(testF);
+      
+    }
+
     /**
      * Puts the tests in a sub-folder in the default putput directory
      */
@@ -31,8 +38,17 @@ public class CompileSettings {
     }
 
     private static String getResourcePath(String dirName){
-		String name = Thread.currentThread().getContextClassLoader()
-            .getResource(dirName).getPath();
-		return new File(name).getAbsolutePath();
+        System.out.println(Thread.currentThread().getContextClassLoader().getName());
+
+        URL url = Thread.currentThread().getContextClassLoader().getResource(dirName);
+        String path;
+        
+            if(url!=null)
+                path = url.getPath();
+            else {
+                String dir = "src/test/resources/" + dirName; 
+                path = new File(dir).getAbsolutePath();
+            }            
+		return path;
 	}
 }

@@ -30,13 +30,11 @@ plugins {
     implementation(platform("org.junit:junit-bom:5.10.1"))
     implementation 'org.junit.jupiter:junit-jupiter:5.10.1'
     implementation "org.junit.platform:junit-platform-launcher"
-
-    implementation 'io.github.hakky54:logcaptor:2.7.10'
     implementation "org.jcommander:jcommander:1.83"
 
     implementation "org.junit.platform:junit-platform-reporting:1.10.1"
 
-}
+ }
 
     sourceSets { // adding tests to source directories to run test suite
     main {
@@ -98,7 +96,8 @@ tasks.withType(Test).configureEach {
     jvmArgumentProviders << ({
         [
             "-Djunit.platform.reporting.open.xml.enabled=true",
-            "-Djunit.platform.reporting.output.dir=${outputDir.get().asFile.absolutePath}"
+            "-Djunit.platform.reporting.output.dir=${outputDir.get().asFile.absolutePath}",
+            "-Djunit.jupiter.extensions.autodetection.enabled=true"
         ]
     } as CommandLineArgumentProvider)
 }

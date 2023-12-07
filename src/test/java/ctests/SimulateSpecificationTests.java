@@ -8,16 +8,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-
-import crml.compiler.CRMLC;
 import ctests.Util.CompileStage;
-import nl.altindag.log.LogCaptor;
 /**
  * 
  * Test suite for running specification tests added by Audrey
@@ -25,15 +20,13 @@ import nl.altindag.log.LogCaptor;
  * @author Lena B
  *
  */
-public class CRMLUnitTests {
+public class SimulateSpecificationTests {
 	
-	static LogCaptor logCaptor;
 	
 	static CompileSettings cs = new CompileSettings();
 	
 	@BeforeAll
     public static void setupTestSuite() {
-        logCaptor = LogCaptor.forClass(CRMLC.class);
 
 		cs.initAllDirs("testModels", "verificationModels", 
 				"refResults", "spec-doc-examples");
@@ -41,26 +34,21 @@ public class CRMLUnitTests {
 		cs.setOutputSubFolder("spec-doc-examples");
 	}
 
-    @AfterEach
-    public void clearLogs() {
-        logCaptor.clearLogs();
-    }
-    
-    @AfterAll
-    public static void tearDown() {
-        logCaptor.close();
-    } 
-
 	@ParameterizedTest
 	@MethodSource("fileNameSource")
-	void test(final String fileName) throws InterruptedException, IOException {
+	public void simulateTestFile(final String fileName) throws InterruptedException, IOException {
 		Util.runTest(fileName, cs, CompileStage.VERIFY);
 	}
 
+	
+/**
+	 * Method for feeding the list of files into the parametrized test
+	 * @return
+	 * @throws IOException
+	 */
 	public static List<String> fileNameSource() throws IOException {
 		List<String> fileList;
 		
-		System.out.println("HERE  ");
 		try (Stream<Path> list = Files.list(Paths.get(cs.testFolderIn))) {
 			fileList = list.map(path -> path.getFileName()
 					.toString())
@@ -69,5 +57,4 @@ public class CRMLUnitTests {
 		}		
 		return fileList;
 	}
-
 }

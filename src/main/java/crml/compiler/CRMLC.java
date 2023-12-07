@@ -5,10 +5,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -24,11 +26,16 @@ import org.apache.logging.log4j.core.util.ArrayUtils;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.LauncherSession;
+import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestPlan;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
+import org.junit.platform.launcher.listeners.LoggingListener;
 import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
 import org.junit.platform.launcher.listeners.TestExecutionSummary;
+import org.junit.platform.launcher.listeners.UniqueIdTrackingListener;
+import org.junit.platform.reporting.legacy.xml.LegacyXmlReportGeneratingListener;
+import org.junit.platform.reporting.open.xml.OpenTestReportGeneratingListener;
 
 import com.beust.jcommander.JCommander;
 
@@ -48,6 +55,7 @@ public class CRMLC {
    private static final Logger logger = LogManager.getLogger();	
    private static 
    SummaryGeneratingListener listener = new SummaryGeneratingListener();
+  private static Launcher launcher;
 
    public static void main( String[] args ) throws Exception {
 
@@ -203,18 +211,25 @@ public class CRMLC {
      System.out.println(" - Running test suite -");
      LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
       .selectors(
-          DiscoverySelectors.selectPackage(packageName))
+          DiscoverySelectors.selectPackage(packageName),
+          DiscoverySelectors.selectClass("ctests.SimulateSpecificationTests"))
       .filters(ClassNameFilter.includeClassNamePatterns(".*Tests"))
       .build(); 
     LauncherSession launcherSession = LauncherFactory.openSession();
-    Launcher launcher = launcherSession.getLauncher();
+    launcher = launcherSession.getLauncher();
   
     TestPlan testPlan = launcher.discover(request);
     System.out.println("Found tests: " + testPlan.containsTests()); 
     launcher.registerTestExecutionListeners(listener);
-    launcher.execute(request); 
+    launcher.registerTestExecutionListeners(LoggingListener.forJavaUtilLogging(Level.INFO));
+    //launcher.registerTestExecutionListeners(new LegacyXmlReportGeneratingListener(Paths.get("build"),new PrintWriter(System.out)));
+  
+    launcher.registerTestExecutionListeners(new OpenTestReportGeneratingListener());
+
+    launcher.execute(testPlan); 
     TestExecutionSummary summary = listener.getSummary();
     summary.printTo(new PrintWriter(System.out));
+  
     
   }
 }
