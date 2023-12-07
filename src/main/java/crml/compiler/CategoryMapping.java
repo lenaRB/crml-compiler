@@ -1,4 +1,4 @@
-package crml.translator;
+package crml.compiler;
 
 import java.util.HashMap;
 import java.util.List;

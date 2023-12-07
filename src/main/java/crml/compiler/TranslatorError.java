@@ -1,4 +1,4 @@
-package crml.translator;
+package crml.compiler;
 
 
 import org.antlr.v4.runtime.RuleContext;

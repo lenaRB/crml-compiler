@@ -1,10 +1,10 @@
-package crml.translator;
+package crml.compiler;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import crml.translator.Signature.Type;
+import crml.compiler.Signature.Type;
 
 public class OperatorMapping {
 	
