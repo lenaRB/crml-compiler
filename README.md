@@ -7,7 +7,7 @@ Go to: [![Makefile CI](https://github.com/lenaRB/crml-compiler/actions/workflows
 
 Unzip it to some place and run:
 ```
-java -jar crml-compiler-all.jar c:/path/to/girepo/crml-compiler/tests/unit
+java -jar crml-compiler-all.jar --testsuite
 ```
 A directory generated/ will be created and for each crml 
 test in the directory above a Modelica file will be created 
