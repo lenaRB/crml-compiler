@@ -34,6 +34,8 @@ plugins {
 
     implementation "org.junit.platform:junit-platform-reporting:1.10.1"
 
+    implementation "com.aventstack:extentreports:5.0.9"
+
  }
 
     sourceSets { // adding tests to source directories to run test suite
@@ -74,7 +76,7 @@ test {
 	 useJUnitPlatform()
 	 testLogging {
 		events "passed", "skipped", "failed"
-	}
+	 } 
 	test.ignoreFailures true
 }
 
@@ -91,7 +93,7 @@ compileJava {
     targetCompatibility = '1.8'
 }
 
-tasks.withType(Test).configureEach {
+/**  tasks.withType(Test).configureEach {
     def outputDir = reports.junitXml.outputLocation
     jvmArgumentProviders << ({
         [
@@ -99,5 +101,4 @@ tasks.withType(Test).configureEach {
             "-Djunit.platform.reporting.output.dir=${outputDir.get().asFile.absolutePath}",
             "-Djunit.jupiter.extensions.autodetection.enabled=true"
         ]
-    } as CommandLineArgumentProvider)
-}
+    } as CommandLineArgumentProvider)} */

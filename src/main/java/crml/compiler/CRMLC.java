@@ -212,20 +212,19 @@ public class CRMLC {
      LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
       .selectors(
           DiscoverySelectors.selectPackage(packageName),
-          DiscoverySelectors.selectClass("ctests.SimulateSpecificationTests"))
+          DiscoverySelectors.selectClass("ctests.ETLTests"))
       .filters(ClassNameFilter.includeClassNamePatterns(".*Tests"))
       .build(); 
     LauncherSession launcherSession = LauncherFactory.openSession();
     launcher = launcherSession.getLauncher();
-  
-    TestPlan testPlan = launcher.discover(request);
-    System.out.println("Found tests: " + testPlan.containsTests()); 
-    launcher.registerTestExecutionListeners(listener);
-    launcher.registerTestExecutionListeners(LoggingListener.forJavaUtilLogging(Level.INFO));
-    //launcher.registerTestExecutionListeners(new LegacyXmlReportGeneratingListener(Paths.get("build"),new PrintWriter(System.out)));
-  
-    launcher.registerTestExecutionListeners(new OpenTestReportGeneratingListener());
 
+    TestListener tl = new TestListener();
+
+    launcher.registerTestExecutionListeners(listener, tl);
+    //launcher.registerTestExecutionListeners(LoggingListener.forJavaUtilLogging(Level.INFO));
+    TestPlan testPlan = launcher.discover(request);
+    System.out.println("Found tests: " + testPlan.containsTests());
+    
     launcher.execute(testPlan); 
     TestExecutionSummary summary = listener.getSummary();
     summary.printTo(new PrintWriter(System.out));

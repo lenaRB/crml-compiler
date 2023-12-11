@@ -30,4 +30,16 @@ public class CommandLineArgs {
     @Parameter(names = "--help", help = true)
     public boolean help;
 
+    // TODO 
+    @Parameter(names = "--simulate", help = true)
+    public boolean simulate;
+
+    // TODO
+     @Parameter(names = "--verify", help = true)
+    public boolean verify;
+
+    //TODO 
+     @Parameter(names = "--testsuiteETL", help = true)
+    public boolean testsuiteETL;
+     
 }
