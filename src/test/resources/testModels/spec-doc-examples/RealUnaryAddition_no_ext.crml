@@ -1,0 +1,6 @@
+model RealUnaryAddition_no_ext is {
+	Real x1 is 2.5;
+	Real x2 is 3.0;
+	Real x_unary_addition_1 is +x1; //Value is 3.5
+	Real x_unary_addition_2 is +x2; //Value is 4.0
+};

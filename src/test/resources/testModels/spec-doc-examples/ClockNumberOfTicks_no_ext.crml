@@ -1,0 +1,6 @@
+model ClockNumberOfTicks_no_ext is {
+	Boolean b is if (2.0 <= time and time < 3.5) or (4.0 <= time and time < 5.5) then true else false;
+		
+	Clock c is new Clock b;  // Two ticks at t=2.0s and t=4.0s
+	Integer n_number_of_ticks is card c; // Should be 0 at start, then 1 at t=2.0s and becomes 2 at t=4.0s
+};

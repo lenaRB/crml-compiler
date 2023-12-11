@@ -1,0 +1,6 @@
+model PeriodOpeningEvent_no_ext is {
+	Boolean b is if (2.0 <= time and time < 3.5) then true else false;
+	Clock c is new Clock b;
+	Period P is [c, new Clock false];
+	Event e is P start; // Should return an event at t=2.0s
+};

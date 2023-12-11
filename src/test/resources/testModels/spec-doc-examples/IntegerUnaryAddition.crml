@@ -1,6 +1,6 @@
 model IntegerUnaryAddition is {
-	Integer n1 is 25;
-	Integer n2 is -3;
+	Integer n1 is external;
+	Integer n2 is external;
 	Integer n_unary_addition_1 is +n1;
 	Integer n_unary_addition_2 is +n2;
 };

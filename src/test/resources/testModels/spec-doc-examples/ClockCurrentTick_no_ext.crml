@@ -1,5 +1,8 @@
 model ClockCurrentTick_no_ext is {
-	Boolean b is if 2.0 < time and time < 3.5 then true else false;
+	Boolean b is if (2.0 <= time and time < 3.5) and (4.0 <= time and time < 5.5) then true else false;
 	Clock c is new Clock b;
-	Event e_current_tick is tick c;
+	Event e_current_tick is tick c; 
+	// Should start with an empty set,
+	//	then at t=2.0s becomes a set with one event at t=2.0s 
+	//  and turns at t=4.0s to a set with two events at t=2.0s and t=4.0s
 };

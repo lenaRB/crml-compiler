@@ -1,5 +1,5 @@
 model ClockFilter is {
-	Clock c1 is external;
-	Clock c2 is external;
-	Clock c_filter is c1 filter tick c2;
+	Event e is external;
+	Clock c is external;
+	Clock c_filter is c filter (tick c >= e); // Should only keep c ticks which happen after or at the same time than event e.
 };

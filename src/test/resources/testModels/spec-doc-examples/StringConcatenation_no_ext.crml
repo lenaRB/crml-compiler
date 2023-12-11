@@ -1,0 +1,5 @@
+model StringConcatenation_no_ext is {
+	String s1 is "conca";
+	String s2 is "tenation";
+	String s_s1_is_concatenated_with_s2 is s1 + s2; //value should be "concatenation"
+};
