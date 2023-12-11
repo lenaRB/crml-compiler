@@ -31,15 +31,14 @@ public class CommandLineArgs {
     public boolean help;
 
     // TODO 
-    @Parameter(names = "--simulate", help = true)
+    @Parameter(names = "--simulate", description = "simulate the files passed in parameters")
     public boolean simulate;
 
     // TODO
-     @Parameter(names = "--verify", help = true)
+     @Parameter(names = "--verify",  description = "verify the files passed in parameters")
     public boolean verify;
 
-    //TODO 
-     @Parameter(names = "--testsuiteETL", help = true)
+     @Parameter(names = "--testsuiteETL",  description = "run just the ETL tests")
     public boolean testsuiteETL;
      
 }

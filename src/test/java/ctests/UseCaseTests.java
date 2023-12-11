@@ -6,7 +6,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import ctests.Util.CompileStage;
+import crml.compiler.CompileSettings;
+import crml.compiler.ModelicaSimulationException;
+import crml.compiler.OMCUtil.CompileStage;
+
 
 public class UseCaseTests {
 
@@ -18,22 +21,16 @@ public class UseCaseTests {
         cs.initTestDir("resources/crml_tutorial/");
 	}
 
-	@DisplayName("Pumping System use-case test")
-	@Test
-	public void testAb() throws InterruptedException, IOException{
-		assert(true);
-	}
-
     @DisplayName("Traffic lights use-case test")
 	@Test
-	void testTraficLight () throws InterruptedException, IOException{
+	void testTraficLight () throws InterruptedException, IOException, ModelicaSimulationException{
 		String filePath = "traffic_light/";
 		Util.runTest(filePath, cs, CompileStage.TRANSLATE);
 	}
 
 	@DisplayName("Pumping System use-case test")
 	@Test
-	void testPumpingSystem () throws InterruptedException, IOException{
+	void testPumpingSystem () throws InterruptedException, IOException, ModelicaSimulationException{
 		String filePath = "pumping_system/";
 		Util.runTest(filePath, cs, CompileStage.TRANSLATE);
 	}

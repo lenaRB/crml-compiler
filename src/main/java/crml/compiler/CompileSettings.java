@@ -1,21 +1,21 @@
-package ctests;
+package crml.compiler;
 
 import java.io.File;
 import java.net.URL;
 
 public class CompileSettings {
     
-    String testFolderIn;
-	String verifModelFolder;
-    String referenceResFolder;
-    String outputFolder = defaultOutputRoot; // if not set explicitly 
+    public String testFolderIn;
+	public String verifModelFolder;
+    public String referenceResFolder;
+    public String outputFolder = defaultOutputRoot; // if not set explicitly 
 
     static final String defaultOutputRoot = "build/testSuiteGenerated";
 	static final String CRMLtoModelicaLibrary = "../../resources/modelica_libraries/CRMLtoModelica.mo";
 	static final String CRMLLibrary = "../../resources/modelica_libraries/CRML.mo";
 
 
-    ProcessBuilder processBuilder; // used for running omc commands
+    public ProcessBuilder processBuilder; // used for running omc commands
 
     public void initAllDirs(String testF, String verifF, String refResF, String subFolder){
         String sf =  java.io.File.separator + subFolder;

@@ -6,9 +6,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import crml.compiler.ModelicaSimulationException;
+import crml.compiler.OMCUtil.CompileStage;
+
 import org.junit.jupiter.params.ParameterizedTest;
 
-import ctests.Util.CompileStage;
 
 public class ETLTests  {
     @Nested
@@ -25,7 +27,7 @@ public class ETLTests  {
     
         @ParameterizedTest
         @MethodSource("fileNameSource")
-        public void simulateTestFile(final String fileName) throws InterruptedException, IOException {
+        public void simulateTestFile(final String fileName) throws InterruptedException, IOException, ModelicaSimulationException {
             Util.runTest(fileName, cs, CompileStage.TRANSLATE);
         }
     }
@@ -44,11 +46,9 @@ public class ETLTests  {
     
         @ParameterizedTest
         @MethodSource("fileNameSource")
-        public void simulateTestFile(final String fileName) throws InterruptedException, IOException {
+        public void simulateTestFile(final String fileName) throws InterruptedException, IOException, ModelicaSimulationException {
             Util.runTest(fileName, cs, CompileStage.SIMULATE);
         }
-    }
-        
-       
 
+    }
 }

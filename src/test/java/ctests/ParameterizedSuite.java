@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import crml.compiler.CompileSettings;
+
 public class ParameterizedSuite {
 
     public static CompileSettings cs = new CompileSettings();

@@ -1,16 +1,14 @@
 package crml.compiler;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Vector;
-import java.util.logging.Level;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -22,20 +20,14 @@ import grammar.crmlLexer;
 import grammar.crmlParser;
 
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.util.ArrayUtils;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.LauncherSession;
-import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestPlan;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
-import org.junit.platform.launcher.listeners.LoggingListener;
 import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
 import org.junit.platform.launcher.listeners.TestExecutionSummary;
-import org.junit.platform.launcher.listeners.UniqueIdTrackingListener;
-import org.junit.platform.reporting.legacy.xml.LegacyXmlReportGeneratingListener;
-import org.junit.platform.reporting.open.xml.OpenTestReportGeneratingListener;
 
 import com.beust.jcommander.JCommander;
 
@@ -53,15 +45,15 @@ import org.junit.platform.engine.discovery.DiscoverySelectors;
 public class CRMLC {
 
    private static final Logger logger = LogManager.getLogger();	
-   private static 
-   SummaryGeneratingListener listener = new SummaryGeneratingListener();
-  private static Launcher launcher;
+   private static Launcher launcher;
 
    public static void main( String[] args ) throws Exception {
 
     CommandLineArgs cmd = new CommandLineArgs();
 
     JCommander jc = JCommander.newBuilder().addObject(cmd).build();
+
+    CompileSettings cs = new CompileSettings();
 
     jc.setProgramName("crmlc");
     jc.parse(args);
@@ -72,14 +64,19 @@ public class CRMLC {
       }
 
     // incorrect arguments
-    if (cmd.files.isEmpty()&&!cmd.runTestSuite){
+    if (cmd.files.isEmpty()&&!cmd.runTestSuite&&!cmd.testsuiteETL){
       System.err.println(" incorrect arguments");
       jc.usage();
       return;
     }
 
     if(cmd.runTestSuite){
-      runTestSuite("ctests");
+      runTestSuite(".*Tests");
+      return;  
+    }
+
+    if(cmd.testsuiteETL){
+      runTestSuite(".*ETLTests.*");
       return;  
     }
 
@@ -98,12 +95,36 @@ public class CRMLC {
            for (String test : testFiles) {
     	      if(test.endsWith(".crml")) {
     		    logger.trace("Translating: " + test);
-    		    parse_file(path, test, out_dir.getPath(), cmd.stacktrace, cmd.printAST , cmd.generateExternal);
+    		      parse_file(path, test, out_dir.getPath(), cmd.stacktrace, cmd.printAST , cmd.generateExternal);
+              if(cmd.simulate){
+                String msg;
+                try {
+                  msg = OMCUtil.compile(test, path, cs);
+                  if(msg.contains("false"))
+			            logger.error("Unable to load Modelica model " + test + 
+				              "\n omc fails with the following message: \n" + msg);
+                }
+                catch (ModelicaSimulationException e) {
+                  logger.error("Unable to simulate: " + file + "\n");
+                }
+              } 
             }
           }
         } else if (file.isFile()){
         logger.trace("Translating: " + file);
 		     parse_file("", path, out_dir.getPath(), cmd.stacktrace, cmd.printAST ,cmd.generateExternal);
+         if(cmd.simulate){
+                String msg;
+                try {
+                  msg = OMCUtil.compile(file.getPath(), "", cs);
+                  if(msg.contains("false"))
+			            logger.error("Unable to load Modelica model " + file + 
+				              "\n omc fails with the following message: \n" + msg);
+                }
+                catch (ModelicaSimulationException e) {
+                  logger.error("Unable to simulate: " + file + "\n");
+                }
+              } 
         } else
         logger.error("Translation error : " + path +  " is not a correct path");
       }
@@ -207,23 +228,28 @@ public class CRMLC {
    * Run JUnit tests
    * @param packageName
    */
-  public static void runTestSuite(String packageName) {
-     System.out.println(" - Running test suite -");
-     LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
+  public static void runTestSuite(String filter) {
+
+    String testSuitePackage = "ctests";
+    SummaryGeneratingListener listener = new SummaryGeneratingListener();
+    TestListener tl = new TestListener();
+
+    LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
       .selectors(
-          DiscoverySelectors.selectPackage(packageName),
-          DiscoverySelectors.selectClass("ctests.ETLTests"))
-      .filters(ClassNameFilter.includeClassNamePatterns(".*Tests"))
+          DiscoverySelectors.selectPackage(testSuitePackage))
+      .filters(ClassNameFilter.includeClassNamePatterns(filter))
       .build(); 
     LauncherSession launcherSession = LauncherFactory.openSession();
     launcher = launcherSession.getLauncher();
-
-    TestListener tl = new TestListener();
-
     launcher.registerTestExecutionListeners(listener, tl);
     //launcher.registerTestExecutionListeners(LoggingListener.forJavaUtilLogging(Level.INFO));
+  
     TestPlan testPlan = launcher.discover(request);
-    System.out.println("Found tests: " + testPlan.containsTests());
+
+    if(!testPlan.containsTests()){
+     logger.error("The testsuite " + testPlan.getClass().getName() + " does not contain any JUnit tests.");
+     return;
+    }
     
     launcher.execute(testPlan); 
     TestExecutionSummary summary = listener.getSummary();

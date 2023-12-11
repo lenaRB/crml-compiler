@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import ctests.Util.CompileStage;
+import crml.compiler.ModelicaSimulationException;
+import crml.compiler.OMCUtil.CompileStage;
+
 /**
  * 
  * Test suite for running specification tests added by Audrey
@@ -30,7 +32,7 @@ public class SpecificationTests extends ctests.ParameterizedSuite {
 
         @ParameterizedTest
 	    @MethodSource("fileNameSource")
-	    public void simulateTestFile(final String fileName) throws InterruptedException, IOException {
+	    public void simulateTestFile(final String fileName) throws InterruptedException, IOException, ModelicaSimulationException {
 		    Util.runTest(fileName, cs, CompileStage.VERIFY);
 	    }
     }
@@ -48,7 +50,7 @@ public class SpecificationTests extends ctests.ParameterizedSuite {
 
        @ParameterizedTest
 	    @MethodSource("fileNameSource")
-	    public void simulateTestFile(final String fileName) throws InterruptedException, IOException {
+	    public void simulateTestFile(final String fileName) throws InterruptedException, IOException, ModelicaSimulationException {
 		    Util.runTest(fileName, cs, CompileStage.TRANSLATE);
 	    }
     }
