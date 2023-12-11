@@ -14,17 +14,8 @@ endif
 
 all: build
 
-translate-tests:
-	$(GRADLE_CMD) translate --args="tests/unit/" --warning-mode all
-
-parse-tests:
-	$(GRADLE_CMD) parse --args="tests/unit/" --warning-mode all
-
-parse:
-	$(GRADLE_CMD) parse --args=$(DIR) --warning-mode all
-
-translate:
-	$(GRADLE_CMD) translate --args=$(DIR) --warning-mode all
+tests:
+	$(GRADLE_CMD) test
 
 build:
 	$(GRADLE_CMD) build
