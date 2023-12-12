@@ -54,6 +54,9 @@ public class TestListener implements TestExecutionListener  {
 
     private void processTestNode(ExtentTest testKlass, TestIdentifier test) {
         final ExtentTest node = testKlass.createNode(test.getDisplayName());
+        if(test.isContainer()){
+            return;
+        }
         if (SKIPPED.containsKey(test)) {
             node.skip(SKIPPED.get(test));
             System.out.printf("Marking test [%s] as skipped%n", test.getDisplayName());

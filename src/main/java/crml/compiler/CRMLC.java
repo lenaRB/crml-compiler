@@ -1,7 +1,5 @@
 package crml.compiler;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -80,6 +78,13 @@ public class CRMLC {
       return;  
     }
 
+    if(cmd.simulate != null)
+      cs.verifModelFolder = cmd.simulate;
+    
+      if(cmd.verify != null)
+        cs.referenceResFolder = cmd.verify;
+      
+
     File out_dir = new File(cmd.outputDir);
     out_dir.mkdir();
 
@@ -96,7 +101,7 @@ public class CRMLC {
     	      if(test.endsWith(".crml")) {
     		    logger.trace("Translating: " + test);
     		      parse_file(path, test, out_dir.getPath(), cmd.stacktrace, cmd.printAST , cmd.generateExternal);
-              if(cmd.simulate){
+              if(cmd.simulate!=null){
                 String msg;
                 try {
                   msg = OMCUtil.compile(test, path, cs);
@@ -113,7 +118,7 @@ public class CRMLC {
         } else if (file.isFile()){
         logger.trace("Translating: " + file);
 		     parse_file("", path, out_dir.getPath(), cmd.stacktrace, cmd.printAST ,cmd.generateExternal);
-         if(cmd.simulate){
+         if(cmd.simulate!=null){
                 String msg;
                 try {
                   msg = OMCUtil.compile(file.getPath(), "", cs);
