@@ -1,0 +1,5 @@
+model EventElapsedPhysicalTime_no_ext is {
+	Boolean b is if 2.5 < time and time < 5 then true else false;
+	Event e is new Event b;
+	Real d_elapsed_physical_time is time from e; // Value should start at 0 and then increase from t=2.5s to be equal to time-2.5.
+};
