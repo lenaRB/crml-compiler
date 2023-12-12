@@ -30,13 +30,11 @@ public class CommandLineArgs {
     @Parameter(names = "--help", help = true)
     public boolean help;
 
-    // TODO 
-    @Parameter(names = "--simulate", description = "simulate the files passed in parameters")
-    public boolean simulate;
+    @Parameter(names = "--simulate", description = "simulate the files passed in parameters, takes the path to the additional omc files")
+    public String simulate = null; 
 
-    // TODO
-     @Parameter(names = "--verify",  description = "verify the files passed in parameters")
-    public boolean verify;
+     @Parameter(names = "--verify",  description = "verify the files passed in parameters, takes the path to the reference files")
+    public String verify = null;
 
      @Parameter(names = "--testsuiteETL",  description = "run just the ETL tests")
     public boolean testsuiteETL;
