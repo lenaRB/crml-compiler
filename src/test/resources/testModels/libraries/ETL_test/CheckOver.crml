@@ -2,18 +2,18 @@ model CheckOver is {
 	// Operators on Boolean
 	// Logical disjunction
 	Template b1 'or' b2 = not (not b1 and not b2);
-	
-	// Operators for the evaluation of requirements
-	// Check
-	Operator [ Boolean ] 'check' Boolean phi 'over' Periods P 
-		= and ('evaluate' phi 'over' P);
+
+	// Decide
+	Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end);
 
 	// Evaluate
 	Operator [ Boolean ] 'evaluate' Boolean phi 'over' Period P 
 		= integrate (('decide' phi 'over' P) * phi) on P;
 	
-	// Decide
-	Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end));
+	// Operators for the evaluation of requirements
+	// Check
+	Operator [ Boolean ] 'check' Boolean phi 'over' Periods P 
+		= and ('evaluate' phi 'over' P);
 		
 	// Example of function call
 	Boolean phi1 is external;
