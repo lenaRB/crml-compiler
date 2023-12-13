@@ -12,6 +12,7 @@ import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
 import org.junit.platform.launcher.TestPlan;
 
+import com.aventstack.extentreports.AnalysisStrategy;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -22,7 +23,7 @@ import static com.aventstack.extentreports.Status.WARNING;
 
 public class TestListener implements TestExecutionListener  {
 
-    private final ExtentSparkReporter reporter = new ExtentSparkReporter("build/test_report.html");
+    private final ExtentSparkReporter reporter = new ExtentSparkReporter("build"+ java.io.File.separator+ "test_report.html");
     private final ExtentReports extentReport = new ExtentReports();
     private static final Map<TestIdentifier, TestExecutionResult> RESULTS = new HashMap<>();
     private static final Map<TestIdentifier, String> SKIPPED = new HashMap<>();
@@ -30,9 +31,8 @@ public class TestListener implements TestExecutionListener  {
     @Override
     public void testPlanExecutionStarted(TestPlan testPlan) {
         this.extentReport.attachReporter(reporter);
-        this.extentReport.setSystemInfo("strin 1", "string 2");
+        this.extentReport.setAnalysisStrategy(AnalysisStrategy.CLASS);
         testPlan.getChildren(getRoot(testPlan)).forEach(testIdentifier -> {
-            System.out.printf("Adding parent [%s]%n", testIdentifier.getUniqueId());
             RESULTS.put(testIdentifier, null);
         });
 
@@ -43,7 +43,6 @@ public class TestListener implements TestExecutionListener  {
         testPlan.getChildren(getRoot(testPlan)).forEach(klass -> {
             if (SKIPPED.containsKey(klass)) {
                 extentReport.createTest(getKlassName(klass.getUniqueId())).skip(SKIPPED.get(klass));
-                System.out.printf("Marking klass [%s] as skipped%n", klass.getDisplayName());
             } else if (RESULTS.containsKey(klass)) {
                 final ExtentTest testKlass = extentReport.createTest(getKlassName(klass.getUniqueId()));
                 testPlan.getDescendants(klass).forEach(test -> processTestNode(testKlass, test));
@@ -59,7 +58,6 @@ public class TestListener implements TestExecutionListener  {
         }
         if (SKIPPED.containsKey(test)) {
             node.skip(SKIPPED.get(test));
-            System.out.printf("Marking test [%s] as skipped%n", test.getDisplayName());
             return;
         }
         final TestExecutionResult testResult = RESULTS.get(test);
@@ -67,10 +65,7 @@ public class TestListener implements TestExecutionListener  {
             node.log(INFO, "No test results found");
             return;
         }
-
-        System.err.println("-------------" + (testResult.getStatus()==Status.SUCCESSFUL));
-
-        
+       
         if(testResult.getStatus()==Status.SUCCESSFUL)
             node.pass(testResult.toString());
         else if(testResult.getStatus()==Status.ABORTED)
