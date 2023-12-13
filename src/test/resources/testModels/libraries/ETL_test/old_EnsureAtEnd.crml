@@ -1,6 +1,11 @@
 model EnsureAtEnd is ETL union {
+
+	
 	// Operator for checking that a requirement is satisfied at the end of a time period
 	Operator [ Boolean ] 'check' Boolean b 'at end of' Periods P = 'check' varying1 'id' b 'over' P;
+	
+	// Requirement
+	Boolean y is 'check' u 'at end of' {timePeriod};	
 	
 	// Inputs
 	Event e1 is external;
@@ -8,6 +13,5 @@ model EnsureAtEnd is ETL union {
 	Boolean u is external;
 	Period timePeriod is ] e1, e2 [;
 
-	// Requirement
-	Boolean y is 'check' u 'at end of' {timePeriod};
+	
 };
