@@ -768,7 +768,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				else return new Value(ctx.number().getText(), "Integer");
 			
 			if(ctx.time() != null)
-				return new Value("time", "Clock");
+				return new Value("time", "Real");
 
 			String val = ctx.getText();
 
