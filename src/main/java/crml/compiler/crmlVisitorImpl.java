@@ -478,9 +478,11 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 					left = visit(ctx.left);					
 					Value result = apply_lunary_op(ctx.builtin_op().getText(), left);
 					return result;
-				}  else if(ctx.runary!= null) {
+				}
+
+			  if(ctx.runary!= null) {
 					right = visit(ctx.right);					
-					Value result = apply_runary_op(ctx.builtin_op().getText(), right);
+					Value result = apply_runary_op(ctx.right_op().getText(), right);
 					return result;
 				}
 
