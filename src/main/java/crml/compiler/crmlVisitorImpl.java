@@ -442,13 +442,8 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				return visit(ctx.constant());
 
 			// if the expression is a variable
-			if(ctx.id()!=null) {
-				VariableData.VariableType v_type = variableTable.getVariableInfo(ctx.id().getText());
-				if (v_type!=null)
-					 return new Value (ctx.getText(), v_type.type, v_type.isSet, v_type.setPath);
-
-				else throw new ParseCancellationException("unable to get variable type : " + ctx.id().getText() + '\n');
-			}
+			if(ctx.id()!=null) 
+				return visit(ctx.id());
 			 
 			//if the expression is a componenent reference
 			if(ctx.crml_component_reference()!=null) {
@@ -490,15 +485,15 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				}
 
 			// if the expression is in parenthesis
-			if(ctx.sub_exp()!=null){
-				System.out.println("SUB EXPRESSION FOUND");
+			if(ctx.sub_exp()!=null)
 				return visit(ctx.sub_exp().exp());
-				}
+		
 
 			
 			// expression is a tick
 			if(ctx.tick() != null) {
-				return new Value ("time", "Real");
+				Value cl = visit(ctx.tick().id());
+				return apply_lunary_op("tick", cl);
 			}	
 			
 			// expression is an object set
@@ -509,7 +504,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		//	if(ctx.at!= null) //TODO implement 'at'
 		//		return visit(ctx.at());
 
-		// if expression is integrate TO DO fix integrate
+		// if expression is integrate TODO fix integrate
 		if (ctx.integrate()!=null)
 			return new Value ("integrate", "Real");
 
@@ -535,6 +530,16 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 	@Override
 	public Value visitSet_def(crmlParser.Set_defContext cxt) {
 		return new Value ("Set", "{}", true);
+	}
+
+	@Override
+	public Value visitId(crmlParser.IdContext ctx){
+		VariableData.VariableType v_type = variableTable.getVariableInfo(ctx.getText());
+		if (v_type!=null)
+			return new Value (ctx.getText(), v_type.type, v_type.isSet, v_type.setPath);
+
+		else throw new ParseCancellationException(
+			"unable to get variable type : " + ctx.getText() + '\n');
 	}
 		
 	@Override

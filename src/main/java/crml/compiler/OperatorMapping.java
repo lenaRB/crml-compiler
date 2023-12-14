@@ -258,18 +258,23 @@ public class OperatorMapping {
 		
 		
 		// end operators	TODO proper implementation	
-				built_in_operators.put("end", 
-						Arrays.asList(new Signature("CRMLtoModelica.endP", Arrays.asList("Period"), params, "Real", Type.BLOCK)));
-				built_in_operators.put("start", 
-						Arrays.asList(new Signature("CRMLtoModelica.startP", Arrays.asList("Period"), params, "Real", Type.BLOCK)));
+		built_in_operators.put("end", 
+			Arrays.asList(new Signature("CRMLtoModelica.Blocks.endP", Arrays.asList("Period"), params, "Real", Type.BLOCK)));
+		built_in_operators.put("start", 
+			Arrays.asList(new Signature("CRMLtoModelica.Blocks.startP", Arrays.asList("Period"), params, "Real", Type.BLOCK)));
 		
+		// tick operator
+		built_in_operators.put("tick", 
+			Arrays.asList(new Signature("CRMLtoModelica.Blocks.ClockTick", Arrays.asList("Clock"), params, "Real", Type.BLOCK)));
+		
+
 		// filter operator
 				built_in_operators.put("filter", 
-						Arrays.asList(new Signature("CRMLtoModelica.CRML.filterC", Arrays.asList("Clock", "Boolean"), params, "Clock", Type.BLOCK)));
+						Arrays.asList(new Signature("CRMLtoModelica.Blocks.filterC", Arrays.asList("Clock", "Boolean"), params, "Clock", Type.BLOCK)));
 		
 		// card operator
 				built_in_operators.put("card", 
-						Arrays.asList(new Signature("CRMLtoModelica.cardClock", Arrays.asList("Clock"), params, "Integer", Type.BLOCK)));
+						Arrays.asList(new Signature("CRMLtoModelica.Blocks.cardClock", Arrays.asList("Clock"), params, "Integer", Type.BLOCK)));
 		
 		// CONSTRUCTORS TODO finalize constructor table
 				
