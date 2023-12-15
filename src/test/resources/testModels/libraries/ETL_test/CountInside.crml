@@ -1,7 +1,7 @@
 model CountInside is {
 	// Filter clock ticks inside a time period
 	Operator [ Clock ] Clock C 'inside' Period P 
-		= C filter (tick C >= P start) and (tick C <= P end);
+		= C filter ((tick C >= P start) and (tick C <= P end));
 
 	// Operators on clocks
 	// Count the occurrences of events inside a time period

@@ -478,9 +478,11 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 					left = visit(ctx.left);					
 					Value result = apply_lunary_op(ctx.builtin_op().getText(), left);
 					return result;
-				}  else if(ctx.runary!= null) {
+				}
+
+			  if(ctx.runary!= null) {
 					right = visit(ctx.right);					
-					Value result = apply_runary_op(ctx.builtin_op().getText(), right);
+					Value result = apply_runary_op(ctx.right_op().getText(), right);
 					return result;
 				}
 
@@ -488,7 +490,9 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			if(ctx.sub_exp()!=null)
 				return visit(ctx.sub_exp().exp());
 		
-
+			if(ctx.period_op()!=null){
+				return visit(ctx.period_op());
+			}
 			
 			// expression is a tick
 			if(ctx.tick() != null) {
@@ -528,8 +532,30 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		}
 
 	@Override
-	public Value visitSet_def(crmlParser.Set_defContext cxt) {
+	public Value visitSet_def(crmlParser.Set_defContext ctx) {
 		return new Value ("Set", "{}", true);
+	}
+
+	@Override
+	public Value visitPeriod_op(crmlParser.Period_opContext ctx) {
+		
+		//String periodType = types_mapping.get("Period");
+
+		//TODO add typechecking
+		
+		Value left = visit(ctx.exp(0));
+		Value right = visit(ctx.exp(0));
+
+		Boolean lborder = (ctx.lb.getText().equals("["));
+		Boolean rborder = (ctx.rb.getText().equals("]"));
+
+		String code = 
+			"CRMLtoModelica.Types.CRMLPeriod(left=" + left.contents + 
+		    ", right=" + right.contents + 
+			",lb=" +lborder.toString() + 
+			",rb=" +rborder.toString()+");";
+			
+		return new Value (code, "Period", false);
 	}
 
 	@Override

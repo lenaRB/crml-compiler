@@ -79,8 +79,13 @@ integrate : 'integrate' exp 'on' exp;
 tick : 'tick' id;
     
  exp : sub_exp | id | constant | constructor | sum |trim |  proj | period_op 
- 	 |  uright=user_keyword right=exp | left=exp ubinary=user_keyword right=exp | left=exp uleft=user_keyword
- 	 | left=exp binary=builtin_op right=exp | right=exp runary=builtin_op | lunary=builtin_op left=exp  
+	 | right=exp runary=right_op 
+	 | lunary=builtin_op left=exp 
+	 | left=exp binary=builtin_op right=exp
+ 	 |  uright=user_keyword right=exp 
+	 | left=exp ubinary=user_keyword right=exp 
+	 | left=exp uleft=user_keyword
+ 	  
  	 | 'element' | 'terminate' | when_exp | exp 'at' at=exp 
  	 | integrate | tick |crml_component_reference | if_exp | set_def | 'evaluate' exp ;
  	 
@@ -88,15 +93,17 @@ if_exp : 'if' if_e=exp 'then' then_e=exp ('else' else_e=exp);
 
 constructor : 'new' type exp;
 	
-period_op : ('['| ']') exp ',' exp ('['| ']') ; 
+period_op : lb=('['| ']') exp ',' exp rb=('['| ']') ; 
 
 op : builtin_op|user_keyword
 ;
+
+right_op : 'start' | 'end';
 		
 builtin_op : 'and' | '*' | '+' | '-' | '/' | 'with' | 'master' | 'on' | 'filter'
 				| '<=' | '<' | '>=' | '>' | '<>' | 'par' | '==' |
 				'pre' | 'not'| '-' | 'card' | 'or' | '^' |
-				'start' | 'end' | 'mod' |
+				'mod' |
 				'exp' | 'log' | 'log10' |
 				'cos' |'acos' | 'sin' | 'asin'  ;
 
