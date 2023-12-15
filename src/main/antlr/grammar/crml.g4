@@ -93,7 +93,7 @@ if_exp : 'if' if_e=exp 'then' then_e=exp ('else' else_e=exp);
 
 constructor : 'new' type exp;
 	
-period_op : ('['| ']') exp ',' exp ('['| ']') ; 
+period_op : lb=('['| ']') exp ',' exp rb=('['| ']') ; 
 
 op : builtin_op|user_keyword
 ;
