@@ -1,10 +1,12 @@
 package crml.compiler;
 
+import java.io.File;
 import java.util.List;
 
 import org.antlr.v4.runtime.misc.Utils;
 import org.antlr.v4.runtime.tree.Tree;
 import org.antlr.v4.runtime.tree.Trees;
+import org.junit.jupiter.api.condition.OS;
 
 public class Utilities {
 
@@ -12,7 +14,11 @@ public class Utilities {
      * Remove the last .* of a name 
      * @return
      */
-    public static String stripNameEnding (String name){
+    public static String stripNameEnding(String name) {
+        // check if it even has an extension and return the name if not!
+        if (name.lastIndexOf('.') == -1) {
+            return name;
+        }
         return name.substring(0, name.lastIndexOf('.'));
     }
 
@@ -61,5 +67,46 @@ public class Utilities {
          }
          return sb.toString();
      }
+
+     public static String removeWindowsDriveLetter(String path) {
+        // check if is a windows path and remove the /C: part
+        int colonIndex = path.indexOf(':');
+        if (colonIndex != -1)
+            return path.substring(colonIndex + 1, path.length());
+        return path;
+     }
+
+     public static File getFileInPath(String fileName) {
+        String path = System.getenv("PATH");
+        
+        if (path != null) {
+            String[] paths = path.split(File.pathSeparator);
+
+            for (String p : paths) {
+                File file = new File(p, fileName);
+                if (file.exists()) {
+                    return file;
+                }
+            }
+        }
+        
+        return null;
+    }
+
+    public static boolean isWindows() {
+        return System.getProperty("os.name").toLowerCase().contains("win");
+    }
+
+    public static String toUnixPath(String path) {
+        if (!isWindows())
+            return path;
+        return path.replace('\\', '/');
+    }
+
+    public static String getAbsolutePath(String path) {
+        File f = new File(path);
+        return f.getAbsolutePath();
+    }
+
     
 }

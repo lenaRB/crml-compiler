@@ -11,8 +11,8 @@ public class CompileSettings {
     public String outputFolder = defaultOutputRoot; // if not set explicitly 
 
     static final String defaultOutputRoot = "build/testSuiteGenerated";
-	static final String CRMLtoModelicaLibrary = "../../resources/modelica_libraries/CRMLtoModelica.mo";
-	static final String CRMLLibrary = "../../resources/modelica_libraries/CRML.mo";
+	static final String CRMLtoModelicaLibrary = "resources/modelica_libraries/CRMLtoModelica.mo";
+	static final String CRMLLibrary = "resources/modelica_libraries/CRML.mo";
 
 
     public ProcessBuilder processBuilder; // used for running omc commands
@@ -38,14 +38,15 @@ public class CompileSettings {
     }
 
     private static String getResourcePath(String dirName){
-        System.out.println(Thread.currentThread().getContextClassLoader().getName());
+        System.out.println(Thread.currentThread().getContextClassLoader().toString());
 
         URL url = Thread.currentThread().getContextClassLoader().getResource(dirName);
         String path;
         
-            if(url!=null)
+            if(url != null) {
                 path = url.getPath();
-            else {
+                path = Utilities.removeWindowsDriveLetter(path);
+            } else {
                 String dir = "src/test/resources/" + dirName; 
                 path = new File(dir).getAbsolutePath();
             }            

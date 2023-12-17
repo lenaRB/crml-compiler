@@ -144,7 +144,7 @@ public class CRMLC {
     try {
       String fullName = dir + java.io.File.separator + file;
       File in_file = new File(fullName);
-      
+      // FIXME: why is this done? if a directory is given as input you create it again?
       in_file.getParentFile().mkdirs();
     
       CharStream code = CharStreams.fromFileName(in_file.getAbsolutePath());
@@ -173,7 +173,7 @@ public class CRMLC {
         if (result != null) {  	
         
           File out_file = new File(gen_dir + java.io.File.separator + 
-            Utilities.stripNameEnding(file)+ ".mo");  
+            Utilities.stripNameEnding(Utilities.removeWindowsDriveLetter(file))+ ".mo");
         
           out_file.getParentFile().mkdirs();   	
         
