@@ -13,6 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-java@v4
+      with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '8'
     
     # run omc runTest.mos using docker!
     #- name: run OM docker
@@ -34,7 +38,9 @@ jobs:
         sudo apt install omc omlibrary
     
     - name: build the crml-compiler
-      run: make distribution
+      run: |
+        java -version
+        make distribution
 
     - name: run OMC tests
       run: |
@@ -45,7 +51,7 @@ jobs:
         # load the library
         echo 'loadFile("./resources/modelica_libraries/CRMLtoModelica.mo"); getErrorString();' >> runTests.mos
         # load a translated file
-        echo 'loadFile("./testSuiteGenerated/BooleanAccumulation.mo"); getErrorString();' >> runTests.mos
+        echo 'loadFile("./build/testSuiteGenerated/spec-doc-examples/BooleanAccumulation/BooleanAccumulation.mo"); getErrorString();' >> runTests.mos
         # check the translated file
         echo 'checkModel(BooleanAccumulation); getErrorString();' >> runTests.mos
         cat runTests.mos

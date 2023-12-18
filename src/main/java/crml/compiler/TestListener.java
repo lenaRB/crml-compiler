@@ -15,6 +15,7 @@ import org.junit.platform.launcher.TestPlan;
 import com.aventstack.extentreports.AnalysisStrategy;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import static com.aventstack.extentreports.Status.FAIL;
@@ -110,7 +111,7 @@ public class TestListener implements TestExecutionListener  {
     }
 
     private TestIdentifier getRoot(TestPlan testPlan) {
-        return testPlan.getRoots().stream().findFirst().orElseThrow();
+        return testPlan.getRoots().stream().findFirst().get();
     }
     
 }

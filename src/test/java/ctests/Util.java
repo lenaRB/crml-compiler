@@ -43,7 +43,7 @@ public class Util {
 		String msg = OMCUtil.compile(stripped_file_name, out_dir, cs);
 
 		if(msg.contains("false"))
-			fail("Unable to load Modelica model " + stripped_file_name + 
+			fail("Unable to run Modelica script " + Utilities.getAbsolutePath(stripped_file_name) + ".mos" +
 				"\n omc fails with the following message: \n" + msg);
 		}
 }

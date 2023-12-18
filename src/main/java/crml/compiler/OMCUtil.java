@@ -20,134 +20,188 @@ public class OMCUtil {
     public enum CompileStage {TRANSLATE, SIMULATE, VERIFY};
 
     /**
-	 * Method for comparing omc simulation results to reference files
-	 * @param res_file simulation result file
-	 * @param ref_file reference result file
-	 * @return code for comparsion script
-	 */
-	public static String compareSimulationResults(String res_file, String ref_file){
+   * Method for comparing omc simulation results to reference files
+   * @param res_file simulation result file
+   * @param ref_file reference result file
+   * @return code for comparison script
+   */
+  public static String compareSimulationResults(String res_file, String ref_file){
 
-		String loadRes =
-			"arrActual := readSimulationResultVars(\"" + res_file + "\"); getErrorString();\n" +
-			"arrExpect := readSimulationResultVars(\"" + ref_file + "\"); getErrorString();\n";
+    String loadRes =
+      "arrActual := readSimulationResultVars(\"" + Utilities.toUnixPath(res_file) + "\"); getErrorString();\n" +
+      "arrExpect := readSimulationResultVars(\"" + Utilities.toUnixPath(ref_file) + "\"); getErrorString();\n";
 
-		String helper_functions =
-		"loadString(\" \n" +
-		"function stringIntersection \n" +
-		"	input String[:] a1; \n" +
-		"	input String[:] a2; \n" + 
-		"	output Integer last = 0; \n" +
-		"	output String[size(a2, 1)] o = fill(\\\"\\\", size(a2, 1)); \n"  +
-		"protected \n" +
-		"Integer i, j, k = 0; \n" +
-		"algorithm \n" +
-		  "for i in 1:size(a1, 1) loop\n" +
-			"for j in 1:size(a2, 1) loop\n" +
-			   "if a1[i] == a2[j] then\n" +
-				 "k := k + 1;\n" +
-				 "o[k] := a1[i];\n" +
-			   "end if;\n" +
-			 "end for;\n" +
-		  "end for;\n" +
-		  "last := k;\n" +
-		"end stringIntersection;\n" +
-		"function trimArray\n" +
-		  "input Integer sz;\n" +
-		  "input String[:] a1;\n" +
-		  "output String[sz] o = a1[1:sz];\n" +
-		"end trimArray;\n" +
-		"\"); getErrorString();\n";
+    String helper_functions =
+    "loadString(\" \n" +
+    "function stringIntersection \n" +
+    "  input String[:] a1; \n" +
+    "  input String[:] a2; \n" + 
+    "  output Integer last = 0; \n" +
+    "  output String[size(a2, 1)] o = fill(\\\"\\\", size(a2, 1)); \n"  +
+    "protected \n" +
+    "Integer i, j, k = 0; \n" +
+    "algorithm \n" +
+      "for i in 1:size(a1, 1) loop\n" +
+      "for j in 1:size(a2, 1) loop\n" +
+         "if a1[i] == a2[j] then\n" +
+         "k := k + 1;\n" +
+         "o[k] := a1[i];\n" +
+         "end if;\n" +
+       "end for;\n" +
+      "end for;\n" +
+      "last := k;\n" +
+    "end stringIntersection;\n" +
+    "function trimArray\n" +
+      "input Integer sz;\n" +
+      "input String[:] a1;\n" +
+      "output String[sz] o = a1[1:sz];\n" +
+    "end trimArray;\n" +
+    "\"); getErrorString();\n";
 
-		String compare = 
-		"(sz, set) := stringIntersection(arrActual, arrExpect);\n" +
-		"sz; \n" +
-		"set; \n" +
-		"intersect := trimArray(sz, set); \n" +
-		"diffSimulationResults(\n\"" + res_file + "\", \"" + ref_file + "\" \n, \"diff\", \n" +
+    String compare = 
+    "(sz, set) := stringIntersection(arrActual, arrExpect);\n" +
+    "sz; \n" +
+    "set; \n" +
+    "intersect := trimArray(sz, set); \n" +
+    "diffSimulationResults(\n\"" + Utilities.toUnixPath(res_file) + "\", \"" + Utilities.toUnixPath(ref_file) + "\" \n, \"diff\", \n" +
         "vars = intersect); getErrorString();\n";
 
-		return loadRes + helper_functions + compare;
-		
-	}
+    return loadRes + helper_functions + compare;
+    
+  }
 
-    public static String generateSimulationScript(String stripped_file_name, String verifModelFolder, String out_dir) throws IOException{
+  public static File getCRMLToModelicaFile() {
+    // check if we are where we should
+    String startedFrom = System.getProperty("user.dir");
+    return new File(startedFrom + java.io.File.separator + CompileSettings.CRMLtoModelicaLibrary);
+  }
+
+  public static File getCRMLLibrary() {
+    // check if we are where we should
+    String startedFrom = System.getProperty("user.dir");
+    return new File(startedFrom + java.io.File.separator + CompileSettings.CRMLLibrary);
+  }
+
+    public static String generateSimulationScript(String stripped_file_name, String verifModelFolder, String out_dir) throws IOException {
+    File crml2Modelica = getCRMLToModelicaFile();
+      File crmlLib = getCRMLLibrary();
+
+    if (!crml2Modelica.exists()) {
+       System.out.println("Could not find: " + Utilities.toUnixPath(crml2Modelica.getAbsolutePath()));
+    }
+    if (!crmlLib.exists()) {
+       System.out.println("Could not find: " + Utilities.toUnixPath(crmlLib.getAbsolutePath()));
+    }
+
         // .mos file for running the generated Modelica file
-		String mos_text = "loadFile(\""+ CompileSettings.CRMLtoModelicaLibrary + "\"); getErrorString();" + "\n"
-				+ "loadFile(\"" + stripped_file_name + ".mo"+ "\"); getErrorString();" + "\n"
-				+ "checkModel("+ stripped_file_name +"); getErrorString();\n";
+    String mos_text = "cd(); getErrorString();" + "\n"
+            + "loadFile(\""+ Utilities.toUnixPath(crml2Modelica.getAbsolutePath()) + "\"); getErrorString();" + "\n"
+        + "loadFile(\"" + stripped_file_name + ".mo"+ "\"); getErrorString();" + "\n"
+        + "checkModel("+ stripped_file_name +"); getErrorString();\n";
 
-		// check if there is a simulation example to run the test-case
-		
-		File verif_model = new File(Utilities.addDirToPath(verifModelFolder, stripped_file_name ));
-		
-		if(verif_model.exists()){
-			// copy files 
-			File [] fnames = verif_model.listFiles();
-			
-			for (File f : fnames){
-				Files.copy(f.toPath(), Paths.get(out_dir, f.getName()), StandardCopyOption.REPLACE_EXISTING);
-				//System.err.println(f.getName());
-			}
-			mos_text += "loadFile(\""+ CompileSettings.CRMLLibrary + "\"); getErrorString();" + "\n";
-			mos_text += "loadFile(\"" + stripped_file_name + "_verif" + ".mo"+ "\"); getErrorString();" + "\n";
-			mos_text += "loadFile(\"" + stripped_file_name + "_externals" + ".mo"+ "\"); getErrorString();" + "\n";
-			mos_text +=  "simulate("+ stripped_file_name + "_verif" +"); getErrorString();\n";
+    // check if there is a simulation example to run the test-case
+    
+    File verif_model = new File(Utilities.addDirToPath(verifModelFolder, stripped_file_name));
+    
+    if(verif_model.exists()) {
+      // copy files 
+      File [] fnames = verif_model.listFiles();
+      
+      for (File f : fnames) {
+        Files.copy(f.toPath(), Paths.get(out_dir, f.getName()), StandardCopyOption.REPLACE_EXISTING);
+        //System.err.println(f.getName());
+      }
+      mos_text += "loadFile(\""+ Utilities.toUnixPath(crmlLib.getAbsolutePath()) + "\"); getErrorString();" + "\n";
+      mos_text += "loadFile(\"" + stripped_file_name + "_verif" + ".mo"+ "\"); getErrorString();" + "\n";
+      mos_text += "loadFile(\"" + stripped_file_name + "_externals" + ".mo"+ "\"); getErrorString();" + "\n";
+      mos_text +=  "simulate("+ stripped_file_name + "_verif" +"); getErrorString();\n";
         }
 
         return mos_text;
     }
 
-    public static String compile(String stripped_file_name, String out_dir, CompileSettings cs) throws ModelicaSimulationException, IOException, InterruptedException{
+    public static String compile(String stripped_file_name, String out_dir, CompileSettings cs) throws ModelicaSimulationException, IOException, InterruptedException {
     
-		String script_file_name = out_dir + java.io.File.separator + stripped_file_name + ".mos";
-		
-		String mos_text = OMCUtil.generateSimulationScript(stripped_file_name,cs.verifModelFolder, out_dir);
-		
-		// check if a reference file to compare to is available
+    String filePrefix = out_dir + java.io.File.separator + stripped_file_name;
+    String script_file_name =  filePrefix + ".mos";
+    
+    String mos_text = OMCUtil.generateSimulationScript(stripped_file_name, cs.verifModelFolder, out_dir);
+    
+    // check if a reference file to compare to is available
 
-		File ref_file = new File(Utilities.addDirToPath(cs.referenceResFolder, stripped_file_name + "_verif_ref.mat"));
-		
-		if(ref_file.exists()){
-			mos_text +=  OMCUtil.compareSimulationResults(stripped_file_name + "_verif_res.mat", ref_file.getPath());
-		}
-		
-		BufferedWriter writer = new BufferedWriter(new FileWriter(script_file_name));
-		writer.write(mos_text);
-		writer.close();
+    File ref_file = new File(Utilities.addDirToPath(cs.referenceResFolder, stripped_file_name + "_verif_ref.mat"));
+    
+    if(ref_file.exists()){
+      mos_text +=  OMCUtil.compareSimulationResults(stripped_file_name + "_verif_res.mat", ref_file.getPath());
+    }
+    
+    BufferedWriter writer = new BufferedWriter(new FileWriter(script_file_name));
+    writer.write(mos_text);
+    writer.close();
 
-		// calling omc
-		cs.processBuilder.directory(new File(out_dir));
-		cs.processBuilder.command("omc", stripped_file_name + ".mos");
+    String omc = locateOMC();
+    
+    // calling omc
+    cs.processBuilder.directory(new File(out_dir));
+    cs.processBuilder.command(omc, stripped_file_name + ".mos");
 
-		Process process = cs.processBuilder.redirectErrorStream(true).start();
+    Process process = cs.processBuilder.redirectErrorStream(true).start();
 
-        OutputStream outputStream = process.getOutputStream();
-        InputStream inputStream = process.getInputStream();
-        InputStream errorStream = process.getErrorStream();
-		
-        boolean isFinished = process.waitFor(30, TimeUnit.SECONDS);
+    InputStream inputStream = process.getInputStream();
+    // OutputStream outputStream = process.getOutputStream();
+    // Not needed because we redirected via redirectErrorStream
+    // InputStream errorStream = process.getErrorStream();
+    
+    String prefix = Utilities.toUnixPath(Utilities.getAbsolutePath(filePrefix));
+    String msg = "<p>Files:<br><a href=\"file:///" + prefix + ".mos" + "\">" + prefix + ".mos" + "</a><br>\n" +
+                 "<a href=\"file:///" + prefix + ".mo" + "\">" + prefix + ".mo" + "</a><br>\n" +
+                 "<a href=\"file:///" + Utilities.toUnixPath(getCRMLToModelicaFile().getAbsolutePath()) + "\">" + Utilities.toUnixPath(getCRMLToModelicaFile().getAbsolutePath()) + "</a><br>\n" +
+           "<a href=\"file:///" + Utilities.toUnixPath(getCRMLLibrary().getAbsolutePath()) + "\">" + Utilities.toUnixPath(getCRMLLibrary().getAbsolutePath()) + "</a><br></p>\n";
+    String omcOutput = checkInputStream(inputStream);
 
-		if(!isFinished)
-		 throw new ModelicaSimulationException(stripped_file_name + " simulation timed out");
+		// wait for is *AFTER* we consume the output, otherwise process is blocked on output write!
+    boolean isFinished = process.waitFor(30, TimeUnit.SECONDS);
+    if (!isFinished)
+       throw new ModelicaSimulationException("Simulation timed out [30 seconds]: " 	+ omc + stripped_file_name + ".mos");
 
-		String msg = checkStream(inputStream);
+    return msg + omcOutput;
+    
+  }
 
-        return msg;
-		
-	}
+    public static String checkInputStream(InputStream inputStream) throws IOException {
 
-    public static String checkStream(InputStream inputStream) throws IOException {
-
-		StringBuffer buffer = new StringBuffer();
+    StringBuffer buffer = new StringBuffer();
         try(BufferedReader bufferedReader = new BufferedReader(
                 new InputStreamReader(inputStream))) {
             String line;
             while((line = bufferedReader.readLine()) != null) {
-                buffer.append(line);
+                buffer.append(line + "\n");
             }
 
         }
 
-		return buffer.toString();
-	}
+    return buffer.toString();
+  }
+
+  public static String locateOMC() {
+    String omc = "omc";
+    // check where is OMC
+    if (Utilities.isWindows())
+      omc = omc + ".exe";
+      File omcFile = Utilities.getFileInPath(omc);
+    if (omcFile != null) {
+      return omcFile.getAbsolutePath();
+    }
+
+    // check if we have an OPENMODELICAHOME defined!
+        String omhome = System.getenv("OPENMODELICAHOME");
+    if (omhome != null) {
+      File om = new File(omhome + File.separator + "bin" + File.separator + omc);
+      if (om.exists())
+        return om.getAbsolutePath();
+    }
+        // failed miserably to detect OMC, have a leap of faith   
+    System.out.println("Could not detect OMC, searched in:\n\t$PATH=[" + System.getenv("PATH") + "]" + "\nand in:\n\t$OPENMODELICAHOME/bin/ = [" + omhome + "]");
+        return omc;
+    }
 }
