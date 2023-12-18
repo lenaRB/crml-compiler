@@ -241,7 +241,8 @@ public class OperatorMapping {
 		// and operators	
 		List<Signature> and_sigs = 
 						Arrays.asList(new Signature("CRMLtoModelica.Functions.and4", bool2, params, "Boolean", Type.FUNCTION),
-								new Signature("arrayAnd", bool1, params, "Boolean", Type.SET_OP, setUnary, false));
+								new Signature("arrayAnd", bool1, params, "Boolean", Type.SET_OP, setUnary, false),
+								new Signature("unaryBoolAnd", bool1, params, "Boolean", Type.FUNCTION));
 		built_in_operators.put("and", and_sigs);
 		
 		// or operators	
