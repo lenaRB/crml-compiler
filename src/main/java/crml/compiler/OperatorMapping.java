@@ -300,6 +300,12 @@ public class OperatorMapping {
 								new Signature("Real", real1, params, "real", Type.FUNCTION));
 				
 				built_in_operators.put("Real", real_sigs);
+
+		// Event
+				List<Signature> event_sigs = 
+						Arrays.asList(new Signature("Event", bool1, params, "event", Type.BLOCK));
+				
+				built_in_operators.put("Event", event_sigs);
 	
 				
 		return built_in_operators;
