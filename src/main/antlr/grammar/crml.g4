@@ -82,10 +82,9 @@ tick : 'tick' id;
 	 | right=exp runary=right_op 
 	 | lunary=builtin_op left=exp 
 	 | left=exp binary=builtin_op right=exp
- 	 |  uright=user_keyword right=exp 
+ 	 | uright=user_keyword right=exp 
 	 | left=exp ubinary=user_keyword right=exp 
-	 | left=exp uleft=user_keyword
- 	  
+	 | left=exp uleft=user_keyword  
  	 | 'element' | 'terminate' | when_exp | exp 'at' at=exp 
  	 | integrate | tick |crml_component_reference | if_exp | set_def | 'evaluate' exp ;
  	 

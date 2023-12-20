@@ -144,23 +144,26 @@ public class CRMLC {
     try {
       String fullName = dir + java.io.File.separator + file;
       File in_file = new File(fullName);
-      // FIXME: why is this done? if a directory is given as input you create it again?
-      in_file.getParentFile().mkdirs();
     
       CharStream code = CharStreams.fromFileName(in_file.getAbsolutePath());
     
       crmlLexer lexer = new crmlLexer(code);
       CommonTokenStream tokens = new CommonTokenStream( lexer );
       crmlParser parser = new crmlParser( tokens );
-      
+      List<String> ruleNamesList = Arrays.asList(parser.getRuleNames());
       ParseTree tree = parser.definition();
       
       if (tree == null)
         logger.error("Unable to parse: " + file);
+
+      if (printAST){
+            String prettyTree = Utilities.toPrettyTree(tree, ruleNamesList);
+            logger.trace("\nThe AST for the program: \n" + prettyTree);
+          }
        
       List<String> external_var = new ArrayList<String>();
       crmlVisitorImpl visitor;
-      List<String> ruleNamesList = Arrays.asList(parser.getRuleNames());
+     
 
       if (generateExternal)
         visitor = new crmlVisitorImpl(parser, external_var);

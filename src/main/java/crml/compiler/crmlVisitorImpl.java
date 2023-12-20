@@ -17,6 +17,8 @@ import grammar.crmlParser.ExpContext;
 import grammar.crmlParser.IdContext;
 import grammar.crmlParser.User_keywordContext;
 
+// TODO strip new variable names
+
 public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 		private Integer counter;
@@ -58,7 +60,8 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 			// table for mapping CRML built in types to Modelica types
 			types_mapping.put("Boolean", 	 "CRMLtoModelica.Types.Boolean4");
-			types_mapping.put("Period", 	 "CRMLtoModelica.Types.Period");
+			types_mapping.put("Period", 	 "CRMLtoModelica.Types.CRMLPeriod");
+			types_mapping.put("Periods", 	 "CRMLtoModelica.Types.CRMLPeriods");
 			types_mapping.put("Event", 	 	 "CRMLtoModelica.Types.Event");
 			types_mapping.put("Requirement", "CRMLtoModelica.Types.Boolean4");
 			types_mapping.put("Clock", 		 "CRMLtoModelica.Types.CRMLClock");
@@ -193,7 +196,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			return new Value("", "Category");		
 		}	
 		
-		// TO DO move to association
+		// TODO move to association
 		/*@Override public Value visitAssociation(crmlParser.AssociationContext ctx) {
 			category_map.add_association(ctx.c_set.getText(), ctx.c_op_name.getText(), ctx.c_name.getText());
 			return new Value("", "Association");	
@@ -553,7 +556,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			"CRMLtoModelica.Types.CRMLPeriod(left=" + left.contents + 
 		    ", right=" + right.contents + 
 			",lb=" +lborder.toString() + 
-			",rb=" +rborder.toString()+");";
+			",rb=" +rborder.toString()+")";
 			
 		return new Value (code, "Period", false);
 	}
@@ -634,7 +637,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			if (sign== null)
 				throw new ParseCancellationException("User operator undefined : " + op + '\n');
 			
-			String name=op.substring(0, op.length()-1)+counter+'\'';
+			String name=op.substring(0, op.length()-1).replace(".", "_")+counter+'\'';
 			
 			String res;
 			if (exp.size()==2) {
@@ -676,7 +679,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			}
 			
 			// operator translates to block instantiation
-				String name=op_t.temp_var_name+counter;
+				String name=op_t.function_name.replace(".", "_")+counter;
 						
 						
 				String res = op_t.function_name + " " + name+ "(" + op_t.variable_names.get(0) + " = "+right.contents+");\n";
@@ -706,7 +709,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			}
 			
 			// operator translates to block instantiation
-			String name=op_t.temp_var_name+counter;
+			String name=op_t.function_name.replace(".", "_")+counter;
 			
 			String res = op_t.function_name+ " " + name+ "(" + op_t.variable_names.get(0) + " = "+left.contents+");\n";
 			localFunctionCalls.append(res);
@@ -738,7 +741,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				
 				
 				String block_name = op_t.function_name + "int" + counter;
-				String block_type = op_t.function_name + counter++;
+				String block_type = op_t.function_name.replace(".", "_") + counter++;
 				StringBuffer set_block = new StringBuffer("model " + block_type + "\n ") ;
 				StringBuffer for_loops = new StringBuffer("") ;
 				StringBuffer for_loop_exp = new StringBuffer("") ;
@@ -769,7 +772,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			}
 			
 			// operator translates to block instantiation
-			String name=op_t.temp_var_name+counter;
+			String name=op_t.temp_var_name.replace('.', '_')+counter;
 			
 			
 			String res = op_t.function_name+ " " + name+ "("+ op_t.variable_names.get(0) + " = "+left.contents+","

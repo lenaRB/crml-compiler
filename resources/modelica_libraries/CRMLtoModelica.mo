@@ -43,6 +43,11 @@ package CRMLtoModelica
     equation
 
     end CRMLPeriod;
+
+    model CRMLPeriods
+    equation
+
+    end CRMLPeriods;
   end Types;
 
   

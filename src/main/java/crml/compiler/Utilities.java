@@ -6,7 +6,6 @@ import java.util.List;
 import org.antlr.v4.runtime.misc.Utils;
 import org.antlr.v4.runtime.tree.Tree;
 import org.antlr.v4.runtime.tree.Trees;
-import org.junit.jupiter.api.condition.OS;
 
 public class Utilities {
 
