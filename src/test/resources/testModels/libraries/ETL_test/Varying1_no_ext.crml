@@ -2,4 +2,16 @@ model Varying1_no_ext is {
 	Category varying1 = { ('id', 'cte_false') };
 	Operator [ Boolean ]  'id'  Boolean b = b;
 	Operator [ Boolean ]  'cte_false'  Boolean b = false;
+	
+	Operator [ Boolean ] 'set to false' Boolean b = apply varying1 on ( 'id' b ); 
+	
+	Boolean b_true is true;
+	Boolean b_false is false;
+	Boolean b_undecided is undecided;
+	Boolean b_undefined is undefined;
+	Boolean b_id_true is 'set to false' b_true; // value should be false
+	Boolean b_id_false is 'set to false' b_false; // value should be false
+	Boolean b_id_undecided is 'set to false' b_undecided; // value should be false
+	Boolean b_id_undefined is 'set to false' b_undefined; // value should be false
+	
 };
