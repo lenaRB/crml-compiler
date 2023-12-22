@@ -26,7 +26,7 @@ public
 equation
 
   /* Compute the decision event d */
-  d = CRML.Blocks.Logical4.or4(Boolean4.undefined, CRML.ETL.Types.cvBooleanToBoolean4(edge(
+  d = CRML.Blocks.Logical4.or4(Boolean4.true4, CRML.ETL.Types.cvBooleanToBoolean4(edge(
     not_timePeriod)));
 
   /* Determine whether the change of the condition u happens at the same instant as the start of the time period tl */

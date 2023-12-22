@@ -4,3 +4,8 @@ wip_Inside
 BecomesTrue
 BecomesTrue_no_ext
 CheckOver
+Id_no_ext
+CteFalse_no_ext
+CteTrue_no_ext
+Varying1_no_ext
+Varying2_no_ext

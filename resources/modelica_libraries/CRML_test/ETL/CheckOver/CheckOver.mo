@@ -15,7 +15,7 @@ public
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   CRML.Blocks.Logical4.And4_n and4(N=N)
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  CRML.ETL.Evaluator.Eval[N] eval
+  EvalUndefined          [N] eval
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   CRML.Blocks.Routing.Boolean4Replicator boolean4Replicator(nout=N)
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
