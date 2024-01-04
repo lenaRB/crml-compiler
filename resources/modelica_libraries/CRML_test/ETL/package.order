@@ -6,6 +6,8 @@ CountInside
 CountInside_no_ext
 CteFalse_no_ext
 CteTrue_no_ext
+DecideOver
+DecideOver_no_ext
 EvaluateOver
 EvaluateOver_no_ext
 Id_no_ext

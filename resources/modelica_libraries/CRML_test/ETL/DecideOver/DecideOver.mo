@@ -1,5 +1,5 @@
-within CRML_test.ETL.EvaluateOver;
-partial block EvaluateOver
+within CRML_test.ETL.DecideOver;
+partial block DecideOver
 
 protected
   parameter Integer N=CRML.ETL.Types.nMaxOverlap;
@@ -11,29 +11,25 @@ public
   Utilities.TimeLocatorConnector[N] P1 annotation (Placement(transformation(
           extent={{-10,90},{10,110}}), iconTransformation(extent={{-10,90},{10,
             110}})));
-  CRML.ETL.Connectors.Boolean4Output b_evaluate_over
+  CRML.ETL.Connectors.Boolean4Output b_decide_over
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  EvalUndefined          [N] eval
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  CRML.Blocks.Routing.Boolean4Replicator boolean4Replicator(nout=N)
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  CRML.Blocks.Logical.BooleanConstant[N] booleanConstant(each K=false)
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  CRML.Blocks.Logical4.BooleanToBoolean4[N] booleanToBoolean3_1
-    annotation (Placement(transformation(extent={{-4,16},{4,24}})));
+  CRML.TimeLocators.Attributes.PeriodsEnd periodsEnd
+    annotation (Placement(transformation(extent={{-4,-12},{4,-4}})));
+  CRML.Blocks.Logical4.Or4 or4_n
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  CRML.Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_3
+    annotation (Placement(transformation(extent={{20,-12},{28,-4}})));
 equation
-  connect(P1, eval.tl) annotation (Line(points={{0,100},{0,60},{40,60},{40,10}},
-        color={0,0,255}));
-  connect(phi1, boolean4Replicator.u)
-    annotation (Line(points={{-110,0},{-92,0}}, color={162,29,33}));
-  connect(boolean4Replicator.y, eval.u)
-    annotation (Line(points={{-69,0},{29,0}}, color={162,29,33}));
-  connect(booleanConstant.y, booleanToBoolean3_1.u)
-    annotation (Line(points={{-19,20},{-4.4,20}}, color={217,67,180}));
-  connect(booleanToBoolean3_1.y, eval.a) annotation (Line(points={{4.4,20},
-          {20,20},{20,8},{29,8}}, color={162,29,33}));
-  connect(eval[1].y, b_evaluate_over)
-    annotation (Line(points={{51,0},{110,0}}, color={162,29,33}));
+  connect(phi1, or4_n.u1)
+    annotation (Line(points={{-110,0},{-36,0},{-36,8},{39,8}}, color={0,0,0}));
+  connect(P1, periodsEnd.tl)
+    annotation (Line(points={{0,100},{0,-4}}, color={0,0,0}));
+  connect(periodsEnd.y, booleanToBoolean4_3.u)
+    annotation (Line(points={{4.4,-8},{19.6,-8}}, color={217,67,180}));
+  connect(or4_n.u2, booleanToBoolean4_3.y)
+    annotation (Line(points={{39,-8},{28.4,-8}}, color={162,29,33}));
+  connect(or4_n.y, b_decide_over)
+    annotation (Line(points={{61,0},{110,0}}, color={162,29,33}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                          Rectangle(
           extent={{-100,100},{100,-100}},
@@ -74,4 +70,4 @@ equation
 <p><br><b><span style=\"font-family: MS Shell Dlg 2;\">Example</span></b> </p>
 <p><span style=\"font-family: MS Shell Dlg 2;\">This block is demonstrated with the following <a href=\"modelica://ReqSysPro.Examples.TimeLocators.Continuous.After\">example</a>:</span></p>
 </html>"));
-end EvaluateOver;
+end DecideOver;
