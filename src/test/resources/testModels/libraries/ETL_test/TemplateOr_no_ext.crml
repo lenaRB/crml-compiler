@@ -1,6 +1,6 @@
 model TemplateOr_no_ext is {
 	// Definition of disjunction of two Booleans.
-	Template b1 'or' b2 = not (not b1 and not b2);
+	Template b1 'or' b2 = not ( (not b1) and (not b2) );
 	
 	// Example of function call
 	Boolean b_true is true;
