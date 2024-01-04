@@ -32,8 +32,7 @@ public
     annotation (Placement(transformation(extent={{-94,-34},{-86,-26}})));
   CRML.Blocks.Logical.BooleanConstant reset(K=false)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  CRML.ETL.Connectors.IntegerOutput
-                                  c_filtered_ticks_of_c1_inside_p1
+  CRML.ETL.Connectors.IntegerOutput i_count_ticks_of_c1_inside_p1
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   CRML.Blocks.Events.EventCounter eventCounter
     annotation (Placement(transformation(extent={{74,-10},{94,10}})));
@@ -77,7 +76,7 @@ equation
           {38,-8},{46,-8}}, color={217,67,180}));
   connect(and4_1.u1, eventFilter.y) annotation (Line(points={{46,0},{40,0},{40,
           30},{33,30}}, color={255,0,255}));
-  connect(c_filtered_ticks_of_c1_inside_p1, eventCounter.y)
+  connect(i_count_ticks_of_c1_inside_p1, eventCounter.y)
     annotation (Line(points={{110,0},{95,0}}, color={255,127,0}));
   connect(and4_1.y, eventCounter.u)
     annotation (Line(points={{69,0},{73,0}}, color={255,0,255}));

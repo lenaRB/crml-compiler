@@ -53,8 +53,7 @@ public
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
   CRML.Blocks.Events.ShowEvent showEvent_Inside
     annotation (Placement(transformation(extent={{128,16},{136,24}})));
-  CRML.ETL.Connectors.IntegerOutput
-                                  c_filtered_ticks_of_c1_inside_p1
+  CRML.ETL.Connectors.IntegerOutput i_count_ticks_of_c1_inside_p1
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
  CRML.Blocks.Logical.BooleanConstant boolean4Constant1(
                                                       K=false)
@@ -111,7 +110,7 @@ equation
           12},{88,12},{88,-10},{105.6,-10}}, color={255,0,255}));
   connect(and1.y, showEvent_Inside.u)
     annotation (Line(points={{121,20},{127.6,20}}, color={255,0,255}));
-  connect(c_filtered_ticks_of_c1_inside_p1, eventClock.y) annotation (Line(
+  connect(i_count_ticks_of_c1_inside_p1, eventClock.y) annotation (Line(
       points={{170,0},{149,0}},
       color={175,175,175},
       pattern=LinePattern.Dot,

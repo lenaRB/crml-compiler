@@ -1,5 +1,5 @@
-within CRML_test.ETL.CheckOver;
-partial block CheckOver
+within CRML_test.ETL.EvaluateOver;
+partial block EvaluateOver
 
 protected
   parameter Integer N=CRML.ETL.Types.nMaxOverlap;
@@ -11,12 +11,9 @@ public
   Utilities.TimeLocatorConnector[N] P1 annotation (Placement(transformation(
           extent={{-10,90},{10,110}}), iconTransformation(extent={{-10,90},{10,
             110}})));
-  CRML.ETL.Connectors.Boolean4Output b_check_over
+  CRML.ETL.Connectors.Boolean4Output[N] b_evaluate_over
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  CRML.Blocks.Logical4.And4_n and4(N=N)
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  EvaluateOver.EvalUndefined
-                         [N] eval
+  EvalUndefined          [N] eval
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   CRML.Blocks.Routing.Boolean4Replicator boolean4Replicator(nout=N)
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
@@ -29,16 +26,14 @@ equation
         color={0,0,255}));
   connect(phi1, boolean4Replicator.u)
     annotation (Line(points={{-110,0},{-92,0}}, color={162,29,33}));
-  connect(and4.y, b_check_over)
-    annotation (Line(points={{91,0},{110,0}}, color={162,29,33}));
   connect(boolean4Replicator.y, eval.u)
     annotation (Line(points={{-69,0},{29,0}}, color={162,29,33}));
   connect(booleanConstant.y, booleanToBoolean3_1.u)
     annotation (Line(points={{-19,20},{-4.4,20}}, color={217,67,180}));
   connect(booleanToBoolean3_1.y, eval.a) annotation (Line(points={{4.4,20},
           {20,20},{20,8},{29,8}}, color={162,29,33}));
-  connect(eval.y, and4.u)
-    annotation (Line(points={{51,0},{69,0}}, color={162,29,33}));
+  connect(eval.y, b_evaluate_over) annotation (Line(points={{51,0},{78,0},{78,0},
+          {110,0}}, color={162,29,33}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                          Rectangle(
           extent={{-100,100},{100,-100}},
@@ -79,4 +74,4 @@ equation
 <p><br><b><span style=\"font-family: MS Shell Dlg 2;\">Example</span></b> </p>
 <p><span style=\"font-family: MS Shell Dlg 2;\">This block is demonstrated with the following <a href=\"modelica://ReqSysPro.Examples.TimeLocators.Continuous.After\">example</a>:</span></p>
 </html>"));
-end CheckOver;
+end EvaluateOver;
