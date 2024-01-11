@@ -59,7 +59,7 @@ public class CRMLC {
     if (cmd.help) {
         jc.usage();
         return;
-      }
+    }
 
     // incorrect arguments
     if (cmd.files.isEmpty()&&!cmd.runTestSuite&&!cmd.testsuiteETL){
@@ -81,15 +81,13 @@ public class CRMLC {
     if(cmd.simulate != null)
       cs.verifModelFolder = cmd.simulate;
     
-      if(cmd.verify != null)
-        cs.referenceResFolder = cmd.verify;
+    if(cmd.verify != null)
+      cs.referenceResFolder = cmd.verify;
       
-
     File out_dir = new File(cmd.outputDir);
     out_dir.mkdir();
 
     logger.trace("Directory for generated .mo files: " + out_dir.getPath());
-
 
     for(String f : cmd.files){
        String path = new File(f).getCanonicalPath();
@@ -100,7 +98,7 @@ public class CRMLC {
            for (String test : testFiles) {
             if(test.endsWith(".crml")) {
             logger.trace("Translating: " + test);
-              parse_file(path, test, out_dir.getPath(), cmd.stacktrace, cmd.printAST , cmd.generateExternal);
+              parse_file(path, test, cmd.outputDir, cmd.stacktrace, cmd.printAST , cmd.generateExternal);
               if(cmd.simulate!=null){
                 String msg;
                 try {
@@ -117,7 +115,7 @@ public class CRMLC {
           }
         } else if (file.isFile()){
         logger.trace("Translating: " + file);
-         parse_file("", path, out_dir.getPath(), cmd.stacktrace, cmd.printAST ,cmd.generateExternal);
+         parse_file("", path, cmd.outputDir, cmd.stacktrace, cmd.printAST ,cmd.generateExternal);
          if(cmd.simulate!=null){
                 String msg;
                 try {
@@ -176,7 +174,7 @@ public class CRMLC {
         if (result != null) {  	
         
           File out_file = new File(gen_dir + java.io.File.separator + 
-            Utilities.stripNameEnding(Utilities.removeWindowsDriveLetter(file))+ ".mo");
+            Utilities.stripNameEndingAndPath(Utilities.removeWindowsDriveLetter(file))+ ".mo");
         
           out_file.getParentFile().mkdirs();   	
         
@@ -187,7 +185,7 @@ public class CRMLC {
 
           if(generateExternal && !external_var.isEmpty()){
             File ext_file = new File(gen_dir + java.io.File.separator + 
-              Utilities.stripNameEnding(file)+ "_external.txt");
+              Utilities.stripNameEndingAndPath(file)+ "_external.txt");
             BufferedWriter ext_writer = new BufferedWriter(new FileWriter(ext_file));
             logger.trace("External variables saved in: " + ext_file);
 
