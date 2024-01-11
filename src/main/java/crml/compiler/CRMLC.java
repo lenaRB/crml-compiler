@@ -98,16 +98,16 @@ public class CRMLC {
        if (file.isDirectory()){
           testFiles=file.list();
            for (String test : testFiles) {
-    	      if(test.endsWith(".crml")) {
-    		    logger.trace("Translating: " + test);
-    		      parse_file(path, test, out_dir.getPath(), cmd.stacktrace, cmd.printAST , cmd.generateExternal);
+            if(test.endsWith(".crml")) {
+            logger.trace("Translating: " + test);
+              parse_file(path, test, out_dir.getPath(), cmd.stacktrace, cmd.printAST , cmd.generateExternal);
               if(cmd.simulate!=null){
                 String msg;
                 try {
                   msg = OMCUtil.compile(test, path, cs);
                   if(msg.contains("false"))
-			            logger.error("Unable to load Modelica model " + test + 
-				              "\n omc fails with the following message: \n" + msg);
+                  logger.error("Unable to load Modelica model " + test + 
+                      "\n omc fails with the following message: \n" + msg);
                 }
                 catch (ModelicaSimulationException e) {
                   logger.error("Unable to simulate: " + file + "\n");
@@ -117,14 +117,14 @@ public class CRMLC {
           }
         } else if (file.isFile()){
         logger.trace("Translating: " + file);
-		     parse_file("", path, out_dir.getPath(), cmd.stacktrace, cmd.printAST ,cmd.generateExternal);
+         parse_file("", path, out_dir.getPath(), cmd.stacktrace, cmd.printAST ,cmd.generateExternal);
          if(cmd.simulate!=null){
                 String msg;
                 try {
                   msg = OMCUtil.compile(file.getPath(), "", cs);
                   if(msg.contains("false"))
-			            logger.error("Unable to load Modelica model " + file + 
-				              "\n omc fails with the following message: \n" + msg);
+                  logger.error("Unable to load Modelica model " + file + 
+                      "\n omc fails with the following message: \n" + msg);
                 }
                 catch (ModelicaSimulationException e) {
                   logger.error("Unable to simulate: " + file + "\n");
