@@ -278,16 +278,20 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			definition.append(modelName);
 			definition.append("\n");
 
-			String bType ;//= types_mapping.get(ctx.type().getText());
-			//if (bType == null)
+			String bType = types_mapping.get(ctx.type().getText());
+			 if (bType == null)
 				bType=ctx.type().getText();
 			
 			// keep a list of operator signatures for typing calls
 			Signature sig = new Signature();
-			sig.return_type = bType;
+			System.out.println("RETURN:::: " + bType + "\n");
+			sig.return_type = ctx.type().getText();
 			sig.return_name = "out";
 			sig.function_name = modelName.toString();
 			String mtype = bType;
+
+			definition.append("output " + bType + " out; \n");
+
 
 			// generate variables
 				int i=0;
@@ -301,14 +305,13 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				variableTable.putlocalVariable(v.getText(), type, false);
 				
 				sig.variable_names.add(v.getText());
-				sig.variable_types.add(bType);
+				sig.variable_types.add(mtype);
 			    i++;
 			}
 	
 			user_operators.put(modelName.toString(), sig);
 
-			definition.append("output " + mtype + " out; \n");
-
+			
 			// append body
 			Value exp = visit(ctx.operator_def().exp());
 			definition.append(localFunctionCalls + "\n");

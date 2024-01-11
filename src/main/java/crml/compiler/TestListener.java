@@ -71,6 +71,8 @@ public class TestListener implements TestExecutionListener  {
             node.log(INFO, "No test results found");
             return;
         }
+
+    
        
         if(testResult.getStatus()==Status.SUCCESSFUL)
             node.pass(testResult.toString());

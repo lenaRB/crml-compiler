@@ -85,12 +85,12 @@ public class OMCUtil {
     File crml2Modelica = getCRMLToModelicaFile();
       File crmlLib = getCRMLLibrary();
 
-    if (!crml2Modelica.exists()) {
-       System.out.println("Could not find: " + Utilities.toUnixPath(crml2Modelica.getAbsolutePath()));
-    }
-    if (!crmlLib.exists()) {
-       System.out.println("Could not find: " + Utilities.toUnixPath(crmlLib.getAbsolutePath()));
-    }
+    if (!crml2Modelica.exists()) 
+      throw new IOException("Could not find: " + Utilities.toUnixPath(crml2Modelica.getAbsolutePath()));
+   
+    if (!crmlLib.exists()) 
+      throw new IOException("Could not find: " + Utilities.toUnixPath(crmlLib.getAbsolutePath()));
+      
 
         // .mos file for running the generated Modelica file
     String mos_text = "cd(); getErrorString();" + "\n"
@@ -98,6 +98,7 @@ public class OMCUtil {
         + "loadFile(\"" + stripped_file_name + ".mo"+ "\"); getErrorString();" + "\n"
         + "checkModel("+ stripped_file_name +"); getErrorString();\n";
 
+   
     // check if there is a simulation example to run the test-case
     
     File verif_model = new File(Utilities.addDirToPath(verifModelFolder, stripped_file_name));
@@ -114,7 +115,8 @@ public class OMCUtil {
       mos_text += "loadFile(\"" + stripped_file_name + "_verif" + ".mo"+ "\"); getErrorString();" + "\n";
       mos_text += "loadFile(\"" + stripped_file_name + "_externals" + ".mo"+ "\"); getErrorString();" + "\n";
       mos_text +=  "simulate("+ stripped_file_name + "_verif" +"); getErrorString();\n";
-        }
+      } else // try simulating the model on its own (the non_external ones)
+      mos_text +=  "simulate("+ stripped_file_name +"); getErrorString();\n";
 
         return mos_text;
     }
@@ -197,7 +199,7 @@ public class OMCUtil {
     if (omhome != null) {
       File om = new File(omhome + File.separator + "bin" + File.separator + omc);
       if (om.exists())
-        return om.getAbsolutePath();
+        return om.getAbsolutePath(); // FIXME - check return for 0
     }
         // failed miserably to detect OMC, have a leap of faith   
     System.out.println("Could not detect OMC, searched in:\n\t$PATH=[" + System.getenv("PATH") + "]" + "\nand in:\n\t$OPENMODELICAHOME/bin/ = [" + omhome + "]");

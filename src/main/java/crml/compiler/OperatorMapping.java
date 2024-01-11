@@ -258,7 +258,7 @@ public class OperatorMapping {
 		built_in_operators.put("not", not_sigs);
 		
 		
-		// end operators	TODO proper implementation	
+		// end operators TODO proper implementation	
 		built_in_operators.put("end", 
 			Arrays.asList(new Signature("CRMLtoModelica.Blocks.endP", Arrays.asList("Period"), params, "Real", Type.BLOCK)));
 		built_in_operators.put("start", 
