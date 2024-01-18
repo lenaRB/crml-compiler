@@ -6,20 +6,23 @@ import java.util.List;
 import org.antlr.v4.runtime.misc.Utils;
 import org.antlr.v4.runtime.tree.Tree;
 import org.antlr.v4.runtime.tree.Trees;
-import org.junit.jupiter.api.condition.OS;
 
 public class Utilities {
 
     /**
-     * Remove the last .* of a name 
+     * Remove the last .* of a name and the directory path
      * @return
      */
-    public static String stripNameEnding(String name) {
+    public static String stripNameEndingAndPath(String name) {
+        int firstIndex = name.lastIndexOf("/");
+        if (firstIndex==-1) 
+            firstIndex=0;   
+        
         // check if it even has an extension and return the name if not!
         if (name.lastIndexOf('.') == -1) {
-            return name;
+            return name.substring(firstIndex);
         }
-        return name.substring(0, name.lastIndexOf('.'));
+        return name.substring(firstIndex, name.lastIndexOf('.'));
     }
 
    public static String addDirToPath (String path, String dir){

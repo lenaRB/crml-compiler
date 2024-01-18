@@ -59,7 +59,7 @@ public class CRMLC {
     if (cmd.help) {
         jc.usage();
         return;
-      }
+    }
 
     // incorrect arguments
     if (cmd.files.isEmpty()&&!cmd.runTestSuite&&!cmd.testsuiteETL){
@@ -81,15 +81,13 @@ public class CRMLC {
     if(cmd.simulate != null)
       cs.verifModelFolder = cmd.simulate;
     
-      if(cmd.verify != null)
-        cs.referenceResFolder = cmd.verify;
+    if(cmd.verify != null)
+      cs.referenceResFolder = cmd.verify;
       
-
     File out_dir = new File(cmd.outputDir);
     out_dir.mkdir();
 
     logger.trace("Directory for generated .mo files: " + out_dir.getPath());
-
 
     for(String f : cmd.files){
        String path = new File(f).getCanonicalPath();
@@ -98,16 +96,16 @@ public class CRMLC {
        if (file.isDirectory()){
           testFiles=file.list();
            for (String test : testFiles) {
-    	      if(test.endsWith(".crml")) {
-    		    logger.trace("Translating: " + test);
-    		      parse_file(path, test, out_dir.getPath(), cmd.stacktrace, cmd.printAST , cmd.generateExternal);
+            if(test.endsWith(".crml")) {
+            logger.trace("Translating: " + test);
+              parse_file(path, test, cmd.outputDir, cmd.stacktrace, cmd.printAST , cmd.generateExternal);
               if(cmd.simulate!=null){
                 String msg;
                 try {
                   msg = OMCUtil.compile(test, path, cs);
                   if(msg.contains("false"))
-			            logger.error("Unable to load Modelica model " + test + 
-				              "\n omc fails with the following message: \n" + msg);
+                  logger.error("Unable to load Modelica model " + test + 
+                      "\n omc fails with the following message: \n" + msg);
                 }
                 catch (ModelicaSimulationException e) {
                   logger.error("Unable to simulate: " + file + "\n");
@@ -117,14 +115,14 @@ public class CRMLC {
           }
         } else if (file.isFile()){
         logger.trace("Translating: " + file);
-		     parse_file("", path, out_dir.getPath(), cmd.stacktrace, cmd.printAST ,cmd.generateExternal);
+         parse_file("", path, cmd.outputDir, cmd.stacktrace, cmd.printAST ,cmd.generateExternal);
          if(cmd.simulate!=null){
                 String msg;
                 try {
                   msg = OMCUtil.compile(file.getPath(), "", cs);
                   if(msg.contains("false"))
-			            logger.error("Unable to load Modelica model " + file + 
-				              "\n omc fails with the following message: \n" + msg);
+                  logger.error("Unable to load Modelica model " + file + 
+                      "\n omc fails with the following message: \n" + msg);
                 }
                 catch (ModelicaSimulationException e) {
                   logger.error("Unable to simulate: " + file + "\n");
@@ -144,23 +142,26 @@ public class CRMLC {
     try {
       String fullName = dir + java.io.File.separator + file;
       File in_file = new File(fullName);
-      // FIXME: why is this done? if a directory is given as input you create it again?
-      in_file.getParentFile().mkdirs();
     
       CharStream code = CharStreams.fromFileName(in_file.getAbsolutePath());
     
       crmlLexer lexer = new crmlLexer(code);
       CommonTokenStream tokens = new CommonTokenStream( lexer );
       crmlParser parser = new crmlParser( tokens );
-      
+      List<String> ruleNamesList = Arrays.asList(parser.getRuleNames());
       ParseTree tree = parser.definition();
       
       if (tree == null)
         logger.error("Unable to parse: " + file);
+
+      if (printAST){
+            String prettyTree = Utilities.toPrettyTree(tree, ruleNamesList);
+            logger.trace("\nThe AST for the program: \n" + prettyTree);
+          }
        
       List<String> external_var = new ArrayList<String>();
       crmlVisitorImpl visitor;
-      List<String> ruleNamesList = Arrays.asList(parser.getRuleNames());
+     
 
       if (generateExternal)
         visitor = new crmlVisitorImpl(parser, external_var);
@@ -173,7 +174,7 @@ public class CRMLC {
         if (result != null) {  	
         
           File out_file = new File(gen_dir + java.io.File.separator + 
-            Utilities.stripNameEnding(Utilities.removeWindowsDriveLetter(file))+ ".mo");
+            Utilities.stripNameEndingAndPath(Utilities.removeWindowsDriveLetter(file))+ ".mo");
         
           out_file.getParentFile().mkdirs();   	
         
@@ -184,7 +185,7 @@ public class CRMLC {
 
           if(generateExternal && !external_var.isEmpty()){
             File ext_file = new File(gen_dir + java.io.File.separator + 
-              Utilities.stripNameEnding(file)+ "_external.txt");
+              Utilities.stripNameEndingAndPath(file)+ "_external.txt");
             BufferedWriter ext_writer = new BufferedWriter(new FileWriter(ext_file));
             logger.trace("External variables saved in: " + ext_file);
 

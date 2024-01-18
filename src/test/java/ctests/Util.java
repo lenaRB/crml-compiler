@@ -24,7 +24,7 @@ public class Util {
 						final CompileStage stage) 
 							throws InterruptedException, IOException, ModelicaSimulationException {
 		
-		String stripped_file_name = Utilities.stripNameEnding(fileName);
+		String stripped_file_name = Utilities.stripNameEndingAndPath(fileName);
 		String out_dir = Utilities.addDirToPath(cs.outputFolder, stripped_file_name);
 
 		// try compiling crml to modelica
