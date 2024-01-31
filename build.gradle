@@ -92,13 +92,3 @@ compileJava {
     sourceCompatibility = '1.8'
     targetCompatibility = '1.8'
 }
-
-/**  tasks.withType(Test).configureEach {
-    def outputDir = reports.junitXml.outputLocation
-    jvmArgumentProviders << ({
-        [
-            "-Djunit.platform.reporting.open.xml.enabled=true",
-            "-Djunit.platform.reporting.output.dir=${outputDir.get().asFile.absolutePath}",
-            "-Djunit.jupiter.extensions.autodetection.enabled=true"
-        ]
-    } as CommandLineArgumentProvider)} */

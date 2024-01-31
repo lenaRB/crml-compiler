@@ -1,9 +1,12 @@
 package crml.compiler;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.platform.commons.PreconditionViolationException;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.UniqueId;
@@ -21,60 +24,57 @@ import static com.aventstack.extentreports.Status.FAIL;
 import static com.aventstack.extentreports.Status.INFO;
 import static com.aventstack.extentreports.Status.WARNING;
 
-public class TestListener implements TestExecutionListener  {
+public class TestListener implements TestExecutionListener, AfterEachCallback  {
 
-    private final ExtentSparkReporter reporter = new ExtentSparkReporter("build"+ java.io.File.separator+ "test_report.html");
-    private final ExtentReports extentReport = new ExtentReports();
-    private static final Map<TestIdentifier, TestExecutionResult> RESULTS = new HashMap<>();
-    private static final Map<TestIdentifier, String> SKIPPED = new HashMap<>();
+  private final ExtentSparkReporter reporter = new ExtentSparkReporter("build"+ java.io.File.separator+ "test_report.html");
+  private final ExtentReports extentReport = new ExtentReports();
+  private static final Map<TestIdentifier, TestExecutionResult> RESULTS = new HashMap<>();
+  private static final Map<TestIdentifier, String> SKIPPED = new HashMap<>();
+  private static final Map<String, String> FILES = new HashMap<>();
 
-    @Override
-    public void testPlanExecutionStarted(TestPlan testPlan) {
-        this.extentReport.attachReporter(reporter);
-        this.extentReport.setAnalysisStrategy(AnalysisStrategy.TEST);
-        testPlan.getChildren(getRoot(testPlan)).forEach(testIdentifier -> {
-            RESULTS.put(testIdentifier, null);
-        });
+  @Override
+  public void testPlanExecutionStarted(TestPlan testPlan) {
+   this.extentReport.attachReporter(reporter);
+   this.extentReport.setAnalysisStrategy(AnalysisStrategy.TEST);
+   testPlan.getChildren(getRoot(testPlan)).forEach(testIdentifier -> {
+    RESULTS.put(testIdentifier, null);
+    });
+  
+}
+  @Override
+  public void testPlanExecutionFinished(TestPlan testPlan) {
+    testPlan.getChildren(getRoot(testPlan)).forEach(klass -> {
+      if (SKIPPED.containsKey(klass)) {
+        extentReport.createTest(getKlassName(klass.getUniqueId())).skip(SKIPPED.get(klass));
+      } else if (RESULTS.containsKey(klass)) {
+        final ExtentTest testKlass = extentReport.createTest(getKlassName(klass.getUniqueId()));
+        testPlan.getDescendants(klass).forEach(test -> processTestNode(testKlass, test));
+      }
+    });
+    extentReport.flush();
+  }
 
-    }
-
-    @Override
-    public void testPlanExecutionFinished(TestPlan testPlan) {
-        testPlan.getChildren(getRoot(testPlan)).forEach(klass -> {
-            if (SKIPPED.containsKey(klass)) {
-                extentReport.createTest(getKlassName(klass.getUniqueId())).skip(SKIPPED.get(klass));
-            } else if (RESULTS.containsKey(klass)) {
-                final ExtentTest testKlass = extentReport.createTest(getKlassName(klass.getUniqueId()));
-                testPlan.getDescendants(klass).forEach(test -> processTestNode(testKlass, test));
-            }
-        });
-        extentReport.flush();
-    }
-
-    private void processTestNode(ExtentTest testKlass, TestIdentifier test) {
-        
-        if(test.isContainer()){
+  private void processTestNode(ExtentTest testKlass, TestIdentifier test) {
+    if(test.isContainer())
             return;
-        }
 
-         if(test.getDisplayName().equals("simulateTestFile(String)")){
-            return;
-        }
-        final ExtentTest node = testKlass.createNode(test.getDisplayName());
+    // remove the parametrized test case signature 
+    if(test.getDisplayName().equals("simulateTestFile(String)"))
+      return;
     
-        if (SKIPPED.containsKey(test)) {
-            node.skip(SKIPPED.get(test));
-            return;
-        }
-        final TestExecutionResult testResult = RESULTS.get(test);
+    final ExtentTest node = testKlass.createNode(test.getDisplayName());
+    
+    if (SKIPPED.containsKey(test)) {
+      node.skip(SKIPPED.get(test));
+      return;
+    }
+    
+    final TestExecutionResult testResult = RESULTS.get(test);
         if (testResult == null) {
             node.log(INFO, "No test results found");
             return;
-        }
-
-    
-       
-        if(testResult.getStatus()==Status.SUCCESSFUL)
+        } 
+        if(testResult.getStatus()==Status.SUCCESSFUL)        
             node.pass(testResult.toString());
         else if(testResult.getStatus()==Status.ABORTED)
             node.log(WARNING, testResult.toString());
@@ -85,6 +85,7 @@ public class TestListener implements TestExecutionListener  {
         }
         else 
             throw new PreconditionViolationException("Unsupported execution status:" + testResult.getStatus());
+    
     }
 
     @Override
@@ -120,5 +121,27 @@ public class TestListener implements TestExecutionListener  {
     private TestIdentifier getRoot(TestPlan testPlan) {
         return testPlan.getRoots().stream().findFirst().get();
     }
+
+    @Override
+    public void afterEach(final ExtensionContext context) throws Exception {
+        
+        Object testInstance = context.getRequiredTestInstance();
+        
+        
+
+        System.out.println("+++++" + context.getUniqueId());
+
+        System.out.println("--------DEBUG2");
+
+        try{
+         System.out.println("Instance name2 :" + testInstance.getClass().getName());
+         Field resultField = testInstance.getClass().getDeclaredField("files");
+         String resultValue = (String) resultField.get(testInstance);
+         FILES.put(context.getUniqueId(), resultValue);
+         System.out.println("---------- Value of result2: " + resultValue);
+        } catch (Exception e) {
+           System.out.println("ERROR2-------- " + e.getMessage());
+        }
+    }  
     
 }
