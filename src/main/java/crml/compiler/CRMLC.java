@@ -100,10 +100,10 @@ public class CRMLC {
             logger.trace("Translating: " + test);
               parse_file(path, test, cmd.outputDir, cmd.stacktrace, cmd.printAST , cmd.generateExternal);
               if(cmd.simulate!=null){
-                String msg;
+                OMCmsg msg;
                 try {
                   msg = OMCUtil.compile(test, path, cs);
-                  if(msg.contains("false"))
+                  if(msg.msg.contains("false"))
                   logger.error("Unable to load Modelica model " + test + 
                       "\n omc fails with the following message: \n" + msg);
                 }
@@ -117,10 +117,10 @@ public class CRMLC {
         logger.trace("Translating: " + file);
          parse_file("", path, cmd.outputDir, cmd.stacktrace, cmd.printAST ,cmd.generateExternal);
          if(cmd.simulate!=null){
-                String msg;
+                OMCmsg msg;
                 try {
                   msg = OMCUtil.compile(file.getPath(), "", cs);
-                  if(msg.contains("false"))
+                  if(msg.msg.contains("false"))
                   logger.error("Unable to load Modelica model " + file + 
                       "\n omc fails with the following message: \n" + msg);
                 }

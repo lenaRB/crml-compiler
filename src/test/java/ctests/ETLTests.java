@@ -9,7 +9,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import crml.compiler.ModelicaSimulationException;
 import crml.compiler.TestListener;
-import crml.compiler.TestMonitor;
 import crml.compiler.OMCUtil.CompileStage;
 
 import org.junit.jupiter.params.ParameterizedTest;
@@ -35,14 +34,14 @@ public class ETLTests  {
         @ParameterizedTest
         @MethodSource("fileNameSource")
         public void simulateTestFile(final String fileName) throws InterruptedException, IOException, ModelicaSimulationException {
-            files = "DUMMY2";
-            Util.runTest(fileName, cs, CompileStage.TRANSLATE);
+            files = Util.runTest(fileName, cs, CompileStage.TRANSLATE);
         }
     }
 
     @Nested
-    @ExtendWith(TestMonitor.class)
+    @ExtendWith(TestListener.class)
     public static class SimulationTests extends ParameterizedSuite {
+        public static String files;
 
         @BeforeAll
         public static void setupTestSuite() {
@@ -56,8 +55,7 @@ public class ETLTests  {
         @ParameterizedTest
         @MethodSource("fileNameSource")
         public void simulateTestFile(final String fileName) throws InterruptedException, IOException, ModelicaSimulationException {
-            String files = "DUMMY";
-            Util.runTest(fileName, cs, CompileStage.SIMULATE);
+            files = Util.runTest(fileName, cs, CompileStage.SIMULATE);
         }
 
     }

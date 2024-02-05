@@ -63,6 +63,11 @@ public class TestListener implements TestExecutionListener, AfterEachCallback  {
       return;
     
     final ExtentTest node = testKlass.createNode(test.getDisplayName());
+
+    if(FILES.containsKey(test.getDisplayName())){
+      node.info(FILES.get(test.getDisplayName()));
+    }
+      
     
     if (SKIPPED.containsKey(test)) {
       node.skip(SKIPPED.get(test));
@@ -126,21 +131,14 @@ public class TestListener implements TestExecutionListener, AfterEachCallback  {
     public void afterEach(final ExtensionContext context) throws Exception {
         
         Object testInstance = context.getRequiredTestInstance();
-        
-        
 
-        System.out.println("+++++" + context.getUniqueId());
-
-        System.out.println("--------DEBUG2");
-
+        // System.out.println("debug " + context.getDisplayName());
         try{
-         System.out.println("Instance name2 :" + testInstance.getClass().getName());
          Field resultField = testInstance.getClass().getDeclaredField("files");
          String resultValue = (String) resultField.get(testInstance);
-         FILES.put(context.getUniqueId(), resultValue);
-         System.out.println("---------- Value of result2: " + resultValue);
+         FILES.put(context.getDisplayName(), resultValue);
         } catch (Exception e) {
-           System.out.println("ERROR2-------- " + e.getMessage());
+           System.out.println(e.getMessage());
         }
     }  
     

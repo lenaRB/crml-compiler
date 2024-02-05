@@ -121,7 +121,7 @@ public class OMCUtil {
         return mos_text;
     }
 
-    public static String compile(String stripped_file_name, String out_dir, CompileSettings cs) throws ModelicaSimulationException, IOException, InterruptedException {
+    public static OMCmsg compile(String stripped_file_name, String out_dir, CompileSettings cs) throws ModelicaSimulationException, IOException, InterruptedException {
     
     String filePrefix = out_dir + java.io.File.separator + stripped_file_name;
     String script_file_name =  filePrefix + ".mos";
@@ -165,7 +165,7 @@ public class OMCUtil {
     if (!isFinished)
        throw new ModelicaSimulationException("Simulation timed out [30 seconds]: " 	+ omc + stripped_file_name + ".mos");
 
-    return msg + omcOutput;
+    return new OMCmsg(msg,omcOutput);
     
   }
 

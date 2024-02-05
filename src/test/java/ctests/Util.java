@@ -6,6 +6,7 @@ import java.io.IOException;
 import crml.compiler.CompileSettings;
 import crml.compiler.ModelicaSimulationException;
 import crml.compiler.OMCUtil;
+import crml.compiler.OMCmsg;
 import crml.compiler.Utilities;
 import crml.compiler.OMCUtil.CompileStage;
 
@@ -19,7 +20,7 @@ public class Util {
 	 * @throws IOException
 	 * @throws ModelicaSimulationException
 	 */
-	static void runTest( final String fileName, 
+	static String runTest( final String fileName, 
 						final CompileSettings cs,
 						final CompileStage stage) 
 							throws InterruptedException, IOException, ModelicaSimulationException {
@@ -31,19 +32,24 @@ public class Util {
 		try {
     		
 			crml.compiler.CRMLC.parse_file(cs.testFolderIn, fileName, out_dir, 
-				true, true, true);
+				true, false, true);
 			
     	} catch (Exception e) {
 			fail("Unable to translate " + fileName + "to Modelica :\n" + e.getMessage());
 		}
 
-		if (stage == CompileStage.TRANSLATE) 
-			return;
+		//if (stage == CompileStage.TRANSLATE) 
+			//return "no files generated";
 
-		String msg = OMCUtil.compile(stripped_file_name, out_dir, cs);
+		OMCmsg ret = OMCUtil.compile(stripped_file_name, out_dir, cs);
 
-		if(msg.contains("false"))
+		if(ret.msg.contains("false"))
 			fail("Unable to run Modelica script " + Utilities.getAbsolutePath(stripped_file_name) + ".mos" +
-				"\n omc fails with the following message: \n" + msg);
+				"\n omc fails with the following message: \n" + ret.msg);
+		
+		return ret.files;
+		
 		}
+
+		
 }
