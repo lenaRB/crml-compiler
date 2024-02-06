@@ -284,7 +284,6 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			
 			// keep a list of operator signatures for typing calls
 			Signature sig = new Signature();
-			System.out.println("RETURN:::: " + bType + "\n");
 			sig.return_type = ctx.type().getText();
 			sig.return_name = "out";
 			sig.function_name = modelName.toString();
