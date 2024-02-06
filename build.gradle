@@ -36,7 +36,8 @@ plugins {
 
     implementation "com.aventstack:extentreports:5.0.9"
 
- }
+    implementation 'com.j2html:j2html:1.6.0' 
+    }
 
     sourceSets { // adding tests to source directories to run test suite
     main {

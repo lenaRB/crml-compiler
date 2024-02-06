@@ -12,6 +12,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.concurrent.TimeUnit;
 
+import static j2html.TagCreator.*;
+
 /**
  * Wrapper for OpenModelica compiler calls
  */
@@ -97,8 +99,8 @@ public class OMCUtil {
             + "loadFile(\""+ Utilities.toUnixPath(crml2Modelica.getAbsolutePath()) + "\"); getErrorString();" + "\n"
         + "loadFile(\"" + stripped_file_name + ".mo"+ "\"); getErrorString();" + "\n"
         + "checkModel("+ stripped_file_name +"); getErrorString();\n";
-
-   
+    
+       
     // check if there is a simulation example to run the test-case
     
     File verif_model = new File(Utilities.addDirToPath(verifModelFolder, stripped_file_name));
@@ -135,6 +137,7 @@ public class OMCUtil {
     if(ref_file.exists()){
       mos_text +=  OMCUtil.compareSimulationResults(stripped_file_name + "_verif_res.mat", ref_file.getPath());
     }
+   
     
     BufferedWriter writer = new BufferedWriter(new FileWriter(script_file_name));
     writer.write(mos_text);
@@ -153,11 +156,17 @@ public class OMCUtil {
     // Not needed because we redirected via redirectErrorStream
     // InputStream errorStream = process.getErrorStream();
     
-    String prefix = Utilities.toUnixPath(Utilities.getAbsolutePath(filePrefix));
-    String msg = "<p>Files:<br><a href=\"file:///" + prefix + ".mos" + "\">" + prefix + ".mos" + "</a><br>\n" +
-                 "<a href=\"file:///" + prefix + ".mo" + "\">" + prefix + ".mo" + "</a><br>\n" +
-                 "<a href=\"file:///" + Utilities.toUnixPath(getCRMLToModelicaFile().getAbsolutePath()) + "\">" + Utilities.toUnixPath(getCRMLToModelicaFile().getAbsolutePath()) + "</a><br>\n" +
-           "<a href=\"file:///" + Utilities.toUnixPath(getCRMLLibrary().getAbsolutePath()) + "\">" + Utilities.toUnixPath(getCRMLLibrary().getAbsolutePath()) + "</a><br></p>\n";
+    String msg = p(join("Files", br())).render();
+    File mos_file = new File(script_file_name);
+    File mo_file = new File (filePrefix + ".mo");
+   
+    
+    msg +=  p(join(
+            a(mos_file.toString()).withHref(mos_file.toURI().toString()), br(),
+            a(mo_file.toString()).withHref(mo_file.toURI().toString()), br(),
+            a(getCRMLToModelicaFile().toString()).withHref(getCRMLToModelicaFile().toURI().toString()), br(),
+            a(getCRMLLibrary().getPath().toString()).withHref(getCRMLLibrary().toURI().toString()), br())).render();
+ 
     String omcOutput = checkInputStream(inputStream);
 
 		// wait for is *AFTER* we consume the output, otherwise process is blocked on output write!
