@@ -1,7 +1,7 @@
 model OperatorExample1 is {
 	// Definition of an operator (i.e. function) that returns a clock 
 	// with the ticks of another clock c that are within a given time period P.
-	Operator [ Clock ] 'ticks' Clock c 'inside' Period P = c filter (tick >= P start) and (tick <= P end);
+	Operator [ Clock ] 'ticks' Clock c 'inside' Period P = c filter (tick c >= P start) and (tick c <= P end);
 	
 	// Example of function call
 	Boolean b is if 2.5 < time and time < 15 then true else false;

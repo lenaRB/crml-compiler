@@ -9,8 +9,8 @@ model CountInside_no_ext is {
 	
 	// Example of function call
 	Boolean b1 is if (2.5 < time) and (time < 5) then true else false;
-	Period P1 is [ b1, not b1 ];
-	Boolean b2 is if ((2 < time) and (time < 3)) or ((3.5 < time) and (time < 4.5)) then true else false;
+	Period P1 is [ new Event b1, new Event (not b1) ];
+	Boolean b2 is if ((2 < time) and (time < 3)) or ((3.5 < time) and (time < 4.5)) or ((6 < time) and (time < 7.5)) then true else false;
 	Clock C1 is new Clock b2;
 	
 	Integer i_count_ticks_of_c1_inside_p1 is 'count' C1 'inside' P1; // Value should be 1 (there is only one tick of C1 inside Period P1)

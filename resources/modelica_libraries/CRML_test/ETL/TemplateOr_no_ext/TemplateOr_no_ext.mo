@@ -1,5 +1,5 @@
 within CRML_test.ETL.TemplateOr_no_ext;
-partial model TemplateOr_no_ext
+model TemplateOr_no_ext
   import CRML.ETL.Types.Boolean4;
   CRML.ETL.Types.Boolean4 b_true = Boolean4.true4;
   CRML.ETL.Types.Boolean4 b_false = Boolean4.false4;
