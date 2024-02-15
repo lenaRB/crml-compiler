@@ -8,11 +8,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import crml.compiler.CompileSettings;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+import crml.compiler.CompileSettings;
+import crml.compiler.TestListener;
+import crml.compiler.OMCUtil.CompileStage;
+
+@ExtendWith(TestListener.class) // a hook for catching succesful test results in the test report
 public class ParameterizedSuite {
 
     public static CompileSettings cs = new CompileSettings();
+	CompileStage stage = null;
 
     /**
 	 * Method for feeding the list of files into the parametrized test

@@ -15,10 +15,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 
 
 public class ETLTests  {
-    String files = "Result ---";
+    String files = "Unable to produce file list"; // default message, replaced for each test
+    
 
     @Nested
-    @ExtendWith(TestListener.class)
     public static class TranslationTests extends ParameterizedSuite {
 
         public static String files;
@@ -39,7 +39,6 @@ public class ETLTests  {
     }
 
     @Nested
-    @ExtendWith(TestListener.class)
     public static class SimulationTests extends ParameterizedSuite {
         public static String files;
 

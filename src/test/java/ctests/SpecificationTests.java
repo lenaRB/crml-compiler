@@ -17,7 +17,7 @@ import crml.compiler.OMCUtil.CompileStage;
  * @author Lena B
  *
  */
-public class SpecificationTests extends ctests.ParameterizedSuite {
+public class SpecificationTests {
 
 	@Nested
     static class VerificationTests extends ParameterizedSuite {
