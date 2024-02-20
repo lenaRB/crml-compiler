@@ -83,9 +83,9 @@ public class OMCUtil {
     return new File(startedFrom + java.io.File.separator + CompileSettings.CRMLLibrary);
   }
 
-    public static String generateSimulationScript(String stripped_file_name, String verifModelFolder, String out_dir) throws IOException {
+  public static String generateSimulationScript(String stripped_file_name, String verifModelFolder, String out_dir) throws IOException {
     File crml2Modelica = getCRMLToModelicaFile();
-      File crmlLib = getCRMLLibrary();
+    File crmlLib = getCRMLLibrary();
 
     if (!crml2Modelica.exists()) 
       throw new IOException("Could not find: " + Utilities.toUnixPath(crml2Modelica.getAbsolutePath()));
@@ -94,15 +94,23 @@ public class OMCUtil {
       throw new IOException("Could not find: " + Utilities.toUnixPath(crmlLib.getAbsolutePath()));
       
 
-        // .mos file for running the generated Modelica file
-    String mos_text = "cd(); getErrorString();" + "\n"
-            + "loadFile(\""+ Utilities.toUnixPath(crml2Modelica.getAbsolutePath()) + "\"); getErrorString();" + "\n"
-        + "loadFile(\"" + stripped_file_name + ".mo"+ "\"); getErrorString();" + "\n"
-        + "checkModel("+ stripped_file_name +"); getErrorString();\n";
-    
-       
+    // .mos file for running the generated Modelica file
+    String mos_text = 
+      "cd();\n" +
+      "if not loadFile(\""+ Utilities.toUnixPath(crml2Modelica.getAbsolutePath()) + "\") then\n" +
+      "  print(getErrorString());\n" +
+      "  exit(1);\n" +
+      "end if;\n" + 
+      "getErrorString();\n" +
+      "if not loadFile(\"" + stripped_file_name + ".mo"+ "\") then\n" +
+      "  print(getErrorString());\n" +
+      "  exit(1);\n" +
+      "end if;\n" +
+      "getErrorString();\n" +
+      "checkModel("+ stripped_file_name +");\n" +
+      "getErrorString();\n";
+   
     // check if there is a simulation example to run the test-case
-    
     File verif_model = new File(Utilities.addDirToPath(verifModelFolder, stripped_file_name));
     
     if(verif_model.exists()) {
@@ -113,15 +121,27 @@ public class OMCUtil {
         Files.copy(f.toPath(), Paths.get(out_dir, f.getName()), StandardCopyOption.REPLACE_EXISTING);
         //System.err.println(f.getName());
       }
-      mos_text += "loadFile(\""+ Utilities.toUnixPath(crmlLib.getAbsolutePath()) + "\"); getErrorString();" + "\n";
-      mos_text += "loadFile(\"" + stripped_file_name + "_verif" + ".mo"+ "\"); getErrorString();" + "\n";
-      mos_text += "loadFile(\"" + stripped_file_name + "_externals" + ".mo"+ "\"); getErrorString();" + "\n";
+      mos_text += "if not loadFile(\""+ Utilities.toUnixPath(crmlLib.getAbsolutePath()) + "\") then\n" +
+                  "  print(getErrorString());\n" +
+                  "  exit(1);\n" +
+                  "end if;\n" + 
+                  "getErrorString();\n";
+      mos_text += "if not loadFile(\"" + stripped_file_name + "_verif" + ".mo"+ "\") then\n" +
+                  "  print(getErrorString());\n" +
+                  "  exit(1);\n" +
+                  "end if;\n" + 
+                 "getErrorString();\n";
+      mos_text += "if not loadFile(\"" + stripped_file_name + "_externals" + ".mo"+ "\") then\n" +
+                  "  print(getErrorString());\n" +
+                  "  exit(1);\n" +
+                  "end if;\n" + 
+                  "getErrorString();\n";
       mos_text +=  "simulate("+ stripped_file_name + "_verif" +"); getErrorString();\n";
-      } else // try simulating the model on its own (the non_external ones)
+    } else // try simulating the model on its own (the non_external ones)
       mos_text +=  "simulate("+ stripped_file_name +"); getErrorString();\n";
 
-        return mos_text;
-    }
+      return mos_text;
+  }
 
     public static OMCmsg compile(String stripped_file_name, String out_dir, CompileSettings cs) throws ModelicaSimulationException, IOException, InterruptedException {
     
