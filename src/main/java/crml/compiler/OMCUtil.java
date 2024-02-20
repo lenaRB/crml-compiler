@@ -136,11 +136,28 @@ public class OMCUtil {
                   "  exit(1);\n" +
                   "end if;\n" + 
                   "getErrorString();\n";
-      mos_text +=  "simulate("+ stripped_file_name + "_verif" +"); getErrorString();\n";
-    } else // try simulating the model on its own (the non_external ones)
-      mos_text +=  "simulate("+ stripped_file_name +"); getErrorString();\n";
+      mos_text += "res := simulate("+ stripped_file_name + "_verif" +");\n" + 
+                  "error := getErrorString();\n" + 
+                  "resultFile := res.resultFile;\n" +
+                  "messages := res.messages;\n" +
+                  "if resultFile == \"\" then\n" + 
+                  "  print(\"Error: Simulation of: " + stripped_file_name + "_verif" + " did not produce a result-file\n\");\n" +
+                  "  print(\"Errors: \" + messages + error + \"\\n\");\n" +
+                  "  exit(1);\n" +
+                  "end if;\n";
+    } else { // try simulating the model on its own (the non_external ones)
+      mos_text += "res := simulate("+ stripped_file_name +");" + 
+                  "error := getErrorString();\n" + 
+                  "resultFile := res.resultFile;\n" +
+                  "messages := res.messages;\n" +
+                  "if resultFile == \"\" then\n" + 
+                  "  print(\"Error: Simulation of: " + stripped_file_name + " did not produce a result-file\n\");\n" +
+                  "  print(\"Errors: \" + messages + error + \"\\n\");\n" +
+                  "  exit(1);\n" +
+                  "end if;\n";
+    }
 
-      return mos_text;
+    return mos_text;
   }
 
     public static OMCmsg compile(String stripped_file_name, String out_dir, CompileSettings cs) throws ModelicaSimulationException, IOException, InterruptedException {
