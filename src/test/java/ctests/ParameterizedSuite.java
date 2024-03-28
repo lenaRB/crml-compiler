@@ -18,7 +18,6 @@ import crml.compiler.OMCUtil.CompileStage;
 public class ParameterizedSuite {
 
     public static CompileSettings cs = new CompileSettings();
-	CompileStage stage = null;
 
     /**
 	 * Method for feeding the list of files into the parametrized test

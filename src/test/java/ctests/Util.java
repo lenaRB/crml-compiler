@@ -10,6 +10,10 @@ import crml.compiler.OMCmsg;
 import crml.compiler.Utilities;
 import crml.compiler.OMCUtil.CompileStage;
 
+import java.io.File;
+
+import static j2html.TagCreator.*;
+
 public class Util {
 
 
@@ -20,7 +24,7 @@ public class Util {
 	 * @throws IOException
 	 * @throws ModelicaSimulationException
 	 */
-	static String runTest( final String fileName, 
+	static OMCmsg runTest( final String fileName, 
 						final CompileSettings cs,
 						final CompileStage stage) 
 							throws InterruptedException, IOException, ModelicaSimulationException {
@@ -38,16 +42,17 @@ public class Util {
 			fail("Unable to translate " + fileName + " to Modelica\n", e);
 		}
 
-		if (stage == CompileStage.TRANSLATE) 
-			return "no files generated";
-
+		if (stage == CompileStage.TRANSLATE) {
+			String fullName = out_dir + java.io.File.separator + stripped_file_name + ".mo";
+			File mo_file = new File (fullName);
+			String files =  p(join(a(fullName).withHref(mo_file.toURI().toString()), br())).render();
+			System.out.println("STAGE + " + CompileStage.TRANSLATE);
+			return new OMCmsg(files, "");
+		}
+			
 		OMCmsg ret = OMCUtil.compile(stripped_file_name, out_dir, cs);
 
-		if(ret.msg.contains("false")||ret.msg.contains("Failed")||ret.msg.contains("Error"))
-			fail("Unable to run Modelica script " + Utilities.getAbsolutePath(stripped_file_name) + ".mos", 
-			new Throwable( "\n omc fails with the following message: \n" + ret.msg));
-		
-		return ret.files;
+		return ret;
 		
 		}
 
