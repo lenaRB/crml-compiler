@@ -545,8 +545,6 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 	public Value visitPeriod_op(crmlParser.Period_opContext ctx) {
 		
 		//String periodType = types_mapping.get("Period");
-
-		//TODO add typechecking
 		
 		Value left = visit(ctx.exp(0));
 		Value right = visit(ctx.exp(0));
@@ -554,13 +552,20 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		Boolean lborder = (ctx.lb.getText().equals("["));
 		Boolean rborder = (ctx.rb.getText().equals("]"));
 
-		String code = 
-			"CRMLtoModelica.Types.CRMLPeriod(left=" + left.contents + 
-		    ", right=" + right.contents + 
-			",lb=" +lborder.toString() + 
-			",rb=" +rborder.toString()+")";
+		String varName = "p" + counter++;
+
+		String periodType = types_mapping.get("Period");
 			
-		return new Value (code, "Period", false);
+		String code = 
+			periodType + " " + varName +
+			"(isLeftBoundaryIncluded=" + lborder.toString() + 
+		    ", isRightBoundaryIncluded=" + rborder.toString() + 
+			", start_event=" + left.contents + 
+			", end_event=" + right.contents +");\n";
+		
+		localFunctionCalls.append(code);
+			
+		return new Value (varName, "Period", false);
 	}
 
 	@Override
