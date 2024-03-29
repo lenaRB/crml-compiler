@@ -1,0 +1,12 @@
+model Implies is {
+	// Definition of disjunction of two Booleans.
+	Template b1 'or' b2 = not(not b1 and not b2);	
+
+	// Definition of logical inference
+	Template b1 'implies' b2 = (not b1) 'or' b2;
+	
+	// Example of function call
+	Boolean b1 is external;
+	Boolean b2 is external;
+	Boolean b1_implies_b2 is b1 'implies' b2;
+};
