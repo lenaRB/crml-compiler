@@ -61,7 +61,8 @@ end CRMLClock;
     
     public
         output WhileLocator y "Vector of time periods";
-        input Boolean4 u "Alternating opening and closing events";
+        input Boolean4 start_event "Alternating opening and closing events";
+        input Boolean4 end_event "Alternating opening and closing events";
         input WhileLocator tl;
       
     initial equation //TODO check behaviour here, I am not sure this is correct
