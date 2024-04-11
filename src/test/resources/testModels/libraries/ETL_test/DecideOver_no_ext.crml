@@ -11,5 +11,5 @@ model DecideOver_no_ext is {
 	Boolean b1 is if (2.5 < time) and (time < 5) then true else false;
 	Period P1 is [ new Event b1, new Event not b1];
 			
-	Boolean b_decide_over is 'decide' phi1 'over' P1; //Value is undecided and becomes false at t=3.5s
+	Boolean b_decide_over is 'decide' phi1 'over' P1; //Value is false until t=2s, remains undecided and becomes false again at t=3.5s
 };
