@@ -1,5 +1,4 @@
-﻿within ;
-package CRML
+﻿package CRML
   package UsersGuide "User's Guide"
 
     class Overview "Overview of CRML"
@@ -12298,10 +12297,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
         CRML.ETL.Requirements.CheckAtEnd ensure
           annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-        ReqSysPro.Conditions.CheckBoolean check
-          annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-        ReqSysPro.TimeLocators.Continuous.AfterBefore afterBefore
-          annotation (Placement(transformation(extent={{20,0},{40,20}})));
         Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_2
           annotation (Placement(transformation(extent={{-44,46},{-36,54}})));
         Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_3
@@ -12313,14 +12308,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{-35.6,-30},{-21,-30}}, color={162,29,33}));
         connect(timePeriod.y, ensure.tl)
           annotation (Line(points={{-10,40},{-10,-20},{-10,-20}}, color={0,0,255}));
-        connect(eventPeriodic.y, check.u) annotation (Line(points={{-59,-30},{-52,
-                -30},{-52,-50},{19,-50}}, color={217,67,180}));
-        connect(eventTable.y, afterBefore.u1) annotation (Line(points={{-59,60},{
-                -28,60},{-28,10},{19,10}}, color={217,67,180}));
-        connect(eventTable1.y, afterBefore.u2) annotation (Line(points={{-59,30},
-                {-40,30},{-40,2},{19,2}}, color={217,67,180}));
-        connect(afterBefore.y, check.tl)
-          annotation (Line(points={{30,0},{30,-40}}, color={0,0,255}));
         connect(eventTable.y, booleanToBoolean4_2.u) annotation (Line(points={{-59,60},
                 {-50,60},{-50,50},{-44.4,50}},         color={217,67,180}));
         connect(booleanToBoolean4_2.y, timePeriod.u1)
@@ -12360,10 +12347,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
             model Condition =
               ETL.Requirements.Conditions.MathInteger.IntegerEqual)
           annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-        ReqSysPro.Conditions.Ensure       check
-          annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-        ReqSysPro.TimeLocators.Continuous.AfterBefore afterBefore
-          annotation (Placement(transformation(extent={{40,0},{60,20}})));
         Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_2
           annotation (Placement(transformation(extent={{-44,46},{-36,54}})));
         Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_3
@@ -12377,14 +12360,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{-59,-30},{-44.4,-30}}, color={217,67,180}));
         connect(timePeriod.y, ensure.tl)
           annotation (Line(points={{10,40},{10,-20}},             color={0,0,255}));
-        connect(eventPeriodic.y, check.u) annotation (Line(points={{-59,-30},{-52,
-                -30},{-52,-50},{39,-50}}, color={217,67,180}));
-        connect(eventTable.y, afterBefore.u1) annotation (Line(points={{-59,60},{
-                -28,60},{-28,10},{39,10}}, color={217,67,180}));
-        connect(eventTable1.y, afterBefore.u2) annotation (Line(points={{-59,30},
-                {-40,30},{-40,2},{39,2}}, color={217,67,180}));
-        connect(afterBefore.y, check.tl)
-          annotation (Line(points={{50,0},{50,-40}}, color={0,0,255}));
         connect(eventTable.y, booleanToBoolean4_2.u) annotation (Line(points={{-59,60},
                 {-50,60},{-50,50},{-44.4,50}},         color={217,67,180}));
         connect(booleanToBoolean4_2.y, timePeriod.u1)
@@ -12428,10 +12403,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
         Blocks.MathInteger.IntegerConstant integerConstant(K=5)
           annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-        ReqSysPro.Conditions.CheckInPCount check(criteria=">=")
-          annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-        ReqSysPro.TimeLocators.Continuous.FromBefore  afterBefore
-          annotation (Placement(transformation(extent={{20,-20},{40,0}})));
         TimeLocators.While While
           annotation (Placement(transformation(extent={{-20,40},{0,60}})));
         Blocks.Logical.BooleanPulse booleanPulse(
@@ -12445,8 +12416,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Placement(transformation(extent={{-44,-2},{-36,6}})));
         Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_4
           annotation (Placement(transformation(extent={{-44,46},{-36,54}})));
-        ReqSysPro.TimeLocators.Continuous.During during
-          annotation (Placement(transformation(extent={{20,20},{40,40}})));
         TimeLocators.While While1
           annotation (Placement(transformation(extent={{-20,80},{0,100}})));
         Blocks.Logical.BooleanPulse booleanPulse1(
@@ -12468,20 +12437,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
       equation
         connect(eventPeriodic.y, booleanToBoolean4_1.u)
           annotation (Line(points={{-59,-40},{-44.4,-40}}, color={217,67,180}));
-        connect(eventPeriodic.y, check.u) annotation (Line(points={{-59,-40},{-52,
-                -40},{-52,-60},{0,-60},{0,-70},{19,-70}},
-                                          color={217,67,180}));
-        connect(integerConstant.y, check.threshold) annotation (Line(points={{-59,-70},
-                {-20,-70},{-20,-78},{19,-78}},      color={255,127,0}));
-        connect(eventTable.y, afterBefore.u1) annotation (Line(points={{-59,20},{
-                -28,20},{-28,-10},{19,-10}},
-                                           color={217,67,180}));
-        connect(eventTable1.y, afterBefore.u2) annotation (Line(points={{-59,-10},
-                {-40,-10},{-40,-18},{19,-18}},
-                                          color={217,67,180}));
-        connect(afterBefore.y, check.tl)
-          annotation (Line(points={{30,-20},{30,-60}},
-                                                     color={0,0,255}));
         connect(eventTable.y, booleanToBoolean4_2.u) annotation (Line(points={{-59,20},
                 {-50,20},{-50,10},{-44.4,10}},         color={217,67,180}));
         connect(booleanToBoolean4_2.y, timePeriod.u1)
@@ -12492,10 +12447,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{-59,50},{-44.4,50}}, color={217,67,180}));
         connect(booleanToBoolean4_4.y, While.u)
           annotation (Line(points={{-35.6,50},{-21,50}}, color={162,29,33}));
-        connect(during.y, afterBefore.tl)
-          annotation (Line(points={{30,20},{30,0}},  color={0,0,255}));
-        connect(booleanPulse.y, during.u) annotation (Line(points={{-59,50},{-52,
-                50},{-52,30},{19,30}}, color={217,67,180}));
         connect(While.y, timePeriod.tl) annotation (Line(points={{-10,40},{-10,20}},
                            color={0,0,255}));
         connect(booleanToBoolean4_3.y, timePeriod.u2)
@@ -12548,10 +12499,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
               ETL.Requirements.Functions.Math.Boolean4Integrator, redeclare
             model Condition = ETL.Requirements.Conditions.Math.GreaterEqual)
           annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-        ReqSysPro.Conditions.CheckInPDuration check(criteria=">=")
-          annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-        ReqSysPro.TimeLocators.Continuous.AfterBefore afterBefore
-          annotation (Placement(transformation(extent={{20,0},{40,20}})));
         Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_2
           annotation (Placement(transformation(extent={{-44,46},{-36,54}})));
         Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_3
@@ -12565,14 +12512,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{-35.6,-30},{-21,-30}}, color={162,29,33}));
         connect(timePeriod.y, ensure.tl)
           annotation (Line(points={{-10,40},{-10,-20}},           color={0,0,255}));
-        connect(eventPeriodic.y, check.u) annotation (Line(points={{-59,-30},{-52,
-                -30},{-52,-50},{19,-50}}, color={217,67,180}));
-        connect(eventTable.y, afterBefore.u1) annotation (Line(points={{-59,60},{
-                -28,60},{-28,10},{19,10}}, color={217,67,180}));
-        connect(eventTable1.y, afterBefore.u2) annotation (Line(points={{-59,30},
-                {-40,30},{-40,2},{19,2}}, color={217,67,180}));
-        connect(afterBefore.y, check.tl)
-          annotation (Line(points={{30,0},{30,-40}}, color={0,0,255}));
         connect(eventTable.y, booleanToBoolean4_2.u) annotation (Line(points={{-59,60},
                 {-50,60},{-50,50},{-44.4,50}},         color={217,67,180}));
         connect(booleanToBoolean4_2.y, timePeriod.u1)
@@ -12583,8 +12522,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{-35.6,42},{-21,42}}, color={162,29,33}));
         connect(integerConstant.y, ensure.threshold) annotation (Line(points={{
                 -59,-70},{-40,-70},{-40,-38},{-21,-38}}, color={0,0,0}));
-        connect(integerConstant.y, check.threshold) annotation (Line(points={{-59,
-                -70},{-40,-70},{-40,-58},{19,-58}}, color={0,0,0}));
         connect(timePeriod.y, showDiscretePeriods.tl) annotation (Line(points={
                 {-10,40},{-10,-6},{10,-6},{10,-10}}, color={0,0,255}));
         annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -12620,10 +12557,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
         Requirements.CheckAtEnd ensure
           annotation (Placement(transformation(extent={{-2,-80},{18,-60}})));
-        ReqSysPro.Conditions.CheckBoolean check
-          annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-        ReqSysPro.TimeLocators.Discrete.AfterFor      afterBefore
-          annotation (Placement(transformation(extent={{40,-58},{60,-38}})));
         Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_2
           annotation (Placement(transformation(extent={{-44,-4},{-36,4}})));
         Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_3
@@ -12664,11 +12597,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{-35.6,-70},{-3,-70}},  color={162,29,33}));
         connect(timePeriod.y, ensure.tl)
           annotation (Line(points={{10,-10},{10,-60},{8,-60}},    color={0,0,255}));
-        connect(eventPeriodic.y, check.u) annotation (Line(points={{-59,-90},{39,
-                -90}},                    color={217,67,180}));
-        connect(afterBefore.y, check.tl)
-          annotation (Line(points={{50,-58},{50,-80}},
-                                                     color={0,0,255}));
         connect(eventTable.y, booleanToBoolean4_2.u) annotation (Line(points={{-59,10},
                 {-50,10},{-50,0},{-44.4,0}},           color={217,67,180}));
         connect(booleanToBoolean4_2.y, timePeriod.u1)
@@ -12694,12 +12622,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{44.4,80},{59,80}}, color={162,29,33}));
         connect(While.y, While1.tl) annotation (Line(points={{70,70},{70,60},{
                 10,60},{10,50}}, color={0,0,255}));
-        connect(eventTable.y, afterBefore.u) annotation (Line(points={{-59,10},{
-                -50,10},{-50,-48},{39,-48}}, color={217,67,180}));
-        connect(const.y, afterBefore.duration) annotation (Line(points={{-59,-20},
-                {-20,-20},{-20,-56},{39,-56}}, color={255,127,0}));
-        connect(eventPeriodic1.y, afterBefore.clock) annotation (Line(points={{
-                -59,80},{-52,80},{-52,-40},{39,-40}}, color={217,67,180}));
         connect(const.y, timePeriod.discreteDuration) annotation (Line(points={
                 {-59,-20},{-20,-20},{-20,-8},{-1,-8}}, color={255,127,0}));
         annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -12734,10 +12656,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
             model Condition =
               ETL.Requirements.Conditions.MathInteger.IntegerGreaterEqual)
           annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-        ReqSysPro.Conditions.CheckInPCount check(criteria=">=")
-          annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-        ReqSysPro.TimeLocators.Continuous.AfterFor afterFor
-          annotation (Placement(transformation(extent={{20,0},{40,20}})));
         TimeLocators.While While
           annotation (Placement(transformation(extent={{-20,80},{0,100}})));
         Blocks.Logical.BooleanPulse booleanPulse(
@@ -12749,8 +12667,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Placement(transformation(extent={{-44,46},{-36,54}})));
         Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_4
           annotation (Placement(transformation(extent={{-44,86},{-36,94}})));
-        ReqSysPro.TimeLocators.Continuous.During during
-          annotation (Placement(transformation(extent={{20,60},{40,80}})));
         CRML.Blocks.Math.Constant const(k=10)
           annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
         Blocks.Events.ShowEvent showEvent
@@ -12764,12 +12680,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{-10,40},{-10,-20}},           color={0,0,255}));
         connect(integerConstant.y, ensure.threshold) annotation (Line(points={{-59,-70},
                 {-40,-70},{-40,-38},{-21,-38}}, color={255,127,0}));
-        connect(eventPeriodic.y, check.u) annotation (Line(points={{-59,-30},{-52,
-                -30},{-52,-50},{19,-50}}, color={217,67,180}));
-        connect(integerConstant.y, check.threshold) annotation (Line(points={{-59,-70},
-                {-20,-70},{-20,-58},{19,-58}},      color={255,127,0}));
-        connect(afterFor.y, check.tl)
-          annotation (Line(points={{30,0},{30,-40}}, color={0,0,255}));
         connect(While.y, timePeriod.tl)
           annotation (Line(points={{-10,80},{-10,60}}, color={0,0,255}));
         connect(eventTable.y, booleanToBoolean4_2.u) annotation (Line(points={{-59,50},
@@ -12780,14 +12690,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{-59,90},{-44.4,90}}, color={217,67,180}));
         connect(booleanToBoolean4_4.y, While.u)
           annotation (Line(points={{-35.6,90},{-21,90}}, color={162,29,33}));
-        connect(during.y, afterFor.tl)
-          annotation (Line(points={{30,60},{30,20}}, color={0,0,255}));
-        connect(booleanPulse.y, during.u) annotation (Line(points={{-59,90},{-52,
-                90},{-52,70},{19,70}}, color={217,67,180}));
-        connect(const.y, afterFor.duration) annotation (Line(points={{-59,0},{10,
-                0},{10,2},{19,2}},      color={0,0,0}));
-        connect(eventTable.y, afterFor.u) annotation (Line(points={{-59,50},{-50,
-                50},{-50,10},{19,10}}, color={217,67,180}));
         connect(const.y, timePeriod.continuousDuration) annotation (Line(points=
                {{-59,0},{-30,0},{-30,42},{-21,42}}, color={0,0,0}));
         connect(eventPeriodic.y, showEvent.u) annotation (Line(points={{-59,-30},
@@ -12824,10 +12726,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
             model Condition =
               ETL.Requirements.Conditions.MathInteger.IntegerGreaterEqual)
           annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-        ReqSysPro.Conditions.CheckInPCount check(criteria=">=")
-          annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-        ReqSysPro.TimeLocators.Continuous.AfterFor afterFor
-          annotation (Placement(transformation(extent={{20,0},{40,20}})));
         TimeLocators.While While
           annotation (Placement(transformation(extent={{-20,80},{0,100}})));
         Blocks.Logical.BooleanPulse booleanPulse(
@@ -12839,15 +12737,10 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Placement(transformation(extent={{-44,46},{-36,54}})));
         Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_4
           annotation (Placement(transformation(extent={{-44,86},{-36,94}})));
-        ReqSysPro.TimeLocators.Continuous.During during
-          annotation (Placement(transformation(extent={{20,60},{40,80}})));
         Blocks.Math.Constant const(k=0)
           annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
         TimeLocators.ShowDiscretePeriods showDiscreteTimeLocator
           annotation (Placement(transformation(extent={{6,16},{14,24}})));
-        ReqSysPro.TimeLocators.Operators.ShowDiscreteTimePeriods
-          showDiscreteTimePeriods
-          annotation (Placement(transformation(extent={{46,-24},{54,-16}})));
         TimeLocators.While continuousTimeWhile
           annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
         TimeLocators.ShowDiscreteWhile showDiscreteTimeWhile
@@ -12861,12 +12754,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{-10,40},{-10,-20}},           color={0,0,255}));
         connect(integerConstant.y, ensure.threshold) annotation (Line(points={{-59,-70},
                 {-40,-70},{-40,-38},{-21,-38}}, color={255,127,0}));
-        connect(eventPeriodic.y, check.u) annotation (Line(points={{-59,-30},{-52,
-                -30},{-52,-50},{19,-50}}, color={217,67,180}));
-        connect(integerConstant.y, check.threshold) annotation (Line(points={{-59,-70},
-                {-20,-70},{-20,-58},{19,-58}},      color={255,127,0}));
-        connect(afterFor.y, check.tl)
-          annotation (Line(points={{30,0},{30,-40}}, color={0,0,255}));
         connect(While.y, timePeriod.tl)
           annotation (Line(points={{-10,80},{-10,60}}, color={0,0,255}));
         connect(eventTable.y, booleanToBoolean4_2.u) annotation (Line(points={{-59,50},
@@ -12877,18 +12764,8 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{-59,90},{-44.4,90}}, color={217,67,180}));
         connect(booleanToBoolean4_4.y, While.u)
           annotation (Line(points={{-35.6,90},{-21,90}}, color={162,29,33}));
-        connect(during.y, afterFor.tl)
-          annotation (Line(points={{30,60},{30,20}}, color={0,0,255}));
-        connect(booleanPulse.y, during.u) annotation (Line(points={{-59,90},{-52,
-                90},{-52,70},{19,70}}, color={217,67,180}));
-        connect(const.y, afterFor.duration) annotation (Line(points={{-59,0},{10,
-                0},{10,2},{19,2}},      color={0,0,0}));
-        connect(eventTable.y, afterFor.u) annotation (Line(points={{-59,50},{-50,
-                50},{-50,10},{19,10}}, color={217,67,180}));
         connect(timePeriod.y, showDiscreteTimeLocator.tl) annotation (Line(points=
                {{-10,40},{-10,32},{10,32},{10,24}}, color={0,0,255}));
-        connect(afterFor.y, showDiscreteTimePeriods.tl) annotation (Line(points={
-                {30,0},{30,-10},{50,-10},{50,-16}}, color={0,0,255}));
         connect(booleanToBoolean4_1.y, continuousTimeWhile.u) annotation (Line(
               points={{-35.6,-30},{-30,-30},{-30,-80},{-1,-80}}, color={162,29,33}));
         connect(continuousTimeWhile.y, showDiscreteTimeWhile.tl) annotation (Line(
@@ -12927,10 +12804,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
             model Condition =
               ETL.Requirements.Conditions.MathInteger.IntegerGreaterEqual)
           annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-        ReqSysPro.Conditions.CheckInPCount check(criteria=">=")
-          annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-        ReqSysPro.TimeLocators.Continuous.AfterFor afterFor
-          annotation (Placement(transformation(extent={{20,0},{40,20}})));
         TimeLocators.While While
           annotation (Placement(transformation(extent={{-20,80},{0,100}})));
         Blocks.Logical.BooleanPulse booleanPulse(
@@ -12942,15 +12815,10 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Placement(transformation(extent={{-44,46},{-36,54}})));
         Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_4
           annotation (Placement(transformation(extent={{-44,86},{-36,94}})));
-        ReqSysPro.TimeLocators.Continuous.During during
-          annotation (Placement(transformation(extent={{20,60},{40,80}})));
         Blocks.Math.Constant const(k=0)
           annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
         TimeLocators.ShowDiscretePeriods showDiscreteTimeLocator
           annotation (Placement(transformation(extent={{6,16},{14,24}})));
-        ReqSysPro.TimeLocators.Operators.ShowDiscreteTimePeriods
-          showDiscreteTimePeriods
-          annotation (Placement(transformation(extent={{46,-24},{54,-16}})));
         TimeLocators.While While1
           annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
         TimeLocators.ShowDiscreteWhile showDiscreteTimeWhile
@@ -12964,12 +12832,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{-10,40},{-10,-20}},           color={0,0,255}));
         connect(integerConstant.y, ensure.threshold) annotation (Line(points={{-59,-70},
                 {-40,-70},{-40,-38},{-21,-38}}, color={255,127,0}));
-        connect(eventPeriodic.y, check.u) annotation (Line(points={{-59,-30},{-52,
-                -30},{-52,-50},{19,-50}}, color={217,67,180}));
-        connect(integerConstant.y, check.threshold) annotation (Line(points={{-59,-70},
-                {-20,-70},{-20,-58},{19,-58}},      color={255,127,0}));
-        connect(afterFor.y, check.tl)
-          annotation (Line(points={{30,0},{30,-40}}, color={0,0,255}));
         connect(While.y, timePeriod.tl)
           annotation (Line(points={{-10,80},{-10,60}}, color={0,0,255}));
         connect(eventTable.y, booleanToBoolean4_2.u) annotation (Line(points={{-59,50},
@@ -12980,18 +12842,8 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{-59,90},{-44.4,90}}, color={217,67,180}));
         connect(booleanToBoolean4_4.y, While.u)
           annotation (Line(points={{-35.6,90},{-21,90}}, color={162,29,33}));
-        connect(during.y, afterFor.tl)
-          annotation (Line(points={{30,60},{30,20}}, color={0,0,255}));
-        connect(booleanPulse.y, during.u) annotation (Line(points={{-59,90},{-52,
-                90},{-52,70},{19,70}}, color={217,67,180}));
-        connect(const.y, afterFor.duration) annotation (Line(points={{-59,0},{10,
-                0},{10,2},{19,2}},      color={0,0,0}));
-        connect(eventTable.y, afterFor.u) annotation (Line(points={{-59,50},{-50,
-                50},{-50,10},{19,10}}, color={217,67,180}));
         connect(timePeriod.y, showDiscreteTimeLocator.tl) annotation (Line(points=
                {{-10,40},{-10,32},{10,32},{10,24}}, color={0,0,255}));
-        connect(afterFor.y, showDiscreteTimePeriods.tl) annotation (Line(points={
-                {30,0},{30,-10},{50,-10},{50,-16}}, color={0,0,255}));
         connect(booleanToBoolean4_2.y, timePeriod.u2) annotation (Line(points={{
                 -35.6,50},{-30,50},{-30,42},{-21,42}}, color={162,29,33}));
         connect(booleanToBoolean4_1.y, While1.u) annotation (Line(points={{-35.6,
@@ -13043,10 +12895,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
         Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_2
           annotation (Placement(transformation(extent={{-4,26},{4,34}})));
-        ReqSysPro.TimeLocators.Continuous.DuringAny duringAny(duration=8)
-          annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-        ReqSysPro.Conditions.CheckInPCount check(criteria="<=")
-          annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
         Blocks.Events.ShowEvent showEvent
           annotation (Placement(transformation(extent={{-24,-36},{-16,-28}})));
       equation
@@ -13068,14 +12916,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{-19,30},{-4.4,30}}, color={255,0,255}));
         connect(booleanPulse.y, booleanToBoolean4_4.u)
           annotation (Line(points={{-59,70},{-4.4,70}}, color={217,67,180}));
-        connect(duringAny.y, check.tl)
-          annotation (Line(points={{70,-60},{70,-70}}, color={0,0,255}));
-        connect(duringAny.cond, check.cond)
-          annotation (Line(points={{64,-60},{64,-70}}, color={175,175,175}));
-        connect(integerConstant.y, check.threshold) annotation (Line(points={{-59,-90},
-                {0,-90},{0,-88},{59,-88}}, color={255,127,0}));
-        connect(eventPeriodic.y, check.u) annotation (Line(points={{-59,-50},{-30,-50},
-                {-30,-80},{59,-80}}, color={217,67,180}));
         connect(booleanToBoolean4_1.y, timePeriod.u1) annotation (Line(points={{
                 -15.6,-50},{10,-50},{10,-10},{19,-10}}, color={162,29,33}));
         connect(eventPeriodic.y, showEvent.u) annotation (Line(points={{-59,-50},
@@ -13115,10 +12955,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
             model Condition =
               ETL.Requirements.Conditions.MathInteger.IntegerGreaterEqual)
           annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-        ReqSysPro.Conditions.CheckInPCount check(criteria=">=")
-          annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-        ReqSysPro.TimeLocators.Continuous.AfterFor afterFor
-          annotation (Placement(transformation(extent={{80,0},{100,20}})));
         TimeLocators.While While
           annotation (Placement(transformation(extent={{40,80},{60,100}})));
         Blocks.Logical.BooleanPulse booleanPulse(
@@ -13130,8 +12966,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Placement(transformation(extent={{22,46},{30,54}})));
         Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_4
           annotation (Placement(transformation(extent={{-44,86},{-36,94}})));
-        ReqSysPro.TimeLocators.Continuous.During during
-          annotation (Placement(transformation(extent={{80,60},{100,80}})));
         Blocks.Math.Constant const(k=10)
           annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
         Blocks.Events.EventDelay eventDelay
@@ -13152,10 +12986,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{50,40},{50,-20}},             color={0,0,255}));
         connect(integerConstant.y, ensure.threshold) annotation (Line(points={{-59,-70},
                 {32,-70},{32,-38},{39,-38}},    color={255,127,0}));
-        connect(eventPeriodic.y, check.u) annotation (Line(points={{-59,-40},{-52,
-                -40},{-52,-50},{79,-50}}, color={217,67,180}));
-        connect(integerConstant.y, check.threshold) annotation (Line(points={{-59,-70},
-                {32,-70},{32,-58},{79,-58}},        color={255,127,0}));
         connect(While.y, timePeriod.tl)
           annotation (Line(points={{50,80},{50,60}},   color={0,0,255}));
         connect(booleanToBoolean4_2.y, timePeriod.u1)
@@ -13164,12 +12994,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{-59,90},{-44.4,90}}, color={217,67,180}));
         connect(booleanToBoolean4_4.y, While.u)
           annotation (Line(points={{-35.6,90},{39,90}},  color={162,29,33}));
-        connect(during.y, afterFor.tl)
-          annotation (Line(points={{90,60},{90,20}}, color={0,0,255}));
-        connect(booleanPulse.y, during.u) annotation (Line(points={{-59,90},{-50,
-                90},{-50,70},{79,70}}, color={217,67,180}));
-        connect(const.y, afterFor.duration) annotation (Line(points={{-59,-10},{
-                32,-10},{32,2},{79,2}}, color={0,0,0}));
         connect(const1.y, eventDelay.delay) annotation (Line(points={{-59,20},{-40,
                 20},{-40,42},{-31,42}}, color={0,0,0}));
         connect(eventTable.y, showEvent.u) annotation (Line(points={{-59,50},{-50,
@@ -13180,10 +13004,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{-59,50},{-31,50}}, color={217,67,180}));
         connect(eventDelay.y, booleanToBoolean4_2.u)
           annotation (Line(points={{-9,50},{21.6,50}}, color={217,67,180}));
-        connect(afterFor.y, check.tl)
-          annotation (Line(points={{90,0},{90,-40}}, color={0,0,255}));
-        connect(eventDelay.y, afterFor.u) annotation (Line(points={{-9,50},{-4,50},
-                {-4,10},{79,10}}, color={217,67,180}));
         connect(const.y, timePeriod.continuousDuration) annotation (Line(points=
                {{-59,-10},{32,-10},{32,42},{39,42}}, color={0,0,0}));
         annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -14084,8 +13904,8 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{4.4,70},{39,70}}, color={162,29,33}));
         connect(booleanToBoolean4_3.y, timePeriod.u2)
           annotation (Line(points={{4.4,62},{39,62}}, color={162,29,33}));
-        connect(booleanPulse2.y, booleanToBoolean4_2.u) annotation (Line(points
-              ={{-59,60},{-40,60},{-40,70},{-4.4,70}}, color={217,67,180}));
+        connect(booleanPulse2.y, booleanToBoolean4_2.u) annotation (Line(points=
+               {{-59,60},{-40,60},{-40,70},{-4.4,70}}, color={217,67,180}));
         connect(booleanPulse2.y, not1.u) annotation (Line(points={{-59,60},{-40,
                 60},{-40,62},{-24.8,62}}, color={217,67,180}));
         connect(not1.y, booleanToBoolean4_3.u)
@@ -14903,98 +14723,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
                 textString="%name")}));
       end Log2;
 
-      model Log3
-        Modelica_StateGraph2.Step green(
-          nOut=1,
-          nIn=2,
-          use_activePort=false,
-          initialStep=false)
-          annotation (Placement(transformation(extent={{-64,46},{-56,54}})));
-        Modelica_StateGraph2.Transition T1(delayedTransition=true, waitTime=30)
-          annotation (Placement(transformation(extent={{-64,26},{-56,34}})));
-        Modelica_StateGraph2.Step yellow(nIn=1, nOut=1)
-          annotation (Placement(transformation(extent={{-64,6},{-56,14}})));
-        Modelica_StateGraph2.Transition T2(delayedTransition=true, waitTime=4)
-          annotation (Placement(transformation(extent={{-64,-14},{-56,-6}})));
-        Modelica_StateGraph2.Step red(nIn=1, nOut=1)
-          annotation (Placement(transformation(extent={{-64,-34},{-56,-26}})));
-        Modelica_StateGraph2.Transition T3(delayedTransition=true, waitTime=30)
-          annotation (Placement(transformation(extent={{-64,-54},{-56,-46}})));
-        Modelica.Blocks.Sources.BooleanExpression green_active(y=green.active)
-          annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
-        Modelica.Blocks.Sources.BooleanExpression yellow_active(y=yellow.active)
-          annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-        Modelica.Blocks.Sources.BooleanExpression red_active(y=red.active)
-          annotation (Placement(transformation(extent={{60,70},{80,90}})));
-        Modelica.Blocks.Interfaces.BooleanOutput y_green "Value of Boolean output"
-          annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-        Modelica.Blocks.Interfaces.BooleanOutput y_yellow "Value of Boolean output"
-          annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-        Modelica.Blocks.Interfaces.BooleanOutput y_red "Value of Boolean output"
-          annotation (Placement(transformation(extent={{100,70},{120,90}})));
-        Modelica_StateGraph2.Step init(
-          nIn=0,
-          nOut=1,
-          initialStep=true)
-          annotation (Placement(transformation(extent={{-74,80},{-66,88}})));
-        Modelica_StateGraph2.Transition T0(delayedTransition=true, waitTime=1)
-          annotation (Placement(transformation(extent={{-74,66},{-66,74}})));
-      equation
-        connect(T1.outPort, yellow.inPort[1])
-          annotation (Line(points={{-60,25},{-60,14}}, color={0,0,0}));
-        connect(yellow.outPort[1], T2.inPort)
-          annotation (Line(points={{-60,5.4},{-60,-6}}, color={0,0,0}));
-        connect(T2.outPort, red.inPort[1])
-          annotation (Line(points={{-60,-15},{-60,-26}}, color={0,0,0}));
-        connect(green.outPort[1], T1.inPort)
-          annotation (Line(points={{-60,45.4},{-60,34}}, color={0,0,0}));
-        connect(red.outPort[1], T3.inPort)
-          annotation (Line(points={{-60,-34.6},{-60,-46}}, color={0,0,0}));
-        connect(T3.outPort, green.inPort[1]) annotation (Line(points={{-60,-55},{
-                -60,-60},{-30,-60},{-30,60},{-60,60},{-60,60},{-60,54},{-61,54}},
-                                                                         color={0,0,0}));
-        connect(green_active.y, y_green)
-          annotation (Line(points={{81,-80},{110,-80}},
-                                                      color={255,0,255}));
-        connect(yellow_active.y, y_yellow)
-          annotation (Line(points={{81,0},{110,0}}, color={255,0,255}));
-        connect(red_active.y, y_red)
-          annotation (Line(points={{81,80},{110,80}},   color={255,0,255}));
-        connect(y_red, y_red)
-          annotation (Line(points={{110,80},{110,80}},   color={255,0,255}));
-        connect(init.outPort[1], T0.inPort)
-          annotation (Line(points={{-70,79.4},{-70,74}}, color={0,0,0}));
-        connect(T0.outPort, green.inPort[2])
-          annotation (Line(points={{-70,65},{-70,54},{-59,54}}, color={0,0,0}));
-        annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-              Rectangle(
-                extent={{-100,100},{100,-100}},
-                lineColor={28,108,200},
-                fillColor={255,255,255},
-                fillPattern=FillPattern.Solid),
-              Ellipse(
-                extent={{-20,98},{20,58}},
-                lineColor={238,46,47},
-                fillColor={238,46,47},
-                fillPattern=FillPattern.Solid),
-              Ellipse(
-                extent={{-20,18},{20,-20}},
-                lineColor={244,125,35},
-                fillColor={244,125,35},
-                fillPattern=FillPattern.Solid),
-              Ellipse(
-                extent={{-20,-60},{20,-98}},
-                lineColor={0,140,72},
-                fillColor={0,140,72},
-                fillPattern=FillPattern.Solid),
-              Text(
-                extent={{-92,126},{90,108}},
-                lineColor={28,108,200},
-                fillColor={255,255,255},
-                fillPattern=FillPattern.None,
-                textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
-      end Log3;
-
       model Phys1
         Modelica.Electrical.Analog.Basic.Resistor greenLamp(R=1)  annotation (
             Placement(transformation(
@@ -15780,8 +15508,7 @@ unvailability should be less of 1 hour in a sliding time period of one month
             fillPattern=FillPattern.Solid,
             points={{-58.0,46.0},{42.0,-14.0},{-58.0,-74.0},{-58.0,46.0}})}));
   end Tests;
-  annotation (uses(Modelica(version="3.2.2"), Modelica_StateGraph2(version=
-            "2.0.3")),                         Icon(graphics={
+  annotation (uses(Modelica(version="3.2.2")),                         Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},

@@ -1,13 +1,16 @@
-within CRML_test.FORML.EnsureAtEnd;
-model EnsureAtEnd_verif
-  extends EnsureAtEnd;
-  EnsureAtEnd_externals externals
+within CRML_test.ETL.CountInside;
+model CountInside_verif
+  extends CountInside;
+  CountInside_externals externals
     annotation (Placement(transformation(extent={{-200,0},{-140,60}})));
+  CRML.Blocks.Logical.BooleanConstant booleanConstant(K=false)
+    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 equation
   // Bindings
-  e1 = externals.event1;
-  e2 = externals.event2;
-  u = externals.u;
+  b1 = externals.b1;
+  b2 = externals.b2;
+  connect(booleanConstant.y, eventCounter.reset) annotation (Line(points={{81,
+          -30},{82,-30},{82,-11},{84,-11}}, color={217,67,180}));
     annotation (Placement(transformation(extent={{0,-20},{60,40}})),
               Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-200,-100},{100,100}},
@@ -25,4 +28,4 @@ equation
         extent={{-200,-100},{100,100}},
         initialScale=0.1)),
     experiment(StopTime=14));
-end EnsureAtEnd_verif;
+end CountInside_verif;

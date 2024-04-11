@@ -1,0 +1,9 @@
+model BecomesFalse is {
+	// Operators on events
+	// Events generated when a Boolean becomes false
+	Operator [ Clock ] Boolean b 'becomes false' = new Clock (not b);
+	
+	// Example of function call
+	Boolean b1 is external;
+	Clock c_b1_becomes_false is b1 'becomes false';
+};

@@ -1,13 +1,12 @@
-within CRML_test.FORML.EnsureAtEnd;
-model EnsureAtEnd_verif
-  extends EnsureAtEnd;
-  EnsureAtEnd_externals externals
+within CRML_test.ETL.Implies;
+model Implies_verif
+  extends Implies;
+  Implies_externals externals
     annotation (Placement(transformation(extent={{-200,0},{-140,60}})));
 equation
   // Bindings
-  e1 = externals.event1;
-  e2 = externals.event2;
-  u = externals.u;
+  b1 = externals.b1;
+  b2 = externals.b2;
     annotation (Placement(transformation(extent={{0,-20},{60,40}})),
               Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-200,-100},{100,100}},
@@ -25,4 +24,4 @@ equation
         extent={{-200,-100},{100,100}},
         initialScale=0.1)),
     experiment(StopTime=14));
-end EnsureAtEnd_verif;
+end Implies_verif;

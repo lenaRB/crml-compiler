@@ -1,5 +1,5 @@
 within CRML_test.ETL.EvaluateOver;
-model Evaluate_externals
+model EvaluateOver_externals
 
 protected
   parameter Integer N=CRML.ETL.Types.nMaxOverlap;
@@ -46,4 +46,4 @@ equation
           -70}}, color={0,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Evaluate_externals;
+end EvaluateOver_externals;
