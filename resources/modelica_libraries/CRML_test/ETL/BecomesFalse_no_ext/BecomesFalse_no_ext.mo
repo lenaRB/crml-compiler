@@ -2,7 +2,7 @@ within CRML_test.ETL.BecomesFalse_no_ext;
 model BecomesFalse_no_ext
   CRML.Blocks.Events.ClockEvent c1
     annotation (Placement(transformation(extent={{24,44},{36,56}})));
-  CRML.Blocks.Events.Event4ToEvent event4ToEvent
+  CRML.Blocks.Events.Event4ToEvent event4ToEvent(x(start=true))
     annotation (Placement(transformation(extent={{-4,46},{4,54}})));
   CRML.Blocks.Logical.BooleanTable b1(
     y0=false,
@@ -15,7 +15,7 @@ model BecomesFalse_no_ext
     annotation (Placement(transformation(extent={{56,32},{64,40}})));
   CRML.Blocks.Events.ClockEvent c2
     annotation (Placement(transformation(extent={{24,4},{36,16}})));
-  CRML.Blocks.Events.Event4ToEvent event4ToEvent1
+  CRML.Blocks.Events.Event4ToEvent event4ToEvent1(x(start=true))
     annotation (Placement(transformation(extent={{-4,6},{4,14}})));
   CRML.Blocks.Logical.BooleanConstant b2
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -25,7 +25,7 @@ model BecomesFalse_no_ext
     annotation (Placement(transformation(extent={{56,-8},{64,0}})));
   CRML.Blocks.Events.ClockEvent c3
     annotation (Placement(transformation(extent={{24,-36},{36,-24}})));
-  CRML.Blocks.Events.Event4ToEvent event4ToEvent2
+  CRML.Blocks.Events.Event4ToEvent event4ToEvent2(x(start=true))
     annotation (Placement(transformation(extent={{-4,-34},{4,-26}})));
   CRML.Blocks.Logical.BooleanConstant b3(K=false)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));

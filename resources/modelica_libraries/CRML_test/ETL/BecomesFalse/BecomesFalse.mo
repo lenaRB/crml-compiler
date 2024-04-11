@@ -23,5 +23,7 @@ equation
   connect(b1, not4_1.u)
     annotation (Line(points={{-110,0},{-89,0}}, color={0,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+</html>"));
 end BecomesFalse;
