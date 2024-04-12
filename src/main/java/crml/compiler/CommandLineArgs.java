@@ -33,10 +33,12 @@ public class CommandLineArgs {
     @Parameter(names = "--simulate", description = "simulate the files passed in parameters, takes the path to the additional omc files")
     public String simulate = null; 
 
-     @Parameter(names = "--verify",  description = "verify the files passed in parameters, takes the path to the reference files")
+    @Parameter(names = "--verify",  description = "verify the files passed in parameters, takes the path to the reference files")
     public String verify = null;
 
-     @Parameter(names = "--testsuiteETL",  description = "run just the ETL tests")
+    @Parameter(names = "--testsuiteETL",  description = "run just the ETL tests")
     public boolean testsuiteETL;
-     
+    
+    @Parameter(names = "--within",  description = "generate the translated modelica model within a given class")
+    public String within = "";
 }

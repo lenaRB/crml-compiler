@@ -98,7 +98,8 @@ public class CRMLC {
            for (String test : testFiles) {
             if(test.endsWith(".crml")) {
             logger.trace("Translating: " + test);
-              parse_file(path, test, cmd.outputDir, cmd.stacktrace, cmd.printAST , cmd.generateExternal);
+              parse_file(path, test, cmd.outputDir, cmd.stacktrace, cmd.printAST , 
+                cmd.generateExternal, cmd.within);
               if(cmd.simulate!=null){
                 OMCmsg msg;
                 try {
@@ -115,7 +116,8 @@ public class CRMLC {
           }
         } else if (file.isFile()){
         logger.trace("Translating: " + file);
-         parse_file("", path, cmd.outputDir, cmd.stacktrace, cmd.printAST ,cmd.generateExternal);
+         parse_file("", path, cmd.outputDir, cmd.stacktrace, 
+          cmd.printAST ,cmd.generateExternal, cmd.within);
          if(cmd.simulate!=null){
                 OMCmsg msg;
                 try {
@@ -137,7 +139,8 @@ public class CRMLC {
   public static void parse_file (
       String dir, String file, 
       String gen_dir, Boolean testMode, Boolean printAST,
-      Boolean generateExternal) throws Exception {
+      Boolean generateExternal,
+      String within) throws Exception {
   
     try {
       String fullName = dir + java.io.File.separator + file;
@@ -179,6 +182,8 @@ public class CRMLC {
           out_file.getParentFile().mkdirs();   	
         
           BufferedWriter writer = new BufferedWriter(new FileWriter(out_file));
+          if(!within.isEmpty())
+            writer.write("within " + within + ";\n");
           writer.write(result.contents);
           writer.close();
           logger.trace("Translated: " + file);
