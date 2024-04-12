@@ -36,176 +36,35 @@ end CRMLClock;
       true4) "4-valued logic" 
       annotation (Icon(graphics = {Text(extent = {{-58, 48}, {76, -38}}, textString = "")}, coordinateSystem(extent = {{-100, -100}, {100, 100}})));
 
-    model CRMLEvent
+    record CRMLEvent
     
-    Reat occurence_time;
+    Real occurence_time;
     
     Boolean occurence_condition;
 
     end CRMLEvent;
+    
+    record WhileLocator "Description of a while locator"
+     Boolean timePeriod "Represents the different time periods of the time locator";
+     Boolean4 clock "Clock ticks";
+     Boolean isLeftBoundaryIncluded "true if left boundary belongs to the CTL";
+     Boolean isRightBoundaryIncluded "true if right boundary belongs to the CTL";
+    annotation (Documentation(info="<html>
+  
+  </html>"));
+  end WhileLocator;
 
-    model CRMLPeriod
+    record CRMLPeriod
     
-      import CRML.Types.Boolean4;
-    
-      parameter Boolean leftBoundaryIncluded=true "If true, the left boundaries of the time periods are included";
-      parameter Boolean rightBoundaryIncluded=true "If true, the right boundaries of the time periods are included";
+      parameter Boolean isLeftBoundaryIncluded=true "If true, the left boundaries of the time periods are included";
+      parameter Boolean isRightBoundaryIncluded=true "If true, the right boundaries of the time periods are included";
     
     public
-      Connectors.WhileOutput y "Vector of time periods"
-        annotation (Placement(transformation(
-            extent={{-10,-10},{10,10}},
-            rotation=-90,
-            origin={0,-100}), iconTransformation(
-            extent={{-10,-10},{10,10}},
-            rotation=-90,
-            origin={0,-100})));
-    
-      Connectors.Boolean4Input u "Alternating opening and closing events"
-        annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-    public
-      Connectors.WhileInput tl
-        annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-    equation
-      if (cardinality(tl) == 0) then
-        tl.timePeriod = true;
-        tl.clock = Boolean4.true4;
-        tl.isLeftBoundaryIncluded = true;
-        tl.isRightBoundaryIncluded = true;
-      end if;
-    
-      y.timePeriod = (u == Boolean4.true4) and tl.timePeriod;
-      y.clock = Boolean4.true4;
-      y.isLeftBoundaryIncluded = leftBoundaryIncluded;
-      y.isRightBoundaryIncluded = rightBoundaryIncluded;
-    
-      annotation (Icon(coordinateSystem(                           extent={{-100,-100},
-                {100,100}},
-            initialScale=0.1,
-            preserveAspectRatio=false),
-                             graphics={      Rectangle(
-              extent={{-100,100},{100,-100}},
-              fillColor={170,255,255},
-              lineThickness=5,
-              fillPattern=FillPattern.Solid,
-              borderPattern=BorderPattern.Raised,
-              lineColor={0,0,0}),
-            Rectangle(
-              extent={{-70,30},{70,-52}},
-              lineColor={175,175,175},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-78,88},{76,40}},
-              lineColor={0,0,0},
-              fillColor={215,215,215},
-              fillPattern=FillPattern.Solid,
-              textString="while"),
-            Line(points={{-90,30},{-70,30},{-70,-52},{-90,-52}},   color={0,0,0}, visible=not leftBoundaryIncluded),
-            Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=leftBoundaryIncluded),
-            Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=rightBoundaryIncluded),
-            Line(points={{90,30},{70,30},{70,-52},{90,-52}},   color={0,0,0}, visible=not rightBoundaryIncluded),
-            Text(
-              extent={{-40,2},{10,-22}},
-              lineColor={175,175,175},
-              pattern=LinePattern.Dash,
-              fillColor={215,215,215},
-              fillPattern=FillPattern.Solid,
-              textString="%u"),
-            Line(
-              points={{-50,10},{20,10}},
-              color={0,0,0}),
-            Line(
-              points={{-50,-30},{-50,10}},
-              color={0,0,0}),
-            Line(
-              points={{20,10},{20,-30}},
-              color={0,0,0}),
-            Line(points={{-52,-30},{56,-30}}, color={175,175,175}),
-            Line(points={{40,-30},{40,10}},color={0,0,0}),
-            Line(points={{52,10},{52,-30}},color={0,0,0}),
-            Line(points={{40,10},{52,10}},
-                                         color={0,0,0})}),
-                                            Diagram(coordinateSystem(
-                                         extent={{-100,-100},{100,100}},
-            initialScale=0.1,
-            preserveAspectRatio=false), graphics={
-            Text(
-              extent={{-86,38},{-72,22}},
-              lineColor={0,0,0},
-              textString="",
-              fontName="Symbol"),
-            Text(
-              extent={{14,38},{28,22}},
-              lineColor={0,0,0},
-              textString="",
-              fontName="Symbol"),
-            Text(
-              extent={{-6,38},{8,22}},
-              lineColor={238,46,47},
-              fontName="Symbol",
-              textString=""),
-            Text(
-              extent={{74,38},{88,22}},
-              lineColor={238,46,47},
-              fontName="Symbol",
-              textString=""),
-            Rectangle(
-              extent={{-80,20},{0,0}},
-              lineColor={0,0,0},
-              fillColor={215,215,215},
-              fillPattern=FillPattern.Solid,
-              pattern=LinePattern.None),
-            Rectangle(
-              extent={{20,20},{80,0}},
-              lineColor={0,0,0},
-              fillColor={215,215,215},
-              fillPattern=FillPattern.Solid,
-              pattern=LinePattern.None),
-            Text(
-              extent={{-68,14},{-14,6}},
-              lineColor={0,0,0},
-              textString="Time period"),
-            Text(
-              extent={{22,14},{76,6}},
-              lineColor={0,0,0},
-              textString="Time period"),
-            Line(
-              points={{-90,0},{-80,0},{-80,20},{0,20},{0,0},{20,0},{20,20},{80,20},{
-                  80,0},{96,0}},
-              color={0,0,0},
-              arrow={Arrow.None,Arrow.Filled}),
-            Line(
-              points={{80,24},{80,-82}},
-              color={0,0,0},
-              pattern=LinePattern.Dot),
-            Text(
-              extent={{106,96},{120,80}},
-              lineColor={0,0,0},
-              textString="",
-              fontName="Symbol"),
-            Text(
-              extent={{122,96},{170,84}},
-              lineColor={0,0,0},
-              textString="Opening event"),
-            Text(
-              extent={{124,76},{172,64}},
-              lineColor={0,0,0},
-              textString="Closing event"),
-            Text(
-              extent={{108,76},{122,60}},
-              lineColor={238,46,47},
-              fontName="Symbol",
-              textString="")}),
-        Documentation(info="<html>
-    <p><b><span style=\"font-family: MS Shell Dlg 2;\">Syntax</span></b> </p>
-    <blockquote><b>y</b> = <b>While</b>(<b>u </b>= opening_or_closing_event [, <b>tl </b>= master_time_period]); </blockquote>
-    <p><b><span style=\"font-family: MS Shell Dlg 2;\">Description</span></b> </p>
-    <p><span style=\"font-family: MS Shell Dlg 2;\">The<b> While</span></b> block creates a master time period which is a special case of a time locator with no overlapping time periods. The <b>While</b> block truncates the time periods created with the <a href=\"modelica://CRML.ETL.TimeLocators.Periods\">Periods</a> block or the <b>While</b> block whose <b>tl</b> inputs are connected to the output <b>y</b>.</p>
-    <p><span style=\"font-family: MS Shell Dlg 2;\">Opening and closing events are respectively delivered on input <b>u</b> when <b>u</b> becomes respectively true and false.</span></p>
-    <p><span style=\"font-family: MS Shell Dlg 2;\">While can only be used as the master time locator of a <a href=\"modelica://CRML.ETL.TimeLocators.Periods\">Periods</a> block or another <b>While</b> block.</span></p>
-    </html>"));
-
+      CRMLtoModelica.Types.CRMLEvent start_event;
+      CRMLtoModelica.Types.CRMLEvent close_event;
+      
+  Integer timeOpen;
+    Integer timeClosed;
     end CRMLPeriod;
 
     block CRMLPeriods "Generates multiple time periods"
@@ -666,6 +525,14 @@ end CRMLClock;
     </html>"));
     
     end CRMLPeriods;
+
+    model Event
+    
+    input Boolean trigger;
+    
+    equation
+
+    end Event;
   end Types;
 
   
@@ -794,10 +661,77 @@ end cvBooleanToBoolean4;
           points={{24,74},{24,-76}},
           color={95,95,95})}));
   end TruthTables;
+
+    function PStart
+    
+    input CRMLtoModelica.Types.CRMLPeriod p;
+    output Integer t;
+    algorithm
+      t:=p.timeStart;
+
+    end PStart;
+
+    function PEnd
+    input CRMLtoModelica.Types.CRMLPeriod p;
+    output Integer t;
+    algorithm
+      t:=p.timeEnd;
+
+    end PEnd;
   
   end Functions;
   
   package Blocks
+  
+  block EventFilter "Filters events depending on condition"
+  
+  protected
+    Boolean x(start=false, fixed=true);
+  
+  public
+    ETL.Connectors.BooleanInput u
+      annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+    ETL.Connectors.BooleanOutput y(start=false, fixed=true) annotation (
+        Placement(transformation(extent={{100,-10},{120,10}}),
+          iconTransformation(extent={{100,-10},{120,10}})));
+  
+    ETL.Connectors.BooleanInput cond "Condition" annotation (Placement(
+          transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=0,
+          origin={-110,80})));
+  equation
+  
+    x = u and cond;
+    y =  edge(x);
+  
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Rectangle(
+            extent={{-100,100},{100,-100}},
+            lineColor={0,0,0},
+            lineThickness=5.0,
+            fillColor={215,215,215},
+            fillPattern=FillPattern.Solid,
+            borderPattern=BorderPattern.Raised),
+          Text(
+            extent={{-60,148},{62,112}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid,
+            textString="%name"),
+            Line(points={{-80,-60},{-62,-60},{-62,-60},{-20,-60},{-20,-60},{88,-60}},
+                color={255,0,255}),
+          Line(points={{-62,-16},{-62,-60}},
+                                           color={217,67,180}),
+          Line(points={{-20,-16},{-20,-60}},
+                                           color={217,67,180}),
+          Line(points={{38,-16},{38,-60}}, color={217,67,180}),
+          Line(points={{68,-16},{68,-60}}, color={217,67,180}),
+            Line(points={{-78,38},{-50,38},{-50,82},{48,82},{48,38},{68,38}})}),
+                                                                   Diagram(
+          coordinateSystem(preserveAspectRatio=false)));
+  end EventFilter;
   
    
 block Integrate
@@ -947,14 +881,18 @@ that the same time thread tl may accomodate several non-overlapping time periods
     </html>"));
     end ClockTick;
 
-    model PeriodStart
+    model Card
+    
+    Boolean4 r1;
     equation
 
-    end PeriodStart;
+    end Card;
 
 
 
   
   end Blocks;
+annotation(
+    Icon(graphics = {Ellipse(origin = {5, -2}, fillColor = {0, 143, 0}, fillPattern = FillPattern.Solid, extent = {{-59, 58}, {59, -58}})}));
   
 end CRMLtoModelica;

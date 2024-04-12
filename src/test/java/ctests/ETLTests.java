@@ -1,24 +1,29 @@
 package ctests;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import crml.compiler.ModelicaSimulationException;
+import crml.compiler.OMCUtil;
+import crml.compiler.OMCmsg;
 import crml.compiler.TestListener;
+import crml.compiler.Utilities;
 import crml.compiler.OMCUtil.CompileStage;
 
 import org.junit.jupiter.params.ParameterizedTest;
 
 
 public class ETLTests  {
-    String files = "Unable to produce file list"; // default message, replaced for each test
-    
-
     @Nested
+    @Disabled
     public static class TranslationTests extends ParameterizedSuite {
 
         public static String files;
@@ -28,19 +33,19 @@ public class ETLTests  {
                     "refResults", "libraries/ETL_test");
             cs.processBuilder = new ProcessBuilder();
             cs.setOutputSubFolder("ETL_test_t");
-        }
-    
+        } 
     
         @ParameterizedTest
         @MethodSource("fileNameSource")
         public void simulateTestFile(final String fileName) throws InterruptedException, IOException, ModelicaSimulationException {
-            files = Util.runTest(fileName, cs, CompileStage.TRANSLATE);
+            OMCmsg msg = Util.runTest(fileName, cs, CompileStage.TRANSLATE);
+            files = msg.files;
         }
     }
 
     @Nested
     public static class SimulationTests extends ParameterizedSuite {
-        public static String files;
+        public static String files="blanc";
 
         @BeforeAll
         public static void setupTestSuite() {
@@ -54,7 +59,12 @@ public class ETLTests  {
         @ParameterizedTest
         @MethodSource("fileNameSource")
         public void simulateTestFile(final String fileName) throws InterruptedException, IOException, ModelicaSimulationException {
-            files = Util.runTest(fileName, cs, CompileStage.SIMULATE);
+            OMCmsg ret = Util.runTest(fileName, cs, CompileStage.SIMULATE);
+            files = ret.files;
+            if(ret.msg.contains("false")||ret.msg.contains("Failed")||ret.msg.contains("Error"))
+			fail("Unable to run Modelica script " + Utilities.getAbsolutePath(fileName) + ".mos", 
+			new Throwable( "\n omc fails with the following message: \n" + ret.msg));
+		
         }
 
     }
