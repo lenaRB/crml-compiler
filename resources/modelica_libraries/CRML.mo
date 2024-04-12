@@ -4,12 +4,17 @@
     class Overview "Overview of CRML"
 
       annotation (Documentation(info="<html>
-<p>CRML(Common Requirement Modeling Language)  is a language for the simulation of temporal requirements on cyber-physical systems.</p>
+<p>CRML(Common Requirement Modeling Language) is a language for the simulation of temporal requirements on cyber-physical systems.</p>
 <p>This library is a Modelica implementation of CRML.</p>
 <p>For more information, please consult the following references:</p>
-<p><span style=\"font-family: Wingdings; color: #fe5815;\">&sect; </span></span><span style=\"font-family: Arial;\">Bouskela D., Nguyen T. and Jardin A. (2017), &ldquo;Toward a Rigorous Approach for Verifying Cyber-Physical Systems Against Requirements,&rdquo; Canadian J. of Electrical and Computer Engineering, Vol. 40-2, pp. 66-73. </p>
+<ul>
+<li><span style=\"font-family: Arial;\">Bouskela D., Nguyen T. and Jardin A. (2017), &ldquo;Toward a Rigorous Approach for Verifying Cyber-Physical Systems Against Requirements,&rdquo; Canadian J. of Electrical and Computer Engineering, Vol. 40-2, pp. 66-73. </span></li>
+<li><span style=\"font-family: Arial;\">Bouskela D., Buffoni L., Jardin A., Molnar V., Pop A. and Zavada A. (2023), &quot;The Common Requirement Modeling Language&quot;, Proceedings of the 15th International Modelica Conference 2023, Aachen, October 9-11.</span></li>
+</ul>
 <p>Regarding the RandomFailure block in package Blocks.Events, please consult the following reference:</p>
-<p><span style=\"font-family: Wingdings; color: #fe5815;\">&sect; </span></span><span style=\"font-family: Arial;\">Bouissou M. and Buffoni L. (2020), &ldquo;Generic Method to Transform a Modelica Simulation into a Dynamic Reliability Model,&rdquo; IMdR, Institut pour la ma&icirc;trise des Risques, 22e Congr&egrave;s de Ma&icirc;trise des Risques et S&ucirc;ret&eacute; de Fonctionnement. </p>
+<ul>
+<li><span style=\"font-family: Arial;\">Bouissou M. and Buffoni L. (2020), &ldquo;Generic Method to Transform a Modelica Simulation into a Dynamic Reliability Model,&rdquo; IMdR, Institut pour la ma&icirc;trise des Risques, 22e Congr&egrave;s de Ma&icirc;trise des Risques et S&ucirc;ret&eacute; de Fonctionnement. </span></li>
+</ul>
 </html>"),     Icon(graphics={
             Ellipse(
               lineColor={75,138,73},
@@ -31,7 +36,7 @@
 
     end Overview;
 
-    class ReqSysProLicense "License"
+    class CrmlLicense "License"
 
       annotation (Documentation(info="<html>
 <p><b><span style=\"font-size: 12pt; color: #008000;\">The CRML License </span></b></p>
@@ -56,7 +61,7 @@
               fillPattern=FillPattern.Solid,
               extent={{-12.5,-12.5},{12.5,12.5}})}));
 
-    end ReqSysProLicense;
+    end CrmlLicense;
 
     package ReleaseNotes "Release notes"
 
@@ -109,6 +114,38 @@
                 fillPattern=FillPattern.Solid,
                 extent={{-12.5,-12.5},{12.5,12.5}})}));
       end Version_0_2;
+
+      class Version_0_3 "Version 0.3"
+
+          annotation (DocumentationClass=true, Documentation(info="<html>
+<p><b><span style=\"font-size: 10pt; color: #008000;\">Version 0.3 (in progress, 2024)</span></b></p>
+<p>This is the third beta release of the library. </p>
+<p>Minor updates:</p>
+<ul>
+<li>Package &quot;Blocks.Events&quot;: declaration of x as public (and not protected) for setting start value</li>
+<li>Package &quot;Examples&quot;: deletion of dependency with the Modelica_StateGraph2 library in &quot;traffic light&quot; example</li>
+</ul>
+<p>Major updates:</p>
+<p>- </p>
+</html>"),Icon(graphics={
+              Ellipse(
+                lineColor={75,138,73},
+                fillColor={75,138,73},
+                pattern=LinePattern.None,
+                fillPattern=FillPattern.Solid,
+                extent={{-100,-100},{100,100}}),
+              Polygon(origin={-10.167,-15},
+                fillColor={255,255,255},
+                pattern=LinePattern.None,
+                fillPattern=FillPattern.Solid,
+                points={{-15.833,20.0},{-15.833,30.0},{14.167,40.0},{24.167,20.0},{4.167,-30.0},{14.167,-30.0},{24.167,-30.0},{24.167,-40.0},{-5.833,-50.0},{-15.833,-30.0},{4.167,20.0},{-5.833,20.0}},
+                smooth=Smooth.Bezier),
+              Ellipse(origin={1.5,56.5},
+                fillColor={255,255,255},
+                pattern=LinePattern.None,
+                fillPattern=FillPattern.Solid,
+                extent={{-12.5,-12.5},{12.5,12.5}})}));
+      end Version_0_3;
       annotation (Icon(graphics={
             Polygon(
               points={{-80,-100},{-80,100},{0,100},{0,20},{80,20},{80,-100},{-80,-100}},
@@ -164,16 +201,9 @@
               fillColor={241,241,241},
               fillPattern=FillPattern.Solid)}), Documentation(info="<html>
 <p><b><span style=\"font-size: 12pt; color: #008000;\">Contacts </span></b></p>
-<dd>Daniel Bouskela</dd>
-<dd>Audrey Jardin</dd>
-<dd>Yulu Dong<br></dd>
-<dd>EDF Lab - PRISME</dd>
-<dd>6, quai Watier</dd>
-<dd>F-78401 Chatou Cedex</dd>
-<dd>France<br></dd>
-<dd>email: <a href=\"mailto:daniel.bouskela@edf.fr\">daniel.bouskela@edf.fr</a></dd>
-<dd>email: <a href=\"mailto:audrey.jardin@edf.fr\">audrey.jardin@edf.fr</a></dd>
-<dd>email: <a href=\"mailto:yulu.dong@edf.fr\">yulu.dong@edf.fr</a><br></dd>
+<p style=\"margin-left: 30px;\">Daniel Bouskela</p><p style=\"margin-left: 30px;\">Audrey Jardin</p><p style=\"margin-left: 30px;\">Yulu Dong</p>
+<p style=\"margin-left: 30px;\">EDF Lab - PRISME</p><p style=\"margin-left: 30px;\">6, quai Watier</p><p style=\"margin-left: 30px;\">F-78401 Chatou Cedex</p><p style=\"margin-left: 30px;\">France</p>
+<p style=\"margin-left: 30px;\"><br>email: <a href=\"mailto:audrey.jardin@edf.fr\">audrey.jardin@edf.fr</a></p>
 </html>"));
     end Contacts;
     annotation (Icon(graphics={
@@ -3793,14 +3823,15 @@ The usage is demonstrated, e.g., in example
       block Event4ToEvent
         import CRML.ETL.Types.Boolean4;
 
-      protected
-        Boolean x(start=false, fixed=true) = (u == Boolean4.true4);
+      // protected
+          Boolean x(start=false, fixed=true) = (u == Boolean4.true4);
 
       public
         ETL.Connectors.Boolean4Input u
           annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
         ETL.Connectors.BooleanOutput y(start=false, fixed=true)
           annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
       equation
 
         y = edge(x);
