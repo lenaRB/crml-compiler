@@ -36,9 +36,9 @@ end CRMLClock;
       true4) "4-valued logic" 
       annotation (Icon(graphics = {Text(extent = {{-58, 48}, {76, -38}}, textString = "")}, coordinateSystem(extent = {{-100, -100}, {100, 100}})));
 
-    model CRMLEvent
+    record CRMLEvent
     
-    Reat occurence_time;
+    Real occurence_time;
     
     Boolean occurence_condition;
 
@@ -54,29 +54,17 @@ end CRMLClock;
   </html>"));
   end WhileLocator;
 
-    model CRMLPeriod
+    record CRMLPeriod
     
-      parameter Boolean leftBoundaryIncluded=true "If true, the left boundaries of the time periods are included";
-      parameter Boolean rightBoundaryIncluded=true "If true, the right boundaries of the time periods are included";
+      parameter Boolean isLeftBoundaryIncluded=true "If true, the left boundaries of the time periods are included";
+      parameter Boolean isRightBoundaryIncluded=true "If true, the right boundaries of the time periods are included";
     
     public
-        output WhileLocator y "Vector of time periods";
-        input Boolean4 start_event "Alternating opening and closing events";
-        input Boolean4 end_event "Alternating opening and closing events";
-        input WhileLocator tl;
+      CRMLtoModelica.Types.CRMLEvent start_event;
+      CRMLtoModelica.Types.CRMLEvent close_event;
       
-    initial equation //TODO check behaviour here, I am not sure this is correct
-        tl.timePeriod = true;
-        tl.clock = Boolean4.true4;
-        tl.isLeftBoundaryIncluded = true;
-        tl.isRightBoundaryIncluded = true;
-    
-    equation 
-      y.timePeriod = (u == Boolean4.true4) and tl.timePeriod;
-      y.clock = Boolean4.true4;
-      y.isLeftBoundaryIncluded = leftBoundaryIncluded;
-      y.isRightBoundaryIncluded = rightBoundaryIncluded;
-
+  Integer timeOpen;
+    Integer timeClosed;
     end CRMLPeriod;
 
     block CRMLPeriods "Generates multiple time periods"
@@ -537,6 +525,14 @@ end CRMLClock;
     </html>"));
     
     end CRMLPeriods;
+
+    model Event
+    
+    input Boolean trigger;
+    
+    equation
+
+    end Event;
   end Types;
 
   
@@ -665,10 +661,77 @@ end cvBooleanToBoolean4;
           points={{24,74},{24,-76}},
           color={95,95,95})}));
   end TruthTables;
+
+    function PStart
+    
+    input CRMLtoModelica.Types.CRMLPeriod p;
+    output Integer t;
+    algorithm
+      t:=p.timeStart;
+
+    end PStart;
+
+    function PEnd
+    input CRMLtoModelica.Types.CRMLPeriod p;
+    output Integer t;
+    algorithm
+      t:=p.timeEnd;
+
+    end PEnd;
   
   end Functions;
   
   package Blocks
+  
+  block EventFilter "Filters events depending on condition"
+  
+  protected
+    Boolean x(start=false, fixed=true);
+  
+  public
+    ETL.Connectors.BooleanInput u
+      annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+    ETL.Connectors.BooleanOutput y(start=false, fixed=true) annotation (
+        Placement(transformation(extent={{100,-10},{120,10}}),
+          iconTransformation(extent={{100,-10},{120,10}})));
+  
+    ETL.Connectors.BooleanInput cond "Condition" annotation (Placement(
+          transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=0,
+          origin={-110,80})));
+  equation
+  
+    x = u and cond;
+    y =  edge(x);
+  
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Rectangle(
+            extent={{-100,100},{100,-100}},
+            lineColor={0,0,0},
+            lineThickness=5.0,
+            fillColor={215,215,215},
+            fillPattern=FillPattern.Solid,
+            borderPattern=BorderPattern.Raised),
+          Text(
+            extent={{-60,148},{62,112}},
+            lineColor={0,0,255},
+            lineThickness=0.5,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid,
+            textString="%name"),
+            Line(points={{-80,-60},{-62,-60},{-62,-60},{-20,-60},{-20,-60},{88,-60}},
+                color={255,0,255}),
+          Line(points={{-62,-16},{-62,-60}},
+                                           color={217,67,180}),
+          Line(points={{-20,-16},{-20,-60}},
+                                           color={217,67,180}),
+          Line(points={{38,-16},{38,-60}}, color={217,67,180}),
+          Line(points={{68,-16},{68,-60}}, color={217,67,180}),
+            Line(points={{-78,38},{-50,38},{-50,82},{48,82},{48,38},{68,38}})}),
+                                                                   Diagram(
+          coordinateSystem(preserveAspectRatio=false)));
+  end EventFilter;
   
    
 block Integrate
@@ -818,15 +881,18 @@ that the same time thread tl may accomodate several non-overlapping time periods
     </html>"));
     end ClockTick;
 
-    model PeriodStart
+    model Card
+    
+    Boolean4 r1;
     equation
 
-    end PeriodStart;
+    end Card;
 
 
 
   
-  end Blocks;annotation(
+  end Blocks;
+annotation(
     Icon(graphics = {Ellipse(origin = {5, -2}, fillColor = {0, 143, 0}, fillPattern = FillPattern.Solid, extent = {{-59, 58}, {59, -58}})}));
   
 end CRMLtoModelica;
