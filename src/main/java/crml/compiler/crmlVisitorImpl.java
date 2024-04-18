@@ -458,20 +458,13 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 				else throw new ParseCancellationException("unable to get variable type : " + ctx.crml_component_reference().getText() + '\n');}
 				
-			// if the expression is a user defined call
-			if(ctx.user_keyword() != null) {
-				List<crmlParser.ExpContext> args = new ArrayList<>();
-				// put together user operator name
-				UserOperatorCall uc = reconstructUserOperator(ctx, "", args);
-
-				return apply_user_operator("'"+uc.name+"'", uc.args);
-			}
+			
 			
 			// if expression is an if-then-else
 			if(ctx.if_exp() != null) {
 				return visit(ctx.if_exp());
 			}
-			
+
 			// if the expression is a built in operator
 			if(ctx.builtin_op()!= null)
 				if (ctx.binary!=null){
@@ -497,6 +490,15 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		
 			if(ctx.period_op()!=null){
 				return visit(ctx.period_op());
+			}
+
+			// if the expression is a user defined call
+			if(ctx.user_keyword() != null) {
+				List<crmlParser.ExpContext> args = new ArrayList<>();
+				// put together user operator name
+				UserOperatorCall uc = reconstructUserOperator(ctx, "", args);
+
+				return apply_user_operator("'"+uc.name+"'", uc.args);
 			}
 			
 			// expression is a tick
@@ -561,7 +563,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			"(isLeftBoundaryIncluded=" + lborder.toString() + 
 		    ", isRightBoundaryIncluded=" + rborder.toString() + 
 			", start_event=" + left.contents + 
-			", end_event=" + right.contents +");\n";
+			", close_event=" + right.contents +");\n";
 		
 		localFunctionCalls.append(code);
 			
@@ -592,6 +594,12 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		localFunctionCalls.append(clockType + " " + varName + "(b=" + v.contents + ");\n");
 		localFunctionCalls.append("CRMLtoModelica.Types.CRMLClock_build " + varName+"_init(clock =" + varName + ");\n");
 		return new Value (varName, "Clock");
+		}
+
+		// if the constructor is for Periods 
+		//FIXME proper constructor initialisation
+		if(ctx.type().getText().equals("Periods")){
+			return new Value ("", "new");
 		}
 		
 		// Constructor with no expression - translates to nothing in Modelica
@@ -642,7 +650,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			// check if the operator is defined
 			Signature sign = user_operators.get(op);
 			if (sign== null)
-				throw new ParseCancellationException("User operator undefined : " + op + '\n');
+				throw new ParseCancellationException("User operator undefined : " + op + "\n");
 			
 			String name=op.substring(0, op.length()-1).replace(".", "_")+counter+'\'';
 			

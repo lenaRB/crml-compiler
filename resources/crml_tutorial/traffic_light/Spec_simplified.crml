@@ -26,7 +26,7 @@ model Spec is {
 			// Evaluate
 			Operator [ Boolean ] 'evaluate' Boolean phi 'over' Period P 
 				= integrate (('decide' phi 'over' P) * phi) on P;
-			
+			 
 			// Operators for the evaluation of requirements
 			// Check
 			Operator [ Boolean ] 'check' Boolean phi 'over' Periods P 
@@ -62,18 +62,18 @@ model Spec is {
 			Operator [ Periods ] 'after' Clock ev 'for' Real d = new Periods ] ev, ev + d ]; 	
 			
 			// Checking that the number of event occurrences at the end of a time period is lower or higher than a threshold
-			//Operator [ Boolean ] Periods P 'check count' Clock E '==' Integer n 
-			//	= 'check'(('count' E 'inside' P) increasing1 '==' n) 'over' P;
+			Operator [ Boolean ] Periods P 'check count' Clock E '==' Integer n 
+			= 'check'(('count' E 'inside' P) == n) 'over' P;
 
 			// Ensuring that a requirement is satisfied all along a time period
 			Operator [ Boolean ] Periods P 'ensure' Boolean b 
 				= ('check' ('count' (b 'becomes true') == 0) 'over' P) and (P 'check anytime' b);
 
 			// Checking that a requirement is satisfied at any time instant of a time period
-			Operator [ Boolean ] Periods P 'check anytime' Boolean b =  apply varying2 on 'check' 'id' b 'over' P;
+			Operator [ Boolean ] Periods P 'check anytime' Boolean b =  apply varying2 on ('check' 'id' b 'over' P);
 
 			// Checking that a requirement is satisfied at the end of a time period
-			Operator [ Boolean ] Periods P 'check at end' Boolean b = apply varying1 on 'check'  'id' b 'over' P;
+			Operator [ Boolean ] Periods P 'check at end' Boolean b = apply varying1 on ('check'  'id' b 'over' P);
 
 	// List of external variables
 	Boolean red is external;
