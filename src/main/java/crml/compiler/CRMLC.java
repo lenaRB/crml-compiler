@@ -83,11 +83,13 @@ public class CRMLC {
     
     if(cmd.verify != null)
       cs.referenceResFolder = cmd.verify;
+    
+    logger.trace("Output dir: " + cmd.outputDir);
       
     File out_dir = new File(cmd.outputDir);
     out_dir.mkdir();
 
-    logger.trace("Directory for generated .mo files: " + out_dir.getPath());
+    logger.trace("Directory for generated .mo files: [" + out_dir.getPath() + "] absolute path: [" + out_dir.getAbsolutePath() + "]");
 
     for(String f : cmd.files){
        String path = new File(f).getCanonicalPath();
@@ -97,10 +99,10 @@ public class CRMLC {
           testFiles=file.list();
            for (String test : testFiles) {
             if(test.endsWith(".crml")) {
-            logger.trace("Translating: " + test);
+            logger.trace("Translating test: " + test);
               parse_file(path, test, cmd.outputDir, cmd.stacktrace, cmd.printAST , 
                 cmd.generateExternal, cmd.within);
-              if(cmd.simulate!=null){
+              if(cmd.simulate!=null) {
                 OMCmsg msg;
                 try {
                   msg = OMCUtil.compile(test, path, cs);
@@ -115,13 +117,15 @@ public class CRMLC {
             }
           }
         } else if (file.isFile()){
-        logger.trace("Translating: " + file);
-         parse_file("", path, cmd.outputDir, cmd.stacktrace, 
-          cmd.printAST ,cmd.generateExternal, cmd.within);
+        logger.trace("Translating file: " + file);
+          String stripped_file_name = Utilities.stripNameEndingAndPath(path);
+          String outputDir = Utilities.addDirToPath(cmd.outputDir, stripped_file_name);
+          parse_file("", path, outputDir, cmd.stacktrace, 
+            cmd.printAST, cmd.generateExternal, cmd.within);
          if(cmd.simulate!=null){
                 OMCmsg msg;
                 try {
-                  msg = OMCUtil.compile(file.getPath(), "", cs);
+                  msg = OMCUtil.compile(file.getPath(), cmd.outputDir, cs);
                   if(msg.msg.contains("false"))
                   logger.error("Unable to load Modelica model " + file + 
                       "\n omc fails with the following message: \n" + msg);
@@ -177,7 +181,7 @@ public class CRMLC {
         if (result != null) {  	
         
           File out_file = new File(gen_dir + java.io.File.separator + 
-            Utilities.stripNameEndingAndPath(Utilities.removeWindowsDriveLetter(file))+ ".mo");
+            Utilities.stripNameEndingAndPath(Utilities.removeWindowsDriveLetter(file)) + ".mo");
         
           out_file.getParentFile().mkdirs();   	
         
@@ -187,6 +191,7 @@ public class CRMLC {
           writer.write(result.contents);
           writer.close();
           logger.trace("Translated: " + file);
+          logger.trace("Output Modelica file: " + out_file.getAbsolutePath());
 
           if(generateExternal && !external_var.isEmpty()){
             File ext_file = new File(gen_dir + java.io.File.separator + 
