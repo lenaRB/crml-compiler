@@ -233,11 +233,11 @@ public class OperatorMapping {
 
     // end operators TODO proper implementation
     built_in_operators.put("end",
-      Arrays.asList(new Signature("CRMLtoModelica.Blocks.endP", Arrays.asList("Period"), params, "Real",
-        Type.BLOCK)));
+      Arrays.asList(new Signature("CRMLtoModelica.Functions.PEnd", Arrays.asList("Period"), params, "Real",
+        Type.FUNCTION)));
     built_in_operators.put("start",
-      Arrays.asList(new Signature("CRMLtoModelica.Blocks.startP", Arrays.asList("Period"), params, "Real",
-        Type.BLOCK)));
+      Arrays.asList(new Signature("CRMLtoModelica.Functions.PStart", Arrays.asList("Period"), params, "Real",
+        Type.FUNCTION)));
 
     // tick operator
     built_in_operators.put("tick",
@@ -276,7 +276,7 @@ public class OperatorMapping {
     built_in_operators.put("Real", real_sigs);
 
     // Event
-    List<Signature> event_sigs = Arrays.asList(new Signature("Event", bool1, params, "event", Type.BLOCK));
+    List<Signature> event_sigs = Arrays.asList(new Signature("Event", bool1, params, "CRMLtoModelica.Types.Event", Type.BLOCK));
 
     built_in_operators.put("Event", event_sigs);
 

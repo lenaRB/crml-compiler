@@ -1,4 +1,5 @@
 package CRMLtoModelica
+import CRML.ETL.Types.Boolean4;
   package Types
   
 record CRMLClock
@@ -528,11 +529,28 @@ end CRMLClock;
 
     model Event
     
-    input Boolean trigger;
+    //Boolean trigger;
+    
+   CRMLtoModelica.Types.Boolean4 r1; 
+    
+    Boolean out;
     
     equation
-
+    
     end Event;
+
+    
+    record TimeLocator "Description of a time locator"
+       Boolean timePeriod "Represents the different time periods of the time locator";
+       Boolean timeSlot "Represents the different time slots of the time locator";
+       Boolean4 clock "Clock ticks";
+       Boolean isLeftBoundaryIncluded "true if left boundary belongs to the CTL";
+       Boolean isRightBoundaryIncluded "true if right boundary belongs to the CTL";
+       Integer indexMax "Number of allocated time periods";
+      annotation (Documentation(info="<html>
+    
+    </html>"));
+    end TimeLocator;
   end Types;
 
   
@@ -667,7 +685,7 @@ end cvBooleanToBoolean4;
     input CRMLtoModelica.Types.CRMLPeriod p;
     output Integer t;
     algorithm
-      t:=p.timeStart;
+      t:=p.timeOpen;
 
     end PStart;
 
@@ -675,7 +693,7 @@ end cvBooleanToBoolean4;
     input CRMLtoModelica.Types.CRMLPeriod p;
     output Integer t;
     algorithm
-      t:=p.timeEnd;
+      t:=p.timeClosed;
 
     end PEnd;
   
@@ -689,21 +707,22 @@ end cvBooleanToBoolean4;
     Boolean x(start=false, fixed=true);
   
   public
-    ETL.Connectors.BooleanInput u
+    input Boolean r1//u
       annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-    ETL.Connectors.BooleanOutput y(start=false, fixed=true) annotation (
+     output Boolean out(start=false, fixed=true) annotation (
         Placement(transformation(extent={{100,-10},{120,10}}),
           iconTransformation(extent={{100,-10},{120,10}})));
   
-    ETL.Connectors.BooleanInput cond "Condition" annotation (Placement(
+    input Boolean  r2 //cond
+     "Condition" annotation (Placement(
           transformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
           origin={-110,80})));
   equation
   
-    x = u and cond;
-    y =  edge(x);
+    x = r1 and r2;
+    out =  edge(x);
   
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
@@ -734,55 +753,49 @@ end cvBooleanToBoolean4;
   end EventFilter;
   
    
-block Integrate
-      import CRML.ETL.Types.Boolean4;
-    protected
-      Boolean4 x(start = Boolean4.undefined, fixed = true);
-      Boolean4 d;
-      Boolean4 c;
-      Boolean4 v;
-      Boolean timePeriod(start = false, fixed = true) = tl.timePeriod;
-      Boolean not_timePeriod(start = true, fixed = true) = not tl.timePeriod;
-      Boolean sync1(start = false, fixed = true);
-      Boolean sync2(start = false, fixed = true);
-    public
-      Connectors.Boolean4Input u(start = Boolean4.false4, fixed = true) annotation(
-        Placement(transformation(extent = {{-120, -10}, {-100, 10}})));
-      Connectors.Boolean4Output y annotation(
-        Placement(transformation(extent = {{100, -10}, {120, 10}})));
-      Connectors.TimeLocatorInput tl annotation(
-        Placement(transformation(extent = {{-10, 90}, {10, 110}})));
-    public
-      Connectors.Boolean4Input a annotation(
-        Placement(transformation(extent = {{-120, 70}, {-100, 90}})));
-    equation
-/* Compute the decision event d */
-      d = Blocks.Logical4.or4(a, Types.cvBooleanToBoolean4(edge(not_timePeriod)));
-/* Determine whether the change of the condition u happens at the same instant as the start of the time period tl */
-      sync1 = u <> pre(u) and edge(timePeriod);
-/* Determine whether the change of the condition u happens at the same instant as the end of the time period tl */
-      sync2 = u <> pre(u) and edge(not_timePeriod);
-/* Compute the condition c from the condition u within the bounds of the time period tl */
-      c = if (tl.isLeftBoundaryIncluded and edge(sync1)) or (not tl.isRightBoundaryIncluded and edge(sync2)) then pre(u) else u;
-/* Compute the integral of c over the time period tl, taking into account the fact
-that the same time thread tl may accomodate several non-overlapping time periods */
-      v = if timePeriod or edge(not_timePeriod) then TemporalOperators.mul4(d, c) else Boolean4.undefined;
-      x = if edge(timePeriod) then Blocks.Logical4.and4(pre(x), v) else TemporalOperators.add4(pre(x), v);
-/* The output y is the value of the integral of c until the current time */
-      y = x;
-      annotation(
-        Placement(transformation(extent = {{100, -90}, {120, -70}})),
-        Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}, fillColor = {255, 213, 170}, lineThickness = 5, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Raised, lineColor = {0, 0, 0}), Text(extent = {{-76, 54}, {74, -50}}, lineColor = {0, 0, 0}, fontName = "Symbol", textString = "")}),
-        Diagram(coordinateSystem(preserveAspectRatio = false)));
-    end Integrate;
+    block Integrate
+          import CRMLtoModelica.Types.Boolean4;
+        protected
+          Boolean4 x(start = Boolean4.undefined, fixed = true);
+          Boolean4 d;
+          Boolean4 c;
+          Boolean4 v;
+          Boolean timePeriod(start = false, fixed = true) = tl.timePeriod;
+          Boolean not_timePeriod(start = true, fixed = true) = not tl.timePeriod;
+          Boolean sync1(start = false, fixed = true);
+          Boolean sync2(start = false, fixed = true);
+        public
+          Boolean4 u;
+          Boolean4  y;
+          Types.TimeLocator  tl ;
+    
+          Boolean4  a;
+        equation
+    /* Compute the decision event d */
+          d = Functions.or4(a, Functions.cvBooleanToBoolean4(edge(not_timePeriod)));
+    /* Determine whether the change of the condition u happens at the same instant as the start of the time period tl */
+          sync1 = u <> pre(u) and edge(timePeriod);
+    /* Determine whether the change of the condition u happens at the same instant as the end of the time period tl */
+          sync2 = u <> pre(u) and edge(not_timePeriod);
+    /* Compute the condition c from the condition u within the bounds of the time period tl */
+          c = if (tl.isLeftBoundaryIncluded and edge(sync1)) or (not tl.isRightBoundaryIncluded and edge(sync2)) then pre(u) else u;
+    /* Compute the integral of c over the time period tl, taking into account the fact
+    that the same time thread tl may accomodate several non-overlapping time periods */
+          v = if timePeriod or edge(not_timePeriod) then Functions.mul4(d, c) else Boolean4.undefined;
+          x = if edge(timePeriod) then Functions.and4(pre(x), v) else Functions.add4(pre(x), v);
+    /* The output y is the value of the integral of c until the current time */
+          y = x;
+          annotation(
+            Placement(transformation(extent = {{100, -90}, {120, -70}})),
+            Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}, fillColor = {255, 213, 170}, lineThickness = 5, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Raised, lineColor = {0, 0, 0}), Text(extent = {{-76, 54}, {74, -50}}, lineColor = {0, 0, 0}, fontName = "Symbol", textString = "")}),
+            Diagram(coordinateSystem(preserveAspectRatio = false)));
+        end Integrate;
 
     block ClockTick "Generates an event when the integer input changes"
-      ETL.Connectors.IntegerInput u(start=0, fixed=true)
-        annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-      ETL.Connectors.BooleanOutput y
-        annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-    equation
-       y = u <> pre(u);
+      input Integer r1;
+      output Boolean out;
+        equation
+       out = r1 <> pre(r1);
       annotation (
         Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,100}}, initialScale=0.06),
                         graphics={
@@ -883,7 +896,9 @@ that the same time thread tl may accomodate several non-overlapping time periods
 
     model Card
     
-    Boolean4 r1;
+    CRMLtoModelica.Types.Boolean4 r1;
+    
+    Boolean out;
     equation
 
     end Card;
