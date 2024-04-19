@@ -36,14 +36,6 @@ end CRMLClock;
       false4,
       true4) "4-valued logic" 
       annotation (Icon(graphics = {Text(extent = {{-58, 48}, {76, -38}}, textString = "")}, coordinateSystem(extent = {{-100, -100}, {100, 100}})));
-
-    record CRMLEvent
-    
-    Real occurence_time;
-    
-    Boolean occurence_condition;
-
-    end CRMLEvent;
     
     record WhileLocator "Description of a while locator"
      Boolean timePeriod "Represents the different time periods of the time locator";
@@ -61,11 +53,11 @@ end CRMLClock;
       parameter Boolean isRightBoundaryIncluded=true "If true, the right boundaries of the time periods are included";
     
     public
-      CRMLtoModelica.Types.CRMLEvent start_event;
-      CRMLtoModelica.Types.CRMLEvent close_event;
+      Boolean start_event;
+      Boolean close_event;
       
-  Integer timeOpen;
-    Integer timeClosed;
+      Integer timeOpen;
+      Integer timeClosed;
     end CRMLPeriod;
 
     block CRMLPeriods "Generates multiple time periods"

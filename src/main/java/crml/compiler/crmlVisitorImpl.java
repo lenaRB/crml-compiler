@@ -62,7 +62,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			types_mapping.put("Boolean", 	 "CRMLtoModelica.Types.Boolean4");
 			types_mapping.put("Period", 	 "CRMLtoModelica.Types.CRMLPeriod");
 			types_mapping.put("Periods", 	 "CRMLtoModelica.Types.CRMLPeriods");
-			types_mapping.put("Event", 	 	 "CRMLtoModelica.Types.Event");
+			types_mapping.put("Event", 	 	 "CRMLtoModelica.Types.Boolean4");
 			types_mapping.put("Requirement", "CRMLtoModelica.Types.Boolean4");
 			types_mapping.put("Clock", 		 "CRMLtoModelica.Types.CRMLClock");
 			types_mapping.put("Real", 		 "Real");
