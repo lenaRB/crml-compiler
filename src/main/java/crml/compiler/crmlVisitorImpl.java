@@ -659,8 +659,8 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				Value left = visit(exp.get(0));
 				Value right = visit(exp.get(1));
 				
-				res = sign.function_name + " " + name+ "(" + sign.variable_names.get(0) + "="+left.contents+"," +
-						sign.variable_names.get(1)+ "="+right.contents+");\n";
+				res = sign.function_name + " " + name+ "(" + sign.variable_names.get(1) + "="+left.contents+"," +
+						sign.variable_names.get(0)+ "="+right.contents+");\n";
 			} else {
 				Value operand = visit(exp.get(0));
 				
