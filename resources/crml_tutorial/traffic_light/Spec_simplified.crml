@@ -74,11 +74,11 @@ model Spec is {
 			// Ensuring that a requirement is satisfied all along a time period
 			//Option 1:
 			// Operator [ Boolean ] Periods P 'ensure' Boolean b 
-				// = ('check' (('count' new Clock(b 'becomes true') 'inside' P) == 0) 'over' P) and (P 'check anytime' b);
+				// = ('check' (('count' (b 'becomes true') 'inside' P) == 0) 'over' P) and (P 'check anytime' b);
 
 			//Option 2:
 			Operator [ Boolean ] Periods P 'ensure' Boolean b 
-				= (Periods P 'check count' new Clock (b 'becomes true') '==' 0) and (P 'check anytime' b);
+				= (Periods P 'check count' (b 'becomes true') '==' 0) and (P 'check anytime' b);
 
 
 			// Checking that a requirement is satisfied at any time instant of a time period
