@@ -6,7 +6,7 @@ partial model BecomesTrueInside
     annotation (Placement(transformation(extent={{100,10},{120,-10}})));
   CRML.Blocks.Events.Event4ToEvent event4ToEvent_1
     annotation (Placement(transformation(extent={{-64,-4},{-56,4}})));
-  replaceable ETL.Inside.Inside inside
+  replaceable Inside.Inside2 inside
     annotation (Placement(transformation(extent={{2,-50},{22,-30}})));
   Utilities.Boolean4Connector b2
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
