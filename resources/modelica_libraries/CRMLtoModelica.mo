@@ -53,8 +53,8 @@ end CRMLClock;
       parameter Boolean isRightBoundaryIncluded=true "If true, the right boundaries of the time periods are included";
     
     public
-      Boolean start_event;
-      Boolean close_event;
+      Types.Boolean4 start_event;
+      Types.Boolean4 close_event;
       
       Integer timeOpen;
       Integer timeClosed;
@@ -887,14 +887,15 @@ end cvBooleanToBoolean4;
     </html>"));
     end ClockTick;
 
-    model Card
+    model CardClock
     
     CRMLtoModelica.Types.CRMLClock r1;
     
     Integer out;
-    equation
+    algorithm
+      
 
-    end Card;
+    end CardClock;
     
     block BoolTick "Generates an event when the integer input changes"
       input Integer r1;
