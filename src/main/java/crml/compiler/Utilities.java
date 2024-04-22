@@ -11,18 +11,18 @@ public class Utilities {
 
     /**
      * Remove the last .* of a name and the directory path
+     * /path/to/some/FILE.ext -> FILE
      * @return
      */
     public static String stripNameEndingAndPath(String name) {
-        int firstIndex = name.lastIndexOf("/");
-        if (firstIndex==-1) 
-            firstIndex=0;   
-        
+        File f = new File(name);
+        String fileName = f.getName();
         // check if it even has an extension and return the name if not!
-        if (name.lastIndexOf('.') == -1) {
-            return name.substring(firstIndex);
+        int dotPos = fileName.lastIndexOf('.');
+        if (dotPos == -1) {
+            return fileName;
         }
-        return name.substring(firstIndex, name.lastIndexOf('.'));
+        return fileName.substring(0, dotPos);
     }
 
    public static String addDirToPath (String path, String dir){
