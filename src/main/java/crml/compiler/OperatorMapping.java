@@ -246,12 +246,12 @@ public class OperatorMapping {
 
     // filter operator
     built_in_operators.put("filter",
-      Arrays.asList(new Signature("CRMLtoModelica.Blocks.filterC", Arrays.asList("Clock", "Boolean"), params,
+      Arrays.asList(new Signature("CRMLtoModelica.Blocks.EventFilter", Arrays.asList("Clock", "Boolean"), params,
         "Clock", Type.BLOCK)));
 
     // card operator
     built_in_operators.put("card",
-      Arrays.asList(new Signature("CRMLtoModelica.Blocks.cardClock", Arrays.asList("Clock"), params,
+      Arrays.asList(new Signature("CRMLtoModelica.Blocks.Card", Arrays.asList("Clock"), params,
       "Integer", Type.BLOCK)));
 
     // CONSTRUCTORS TODO finalize constructor table
@@ -264,19 +264,19 @@ public class OperatorMapping {
     built_in_operators.put("String", string_sigs);
 
     // Integer
-    List<Signature> integer_sigs = Arrays.asList(new Signature("Integer", int1, params, "integer", Type.FUNCTION),
+    List<Signature> integer_sigs = Arrays.asList(new Signature("Integer", int1, params, "Integer", Type.FUNCTION),
       new Signature("Integer", real1, params, "integer", Type.FUNCTION));
 
     built_in_operators.put("Integer", integer_sigs);
 
     // Real
-    List<Signature> real_sigs = Arrays.asList(new Signature("Real", int1, params, "real", Type.FUNCTION),
+    List<Signature> real_sigs = Arrays.asList(new Signature("Real", int1, params, "Real", Type.FUNCTION),
       new Signature("Real", real1, params, "real", Type.FUNCTION));
 
     built_in_operators.put("Real", real_sigs);
 
     // Event
-    List<Signature> event_sigs = Arrays.asList(new Signature("Event", bool1, params, "CRMLtoModelica.Types.Event", Type.BLOCK));
+    List<Signature> event_sigs = Arrays.asList(new Signature("CRMLtoModelica.Types.Event", bool1, params, "Event", Type.BLOCK));
 
     built_in_operators.put("Event", event_sigs);
 
