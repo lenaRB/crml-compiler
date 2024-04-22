@@ -1,6 +1,5 @@
 within CRML_test.ETL.Inside;
-model Inside_externals
-
+model Inside2_externals
 
 public
   CRML.Blocks.Logical.BooleanTable bool2(
@@ -32,4 +31,4 @@ equation
           50}}, color={217,67,180}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Inside_externals;
+end Inside2_externals;

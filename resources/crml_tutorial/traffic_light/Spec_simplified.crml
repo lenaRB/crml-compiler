@@ -62,12 +62,24 @@ model Spec is {
 			Operator [ Periods ] 'after' Clock ev 'for' Real d = new Periods ] ev, ev + d ]; 	
 			
 			// Checking that the number of event occurrences at the end of a time period is lower or higher than a threshold
+			// Option 1: without category
 			Operator [ Boolean ] Periods P 'check count' Clock E '==' Integer n 
 			= 'check'(('count' E 'inside' P) == n) 'over' P;
+			
+			// // Option 2 (later support): with category
+			// Operator [ Boolean ] Periods P 'check count' Clock E '==' Integer n 
+			// = apply increasing1 on ('check'(('count' E 'inside' P) '==' n) 'over' P);
+			
 
 			// Ensuring that a requirement is satisfied all along a time period
+			//Option 1:
+			// Operator [ Boolean ] Periods P 'ensure' Boolean b 
+				// = ('check' (('count' (b 'becomes true') 'inside' P) == 0) 'over' P) and (P 'check anytime' b);
+
+			//Option 2:
 			Operator [ Boolean ] Periods P 'ensure' Boolean b 
-				= ('check' ('count' (b 'becomes true') == 0) 'over' P) and (P 'check anytime' b);
+				= (Periods P 'check count' (b 'becomes true') '==' 0) and (P 'check anytime' b);
+
 
 			// Checking that a requirement is satisfied at any time instant of a time period
 			Operator [ Boolean ] Periods P 'check anytime' Boolean b =  apply varying2 on ('check' 'id' b 'over' P);

@@ -1,11 +1,12 @@
-within CRML_test.Spec_doc.ClockCurrentTick_no_ext;
-model ClockCurrentTick_verif
-  extends ClockCurrentTick_no_ext;
-  ClockCurrentTick_externals externals
+within CRML_test.ETL.Inside;
+model Inside2_verif
+  extends Inside2;
+  Inside2_externals externals
     annotation (Placement(transformation(extent={{-200,0},{-140,60}})));
 equation
   // Bindings
-  c =externals.c;
+  b1 = externals.b1;
+  b2 = externals.b2;
     annotation (Placement(transformation(extent={{0,-20},{60,40}})),
               Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-200,-100},{100,100}},
@@ -23,4 +24,4 @@ equation
         extent={{-200,-100},{100,100}},
         initialScale=0.1)),
     experiment(StopTime=14));
-end ClockCurrentTick_verif;
+end Inside2_verif;
