@@ -1,0 +1,36 @@
+model CheckAtEnd is ETL union {
+	// Decide
+	// Option1
+	// Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi or (P end); //With or defined as the built-in disjunction operator
+	// Option2
+	Template b1 'or' b2 = not (not b1 and not b2);
+	Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' new Boolean (P end); //With 'or' as a user-defined disjunction operator for Booleans (only)
+
+	// Evaluate
+	Operator [ Boolean ] 'evaluate' Boolean phi 'over' Period P 
+		= integrate (('decide' phi 'over' P) * phi) on P;
+	
+	// Check
+	Operator [ Boolean ] 'check' Boolean phi 'over' Periods P 
+		= and ('evaluate' phi 'over' P);
+	
+	// Category
+	Operator [ Boolean ]  'id'  Boolean b = b;
+	Operator [ Boolean ]  'cte_false'  Boolean b = false;
+	Category varying1 = { ('id', 'cte_false') };
+	
+	// Operator for checking that a requirement is satisfied at the end of a time period
+	Operator [ Boolean ] Periods P 'check at end' Boolean b = 'check' (varying1 ('id' b)) 'over' P;
+	
+	// Example of function call
+	Event e1 is external;
+	Event e2 is external;
+	Boolean u is external;
+	Period P1 is ] e1, e2 [;
+	
+	Boolean b_check_at_end is {P1} 'check at end' u;
+	
+	
+
+	
+};
