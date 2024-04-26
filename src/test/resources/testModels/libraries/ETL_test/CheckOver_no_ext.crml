@@ -10,7 +10,6 @@ model CheckOver_no_ext is {
 	Operator [ Boolean ] 'evaluate' Boolean phi 'over' Period P 
 		= integrate (('decide' phi 'over' P) * phi) on P;
 
-	// Operators for the evaluation of requirements
 	// Check
 	Operator [ Boolean ] 'check' Boolean phi 'over' Periods P 
 		= and ('evaluate' phi 'over' P);
