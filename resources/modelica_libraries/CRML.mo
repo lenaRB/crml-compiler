@@ -15704,13 +15704,13 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
 
       model Log2
 
-        Modelica.StateGraph.StepWithSignal        green(nIn=2)
+        Modelica.StateGraph.StepWithSignal        green(nIn=2, nOut=1)
           annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
         Modelica.StateGraph.TransitionWithSignal T1
           annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
-        Modelica.StateGraph.StepWithSignal yellow
+        Modelica.StateGraph.StepWithSignal yellow(nOut=1, nIn=1)
           annotation (Placement(transformation(extent={{10,20},{30,40}})));
-        Modelica.StateGraph.StepWithSignal red
+        Modelica.StateGraph.StepWithSignal red(nOut=1, nIn=1)
           annotation (Placement(transformation(extent={{30,-40},{10,-20}})));
         Modelica.StateGraph.TransitionWithSignal T3
           annotation (Placement(transformation(extent={{-10,-40},{-30,-20}})));
@@ -15742,7 +15742,7 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Placement(transformation(extent={{100,-10},{120,10}})));
         Modelica.Blocks.Interfaces.BooleanOutput y_red "Value of Boolean output"
           annotation (Placement(transformation(extent={{100,70},{120,90}})));
-        Modelica.StateGraph.InitialStepWithSignal initialStep(nIn=0)
+        Modelica.StateGraph.InitialStepWithSignal initialStep(nIn=0, nOut=1)
           annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
         Modelica.StateGraph.TransitionWithSignal T0
           annotation (Placement(transformation(extent={{-30,80},{-10,100}})));
@@ -15754,19 +15754,9 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
         inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
           annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
       equation
-        connect(green.outPort[1], T1.inPort)
-          annotation (Line(points={{-49.5,30},{-24,30}}, color={0,0,0}));
-        connect(T1.outPort, yellow.inPort[1])
-          annotation (Line(points={{-18.5,30},{9,30}}, color={0,0,0}));
-        connect(red.outPort[1], T3.inPort)
-          annotation (Line(points={{9.5,-30},{-16,-30}}, color={0,0,0}));
         connect(T3.outPort, green.inPort[1]) annotation (Line(points={{-21.5,
                 -30},{-80,-30},{-80,29.75},{-71,29.75}},
                                                  color={0,0,0}));
-        connect(yellow.outPort[1], T2.inPort)
-          annotation (Line(points={{30.5,30},{56,30}}, color={0,0,0}));
-        connect(T2.outPort, red.inPort[1]) annotation (Line(points={{61.5,30},{70,
-                30},{70,-30},{31,-30}}, color={0,0,0}));
         connect(timer2.y,greaterEqual2. u)
           annotation (Line(points={{34.4,0},{45.2,0}}, color={0,0,127}));
         connect(yellow.active,timer2. u)
@@ -15792,8 +15782,6 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{93,0},{110,0}}, color={255,0,255}));
         connect(red_active.y, y_red)
           annotation (Line(points={{81,80},{110,80}},   color={255,0,255}));
-        connect(initialStep.outPort[1], T0.inPort)
-          annotation (Line(points={{-59.5,90},{-24,90}}, color={0,0,0}));
         connect(T0.outPort, green.inPort[2]) annotation (Line(points={{-18.5,90},
                 {-8,90},{-8,48},{-80,48},{-80,30.25},{-71,30.25}},
                                                                 color={0,0,0}));
@@ -15804,6 +15792,18 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
                 {-20,60},{-20,78}}, color={255,0,255}));
         connect(initialStep.active, timer0.u) annotation (Line(points={{-70,79},{
                 -70,60},{-54.8,60}}, color={255,0,255}));
+        connect(green.outPort[1], T1.inPort)
+          annotation (Line(points={{-49.5,30},{-24,30}}, color={0,0,0}));
+        connect(red.outPort[1], T3.inPort)
+          annotation (Line(points={{9.5,-30},{-16,-30}}, color={0,0,0}));
+        connect(yellow.outPort[1], T2.inPort)
+          annotation (Line(points={{30.5,30},{56,30}}, color={0,0,0}));
+        connect(T1.outPort, yellow.inPort[1])
+          annotation (Line(points={{-18.5,30},{9,30}}, color={0,0,0}));
+        connect(T2.outPort, red.inPort[1]) annotation (Line(points={{61.5,30},{
+                64,30},{64,-30},{31,-30}}, color={0,0,0}));
+        connect(initialStep.outPort[1], T0.inPort)
+          annotation (Line(points={{-59.5,90},{-24,90}}, color={0,0,0}));
         annotation (Icon(graphics={
               Rectangle(
                 extent={{-100,100},{100,-100}},
