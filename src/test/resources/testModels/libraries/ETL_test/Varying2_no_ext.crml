@@ -1,7 +1,7 @@
 model Varying2_no_ext is {
-	Category varying2 = { ('id', 'cte_true') };
 	Operator [ Boolean ]  'id'  Boolean b = b;
 	Operator [ Boolean ]  'cte_true'  Boolean b = true;
+	Category varying2 = { ('id', 'cte_true') };
 	
 	Operator [ Boolean ] 'set to true' Boolean b = apply varying2 on ( 'id' b ); 
 	

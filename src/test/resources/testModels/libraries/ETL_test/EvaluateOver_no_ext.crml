@@ -1,10 +1,10 @@
 model EvaluateOver_no_ext is {
-	// Operators on Boolean
-	// Logical disjunction
-	Template b1 'or' b2 = not (not b1 and not b2);
-	
 	// Decide
-	Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end));
+	// Option1
+	// Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi or (P end); //With or defined as the built-in disjunction operator
+	// Option2
+	Template b1 'or' b2 = not (not b1 and not b2);
+	Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' new Boolean (P end); //With 'or' as a user-defined disjunction operator for Booleans (only)
 		
 	// Evaluate
 	Operator [ Boolean ] 'evaluate' Boolean phi 'over' Period P 

@@ -9,9 +9,9 @@ public
     annotation (Placement(transformation(extent={{12,20},{32,40}})));
   CRML.Blocks.Events.EventFilter eventFilter1
     annotation (Placement(transformation(extent={{12,-40},{32,-20}})));
-  CRML.TimeLocators.Attributes.PeriodsStart    periodStart
+  CRML.ETL.TimeLocators.Attributes.PeriodStart periodStart
     annotation (Placement(transformation(extent={{-94,-44},{-86,-36}})));
-  CRML.TimeLocators.Attributes.PeriodsEnd    periodEnd
+  CRML.ETL.TimeLocators.Attributes.PeriodEnd periodEnd
     annotation (Placement(transformation(extent={{-84,-52},{-76,-44}})));
   CRML.Blocks.Events.Before after_Pstart
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
@@ -31,13 +31,13 @@ public
   CRML.Blocks.Events.ClockEvent
              eventClock
     annotation (Placement(transformation(extent={{74,-10},{94,10}})));
-  CRML.ETL.Connectors.ClockInput C1
+  Utilities.ClockConnector       C1
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
   CRML.Blocks.Events.ClockToBoolean clockToBoolean
     annotation (Placement(transformation(extent={{-84,26},{-76,34}})));
-  CRML.ETL.Connectors.TimeLocatorInput P1
+  Utilities.TimeLocatorConnector       P1
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
-  Modelica.Clocked.BooleanSignals.Sampler.Hold hold2
+  CRML.Blocks.Logical.Hold hold
     annotation (Placement(transformation(extent={{-62,24},{-50,36}})));
 equation
   connect(boolean4Constant.y, after_Pstart.strictlyBefore)
@@ -68,24 +68,24 @@ equation
       color={175,175,175},
       pattern=LinePattern.Dot,
       thickness=0.5));
-  connect(P1, periodStart.tl[1]) annotation (Line(points={{-110,-30},{-90,-30},
-          {-90,-36}}, color={0,0,255}));
-  connect(periodEnd.tl[1], P1) annotation (Line(points={{-80,-44},{-80,-30},{
-          -110,-30}}, color={0,0,255}));
-  connect(clockToBoolean.y, hold2.u)
+  connect(clockToBoolean.y, hold.u)
     annotation (Line(points={{-75.2,30},{-63.2,30}}, color={217,67,180}));
   connect(periodEnd.y, before_Pend.u2)
     annotation (Line(points={{-75.6,-48},{-31,-48}}, color={217,67,180}));
-  connect(eventFilter.u, hold2.y)
+  connect(eventFilter.u, hold.y)
     annotation (Line(points={{11,30},{-49.4,30}}, color={217,67,180}));
-  connect(eventFilter1.u, hold2.y) annotation (Line(points={{11,-30},{0,-30},{0,
-          30},{-49.4,30}}, color={217,67,180}));
+  connect(eventFilter1.u, hold.y) annotation (Line(points={{11,-30},{0,-30},{0,30},
+          {-49.4,30}}, color={217,67,180}));
   connect(periodStart.y, after_Pstart.u1) annotation (Line(points={{-85.6,-40},
           {-82,-40},{-82,-20},{-48,-20},{-48,8},{-31,8}}, color={217,67,180}));
-  connect(after_Pstart.u2, hold2.y) annotation (Line(points={{-31,-8},{-40,-8},
-          {-40,30},{-49.4,30}}, color={217,67,180}));
-  connect(before_Pend.u1, hold2.y) annotation (Line(points={{-31,-32},{-40,-32},
-          {-40,30},{-49.4,30}}, color={217,67,180}));
+  connect(after_Pstart.u2, hold.y) annotation (Line(points={{-31,-8},{-40,-8},{-40,
+          30},{-49.4,30}}, color={217,67,180}));
+  connect(before_Pend.u1, hold.y) annotation (Line(points={{-31,-32},{-40,-32},{
+          -40,30},{-49.4,30}}, color={217,67,180}));
+  connect(periodStart.tl, P1) annotation (Line(points={{-90,-36},{-90,-30},{-110,
+          -30}}, color={0,0,255}));
+  connect(periodEnd.tl, P1) annotation (Line(points={{-80,-44},{-80,-30},{-110,-30}},
+        color={0,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Inside;

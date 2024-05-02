@@ -1,4 +1,4 @@
-model CheckOver is {
+model CheckAtEnd is ETL union {
 	// Decide
 	// Option1
 	// Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi or (P end); //With or defined as the built-in disjunction operator
@@ -13,10 +13,24 @@ model CheckOver is {
 	// Check
 	Operator [ Boolean ] 'check' Boolean phi 'over' Periods P 
 		= and ('evaluate' phi 'over' P);
-		
+	
+	// Category
+	Operator [ Boolean ]  'id'  Boolean b = b;
+	Operator [ Boolean ]  'cte_false'  Boolean b = false;
+	Category varying1 = { ('id', 'cte_false') };
+	
+	// Operator for checking that a requirement is satisfied at the end of a time period
+	Operator [ Boolean ] Periods P 'check at end' Boolean b = 'check' (varying1 ('id' b)) 'over' P;
+	
 	// Example of function call
-	Boolean phi1 is external;
-	Period P1 is external;
-			
-	Boolean b_check_over is 'check' phi1 'over' P1;
+	Event e1 is external;
+	Event e2 is external;
+	Boolean u is external;
+	Period P1 is ] e1, e2 [;
+	
+	Boolean b_check_at_end is {P1} 'check at end' u;
+	
+	
+
+	
 };

@@ -1,0 +1,23 @@
+model Increasing1_no_ext is {
+	Category increasing2 = { ( > , > ),( >= , >= ),( < , >= ), ( <= , > )};
+	Operator [ Boolean ] 'id' Boolean b = b;
+	
+	Operator [ Boolean ] 'apply increasing2' Boolean b = apply increasing2 on ( 'id' b ); 
+	
+	Integer x1 is 3;
+	Integer x2 is 7;
+	Integer x3 is 7;
+	Boolean b_increasing2_on_strictly_greater_1 is 'apply increasing2' (x1 > x2) ; // (x1 > x2) is transformed to (x1 > x2) and value is false
+	Boolean b_increasing2_on_greater_or_equal_1 is 'apply increasing2' (x1 >= x2) ; // (x1 >= x2) is transformed to (x1 >= x2) and value is false
+	Boolean b_increasing2_on_stricly_less_1 is 'apply increasing2' (x1 < x2) ; // (x1 < x2) is transformed to (x1 >= x2) and value is false
+	Boolean b_increasing2_on_less_or_equal_1 is 'apply increasing2' (x1 <= x2) ; // (x1 <= x2) is transformed to (x1 > x2) and value is false
+	Boolean b_increasing2_on_equal_1 is 'apply increasing2' (x1 == x2) ; // (x1 == x2) is not transformed and value is false
+	Boolean b_increasing2_on_different_1 is 'apply increasing2' (x1 <> x2) ; // (x1 <> x2) is not transformed and value is true
+	
+	Boolean b_increasing2_on_strictly_greater_2 is 'apply increasing2' (x2 > x1) ; // (x2 > x1) is transformed to (x2 > x1) and value is true
+	Boolean b_increasing2_on_greater_or_equal_2 is 'apply increasing2' (x2 >= x1) ; // (x2 >= x1) is transformed to (x2 >= x1) and value is true
+	Boolean b_increasing2_on_stricly_less_2 is 'apply increasing2' (x2 < x1) ; // (x2 < x1) is transformed to (x2 >= x1) and value is true
+	Boolean b_increasing2_on_less_or_equal_2 is 'apply increasing2' (x2 <= x1) ; // (x2 <= x1) is transformed to (x2 > x1) and value is true
+	Boolean b_increasing2_on_equal_2 is 'apply increasing2' (x2 == x3) ; // (x2 == x3) is not transformed and value is true
+	Boolean b_increasing2_on_different_2 is 'apply increasing2' (x2 <> x3) ; // (x2 <> x3) is not transformed and value is false
+};
