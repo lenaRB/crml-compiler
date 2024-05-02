@@ -251,6 +251,8 @@
         y.isLeftBoundaryIncluded = leftBoundaryIncluded;
         y.isRightBoundaryIncluded = rightBoundaryIncluded;
 
+      //           borderPattern=BorderPattern.Raised,
+      //           borderPattern=BorderPattern.Raised,
         annotation (
           defaultComponentName="master",
           defaultComponentPrefixes="inner",
@@ -265,7 +267,6 @@ into your model.
                 extent={{-100,100},{100,-100}},
                 lineColor={0,0,127},
                 fillColor={85,170,255},
-                borderPattern=BorderPattern.Raised,
                 fillPattern=FillPattern.Solid),
                                               Text(
               extent={{-150,150},{150,110}},
@@ -305,7 +306,40 @@ into your model.
 <p><span style=\"font-family: MS Shell Dlg 2;\">Opening and closing events are respectively delivered on input <b>u</b> when <b>u</b> becomes respectively true and false.</span></p>
 <p><span style=\"font-family: MS Shell Dlg 2;\">For more information, refer to the <a href=\"modelica://CRML.ETL.TimeLocators.Periods\">Periods</a> block.</span></p>
 <p><span style=\"font-family: MS Shell Dlg 2;\">This block can be used as the mastertime  period of all <a href=\"modelica://CRML.ETL.TimeLocators.Periods\">Periods</a> blocks within a given model by just dragging and dropping the block into the model. Only one master block per model is allowed.</span></p>
-</html>"));
+</html>"),Diagram(graphics={             Ellipse(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,127},
+                fillColor={85,170,255},
+                fillPattern=FillPattern.Solid),
+                                              Text(
+              extent={{-150,150},{150,110}},
+              textString="%name",
+              lineColor={0,0,255}),
+              Line(points={{-50,38},{-70,38},{-70,-44},{-50,-44}}, color={0,0,0}, visible=leftBoundaryIncluded),
+              Line(points={{50,38},{70,38},{70,-44},{50,-44}}, color={0,0,0}, visible=rightBoundaryIncluded),
+              Line(points={{90,38},{70,38},{70,-44},{90,-44}},   color={0,0,0}, visible=not rightBoundaryIncluded),
+              Line(points={{-90,38},{-70,38},{-70,-44},{-90,-44}},   color={0,0,0}, visible=not leftBoundaryIncluded),
+              Line(
+                points={{-50,-22},{-50,18}},
+                color={0,0,0}),
+              Line(
+                points={{-50,18},{20,18}},
+                color={0,0,0}),
+              Text(
+                extent={{-40,10},{10,-14}},
+                lineColor={175,175,175},
+                pattern=LinePattern.Dash,
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid,
+                textString="%u"),
+              Line(points={{-52,-22},{56,-22}}, color={175,175,175}),
+              Line(
+                points={{20,10},{20,-30}},
+                color={0,0,0}),
+              Line(points={{40,-22},{40,18}},color={0,0,0}),
+              Line(points={{40,18},{52,18}},
+                                           color={0,0,0}),
+              Line(points={{52,18},{52,-22}},color={0,0,0})}));
       end Master;
 
       block While "While time locator"
@@ -514,8 +548,8 @@ into your model.
                 points={{-50,-12},{-48,-10}},
                 color={0,0,0},
                 pattern=LinePattern.Dash),
-              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=leftBoundaryIncluded),
-              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=rightBoundaryIncluded),
+              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=periods.leftBoundaryIncluded),
+              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=periods.rightBoundaryIncluded),
               Text(
                 extent={{-28,-10},{22,-34}},
                 lineColor={175,175,175},
@@ -643,8 +677,8 @@ into your model.
                 points={{-50,-12},{-48,-10}},
                 color={0,0,0},
                 pattern=LinePattern.Dash),
-              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=leftBoundaryIncluded),
-              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=rightBoundaryIncluded),
+              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=periods.leftBoundaryIncluded),
+              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=periods.rightBoundaryIncluded),
               Text(
                 extent={{-28,-10},{22,-34}},
                 lineColor={175,175,175},
@@ -772,8 +806,8 @@ into your model.
                 points={{-50,-12},{-48,-10}},
                 color={0,0,0},
                 pattern=LinePattern.Dash),
-              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=leftBoundaryIncluded),
-              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=rightBoundaryIncluded),
+              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=periods.leftBoundaryIncluded),
+              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=periods.rightBoundaryIncluded),
               Text(
                 extent={{-28,-10},{22,-34}},
                 lineColor={175,175,175},
@@ -901,8 +935,8 @@ into your model.
                 points={{-50,-12},{-48,-10}},
                 color={0,0,0},
                 pattern=LinePattern.Dash),
-              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=leftBoundaryIncluded),
-              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=rightBoundaryIncluded),
+              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=periods.leftBoundaryIncluded),
+              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=periods.rightBoundaryIncluded),
               Text(
                 extent={{-28,-10},{22,-34}},
                 lineColor={175,175,175},
@@ -941,7 +975,7 @@ into your model.
           annotation (Placement(transformation(extent={{-10,90},{10,110}})));
         ETL.Connectors.Boolean4Input u2 "Closing event" annotation (Placement(
               transformation(extent={{-120,-90},{-100,-70}}), visible=not
-                durationSpecified));
+                periods.durationSpecified));
       public
         ETL.Connectors.TimeLocatorOutput[N] y(timePeriod(each fixed=true, each start=false))
           "Vector of time periods" annotation (Placement(transformation(
@@ -1031,8 +1065,8 @@ into your model.
                 points={{-50,-12},{-48,-10}},
                 color={0,0,0},
                 pattern=LinePattern.Dash),
-              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=leftBoundaryIncluded),
-              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=rightBoundaryIncluded),
+              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=periods.leftBoundaryIncluded),
+              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=periods.rightBoundaryIncluded),
               Text(
                 extent={{-28,-10},{22,-34}},
                 lineColor={175,175,175},
@@ -1071,7 +1105,7 @@ into your model.
           annotation (Placement(transformation(extent={{-10,90},{10,110}})));
         ETL.Connectors.Boolean4Input u2 "Closing event" annotation (Placement(
               transformation(extent={{-120,-90},{-100,-70}}), visible=not
-                durationSpecified));
+                periods.durationSpecified));
       public
         ETL.Connectors.TimeLocatorOutput[N] y(timePeriod(each fixed=true, each start=false))
           "Vector of time periods" annotation (Placement(transformation(
@@ -1161,8 +1195,8 @@ into your model.
                 points={{-50,-12},{-48,-10}},
                 color={0,0,0},
                 pattern=LinePattern.Dash),
-              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=leftBoundaryIncluded),
-              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=rightBoundaryIncluded),
+              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=periods.leftBoundaryIncluded),
+              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=periods.rightBoundaryIncluded),
               Text(
                 extent={{-28,-10},{22,-34}},
                 lineColor={175,175,175},
@@ -1201,7 +1235,7 @@ into your model.
           annotation (Placement(transformation(extent={{-10,90},{10,110}})));
         ETL.Connectors.RealInput duration "Duration" annotation (Placement(
               transformation(extent={{-120,-90},{-100,-70}}), visible=not
-                durationSpecified));
+                periods.durationSpecified));
       public
         ETL.Connectors.TimeLocatorOutput[N] y(timePeriod(each fixed=true, each start=false))
           "Vector of time periods" annotation (Placement(transformation(
@@ -1291,8 +1325,8 @@ into your model.
                 points={{-50,-12},{-48,-10}},
                 color={0,0,0},
                 pattern=LinePattern.Dash),
-              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=leftBoundaryIncluded),
-              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=rightBoundaryIncluded),
+              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=periods.leftBoundaryIncluded),
+              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=periods.rightBoundaryIncluded),
               Text(
                 extent={{-28,-10},{22,-34}},
                 lineColor={175,175,175},
@@ -1431,10 +1465,10 @@ into your model.
                 points={{-50,-12},{-48,-10}},
                 color={0,0,0},
                 pattern=LinePattern.Dash),
-              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=leftBoundaryIncluded),
-              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=rightBoundaryIncluded),
-              Line(points={{90,30},{70,30},{70,-52},{90,-52}},   color={0,0,0}, visible=not rightBoundaryIncluded),
-              Line(points={{-90,30},{-70,30},{-70,-52},{-90,-52}},   color={0,0,0}, visible=not leftBoundaryIncluded),
+              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=periods.leftBoundaryIncluded),
+              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=periods.rightBoundaryIncluded),
+              Line(points={{90,30},{70,30},{70,-52},{90,-52}},   color={0,0,0}, visible=not periods.rightBoundaryIncluded),
+              Line(points={{-90,30},{-70,30},{-70,-52},{-90,-52}},   color={0,0,0}, visible=not periods.leftBoundaryIncluded),
               Text(
                 extent={{-28,-10},{22,-34}},
                 lineColor={175,175,175},
@@ -1467,7 +1501,7 @@ into your model.
           annotation (Placement(transformation(extent={{-10,90},{10,110}})));
         ETL.Connectors.Boolean4Input u2 "Closing event" annotation (Placement(
               transformation(extent={{-120,-90},{-100,-70}}), visible=not
-                durationSpecified));
+                periods.durationSpecified));
       public
         ETL.Connectors.TimeLocatorOutput[N] y(timePeriod(each fixed=true, each start=false))
           "Vector of time periods" annotation (Placement(transformation(
@@ -1557,8 +1591,8 @@ into your model.
                 points={{-50,-12},{-48,-10}},
                 color={0,0,0},
                 pattern=LinePattern.Dash),
-              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=leftBoundaryIncluded),
-              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=rightBoundaryIncluded),
+              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=periods.leftBoundaryIncluded),
+              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=periods.rightBoundaryIncluded),
               Text(
                 extent={{-28,-10},{22,-34}},
                 lineColor={175,175,175},
@@ -1597,7 +1631,7 @@ into your model.
           annotation (Placement(transformation(extent={{-10,90},{10,110}})));
         ETL.Connectors.Boolean4Input u2 "Closing event" annotation (Placement(
               transformation(extent={{-120,-90},{-100,-70}}), visible=not
-                durationSpecified));
+                periods.durationSpecified));
       public
         ETL.Connectors.TimeLocatorOutput[N] y(timePeriod(each fixed=true, each start=false))
           "Vector of time periods" annotation (Placement(transformation(
@@ -1687,8 +1721,8 @@ into your model.
                 points={{-50,-12},{-48,-10}},
                 color={0,0,0},
                 pattern=LinePattern.Dash),
-              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=leftBoundaryIncluded),
-              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=rightBoundaryIncluded),
+              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=periods.leftBoundaryIncluded),
+              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=periods.rightBoundaryIncluded),
               Text(
                 extent={{-28,-10},{22,-34}},
                 lineColor={175,175,175},
@@ -1727,7 +1761,7 @@ into your model.
           annotation (Placement(transformation(extent={{-10,90},{10,110}})));
         ETL.Connectors.RealInput duration "Duration" annotation (Placement(
               transformation(extent={{-120,-90},{-100,-70}}), visible=not
-                durationSpecified));
+                periods.durationSpecified));
       public
         ETL.Connectors.TimeLocatorOutput[N] y(timePeriod(each fixed=true, each start=false))
           "Vector of time periods" annotation (Placement(transformation(
@@ -1817,8 +1851,8 @@ into your model.
                 points={{-50,-12},{-48,-10}},
                 color={0,0,0},
                 pattern=LinePattern.Dash),
-              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=leftBoundaryIncluded),
-              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=rightBoundaryIncluded),
+              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=periods.leftBoundaryIncluded),
+              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=periods.rightBoundaryIncluded),
               Text(
                 extent={{-28,-10},{22,-34}},
                 lineColor={175,175,175},
@@ -1950,8 +1984,8 @@ into your model.
                 points={{-50,-12},{-48,-10}},
                 color={0,0,0},
                 pattern=LinePattern.Dash),
-              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=leftBoundaryIncluded),
-              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=rightBoundaryIncluded),
+              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=periods.leftBoundaryIncluded),
+              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=periods.rightBoundaryIncluded),
               Text(
                 extent={{-28,-10},{22,-34}},
                 lineColor={175,175,175},
@@ -2096,8 +2130,8 @@ into your model.
                 points={{-50,-12},{-48,-10}},
                 color={0,0,0},
                 pattern=LinePattern.Dash),
-              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=leftBoundaryIncluded),
-              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=rightBoundaryIncluded),
+              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=periods.leftBoundaryIncluded),
+              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=periods.rightBoundaryIncluded),
               Text(
                 extent={{-28,-10},{22,-34}},
                 lineColor={175,175,175},
@@ -2226,8 +2260,8 @@ into your model.
                 points={{-50,-12},{-48,-10}},
                 color={0,0,0},
                 pattern=LinePattern.Dash),
-              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=leftBoundaryIncluded),
-              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=rightBoundaryIncluded),
+              Line(points={{-50,30},{-70,30},{-70,-52},{-50,-52}}, color={0,0,0}, visible=periods.leftBoundaryIncluded),
+              Line(points={{50,30},{70,30},{70,-52},{50,-52}}, color={0,0,0}, visible=periods.rightBoundaryIncluded),
               Text(
                 extent={{-28,-10},{22,-34}},
                 lineColor={175,175,175},
@@ -2434,6 +2468,12 @@ into your model.
         annotation (Line(points={{0,100},{0,10}}, color={0,0,255}));
       connect(check.y, y)
         annotation (Line(points={{11,0},{110,0}}, color={162,29,33}));
+    //         Text(
+    //           extent={{-74,32},{74,-36}},
+    //           lineColor={0,0,0},
+    //           fillColor={28,108,200},
+    //           fillPattern=FillPattern.Solid,
+    //           textString=boxName),
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                              Rectangle(
               extent={{-100,100},{100,-100}},
@@ -2447,12 +2487,6 @@ into your model.
               lineColor={175,175,175},
               fillColor={215,215,215},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-74,32},{74,-36}},
-              lineColor={0,0,0},
-              fillColor={28,108,200},
-              fillPattern=FillPattern.Solid,
-              textString=boxName),
             Text(
               extent={{-68,72},{72,44}},
               lineColor={28,108,200},
@@ -2503,6 +2537,12 @@ into your model.
         annotation (Line(points={{0,100},{0,10}}, color={0,0,255}));
       connect(check.y, y)
         annotation (Line(points={{11,0},{110,0}}, color={162,29,33}));
+    //         Text(
+    //           extent={{-74,32},{74,-36}},
+    //           lineColor={0,0,0},
+    //           fillColor={28,108,200},
+    //           fillPattern=FillPattern.Solid,
+    //           textString=boxName),
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                              Rectangle(
               extent={{-100,100},{100,-100}},
@@ -2516,12 +2556,6 @@ into your model.
               lineColor={175,175,175},
               fillColor={215,215,215},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-74,32},{74,-36}},
-              lineColor={0,0,0},
-              fillColor={28,108,200},
-              fillPattern=FillPattern.Solid,
-              textString=boxName),
             Text(
               extent={{-68,72},{72,44}},
               lineColor={28,108,200},
@@ -2581,6 +2615,12 @@ into your model.
         annotation (Line(points={{11,0},{110,0}}, color={162,29,33}));
       connect(integerConstant.y, check.threshold) annotation (Line(points={{
               -39,-30},{-20,-30},{-20,-8},{-11,-8}}, color={255,127,0}));
+    //         Text(
+    //           extent={{-74,32},{74,-36}},
+    //           lineColor={0,0,0},
+    //           fillColor={28,108,200},
+    //           fillPattern=FillPattern.Solid,
+    //           textString=boxName),
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                              Rectangle(
               extent={{-100,100},{100,-100}},
@@ -2594,12 +2634,6 @@ into your model.
               lineColor={175,175,175},
               fillColor={215,215,215},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-74,32},{74,-36}},
-              lineColor={0,0,0},
-              fillColor={28,108,200},
-              fillPattern=FillPattern.Solid,
-              textString=boxName),
             Text(
               extent={{-72,72},{68,44}},
               lineColor={28,108,200},
@@ -2656,6 +2690,12 @@ into your model.
         annotation (Line(points={{11,0},{110,0}}, color={162,29,33}));
       connect(integerConstant.y, check.threshold) annotation (Line(points={{
               -39,-30},{-20,-30},{-20,-8},{-11,-8}}, color={255,127,0}));
+    //         Text(
+    //           extent={{-74,32},{74,-36}},
+    //           lineColor={0,0,0},
+    //           fillColor={28,108,200},
+    //           fillPattern=FillPattern.Solid,
+    //           textString=boxName),
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                              Rectangle(
               extent={{-100,100},{100,-100}},
@@ -2669,12 +2709,6 @@ into your model.
               lineColor={175,175,175},
               fillColor={215,215,215},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-74,32},{74,-36}},
-              lineColor={0,0,0},
-              fillColor={28,108,200},
-              fillPattern=FillPattern.Solid,
-              textString=boxName),
             Text(
               extent={{-72,72},{68,44}},
               lineColor={28,108,200},
@@ -2732,6 +2766,12 @@ into your model.
         annotation (Line(points={{11,0},{110,0}}, color={162,29,33}));
       connect(integerConstant.y, check.threshold) annotation (Line(points={{
               -39,-30},{-20,-30},{-20,-8},{-11,-8}}, color={255,127,0}));
+    //         Text(
+    //           extent={{-74,32},{74,-36}},
+    //           lineColor={0,0,0},
+    //           fillColor={28,108,200},
+    //           fillPattern=FillPattern.Solid,
+    //           textString=boxName),
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                              Rectangle(
               extent={{-100,100},{100,-100}},
@@ -2745,12 +2785,6 @@ into your model.
               lineColor={175,175,175},
               fillColor={215,215,215},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-74,32},{74,-36}},
-              lineColor={0,0,0},
-              fillColor={28,108,200},
-              fillPattern=FillPattern.Solid,
-              textString=boxName),
             Text(
               extent={{-72,72},{68,44}},
               lineColor={28,108,200},
@@ -2807,6 +2841,12 @@ into your model.
         annotation (Line(points={{11,0},{110,0}}, color={162,29,33}));
       connect(integerConstant.y, check.threshold) annotation (Line(points={{
               -39,-30},{-20,-30},{-20,-8},{-11,-8}}, color={255,127,0}));
+    //         Text(
+    //           extent={{-74,32},{74,-36}},
+    //           lineColor={0,0,0},
+    //           fillColor={28,108,200},
+    //           fillPattern=FillPattern.Solid,
+    //           textString=boxName),
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                              Rectangle(
               extent={{-100,100},{100,-100}},
@@ -2820,12 +2860,6 @@ into your model.
               lineColor={175,175,175},
               fillColor={215,215,215},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-74,32},{74,-36}},
-              lineColor={0,0,0},
-              fillColor={28,108,200},
-              fillPattern=FillPattern.Solid,
-              textString=boxName),
             Text(
               extent={{-72,72},{68,44}},
               lineColor={28,108,200},
@@ -2883,6 +2917,12 @@ into your model.
         annotation (Line(points={{11,0},{110,0}}, color={162,29,33}));
       connect(integerConstant.y, check.threshold) annotation (Line(points={{
               -39,-30},{-20,-30},{-20,-8},{-11,-8}}, color={255,127,0}));
+    //         Text(
+    //           extent={{-74,32},{74,-36}},
+    //           lineColor={0,0,0},
+    //           fillColor={28,108,200},
+    //           fillPattern=FillPattern.Solid,
+    //           textString=boxName),
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                              Rectangle(
               extent={{-100,100},{100,-100}},
@@ -2896,12 +2936,6 @@ into your model.
               lineColor={175,175,175},
               fillColor={215,215,215},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-74,32},{74,-36}},
-              lineColor={0,0,0},
-              fillColor={28,108,200},
-              fillPattern=FillPattern.Solid,
-              textString=boxName),
             Text(
               extent={{-72,72},{68,44}},
               lineColor={28,108,200},
@@ -2957,6 +2991,12 @@ into your model.
         annotation (Line(points={{11,0},{110,0}}, color={162,29,33}));
       connect(integerConstant.y, check.threshold) annotation (Line(points={{
               -39,-30},{-20,-30},{-20,-8},{-11,-8}}, color={0,0,0}));
+    //         Text(
+    //           extent={{-74,32},{74,-36}},
+    //           lineColor={0,0,0},
+    //           fillColor={28,108,200},
+    //           fillPattern=FillPattern.Solid,
+    //           textString=boxName),
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                              Rectangle(
               extent={{-100,100},{100,-100}},
@@ -2970,12 +3010,6 @@ into your model.
               lineColor={175,175,175},
               fillColor={215,215,215},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-74,32},{74,-36}},
-              lineColor={0,0,0},
-              fillColor={28,108,200},
-              fillPattern=FillPattern.Solid,
-              textString=boxName),
             Text(
               extent={{-72,72},{68,44}},
               lineColor={28,108,200},
@@ -3031,6 +3065,12 @@ into your model.
         annotation (Line(points={{11,0},{110,0}}, color={162,29,33}));
       connect(integerConstant.y, check.threshold) annotation (Line(points={{
               -39,-30},{-20,-30},{-20,-8},{-11,-8}}, color={0,0,0}));
+    //         Text(
+    //           extent={{-74,32},{74,-36}},
+    //           lineColor={0,0,0},
+    //           fillColor={28,108,200},
+    //           fillPattern=FillPattern.Solid,
+    //           textString=boxName),
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                              Rectangle(
               extent={{-100,100},{100,-100}},
@@ -3044,12 +3084,6 @@ into your model.
               lineColor={175,175,175},
               fillColor={215,215,215},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-74,32},{74,-36}},
-              lineColor={0,0,0},
-              fillColor={28,108,200},
-              fillPattern=FillPattern.Solid,
-              textString=boxName),
             Text(
               extent={{-72,72},{68,44}},
               lineColor={28,108,200},
@@ -3106,6 +3140,12 @@ into your model.
         annotation (Line(points={{11,0},{110,0}}, color={162,29,33}));
       connect(integerConstant.y, check.threshold) annotation (Line(points={{
               -39,-30},{-20,-30},{-20,-8},{-11,-8}}, color={0,0,0}));
+    //         Text(
+    //           extent={{-74,32},{74,-36}},
+    //           lineColor={0,0,0},
+    //           fillColor={28,108,200},
+    //           fillPattern=FillPattern.Solid,
+    //           textString=boxName),
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                              Rectangle(
               extent={{-100,100},{100,-100}},
@@ -3119,12 +3159,6 @@ into your model.
               lineColor={175,175,175},
               fillColor={215,215,215},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-74,32},{74,-36}},
-              lineColor={0,0,0},
-              fillColor={28,108,200},
-              fillPattern=FillPattern.Solid,
-              textString=boxName),
             Text(
               extent={{-72,72},{68,44}},
               lineColor={28,108,200},
@@ -3180,6 +3214,12 @@ into your model.
         annotation (Line(points={{11,0},{110,0}}, color={162,29,33}));
       connect(integerConstant.y, check.threshold) annotation (Line(points={{
               -39,-30},{-20,-30},{-20,-8},{-11,-8}}, color={0,0,0}));
+    //         Text(
+    //           extent={{-74,32},{74,-36}},
+    //           lineColor={0,0,0},
+    //           fillColor={28,108,200},
+    //           fillPattern=FillPattern.Solid,
+    //           textString=boxName),
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                              Rectangle(
               extent={{-100,100},{100,-100}},
@@ -3193,12 +3233,6 @@ into your model.
               lineColor={175,175,175},
               fillColor={215,215,215},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-74,32},{74,-36}},
-              lineColor={0,0,0},
-              fillColor={28,108,200},
-              fillPattern=FillPattern.Solid,
-              textString=boxName),
             Text(
               extent={{-72,72},{68,44}},
               lineColor={28,108,200},
@@ -3264,6 +3298,12 @@ into your model.
         annotation (Line(points={{-110,0},{-69,0}}, color={162,29,33}));
       connect(not4_1.y, checkCountEqual.u)
         annotation (Line(points={{-47,0},{-11,0}}, color={162,29,33}));
+    //         Text(
+    //           extent={{-74,32},{74,-36}},
+    //           lineColor={0,0,0},
+    //           fillColor={28,108,200},
+    //           fillPattern=FillPattern.Solid,
+    //           textString=boxName),
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                              Rectangle(
               extent={{-100,100},{100,-100}},
@@ -3277,12 +3317,6 @@ into your model.
               lineColor={175,175,175},
               fillColor={215,215,215},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-74,32},{74,-36}},
-              lineColor={0,0,0},
-              fillColor={28,108,200},
-              fillPattern=FillPattern.Solid,
-              textString=boxName),
             Text(
               extent={{-68,72},{72,44}},
               lineColor={28,108,200},
@@ -4453,7 +4487,24 @@ The usage is demonstrated, e.g., in example
 <a href=\"modelica://Modelica.Blocks.Examples.BooleanNetwork1\">Modelica.Blocks.Examples.BooleanNetwork1</a>.
 </p>
 
-</html>"),Diagram(coordinateSystem(initialScale=0.04)));
+</html>"),Diagram(coordinateSystem(initialScale=0.04), graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                lineThickness=5.0,
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+              Ellipse(
+                extent={{60,10},{80,-10}},
+                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillPattern=FillPattern.Solid),                        Line(points={{-80,-68},
+                    {-36,-68},{-36,-24},{22,-24},{22,-68},{66,-68}}),              Line(points={{-80,32},
+                    {-36,32},{-36,76},{-36,76},{-36,32},{66,32}},
+                                         color={255,0,255})}));
       end RisingEdge;
 
       block RisingEdge4 "Output y is true, if the input u has a rising edge (u becomes true), otherwise it is false"
@@ -4504,7 +4555,24 @@ The usage is demonstrated, e.g., in example
 <a href=\"modelica://Modelica.Blocks.Examples.BooleanNetwork1\">Modelica.Blocks.Examples.BooleanNetwork1</a>.
 </p>
 
-</html>"),Diagram(coordinateSystem(initialScale=0.04)));
+</html>"),Diagram(coordinateSystem(initialScale=0.04), graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                lineThickness=5.0,
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+              Ellipse(
+                extent={{60,10},{80,-10}},
+                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillPattern=FillPattern.Solid),                        Line(points={{-80,-68},
+                    {-36,-68},{-36,-24},{22,-24},{22,-68},{66,-68}}),              Line(points={{-80,32},
+                    {-36,32},{-36,76},{-36,76},{-36,32},{66,32}},
+                                         color={255,0,255})}));
       end RisingEdge4;
 
       block FallingEdge "Output y is true, if the input u has a falling edge (u becomes false), otherwise it is false"
@@ -4552,7 +4620,24 @@ The usage is demonstrated, e.g., in example
 <a href=\"modelica://Modelica.Blocks.Examples.BooleanNetwork1\">Modelica.Blocks.Examples.BooleanNetwork1</a>.
 </p>
 
-</html>"),Diagram(coordinateSystem(initialScale=0.04)));
+</html>"),Diagram(coordinateSystem(initialScale=0.04), graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                lineThickness=5.0,
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+              Ellipse(
+                extent={{60,10},{80,-10}},
+                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillPattern=FillPattern.Solid),                         Line(points={{-80,-68},
+                    {-36,-68},{-36,-24},{22,-24},{22,-68},{66,-68}}),             Line(points={{-80,32},
+                    {24,32},{24,76},{24,76},{24,32},{66,32}},
+                                       color={255,0,255})}));
       end FallingEdge;
 
       block FallingEdge4 "Output y is true, if the input u has a falling edge (u becomes false), otherwise it is false"
@@ -4603,7 +4688,24 @@ The usage is demonstrated, e.g., in example
 <a href=\"modelica://Modelica.Blocks.Examples.BooleanNetwork1\">Modelica.Blocks.Examples.BooleanNetwork1</a>.
 </p>
 
-</html>"),Diagram(coordinateSystem(initialScale=0.04)));
+</html>"),Diagram(coordinateSystem(initialScale=0.04), graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                lineThickness=5.0,
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+              Ellipse(
+                extent={{60,10},{80,-10}},
+                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillPattern=FillPattern.Solid),                         Line(points={{-80,-68},
+                    {-36,-68},{-36,-24},{22,-24},{22,-68},{66,-68}}),             Line(points={{-80,32},
+                    {24,32},{24,76},{24,76},{24,32},{66,32}},
+                                       color={255,0,255})}));
       end FallingEdge4;
 
       block ChangingEdge "Output y is true, if the input u has either a rising (becomes true) or a falling edge (becomes false), otherwise it is false"
@@ -4652,7 +4754,29 @@ The usage is demonstrated, e.g., in example
 <a href=\"modelica://Modelica.Blocks.Examples.BooleanNetwork1\">Modelica.Blocks.Examples.BooleanNetwork1</a>.
 </p>
 
-</html>"),Diagram(coordinateSystem(initialScale=0.04)));
+</html>"),Diagram(coordinateSystem(initialScale=0.04), graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                lineThickness=5.0,
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+              Ellipse(
+                extent={{60,10},{80,-10}},
+                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillPattern=FillPattern.Solid),
+                Line(points={{-80,-68},{-36,-68},{-36,-24},{22,-24},{22,-68},{
+                    66,-68}}),
+                Line(points={{-80,32},{-36,32},{-36,76},{-36,76},{-36,32},{66,
+                    32}},
+                    color={255,0,255}),
+                Line(
+                  points={{24,32},{24,76}},
+                  color={255,0,255})}));
       end ChangingEdge;
 
       block ChangingEdge4 "Output y is true, if the input u has either a rising (becomes true) or a falling edge (becomes false), otherwise it is false"
@@ -4709,7 +4833,29 @@ The usage is demonstrated, e.g., in example
 <a href=\"modelica://Modelica.Blocks.Examples.BooleanNetwork1\">Modelica.Blocks.Examples.BooleanNetwork1</a>.
 </p>
 
-</html>"),Diagram(coordinateSystem(initialScale=0.04)));
+</html>"),Diagram(coordinateSystem(initialScale=0.04), graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                lineThickness=5.0,
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+              Ellipse(
+                extent={{60,10},{80,-10}},
+                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillPattern=FillPattern.Solid),
+                Line(points={{-80,-68},{-36,-68},{-36,-24},{22,-24},{22,-68},{
+                    66,-68}}),
+                Line(points={{-80,32},{-36,32},{-36,76},{-36,76},{-36,32},{66,
+                    32}},
+                    color={255,0,255}),
+                Line(
+                  points={{24,32},{24,76}},
+                  color={255,0,255})}));
       end ChangingEdge4;
 
       block Before "Returns true if event on u1 occurs before event on u2"
@@ -4792,7 +4938,33 @@ The usage is demonstrated, e.g., in example
                 extent={{-90,-40},{60,40}},
                 lineColor={0,0,0},
                 textString="<")}),                                     Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                lineThickness=5.0,
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+                Line(points={{-80,-58},{-4,-58},{-4,-58},{38,-58},{38,-58},{66,
+                    -58}},
+                    color={0,0,0}),
+                Line(points={{-80,32},{-62,32},{-62,32},{-20,32},{-20,32},{66,
+                    32}},
+                    color={255,0,255}),
+              Text(
+                extent={{-60,148},{62,112}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name"),
+              Line(points={{-62,76},{-62,32}}, color={217,67,180}),
+              Line(points={{24,-14},{24,-58}}, color={0,0,0}),
+                                         Text(
+                extent={{-90,-40},{60,40}},
+                lineColor={0,0,0},
+                textString="<")}));
       end Before;
 
       block ElapsedTime "Elapsed time u2 - u1 time between events u1 and u2"
@@ -4863,7 +5035,29 @@ The usage is demonstrated, e.g., in example
                 textString="%name"),
               Line(points={{-62,76},{-62,32}}, color={217,67,180}),
               Line(points={{24,-14},{24,-58}}, color={0,0,0})}),       Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                lineThickness=5.0,
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+                Line(points={{-80,-58},{-4,-58},{-4,-58},{38,-58},{38,-58},{66,
+                    -58}},
+                    color={0,0,0}),
+                Line(points={{-80,32},{-62,32},{-62,32},{-20,32},{-20,32},{66,
+                    32}},
+                    color={255,0,255}),
+              Text(
+                extent={{-60,148},{62,112}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name"),
+              Line(points={{-62,76},{-62,32}}, color={217,67,180}),
+              Line(points={{24,-14},{24,-58}}, color={0,0,0})}));
       end ElapsedTime;
 
       block Event3ToEvent
@@ -4894,7 +5088,19 @@ The usage is demonstrated, e.g., in example
                 fillPattern=FillPattern.Solid),
               Line(points={{-58,0},{68,0},{48,20}}, color={0,0,0}),
               Line(points={{68,0},{48,-20}}, color={0,0,0})}),      Diagram(
-              coordinateSystem(initialScale=0.04)));
+              coordinateSystem(initialScale=0.04), graphics={
+                                               Rectangle(
+                extent={{-100,100},{0,-100}},
+                fillColor={213,255,170},
+                fillPattern=FillPattern.Solid,
+                lineColor={158,158,0}),
+              Rectangle(
+                extent={{0,100},{100,-100}},
+                lineColor={175,175,175},
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid),
+              Line(points={{-58,0},{68,0},{48,20}}, color={0,0,0}),
+              Line(points={{68,0},{48,-20}}, color={0,0,0})}));
       end Event3ToEvent;
 
       block Event4ToEvent
@@ -4926,7 +5132,19 @@ The usage is demonstrated, e.g., in example
                 fillPattern=FillPattern.Solid),
               Line(points={{-58,0},{68,0},{48,20}}, color={0,0,0}),
               Line(points={{68,0},{48,-20}}, color={0,0,0})}),      Diagram(
-              coordinateSystem(initialScale=0.04)));
+              coordinateSystem(initialScale=0.04), graphics={
+                                               Rectangle(
+                extent={{-100,100},{0,-100}},
+                fillColor={255,213,170},
+                fillPattern=FillPattern.Solid,
+                lineColor={255,170,170}),
+              Rectangle(
+                extent={{0,100},{100,-100}},
+                lineColor={175,175,175},
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid),
+              Line(points={{-58,0},{68,0},{48,20}}, color={0,0,0}),
+              Line(points={{68,0},{48,-20}}, color={0,0,0})}));
       end Event4ToEvent;
 
       block EventCounter "Counts events on input u"
@@ -4983,7 +5201,32 @@ The usage is demonstrated, e.g., in example
                                                color={217,67,180}),
               Line(points={{38,-16},{38,-60}}, color={217,67,180}),
               Line(points={{68,-16},{68,-60}}, color={217,67,180})}),  Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                lineThickness=5.0,
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+              Text(
+                extent={{-60,148},{62,112}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name"),
+              Line(points={{-82,12},{-62,12},{-62,32},{-22,32},{-22,52},{38,52},
+                    {38,72},{68,72},{68,91.981},{88,92}},    color={244,125,35}),
+                Line(points={{-80,-60},{-62,-60},{-62,-60},{-20,-60},{-20,-60},
+                    {88,-60}},
+                    color={255,0,255}),
+              Line(points={{-62,-16},{-62,-60}},
+                                               color={217,67,180}),
+              Line(points={{-20,-16},{-20,-60}},
+                                               color={217,67,180}),
+              Line(points={{38,-16},{38,-60}}, color={217,67,180}),
+              Line(points={{68,-16},{68,-60}}, color={217,67,180})}));
       end EventCounter;
 
       block EventDelay "Event delay"
@@ -5068,7 +5311,38 @@ The usage is demonstrated, e.g., in example
               Line(points={{-20,76},{-20,32}}, color={217,67,180}),
               Line(points={{-4,-14},{-4,-58}}, color={0,0,0}),
               Line(points={{38,-14},{38,-58}}, color={0,0,0})}),       Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                lineThickness=5.0,
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+              Ellipse(
+                extent={{60,10},{80,-10}},
+                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillPattern=FillPattern.Solid),
+                Line(points={{-80,-58},{-4,-58},{-4,-58},{38,-58},{38,-58},{66,
+                    -58}},
+                    color={0,0,0}),
+                Line(points={{-80,32},{-62,32},{-62,32},{-20,32},{-20,32},{66,
+                    32}},
+                    color={255,0,255}),
+              Text(
+                extent={{-60,148},{62,112}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name"),
+              Line(points={{-62,76},{-62,32}}, color={217,67,180}),
+              Line(points={{-20,76},{-20,32}}, color={217,67,180}),
+              Line(points={{-4,-14},{-4,-58}}, color={0,0,0}),
+              Line(points={{38,-14},{38,-58}}, color={0,0,0})}));
       end EventDelay;
 
       block EventClockedDelay "Boolean signal clocked delay"
@@ -5176,7 +5450,45 @@ The usage is demonstrated, e.g., in example
               Line(points={{-20,76},{-20,32}}, color={217,67,180}),
               Line(points={{-4,-14},{-4,-58}}, color={0,0,0}),
               Line(points={{38,-14},{38,-58}}, color={0,0,0})}),       Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                lineThickness=5.0,
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+              Ellipse(
+                extent={{60,10},{80,-10}},
+                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillPattern=FillPattern.Solid),
+              Text(
+                extent={{-60,148},{62,112}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name"),
+              Ellipse(
+                extent={{60,10},{80,-10}},
+                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillPattern=FillPattern.Solid),
+                Line(points={{-80,-58},{-4,-58},{-4,-58},{38,-58},{38,-58},{66,
+                    -58}},
+                    color={0,0,0}),
+                Line(points={{-80,32},{-62,32},{-62,32},{-20,32},{-20,32},{66,
+                    32}},
+                    color={255,0,255}),
+              Line(points={{-62,76},{-62,32}}, color={217,67,180}),
+              Line(points={{-20,76},{-20,32}}, color={217,67,180}),
+              Line(points={{-4,-14},{-4,-58}}, color={0,0,0}),
+              Line(points={{38,-14},{38,-58}}, color={0,0,0})}));
       end EventClockedDelay;
 
       block EventFilter "Filters events depending on condition"
@@ -5226,7 +5538,31 @@ The usage is demonstrated, e.g., in example
               Line(points={{68,-16},{68,-60}}, color={217,67,180}),
                 Line(points={{-78,38},{-50,38},{-50,82},{48,82},{48,38},{68,38}})}),
                                                                        Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                lineThickness=5.0,
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+              Text(
+                extent={{-60,148},{62,112}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name"),
+                Line(points={{-80,-60},{-62,-60},{-62,-60},{-20,-60},{-20,-60},
+                    {88,-60}},
+                    color={255,0,255}),
+              Line(points={{-62,-16},{-62,-60}},
+                                               color={217,67,180}),
+              Line(points={{-20,-16},{-20,-60}},
+                                               color={217,67,180}),
+              Line(points={{38,-16},{38,-60}}, color={217,67,180}),
+              Line(points={{68,-16},{68,-60}}, color={217,67,180}),
+                Line(points={{-78,38},{-50,38},{-50,82},{48,82},{48,38},{68,38}})}));
       end EventFilter;
 
       block EventPeriodic "Generate periodic events"
@@ -5438,7 +5774,38 @@ The usage is demonstrated, e.g., in example
               Line(points={{-38,-14},{-38,-58}},
                                                color={0,0,0}),
               Line(points={{10,-14},{10,-58}}, color={0,0,0})}),       Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+              Text(
+                extent={{-60,148},{62,112}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name"),           Rectangle(
+                extent={{-100,100},{100,-100}},
+                fillColor={210,210,210},
+                lineThickness=5,
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised,
+                lineColor={0,0,0}),
+              Ellipse(
+                extent={{60,10},{80,-10}},
+                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillPattern=FillPattern.Solid),
+                Line(points={{-80,-58},{-4,-58},{-4,-58},{38,-58},{38,-58},{66,
+                    -58}},
+                    color={0,0,0}),
+                Line(points={{-80,32},{-62,32},{-62,32},{-20,32},{-20,32},{66,
+                    32}},
+                    color={255,0,255}),
+              Line(points={{-22,76},{-22,32}}, color={217,67,180}),
+              Line(points={{20,76},{20,32}},   color={217,67,180}),
+              Line(points={{-38,-14},{-38,-58}},
+                                               color={0,0,0}),
+              Line(points={{10,-14},{10,-58}}, color={0,0,0})}));
       end EventProjection;
 
       block EventTable "Table for events"
@@ -5614,7 +5981,30 @@ The usage is demonstrated, e.g., in example
             grid=[2, 2],
             component=[20, 20]),
           Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-                  100}})),
+                  100}}), graphics={
+              Text(
+                extent={{-60,148},{62,112}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name"),           Rectangle(
+                extent={{-100,100},{100,-100}},
+                fillColor={210,210,210},
+                lineThickness=5.0,
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+              Ellipse(
+                extent={{71,7},{85,-7}},
+                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillPattern=FillPattern.Solid),
+                                    Text(
+                extent={{-92,40},{88,-40}},
+                lineColor={0,0,0},
+                textString="t=0")}),
           Icon(
             coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                                 graphics={
@@ -5756,7 +6146,77 @@ The usage is demonstrated, e.g., in example
 <p>This component generates the continuous physical time elpased from the event given as input to the block.</p>
 <p>The output is equal to initialValue if the event has never occurred. Otherwise, the output is the delay between the current time and the latest event on the input.</p>
 <p>The <a href=\"modelica://CRML.TimeLocators.Continuous.Master\">Master</a> time locator can be used to generate the event instead of input u.</p>
-</html>"));
+</html>"),Diagram(graphics={
+              Ellipse(
+                extent={{-100,100},{100,-100}},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                lineColor={0,0,0}),
+              Ellipse(
+                extent={{9,-10},{-11,10}},
+                lineColor={0,0,0},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid),
+              Line(points={{-1,0},{52,50}},  color={0,0,0}),
+              Rectangle(
+                extent={{80,6},{100,-6}},
+                fillPattern=FillPattern.Solid,
+                lineColor={0,0,0},
+                fillColor={0,0,0}),
+              Rectangle(
+                extent={{-100,6},{-80,-6}},
+                fillPattern=FillPattern.Solid,
+                lineColor={0,0,0},
+                fillColor={0,0,0}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=90,
+                origin={52,-120},
+                lineColor={0,0,0},
+                fillColor={0,0,0}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=45,
+                origin={80,6},
+                lineColor={0,0,0},
+                fillColor={0,0,0}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=135,
+                origin={-6,80},
+                lineColor={0,0,0},
+                fillColor={0,0,0}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=135,
+                origin={122,-48},
+                lineColor={0,0,0},
+                fillColor={0,0,0}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=90,
+                origin={52,60},
+                lineColor={0,0,0},
+                fillColor={0,0,0}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=45,
+                origin={-52,-118},
+                lineColor={0,0,0},
+                fillColor={0,0,0}),
+              Text(
+                extent={{-51,150},{51,114}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name")}));
       end TimeFrom;
 
       block ClockEvent
@@ -5871,7 +6331,77 @@ parameter <b>solver</b>. Both parameters are in tab <b>Advanced</b>.
 For an example, see
 <a href=\"modelica://Modelica_Synchronous.Examples.Systems.ControlledMixingUnit\">Examples.Systems.ControlledMixingUnit</a>.
 </p>
-</html>"));
+</html>"),Diagram(graphics={
+              Ellipse(
+                extent={{-100,100},{100,-100}},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                lineColor={0,140,72}),
+              Ellipse(
+                extent={{9,-10},{-11,10}},
+                lineColor={0,140,72},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid),
+              Line(points={{-1,0},{52,50}},  color={0,140,72}),
+              Rectangle(
+                extent={{80,6},{100,-6}},
+                fillPattern=FillPattern.Solid,
+                lineColor={95,95,95},
+                fillColor={0,140,72}),
+              Rectangle(
+                extent={{-100,6},{-80,-6}},
+                fillPattern=FillPattern.Solid,
+                lineColor={95,95,95},
+                fillColor={0,140,72}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=90,
+                origin={52,-120},
+                lineColor={95,95,95},
+                fillColor={0,140,72}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=45,
+                origin={80,6},
+                lineColor={95,95,95},
+                fillColor={0,140,72}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=135,
+                origin={-6,80},
+                lineColor={95,95,95},
+                fillColor={0,140,72}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=135,
+                origin={122,-48},
+                lineColor={95,95,95},
+                fillColor={0,140,72}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=90,
+                origin={52,60},
+                lineColor={95,95,95},
+                fillColor={0,140,72}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=45,
+                origin={-52,-118},
+                lineColor={95,95,95},
+                fillColor={0,140,72}),
+              Text(
+                extent={{-51,150},{51,114}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name")}));
       end ClockEvent;
 
       block ClockTick "Generates an event when the integer input changes"
@@ -5978,7 +6508,77 @@ parameter <b>solver</b>. Both parameters are in tab <b>Advanced</b>.
 For an example, see
 <a href=\"modelica://Modelica_Synchronous.Examples.Systems.ControlledMixingUnit\">Examples.Systems.ControlledMixingUnit</a>.
 </p>
-</html>"));
+</html>"),Diagram(graphics={
+              Ellipse(
+                extent={{-100,100},{100,-100}},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                lineColor={217,67,180}),
+              Ellipse(
+                extent={{9,-10},{-11,10}},
+                lineColor={217,67,180},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid),
+              Line(points={{-1,0},{52,50}},  color={217,67,180}),
+              Rectangle(
+                extent={{80,6},{100,-6}},
+                fillPattern=FillPattern.Solid,
+                lineColor={217,67,180},
+                fillColor={217,67,180}),
+              Rectangle(
+                extent={{-100,6},{-80,-6}},
+                fillPattern=FillPattern.Solid,
+                lineColor={217,67,180},
+                fillColor={217,67,180}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=90,
+                origin={52,-120},
+                lineColor={217,67,180},
+                fillColor={217,67,180}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=45,
+                origin={80,6},
+                lineColor={217,67,180},
+                fillColor={217,67,180}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=135,
+                origin={-6,80},
+                lineColor={217,67,180},
+                fillColor={217,67,180}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=135,
+                origin={122,-48},
+                lineColor={217,67,180},
+                fillColor={217,67,180}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=90,
+                origin={52,60},
+                lineColor={217,67,180},
+                fillColor={217,67,180}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=45,
+                origin={-52,-118},
+                lineColor={217,67,180},
+                fillColor={217,67,180}),
+              Text(
+                extent={{-51,150},{51,114}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name")}));
       end ClockTick;
 
       block ClockToBoolean
@@ -6027,6 +6627,38 @@ For an example, see
                 extent={{-38,88},{-18,68}},
                 lineColor={255,0,255},
                 fillColor={255,0,255},
+                fillPattern=FillPattern.Solid)}), Diagram(graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid),
+              Text(
+                extent={{-250,170},{250,110}},
+                textString="%name",
+                lineColor={0,0,255}),
+              Ellipse(
+                extent={{60,10},{80,-10}},
+                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillPattern=FillPattern.Solid),                                    Line(points={{-74,-82},
+                    {-30,-82},{-30,-38},{-30,-38},{-30,-82},{72,-82}},
+                                         color={95,95,95},
+                pattern=LinePattern.Dot),
+              Ellipse(
+                extent={{-40,-28},{-20,-48}},
+                lineColor={95,95,95},
+                fillColor={95,95,95},
+                fillPattern=FillPattern.Solid),                                    Line(points={{-72,34},
+                    {-28,34},{-28,78},{-28,78},{-28,34},{74,34}},
+                                         color={255,0,255},
+                pattern=LinePattern.Dot),
+              Ellipse(
+                extent={{-38,88},{-18,68}},
+                lineColor={255,0,255},
+                fillColor={255,0,255},
                 fillPattern=FillPattern.Solid)}));
       end ClockToBoolean;
 
@@ -6068,7 +6700,7 @@ For an example, see
                      else {235,235,235}),
                 fillPattern=FillPattern.Solid),
             Ellipse(lineColor={64,64,64},
-              fillColor=DynamicSelect({192,192,192}, if showActive > 0.5 then {0,255,0} else {235,235,235}),
+              fillColor=DynamicSelect({192,192,192}, if y > 0.5 then {0,255,0} else {235,235,235}),
               pattern=LinePattern.None,
               fillPattern=FillPattern.Sphere,
               extent={{-40,-42},{40,40}}),
@@ -6283,7 +6915,34 @@ For an example, see
                 fillColor={255,255,255},
                 fillPattern=FillPattern.Solid,
                 textString="%name")}),                                 Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                lineThickness=5.0,
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+              Ellipse(
+                extent={{60,10},{80,-10}},
+                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillPattern=FillPattern.Solid),
+                Line(points={{-80,-58},{-4,-58},{-4,-14},{38,-14},{38,-58},{66,
+                    -58}},
+                    color={0,0,0}),
+                Line(points={{-80,32},{-62,32},{-62,76},{-20,76},{-20,32},{66,
+                    32}},
+                    color={255,0,255}),
+              Text(
+                extent={{-60,148},{62,112}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name")}));
       end BooleanClockedDelay;
 
       block BooleanDelay "Boolean signal delay"
@@ -6360,7 +7019,34 @@ For an example, see
                 fillColor={255,255,255},
                 fillPattern=FillPattern.Solid,
                 textString="%name")}),                                 Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+              Rectangle(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,0},
+                lineThickness=5.0,
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+              Ellipse(
+                extent={{60,10},{80,-10}},
+                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillPattern=FillPattern.Solid),
+                Line(points={{-80,-58},{-4,-58},{-4,-14},{38,-14},{38,-58},{66,
+                    -58}},
+                    color={0,0,0}),
+                Line(points={{-80,32},{-62,32},{-62,76},{-20,76},{-20,32},{66,
+                    32}},
+                    color={255,0,255}),
+              Text(
+                extent={{-60,148},{62,112}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name")}));
       end BooleanDelay;
 
       block BooleanPulse "Generate pulse signal of type Boolean"
@@ -6552,7 +7238,7 @@ The Boolean output y is a pulse signal:
                      else {235,235,235}),
                 fillPattern=FillPattern.Solid),
               Line(
-                visible=not startValue,
+                visible=true,
                 points={{-80,-70},{0,-70},{0,50},{80,50}}),
               Text(
                 extent={{-150,-100},{150,-70}},
@@ -6825,7 +7511,7 @@ The Boolean output y is a step signal:
                      else {235,235,235}),
                 fillPattern=FillPattern.Solid),
               Line(
-                visible=not startValue,
+                visible=true,
                 points={{-80,-70},{-40,-70},{-40,50},{80,50}}),
               Text(
                 extent={{-60,148},{62,112}},
@@ -6954,7 +7640,45 @@ Analog to the corresponding Real signal block example there exists an elementary
 <a href=\"modelica://Modelica.Clocked.Examples.Elementary.BooleanSignals.Hold\">example</a> for this Boolean block.
 </p>
 
-</html>"));
+</html>"),Diagram(graphics={         Line(points={{-80,-60},{-40,-60},{-40,0},{
+                    0,0},{0,0},{0,0},{0,80},{40,80},{40,40},{80,40},{80,0},{80,
+                    0},{80,0},{100,0}},color={255,0,255}),
+                                                         Line(
+                points={{-80,-60},{-80,0},{-106,0}},
+                color={255,0,255}),
+              Ellipse(
+                extent={{-90,-50},{-70,-70}},
+                lineColor={255,0,255},
+                fillColor={255,0,255},
+                fillPattern=FillPattern.Solid),
+              Ellipse(
+                extent={{-50,10},{-30,-10}},
+                lineColor={255,0,255},
+                fillColor={255,0,255},
+                fillPattern=FillPattern.Solid),
+              Ellipse(
+                extent={{-10,90},{10,70}},
+                lineColor={255,0,255},
+                fillColor={255,0,255},
+                fillPattern=FillPattern.Solid),
+              Ellipse(
+                extent={{30,50},{50,30}},
+                lineColor={255,0,255},
+                fillColor={255,0,255},
+                fillPattern=FillPattern.Solid),
+              Ellipse(
+                extent={{70,10},{90,-10}},
+                lineColor={255,0,255},
+                fillColor={255,0,255},
+                fillPattern=FillPattern.Solid),
+              Text(
+                extent={{-150,-100},{150,-140}},
+                textString="%y_start",
+                textColor={0,0,0}),
+              Text(
+                extent={{-150,130},{150,90}},
+                textString="%name",
+                textColor={0,0,255})}));
       end Hold;
 
       block Or_n "Or operator to on N Boolean: u1 or u2 or ... or uN"
@@ -6996,7 +7720,24 @@ Analog to the corresponding Real signal block example there exists an elementary
                 extent={{-90,40},{90,-40}},
                 lineColor={0,0,0},
                 textString="or")}),                                    Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+                                               Rectangle(
+                extent={{-100,100},{100,-100}},
+                fillColor={210,210,210},
+                lineThickness=5.0,
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+              Ellipse(
+                extent={{71,7},{85,-7}},
+                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillPattern=FillPattern.Solid),
+                                    Text(
+                extent={{-90,40},{90,-40}},
+                lineColor={0,0,0},
+                textString="or")}));
       end Or_n;
 
       block GlobalSeed "Generates a global seed for the RandomFailure block"
@@ -7008,6 +7749,12 @@ Analog to the corresponding Real signal block example there exists an elementary
       initial equation
          seed = if not useAutomaticSeed then Modelica.Math.Random.Utilities.initializeImpureRandom(fixedSeed)
                 else Modelica.Math.Random.Utilities.initializeImpureRandom(Modelica.Math.Random.Utilities.automaticGlobalSeed());
+      //         Line(visible = not enableNoise,
+      //           points={{-80,-4},{84,-4}},
+      //           color={215,215,215})
+      //         Line(visible = not enableNoise,
+      //           points={{-80,-4},{84,-4}},
+      //           color={215,215,215})
         annotation (
           defaultComponentName="globalSeed",
           defaultComponentPrefixes="inner",
@@ -7027,21 +7774,18 @@ into your model and specify the seed.
               extent={{-150,150},{150,110}},
               textString="%name",
               lineColor={0,0,255}),
-              Line(visible = enableNoise,
+              Line(visible = true,
                    points={{-73,-15},{-59,-15},{-59,1},{-51,1},{-51,-47},{-43,-47},{-43,
                     -25},{-35,-25},{-35,59},{-27,59},{-27,27},{-27,27},{-27,-33},{-17,-33},{-17,-15},{-7,-15},{-7,-43},{3,
                     -43},{3,39},{9,39},{9,53},{15,53},{15,-3},{25,-3},{25,9},{31,9},{31,
                     -21},{41,-21},{41,51},{51,51},{51,17},{59,17},{59,-49},{69,-49}},
                   color={215,215,215}),
-              Text(visible=enableNoise and not useAutomaticSeed,
+              Text(visible=true and not useAutomaticSeed,
                 extent={{-92,10},{86,-16}},
                 lineColor={255,0,0},
                 fillColor={255,255,255},
                 fillPattern=FillPattern.Solid,
-                textString="%fixedSeed"),
-              Line(visible = not enableNoise,
-                points={{-80,-4},{84,-4}},
-                color={215,215,215})}),
+                textString="%fixedSeed")}),
           Documentation(revisions="<html>
 </html>",       info="<html>
 <h4>Adapted from the Modelica.Blocks.Noise library </h4>
@@ -7062,7 +7806,28 @@ into your model and specify the seed.
 <td><p><b>useAutomaticSeed=true</b>:</p><p>An automatic global seed is computed by using the ID of the process in which the simulation takes place and the current local time. As a result, the global seed is changed automatically for every new simulation, including parallelized simulation runs. This option can be used to perform Monte Carlo Simulations with minimal effort (just performing many simulation runs) where every simulation run uses a different noise.</p></td>
 </tr>
 </table>
-</html>"));
+</html>"),Diagram(graphics={             Ellipse(
+                extent={{-100,100},{100,-100}},
+                lineColor={0,0,127},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid),
+                                              Text(
+              extent={{-150,150},{150,110}},
+              textString="%name",
+              lineColor={0,0,255}),
+              Line(visible = true,
+                   points={{-73,-15},{-59,-15},{-59,1},{-51,1},{-51,-47},{-43,-47},{-43,
+                    -25},{-35,-25},{-35,59},{-27,59},{-27,27},{-27,27},{-27,-33},{-17,
+                    -33},{-17,-15},{-7,-15},{-7,-43},{3,-43},{3,39},{9,39},{9,53},{15,
+                    53},{15,-3},{25,-3},{25,9},{31,9},{31,-21},{41,-21},{41,51},{51,51},
+                    {51,17},{59,17},{59,-49},{69,-49}},
+                  color={215,215,215}),
+              Text(visible=true and not useAutomaticSeed,
+                extent={{-92,10},{86,-16}},
+                lineColor={255,0,0},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%fixedSeed")}));
       end GlobalSeed;
 
       partial block PartialRandom "Partial random"
@@ -7100,7 +7865,24 @@ into your model and specify the seed.
                 fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
                      else {235,235,235}),
                 fillPattern=FillPattern.Solid)}),
-          Diagram(coordinateSystem(preserveAspectRatio = false)),
+          Diagram(coordinateSystem(preserveAspectRatio = false), graphics={
+                                               Rectangle(
+                extent={{-100,100},{100,-100}},
+                fillColor={210,210,210},
+                lineThickness=5.0,
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised),
+              Text(
+                extent={{-56,132},{56,106}},
+                lineColor={0,0,0},
+                textString="%name"),
+              Ellipse(
+                extent={{60,10},{80,-10}},
+                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+                     else {235,235,235}),
+                fillPattern=FillPattern.Solid)}),
           experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.002));
       end PartialRandom;
 
@@ -7228,7 +8010,19 @@ into your model and specify the seed.
                 fillPattern=FillPattern.Solid),
               Line(points={{-58,0},{68,0},{48,20}}, color={0,0,0}),
               Line(points={{68,0},{48,-20}}, color={0,0,0})}),      Diagram(
-              coordinateSystem(initialScale=0.04)));
+              coordinateSystem(initialScale=0.04), graphics={
+                                               Rectangle(
+                extent={{0,100},{100,-100}},
+                fillColor={213,255,170},
+                fillPattern=FillPattern.Solid,
+                lineColor={127,127,0}),
+              Rectangle(
+                extent={{-100,100},{0,-100}},
+                lineColor={175,175,175},
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid),
+              Line(points={{-58,0},{68,0},{48,20}}, color={0,0,0}),
+              Line(points={{68,0},{48,-20}}, color={0,0,0})}));
       end BooleanToBoolean3;
 
       block And3 "And operator on two Boolean3: u1 or u2"
@@ -7253,7 +8047,17 @@ into your model and specify the seed.
                 extent={{-90,40},{90,-40}},
                 lineColor={0,0,0},
                 textString="and")}),                                   Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+                                               Rectangle(
+                extent={{-100,100},{100,-100}},
+                fillColor={213,255,170},
+                lineThickness=5,
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised,
+                lineColor={0,0,0}), Text(
+                extent={{-90,40},{90,-40}},
+                lineColor={0,0,0},
+                textString="and")}));
       end And3;
 
       block Not3 "Not operator on a Boolean3: u"
@@ -7274,7 +8078,17 @@ into your model and specify the seed.
                 extent={{-90,40},{90,-40}},
                 lineColor={0,0,0},
                 textString="not")}),                                   Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+                                               Rectangle(
+                extent={{-100,100},{100,-100}},
+                fillColor={213,255,170},
+                lineThickness=5,
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised,
+                lineColor={0,0,0}), Text(
+                extent={{-90,40},{90,-40}},
+                lineColor={0,0,0},
+                textString="not")}));
       end Not3;
 
       block Or3 "Or operator on two Boolean3: u1 or u2"
@@ -7299,7 +8113,17 @@ into your model and specify the seed.
                 extent={{-90,40},{90,-40}},
                 lineColor={0,0,0},
                 textString="or")}),                                    Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+                                               Rectangle(
+                extent={{-100,100},{100,-100}},
+                fillColor={213,255,170},
+                lineThickness=5,
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised,
+                lineColor={0,0,0}), Text(
+                extent={{-90,40},{90,-40}},
+                lineColor={0,0,0},
+                textString="or")}));
       end Or3;
 
       function and3 "Boolean3 and operator"
@@ -7415,7 +8239,19 @@ into your model and specify the seed.
                 fillPattern=FillPattern.Solid),
               Line(points={{-58,0},{68,0},{48,20}}, color={0,0,0}),
               Line(points={{68,0},{48,-20}}, color={0,0,0})}),      Diagram(
-              coordinateSystem(initialScale=0.04)));
+              coordinateSystem(initialScale=0.04), graphics={
+                                               Rectangle(
+                extent={{0,100},{100,-100}},
+                fillColor={255,213,170},
+                fillPattern=FillPattern.Solid,
+                lineColor={255,170,170}),
+              Rectangle(
+                extent={{-100,100},{0,-100}},
+                lineColor={175,175,175},
+                fillColor={215,215,215},
+                fillPattern=FillPattern.Solid),
+              Line(points={{-58,0},{68,0},{48,20}}, color={0,0,0}),
+              Line(points={{68,0},{48,-20}}, color={0,0,0})}));
       end BooleanToBoolean4;
 
       block Boolean4Constant "Generate a constant signal of type Boolean4"
@@ -7539,7 +8375,17 @@ into your model and specify the seed.
                 extent={{-90,40},{90,-40}},
                 lineColor={0,0,0},
                 textString="and")}),                                   Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+                                               Rectangle(
+                extent={{-100,100},{100,-100}},
+                fillColor={255,213,170},
+                lineThickness=5,
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised,
+                lineColor={0,0,0}), Text(
+                extent={{-90,40},{90,-40}},
+                lineColor={0,0,0},
+                textString="and")}));
       end And4;
 
       block And4_n "And operator on N Boolean4: u1 and u2 and ... and uN"
@@ -7575,7 +8421,17 @@ into your model and specify the seed.
                 extent={{-90,40},{90,-40}},
                 lineColor={0,0,0},
                 textString="and")}),                                   Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+                                               Rectangle(
+                extent={{-100,100},{100,-100}},
+                fillColor={255,213,170},
+                lineThickness=5,
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised,
+                lineColor={0,0,0}), Text(
+                extent={{-90,40},{90,-40}},
+                lineColor={0,0,0},
+                textString="and")}));
       end And4_n;
 
       block Not4 "Not operator on a Boolean4: not u"
@@ -7597,7 +8453,17 @@ into your model and specify the seed.
                 extent={{-90,40},{90,-40}},
                 lineColor={0,0,0},
                 textString="not")}),                                   Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+                                               Rectangle(
+                extent={{-100,100},{100,-100}},
+                fillColor={255,213,170},
+                lineThickness=5,
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised,
+                lineColor={0,0,0}), Text(
+                extent={{-90,40},{90,-40}},
+                lineColor={0,0,0},
+                textString="not")}));
       end Not4;
 
       block Or4 "Or operator to on two Boolean4: u1 or u2"
@@ -7622,7 +8488,17 @@ into your model and specify the seed.
                 extent={{-90,40},{90,-40}},
                 lineColor={0,0,0},
                 textString="or")}),                                    Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+                                               Rectangle(
+                extent={{-100,100},{100,-100}},
+                fillColor={255,213,170},
+                lineThickness=5,
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised,
+                lineColor={0,0,0}), Text(
+                extent={{-90,40},{90,-40}},
+                lineColor={0,0,0},
+                textString="or")}));
       end Or4;
 
       block Or4_n "Or operator to on N Boolean4: u1 or u2 or ... or uN"
@@ -7658,7 +8534,17 @@ into your model and specify the seed.
                 extent={{-90,40},{90,-40}},
                 lineColor={0,0,0},
                 textString="or")}),                                    Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+                                               Rectangle(
+                extent={{-100,100},{100,-100}},
+                fillColor={255,213,170},
+                lineThickness=5,
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised,
+                lineColor={0,0,0}), Text(
+                extent={{-90,40},{90,-40}},
+                lineColor={0,0,0},
+                textString="or")}));
       end Or4_n;
 
       block Xor4 "Xor operator to on two Boolean4: u1 xor u2"
@@ -7683,7 +8569,17 @@ into your model and specify the seed.
                 extent={{-90,40},{90,-40}},
                 lineColor={0,0,0},
                 textString="xor")}),                                   Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+                                               Rectangle(
+                extent={{-100,100},{100,-100}},
+                fillColor={255,213,170},
+                lineThickness=5,
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised,
+                lineColor={0,0,0}), Text(
+                extent={{-90,40},{90,-40}},
+                lineColor={0,0,0},
+                textString="xor")}));
       end Xor4;
 
       block Implies4 "Implies operator on two Boolean4: u1 implies u2"
@@ -7713,7 +8609,22 @@ into your model and specify the seed.
               Ellipse(extent={{32,10},{52,-10}}, lineColor={162,29,33},
                 fillColor={162,29,33},
                 fillPattern=FillPattern.Solid)}),                      Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+                                               Rectangle(
+                extent={{-100,100},{100,-100}},
+                fillColor={255,213,170},
+                lineThickness=5,
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised,
+                lineColor={0,0,0}), Text(
+                extent={{-104,36},{62,-22}},
+                lineColor={0,0,0},
+                textString="",
+                fontName="Symbol"),
+              Line(points={{-100,-80},{42,-80},{42,0}}, color={162,29,33}),
+              Ellipse(extent={{32,10},{52,-10}}, lineColor={162,29,33},
+                fillColor={162,29,33},
+                fillPattern=FillPattern.Solid)}));
       end Implies4;
 
       block Equivalent4 "Equivalent operator on two Boolean4: u1 equivalent to u2"
@@ -7743,7 +8654,22 @@ into your model and specify the seed.
               Ellipse(extent={{32,10},{52,-10}}, lineColor={162,29,33},
                 fillColor={162,29,33},
                 fillPattern=FillPattern.Solid)}),                      Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+                                               Rectangle(
+                extent={{-100,100},{100,-100}},
+                fillColor={255,213,170},
+                lineThickness=5,
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised,
+                lineColor={0,0,0}), Text(
+                extent={{-106,36},{60,-22}},
+                lineColor={0,0,0},
+                fontName="Symbol",
+                textString=""),
+              Line(points={{-100,-80},{42,-80},{42,0}}, color={162,29,33}),
+              Ellipse(extent={{32,10},{52,-10}}, lineColor={162,29,33},
+                fillColor={162,29,33},
+                fillPattern=FillPattern.Solid)}));
       end Equivalent4;
 
       block Probability "Probability that input is true"
@@ -7932,7 +8858,26 @@ into your model and specify the seed.
                 fillColor={255,255,255},
                 fillPattern=FillPattern.Solid,
                 textString="%fileName")}),                             Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
+              coordinateSystem(preserveAspectRatio=false), graphics={
+                                               Rectangle(
+                extent={{-100,100},{100,-100}},
+                fillColor={255,213,170},
+                lineThickness=5,
+                fillPattern=FillPattern.Solid,
+                borderPattern=BorderPattern.Raised,
+                lineColor={0,0,0}),
+              Text(
+                extent={{-160,160},{158,-160}},
+                lineColor={0,0,0},
+                textString="ℙ",
+                fontName="Cambria Math"),
+              Text(
+                extent={{-218,140},{198,100}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%fileName")}));
       end Probability;
 
       block ShowBoolean4 "Show Boolean4 in diagram layer dynamically"
@@ -7994,7 +8939,20 @@ The usage is demonstrated, e.g., in example
 </html>"),Diagram(coordinateSystem(
               preserveAspectRatio=false,
               extent={{-200,-100},{200,100}},
-              initialScale=0.1)));
+              initialScale=0.1), graphics={
+            Rectangle(lineColor={0,0,127},
+              fillColor={255,213,170},
+              fillPattern=FillPattern.Solid,
+              lineThickness=5,
+              borderPattern=BorderPattern.Raised,
+              extent={{-200,-40},{200,40}}),
+            Text(extent={{-76,-20},{76,26}},
+              textString=DynamicSelect("-------",
+              if u == 1 then "undefined"
+              else if u == 2 then "undecided"
+              else if u == 3 then "false"
+              else if u == 4 then "true"
+              else "????"))}));
       end ShowBoolean4;
 
       function and4 "Boolean4 and operator"
@@ -8418,7 +9376,18 @@ If parameter duration is set to 0.0, the limiting case of a Step signal is achie
               Line(
                 points={{-54,22},{-8,2},{-54,-18}},
                 thickness=0.5,
-                color={0,0,0})}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+                color={0,0,0})}), Diagram(coordinateSystem(preserveAspectRatio=false),
+              graphics={                         Rectangle(
+                  extent={{-100,-100},{100,100}},
+                  lineColor={0,0,0},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid),
+              Ellipse(extent={{32,10},{52,-10}}, lineColor={0,0,0}),
+              Line(points={{-100,-80},{42,-80},{42,0}}, color={0,0,0}),
+              Line(
+                points={{-54,22},{-8,2},{-54,-18}},
+                thickness=0.5,
+                color={0,0,0})}));
       end Greater4;
 
       block GreaterEqual4 "Output y is true if input u1 is greater or equal than input u2"
@@ -8462,7 +9431,21 @@ If parameter duration is set to 0.0, the limiting case of a Step signal is achie
                 color={0,0,0}),
               Line(
                 points={{-52,-36},{-6,-14}},
-                thickness=0.5)}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+                thickness=0.5)}), Diagram(coordinateSystem(preserveAspectRatio=false),
+              graphics={                         Rectangle(
+                  extent={{-100,-100},{100,100}},
+                  lineColor={0,0,0},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid),
+              Ellipse(extent={{32,10},{52,-10}}, lineColor={0,0,0}),
+              Line(points={{-100,-80},{42,-80},{42,0}}, color={0,0,0}),
+              Line(
+                points={{-54,22},{-8,2},{-54,-18}},
+                thickness=0.5,
+                color={0,0,0}),
+              Line(
+                points={{-52,-36},{-6,-14}},
+                thickness=0.5)}));
       end GreaterEqual4;
 
       block Less4 "Output y is true if input u1 is less than input u2"
@@ -8502,7 +9485,17 @@ If parameter duration is set to 0.0, the limiting case of a Step signal is achie
               Line(points={{-100,-80},{42,-80},{42,0}}, color={0,0,0}),
               Line(
                 points={{-6,18},{-50,-2},{-6,-20}},
-                thickness=0.5)}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+                thickness=0.5)}), Diagram(coordinateSystem(preserveAspectRatio=false),
+              graphics={                         Rectangle(
+                  extent={{-100,-100},{100,100}},
+                  lineColor={0,0,0},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid),
+              Ellipse(extent={{32,10},{52,-10}}, lineColor={0,0,0}),
+              Line(points={{-100,-80},{42,-80},{42,0}}, color={0,0,0}),
+              Line(
+                points={{-6,18},{-50,-2},{-6,-20}},
+                thickness=0.5)}));
       end Less4;
 
       block LessEqual4 "Output y is true if input u1 is less or equal than input u2"
@@ -8545,7 +9538,20 @@ If parameter duration is set to 0.0, the limiting case of a Step signal is achie
                 thickness=0.5),
               Line(
                 points={{-50,-18},{-10,-34}},
-                thickness=0.5)}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+                thickness=0.5)}), Diagram(coordinateSystem(preserveAspectRatio=false),
+              graphics={                         Rectangle(
+                  extent={{-100,-100},{100,100}},
+                  lineColor={0,0,0},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid),
+              Ellipse(extent={{32,10},{52,-10}}, lineColor={0,0,0}),
+              Line(points={{-100,-80},{42,-80},{42,0}}, color={0,0,0}),
+              Line(
+                points={{-6,18},{-50,-2},{-6,-20}},
+                thickness=0.5),
+              Line(
+                points={{-50,-18},{-10,-34}},
+                thickness=0.5)}));
       end LessEqual4;
 
       block InsidePolygon4 "Determines whether a point is inside a polygon"
@@ -8775,7 +9781,70 @@ parameter <b>solver</b>. Both parameters are in tab <b>Advanced</b>.
 For an example, see
 <a href=\"modelica://Modelica_Synchronous.Examples.Systems.ControlledMixingUnit\">Examples.Systems.ControlledMixingUnit</a>.
 </p>
-</html>"));
+</html>"),Diagram(graphics={
+              Ellipse(
+                extent={{-100,100},{100,-100}},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                lineColor={0,0,0}),
+              Ellipse(
+                extent={{9,-10},{-11,10}},
+                lineColor={0,0,0},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid),
+              Line(points={{-1,0},{52,50}},  color={0,0,0}),
+              Rectangle(
+                extent={{80,6},{100,-6}},
+                fillPattern=FillPattern.Solid,
+                lineColor={95,95,95},
+                fillColor={0,0,0}),
+              Rectangle(
+                extent={{-100,6},{-80,-6}},
+                fillPattern=FillPattern.Solid,
+                lineColor={95,95,95},
+                fillColor={0,0,0}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=90,
+                origin={52,-120},
+                lineColor={95,95,95},
+                fillColor={0,0,0}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=45,
+                origin={80,6},
+                lineColor={95,95,95},
+                fillColor={0,0,0}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=135,
+                origin={-6,80},
+                lineColor={95,95,95},
+                fillColor={0,0,0}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=135,
+                origin={122,-48},
+                lineColor={95,95,95},
+                fillColor={0,0,0}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=45,
+                origin={-52,-118},
+                lineColor={95,95,95},
+                fillColor={0,0,0}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=90,
+                origin={52,60},
+                lineColor={95,95,95},
+                fillColor={0,0,0})}));
       end ContinuousClock;
     annotation (Icon(graphics={
             Rectangle(
@@ -8814,7 +9883,7 @@ For an example, see
                 points={{-80,0},{70,0}},
                 color={244,125,35},
                 thickness=0.5),
-              Text(extent=[-150, 150; 150, 110], string="%name"),
+              Text(extent=[-150, 150; 150, 110], textString="%name"),
               Text(
                 extent={{-47,30},{-27,10}},
                 lineColor={192,192,192},
@@ -9179,7 +10248,24 @@ If parameter duration is set to 0.0, the limiting case of a Step signal is achie
 The output is <b>true</b> if Real input u1 is greater than
 Real input u2, otherwise the output is <b>false</b>.
 </p>
-</html>"));
+</html>"),Diagram(graphics={                     Rectangle(
+                  extent={{-100,-100},{100,100}},
+                  lineColor={255,127,0},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid),
+              Ellipse(extent={{32,10},{52,-10}}, lineColor={244,125,35}),
+              Line(points={{-100,-80},{42,-80},{42,0}}, color={244,125,35}),
+              Line(
+                points={{-54,22},{-8,2},{-54,-18}},
+                thickness=0.5,
+                color={244,125,35}),
+              Text(
+                extent={{-51,150},{51,114}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name")}));
       end Greater;
 
       block GreaterEqualThreshold
@@ -9217,7 +10303,23 @@ The output is <b>true</b> if the Real input is greater than or equal to
 parameter <b>threshold</b>, otherwise
 the output is <b>false</b>.
 </p>
-</html>"),Diagram(coordinateSystem(initialScale=0.04)));
+</html>"),Diagram(coordinateSystem(initialScale=0.04), graphics={
+                                                 Rectangle(
+                  extent={{-100,-100},{100,100}},
+                  lineColor={255,127,0},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid),
+                                         Text(
+                extent={{-74,-38},{76,42}},
+                lineColor={0,0,0},
+                textString=">= %threshold"),
+              Text(
+                extent={{-51,150},{51,114}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name")}));
       end GreaterEqualThreshold;
 
       block Switch "Switch between two Real signals"
@@ -9275,7 +10377,37 @@ u1, else it is set equal to u3.</p>
                 fillColor={255,255,255},
                 fillPattern=FillPattern.Solid,
                 textString="%name")}),
-          Diagram(coordinateSystem(initialScale=0.04)));
+          Diagram(coordinateSystem(initialScale=0.04), graphics={
+                                                 Rectangle(
+                  extent={{-100,-100},{100,100}},
+                  lineColor={255,127,0},
+                  fillColor={255,255,255},
+                  fillPattern=FillPattern.Solid),
+              Line(points={{12,0},{100,0}},
+                color={255,128,0}),
+              Line(points={{-100,0},{-40,0}},
+                color={255,0,255}),
+              Line(points={{-100,-80},{-40,-80},{-40,-80}},
+                color={255,128,0}),
+              Line(points={{-40,12},{-40,-12}},
+                color={255,0,255}),
+              Line(points={{-100,80},{-38,80}},
+                color={255,128,0}),
+              Line(points={{-38,80},{8,4}},
+                color={255,128,0},
+                thickness=1),
+              Ellipse(lineColor={0,0,255},
+                pattern=LinePattern.None,
+                fillPattern=FillPattern.Solid,
+                extent={{2,-8},{18,8}},
+                fillColor={255,128,0}),
+              Text(
+                extent={{-51,150},{51,114}},
+                lineColor={0,0,255},
+                lineThickness=0.5,
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid,
+                textString="%name")}));
       end Switch;
 
       block DiscreteClock "Generates a discrete clock signal"
@@ -9444,7 +10576,65 @@ For an example, see
                 extent={{-100,100},{100,-100}},
                 fillColor={255,255,255},
                 fillPattern=FillPattern.Solid,
-                lineColor={244,125,35})}));
+                lineColor={244,125,35}),
+              Ellipse(
+                extent={{9,-10},{-11,10}},
+                lineColor={244,125,35},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid),
+              Line(points={{-1,0},{52,50}},  color={244,125,35}),
+              Rectangle(
+                extent={{80,6},{100,-6}},
+                fillPattern=FillPattern.Solid,
+                lineColor={244,125,35},
+                fillColor={244,125,35}),
+              Rectangle(
+                extent={{-100,6},{-80,-6}},
+                fillPattern=FillPattern.Solid,
+                lineColor={244,125,35},
+                fillColor={244,125,35}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=90,
+                origin={52,-120},
+                lineColor={244,125,35},
+                fillColor={244,125,35}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=45,
+                origin={80,6},
+                lineColor={244,125,35},
+                fillColor={244,125,35}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=135,
+                origin={-6,80},
+                lineColor={244,125,35},
+                fillColor={244,125,35}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=135,
+                origin={122,-48},
+                lineColor={244,125,35},
+                fillColor={244,125,35}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=45,
+                origin={-52,-118},
+                lineColor={244,125,35},
+                fillColor={244,125,35}),
+              Rectangle(
+                extent={{20,58},{40,46}},
+                fillPattern=FillPattern.Solid,
+                rotation=90,
+                origin={52,60},
+                lineColor={244,125,35},
+                fillColor={244,125,35})}));
       end DiscreteClock;
     annotation (Icon(graphics={
             Rectangle(
@@ -9493,7 +10683,19 @@ For an example, see
 <p>
 This block replicates the Boolean input signal to an array of <code>nout</code> identical Boolean output signals.
 </p>
-</html>"));
+</html>"),Diagram(graphics={
+              Rectangle(extent={{-100,100},{100,-100}}, lineColor={162,29,33},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid),
+              Line(points={{-100,0},{-6,0}}, color={162,29,33}),
+              Line(points={{100,0},{10,0}}, color={162,29,33}),
+              Line(points={{0,0},{100,10}}, color={162,29,33}),
+              Line(points={{0,0},{100,-10}}, color={162,29,33}),
+              Ellipse(
+                extent={{-14,14},{16,-16}},
+                lineColor={217,67,180},
+                fillColor={162,29,33},
+                fillPattern=FillPattern.Solid)}));
       end Boolean4Replicator;
 
       block IntegerReplicator "Integer signal replicator"
@@ -9525,7 +10727,19 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
 <p>
 This block replicates the Boolean input signal to an array of <code>nout</code> identical Boolean output signals.
 </p>
-</html>"));
+</html>"),Diagram(graphics={
+              Rectangle(extent={{-100,100},{100,-100}}, lineColor={244,125,35},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid),
+              Line(points={{-100,0},{-6,0}}, color={255,128,0}),
+              Line(points={{100,0},{10,0}}, color={255,128,0}),
+              Line(points={{0,0},{100,10}}, color={255,128,0}),
+              Line(points={{0,0},{100,-10}}, color={255,128,0}),
+              Ellipse(
+                extent={{-14,14},{16,-16}},
+                lineColor={244,125,35},
+                fillColor={255,128,0},
+                fillPattern=FillPattern.Solid)}));
       end IntegerReplicator;
 
       block RealReplicator "Real signal replicator"
@@ -9556,7 +10770,19 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
 <p>
 This block replicates the Boolean input signal to an array of <code>nout</code> identical Boolean output signals.
 </p>
-</html>"));
+</html>"),Diagram(graphics={
+              Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,0},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid),
+              Line(points={{-100,0},{-6,0}}, color={0,0,127}),
+              Line(points={{100,0},{10,0}}, color={0,0,127}),
+              Line(points={{0,0},{100,10}}, color={0,0,127}),
+              Line(points={{0,0},{100,-10}}, color={0,0,127}),
+              Ellipse(
+                extent={{-14,14},{16,-16}},
+                lineColor={0,0,0},
+                fillColor={0,0,0},
+                fillPattern=FillPattern.Solid)}));
       end RealReplicator;
       annotation (Icon(graphics={
             Rectangle(
@@ -10573,7 +11799,22 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
                   lineColor={0,0,0},
                   textString="",
                   fontName="Symbol")}),                                  Diagram(
-                coordinateSystem(initialScale=0.04)),
+                coordinateSystem(initialScale=0.04), graphics={
+                Rectangle(
+                  extent={{-100,100},{100,-100}},
+                  lineColor={0,0,0},
+                  lineThickness=5,
+                  fillColor={170,213,255},
+                  fillPattern=FillPattern.Solid,
+                  borderPattern=BorderPattern.Raised),
+                Line(points={{-86,-64},{-50,-64},{-50,-20},{60,-20},{60,-66},{
+                      88,-66}},
+                    color={0,0,0}),
+                Text(
+                  extent={{-72,40},{-26,-22}},
+                  lineColor={0,0,0},
+                  textString="",
+                  fontName="Symbol")}),
             Documentation(info="<html>
 <p><b><span style=\"font-family: MS Shell Dlg 2;\">Syntax</span></b> </p>
 <blockquote><b>y</b> =<b>ShowDiscreteTimeLocator</b>(<b>tl</b> = discrete_time_locator); </blockquote>
@@ -10611,7 +11852,22 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
                   lineColor={0,0,0},
                   textString="",
                   fontName="Symbol")}),                                  Diagram(
-                coordinateSystem(initialScale=0.04)),
+                coordinateSystem(initialScale=0.04), graphics={
+                Rectangle(
+                  extent={{-100,100},{100,-100}},
+                  lineColor={0,0,0},
+                  lineThickness=5,
+                  fillColor={170,213,255},
+                  fillPattern=FillPattern.Solid,
+                  borderPattern=BorderPattern.Raised),
+                Line(points={{-86,-64},{-50,-64},{-50,-20},{60,-20},{60,-66},{
+                      88,-66}},
+                    color={0,0,0}),
+                Text(
+                  extent={{36,40},{82,-22}},
+                  lineColor={0,0,0},
+                  textString="",
+                  fontName="Symbol")}),
             Documentation(info="<html>
 <p><b><span style=\"font-family: MS Shell Dlg 2;\">Syntax</span></b> </p>
 <blockquote><b>y</b> =<b>ShowDiscreteTimeLocator</b>(<b>tl</b> = discrete_time_locator); </blockquote>
@@ -10643,7 +11899,18 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
                 Line(points={{-86,-64},{-50,-64},{-50,-20},{60,-20},{60,-66},{88,-66}},
                     color={0,0,0}),
                 Line(points={{-50,20},{-50,-12}}, color={0,0,0})}),      Diagram(
-                coordinateSystem(initialScale=0.04)),
+                coordinateSystem(initialScale=0.04), graphics={
+                Rectangle(
+                  extent={{-100,100},{100,-100}},
+                  lineColor={0,0,0},
+                  lineThickness=5,
+                  fillColor={170,213,255},
+                  fillPattern=FillPattern.Solid,
+                  borderPattern=BorderPattern.Raised),
+                Line(points={{-86,-64},{-50,-64},{-50,-20},{60,-20},{60,-66},{
+                      88,-66}},
+                    color={0,0,0}),
+                Line(points={{-50,20},{-50,-12}}, color={0,0,0})}),
             Documentation(info="<html>
 <p><b><span style=\"font-family: MS Shell Dlg 2;\">Syntax</span></b> </p>
 <blockquote><b>y</b> =<b>ShowDiscreteTimeLocator</b>(<b>tl</b> = discrete_time_locator); </blockquote>
@@ -10675,7 +11942,18 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
                 Line(points={{-86,-64},{-50,-64},{-50,-20},{60,-20},{60,-66},{88,-66}},
                     color={0,0,0}),
                 Line(points={{60,18},{60,-14}}, color={0,0,0})}),        Diagram(
-                coordinateSystem(initialScale=0.04)),
+                coordinateSystem(initialScale=0.04), graphics={
+                Rectangle(
+                  extent={{-100,100},{100,-100}},
+                  lineColor={0,0,0},
+                  lineThickness=5,
+                  fillColor={170,213,255},
+                  fillPattern=FillPattern.Solid,
+                  borderPattern=BorderPattern.Raised),
+                Line(points={{-86,-64},{-50,-64},{-50,-20},{60,-20},{60,-66},{
+                      88,-66}},
+                    color={0,0,0}),
+                Line(points={{60,18},{60,-14}}, color={0,0,0})}),
             Documentation(info="<html>
 <p><b><span style=\"font-family: MS Shell Dlg 2;\">Syntax</span></b> </p>
 <blockquote><b>y</b> =<b>ShowDiscreteTimeLocator</b>(<b>tl</b> = discrete_time_locator); </blockquote>
@@ -10713,7 +11991,28 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
                   lineColor={0,0,0},
                   fillColor={244,125,35},
                   fillPattern=FillPattern.Solid,
-                  radius=0)}),           Diagram(coordinateSystem(preserveAspectRatio=false)));
+                  radius=0)}),           Diagram(coordinateSystem(preserveAspectRatio=false),
+                graphics={
+                  Rectangle(
+                  extent={{-100,100},{100,-100}},
+                  lineColor={28,108,200},
+                  fillColor={255,255,255},
+                  fillPattern=FillPattern.Solid),
+                Line(points={{-86,-24},{-50,-24},{-50,20},{60,20},{60,-26},{88,
+                      -26}},
+                    color={0,0,0}),
+                Rectangle(
+                  extent={{-66,-46},{0,-62}},
+                  lineColor={0,0,0},
+                  fillColor={244,125,35},
+                  fillPattern=FillPattern.Solid,
+                  radius=0),
+                Rectangle(
+                  extent={{0,-46},{66,-62}},
+                  lineColor={0,0,0},
+                  fillColor={244,125,35},
+                  fillPattern=FillPattern.Solid,
+                  radius=0)}));
         end PeriodTimePeriod;
 
         block WhileTimePeriod "Extracts the time period of a while locator"
@@ -10745,7 +12044,28 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
                   lineColor={0,0,0},
                   fillColor={244,125,35},
                   fillPattern=FillPattern.Solid,
-                  radius=0)}),           Diagram(coordinateSystem(preserveAspectRatio=false)));
+                  radius=0)}),           Diagram(coordinateSystem(preserveAspectRatio=false),
+                graphics={
+                  Rectangle(
+                  extent={{-100,100},{100,-100}},
+                  lineColor={28,108,200},
+                  fillColor={255,255,255},
+                  fillPattern=FillPattern.Solid),
+                Line(points={{-86,-24},{-50,-24},{-50,20},{60,20},{60,-26},{88,
+                      -26}},
+                    color={0,0,0}),
+                Rectangle(
+                  extent={{-66,-46},{0,-62}},
+                  lineColor={0,0,0},
+                  fillColor={244,125,35},
+                  fillPattern=FillPattern.Solid,
+                  radius=0),
+                Rectangle(
+                  extent={{0,-46},{66,-62}},
+                  lineColor={0,0,0},
+                  fillColor={244,125,35},
+                  fillPattern=FillPattern.Solid,
+                  radius=0)}));
         end WhileTimePeriod;
         annotation (Icon(graphics={
               Rectangle(
@@ -10865,6 +12185,12 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
                 {-60,0},{-60,30},{-51,30}}, color={162,29,33}));
         connect(or4_1.y, eval.a) annotation (Line(points={{11,20},{20,20},{20,8},
                 {29,8}}, color={162,29,33}));
+      //         Text(
+      //           extent={{-74,32},{74,-36}},
+      //           lineColor={0,0,0},
+      //           fillColor={28,108,200},
+      //           fillPattern=FillPattern.Solid,
+      //           textString=boxName),
         annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                                Rectangle(
                 extent={{-100,100},{100,-100}},
@@ -10878,12 +12204,6 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
                 lineColor={175,175,175},
                 fillColor={255,255,255},
                 fillPattern=FillPattern.Solid),
-              Text(
-                extent={{-74,32},{74,-36}},
-                lineColor={0,0,0},
-                fillColor={28,108,200},
-                fillPattern=FillPattern.Solid,
-                textString=boxName),
               Text(
                 extent={{-70,72},{70,44}},
                 lineColor={28,108,200},
@@ -10947,6 +12267,12 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
           annotation (Line(points={{-19,20},{-4.4,20}}, color={217,67,180}));
         connect(booleanToBoolean3_1.y, eval.a) annotation (Line(points={{4.4,20},
                 {20,20},{20,8},{29,8}}, color={162,29,33}));
+      //         Text(
+      //           extent={{-74,32},{74,-36}},
+      //           lineColor={0,0,0},
+      //           fillColor={28,108,200},
+      //           fillPattern=FillPattern.Solid,
+      //           textString=boxName),
         annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                                Rectangle(
                 extent={{-100,100},{100,-100}},
@@ -10960,12 +12286,6 @@ This block replicates the Boolean input signal to an array of <code>nout</code> 
                 lineColor={175,175,175},
                 fillColor={255,255,255},
                 fillPattern=FillPattern.Solid),
-              Text(
-                extent={{-74,32},{74,-36}},
-                lineColor={0,0,0},
-                fillColor={28,108,200},
-                fillPattern=FillPattern.Solid,
-                textString=boxName),
               Text(
                 extent={{-70,72},{70,44}},
                 lineColor={28,108,200},
@@ -12521,11 +13841,33 @@ Real input u2, otherwise the output is <b>false</b>.
               points={{-100,100},{-100,-100},{100,0},{-100,100}},
               lineColor={162,29,33},
               fillColor={162,29,33},
+              fillPattern=FillPattern.Solid)}), Diagram(graphics={
+                                                             Text(
+              extent={{-58,48},{76,-38}},
+              lineColor={0,0,0},
+              fillPattern=FillPattern.HorizontalCylinder,
+              fillColor={248,248,248},
+              textString=""),
+                      Polygon(
+              points={{-100,100},{-100,-100},{100,0},{-100,100}},
+              lineColor={162,29,33},
+              fillColor={162,29,33},
               fillPattern=FillPattern.Solid)}));
       connector Boolean4Output = output CRML.ETL.Types.Boolean4
         "'Boolean4' as output"                                                          annotation (
           Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
             graphics={Polygon(
+              points={{-100,100},{-100,-100},{100,0},{-100,100}},
+              lineColor={162,29,33},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid)}), Diagram(graphics={
+                                                             Text(
+              extent={{-58,48},{76,-38}},
+              lineColor={0,0,0},
+              fillPattern=FillPattern.HorizontalCylinder,
+              fillColor={248,248,248},
+              textString=""),
+                      Polygon(
               points={{-100,100},{-100,-100},{100,0},{-100,100}},
               lineColor={162,29,33},
               fillColor={255,255,255},
@@ -12538,11 +13880,33 @@ Real input u2, otherwise the output is <b>false</b>.
               points={{-100,100},{-100,-100},{100,0},{-100,100}},
               lineColor={127,127,0},
               fillColor={127,127,0},
+              fillPattern=FillPattern.Solid)}), Diagram(graphics={
+                                                             Text(
+              extent={{-58,48},{76,-38}},
+              lineColor={0,0,0},
+              fillPattern=FillPattern.HorizontalCylinder,
+              fillColor={248,248,248},
+              textString=""),
+                      Polygon(
+              points={{-100,100},{-100,-100},{100,0},{-100,100}},
+              lineColor={127,127,0},
+              fillColor={127,127,0},
               fillPattern=FillPattern.Solid)}));
       connector Boolean3Output = output CRML.ETL.Types.Boolean3
         "'Boolean3' as output"                                                          annotation (
           Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
             graphics={Polygon(
+              points={{-100,100},{-100,-100},{100,0},{-100,100}},
+              lineColor={127,127,0},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid)}), Diagram(graphics={
+                                                             Text(
+              extent={{-58,48},{76,-38}},
+              lineColor={0,0,0},
+              fillPattern=FillPattern.HorizontalCylinder,
+              fillColor={248,248,248},
+              textString=""),
+                      Polygon(
               points={{-100,100},{-100,-100},{100,0},{-100,100}},
               lineColor={127,127,0},
               fillColor={255,255,255},
@@ -12609,10 +13973,20 @@ Real input u2, otherwise the output is <b>false</b>.
               points={{-100,100},{-100,-100},{100,0},{-100,100}},
               lineColor={217,67,180},
               fillColor={217,67,180},
+              fillPattern=FillPattern.Solid)}), Diagram(graphics={
+                                  Polygon(
+              points={{-100,100},{-100,-100},{100,0},{-100,100}},
+              lineColor={217,67,180},
+              fillColor={217,67,180},
               fillPattern=FillPattern.Solid)}));
       connector BooleanOutput = output Boolean "'Boolean' as output" annotation (
           Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
             graphics={Polygon(
+              points={{-100,100},{-100,-100},{100,0},{-100,100}},
+              lineColor={217,67,180},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid)}), Diagram(graphics={
+                      Polygon(
               points={{-100,100},{-100,-100},{100,0},{-100,100}},
               lineColor={217,67,180},
               fillColor={255,255,255},
@@ -12623,10 +13997,20 @@ Real input u2, otherwise the output is <b>false</b>.
               points={{-100,100},{-100,-100},{100,0},{-100,100}},
               lineColor={255,127,0},
               fillColor={255,128,0},
+              fillPattern=FillPattern.Solid)}), Diagram(graphics={
+                      Polygon(
+              points={{-100,100},{-100,-100},{100,0},{-100,100}},
+              lineColor={255,127,0},
+              fillColor={255,128,0},
               fillPattern=FillPattern.Solid)}));
       connector IntegerOutput = output Integer "'Integer' as output" annotation (
           Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
             graphics={Polygon(
+              points={{-100,100},{-100,-100},{100,0},{-100,100}},
+              lineColor={255,127,0},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid)}), Diagram(graphics={
+                      Polygon(
               points={{-100,100},{-100,-100},{100,0},{-100,100}},
               lineColor={255,127,0},
               fillColor={255,255,255},
@@ -12638,10 +14022,20 @@ Real input u2, otherwise the output is <b>false</b>.
               lineColor={0,0,0},
               points={{-100,100},{100,0},{-100,-100}},
               fillColor={0,0,0},
+              fillPattern=FillPattern.Solid)}), Diagram(graphics={
+          Polygon(
+              lineColor={0,0,0},
+              points={{-100,100},{100,0},{-100,-100}},
+              fillColor={0,0,0},
               fillPattern=FillPattern.Solid)}));
       connector RealOutput = output Real "'Real' as output" annotation (
           Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
                 100}}), graphics={
+          Polygon(
+              lineColor={0,0,0},
+              points={{-100,100},{100,0},{-100,-100}},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid)}), Diagram(graphics={
           Polygon(
               lineColor={0,0,0},
               points={{-100,100},{100,0},{-100,-100}},
@@ -12665,7 +14059,19 @@ Real input u2, otherwise the output is <b>false</b>.
             grid={2,2})),                                      Diagram(coordinateSystem(
               preserveAspectRatio=true, initialScale=0.2,
               extent={{-100,-100},{100,100}},
-              grid={2,2})),
+              grid={2,2}), graphics={
+                            Polygon(
+                points={{-34,6},{20,0},{-34,-8},{-34,6}},
+                lineColor={175,175,175},
+                fillColor={175,175,175},
+                fillPattern=FillPattern.Solid,
+                pattern=LinePattern.Dot,
+                lineThickness=0.5),
+                            Polygon(
+                points={{-100,100},{100,0},{-100,-100},{-100,100}},
+                lineColor={95,95,95},
+                fillColor={0,140,72},
+                fillPattern=FillPattern.Solid)}),
           Documentation(info="<html>
 <p>
 Connector with one input signal of type Boolean.
@@ -12693,7 +14099,12 @@ Connector with one input signal of type Boolean.
               preserveAspectRatio=true,
               extent={{-100,-100},{100,100}},
               grid={2,2},
-            initialScale=0.1)),
+            initialScale=0.1), graphics={
+                                     Polygon(
+                points={{-100,100},{100,0},{-100,-100},{-100,100}},
+                lineColor={0,140,72},
+                fillColor={255,255,255},
+                fillPattern=FillPattern.Solid)}),
           Documentation(info="<html>
 <p>
 Connector with one output signal of type Boolean.
@@ -12706,11 +14117,21 @@ Connector with one output signal of type Boolean.
               points={{-100,100},{-100,-100},{100,0},{-100,100}},
               lineColor={102,44,145},
               fillColor={102,44,145},
+              fillPattern=FillPattern.Solid)}), Diagram(graphics={
+                      Polygon(
+              points={{-100,100},{-100,-100},{100,0},{-100,100}},
+              lineColor={102,44,145},
+              fillColor={102,44,145},
               fillPattern=FillPattern.Solid)}));
       connector FunctionTypeOutput = output CRML.ETL.Types.FunctionType
                                                                    "Function type output"       annotation (
           Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
             graphics={Polygon(
+              points={{-100,100},{-100,-100},{100,0},{-100,100}},
+              lineColor={102,44,145},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid)}), Diagram(graphics={
+                      Polygon(
               points={{-100,100},{-100,-100},{100,0},{-100,100}},
               lineColor={102,44,145},
               fillColor={255,255,255},
@@ -12745,22 +14166,12 @@ Connector with one output signal of type Boolean.
       type Boolean3 = enumeration(
           undecided,
           false3,
-          true3) "3-valued logic" annotation (Icon(graphics={Text(
-              extent={{-58,48},{76,-38}},
-              lineColor={0,0,0},
-              fillPattern=FillPattern.HorizontalCylinder,
-              fillColor={248,248,248},
-              textString="")}));
+          true3) "3-valued logic";
       type Boolean4 = enumeration(
           undefined,
           undecided,
           false4,
-          true4) "4-valued logic" annotation (Icon(graphics={Text(
-              extent={{-58,48},{76,-38}},
-              lineColor={0,0,0},
-              fillPattern=FillPattern.HorizontalCylinder,
-              fillColor={248,248,248},
-              textString="")}));
+          true4) "4-valued logic";
       type FunctionType = enumeration(
           monotonicIncreasing,
           monotonicDecreasing,
@@ -15701,7 +17112,7 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
             color={175,175,175},
             thickness=0.25,
             smooth=Smooth.Bezier), Text(
-            string="%condition",
+            textString="%condition",
             extent={{-4,4},{-4,10}},
             fontSize=10,
             textStyle={TextStyle.Bold},
@@ -15714,7 +17125,7 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
             color={175,175,175},
             thickness=0.25,
             smooth=Smooth.Bezier), Text(
-            string="%condition",
+            textString="%condition",
             extent={{4,-4},{4,-10}},
             fontSize=10,
             textStyle={TextStyle.Bold},
@@ -15734,7 +17145,7 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
             color={175,175,175},
             thickness=0.25,
             smooth=Smooth.Bezier), Text(
-            string="%condition",
+            textString="%condition",
             extent={{-4,4},{-4,10}},
             fontSize=10,
             textStyle={TextStyle.Bold},
@@ -15985,11 +17396,11 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           annotation (Line(points={{-70,30},{-70,-10}},
                                                       color={0,0,255}));
         connect(greenCom.y, greenSwitch.control)
-          annotation (Line(points={{-45.6,20},{-37,20}}, color={255,0,255}));
+          annotation (Line(points={{-45.6,20},{-42,20}}, color={255,0,255}));
         connect(yellowCom.y, yellowSwitch.control)
-          annotation (Line(points={{-5.6,20},{3,20}}, color={255,0,255}));
+          annotation (Line(points={{-5.6,20},{-2,20}},color={255,0,255}));
         connect(redCom.y, redSwitch.control)
-          annotation (Line(points={{34.4,20},{43,20}}, color={255,0,255}));
+          annotation (Line(points={{34.4,20},{38,20}}, color={255,0,255}));
         connect(greenLamp.n, greenSwitch.p)
           annotation (Line(points={{-30,50},{-30,30}}, color={0,0,255}));
         connect(yellowLamp.n, yellowSwitch.p)
