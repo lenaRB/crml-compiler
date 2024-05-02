@@ -5,7 +5,7 @@
 
       annotation (Documentation(info="<html>
 <p>CRML(Common Requirement Modeling Language) is a language for the simulation of temporal requirements on cyber-physical systems.</p>
-<p>This library is a Modelica implementation of CRML.</p>
+<p>This library is a Modelica implementation of CRML. it requires the use of the Modelica language version 3.3 or later to support the notion of clock. </p>
 <p>For more information, please consult the following references:</p>
 <ul>
 <li><span style=\"font-family: Arial;\">Bouskela D., Nguyen T. and Jardin A. (2017), &ldquo;Toward a Rigorous Approach for Verifying Cyber-Physical Systems Against Requirements,&rdquo; Canadian J. of Electrical and Computer Engineering, Vol. 40-2, pp. 66-73. </span></li>
