@@ -7,4 +7,9 @@ connector Boolean4Connector =
         extent={{-100,100},{100,-100}},
         lineColor={0,0,0},
         fillColor={162,29,33},
+        fillPattern=FillPattern.Forward)}), Diagram(graphics={
+                            Rectangle(
+        extent={{-100,100},{100,-100}},
+        lineColor={0,0,0},
+        fillColor={162,29,33},
         fillPattern=FillPattern.Forward)}));

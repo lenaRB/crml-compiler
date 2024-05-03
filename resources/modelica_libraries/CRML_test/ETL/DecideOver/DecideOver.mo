@@ -30,6 +30,12 @@ equation
     annotation (Line(points={{39,-8},{28.4,-8}}, color={162,29,33}));
   connect(or4_n.y, b_decide_over)
     annotation (Line(points={{61,0},{110,0}}, color={162,29,33}));
+//         Text(
+//           extent={{-74,32},{74,-36}},
+//           lineColor={0,0,0},
+//           fillColor={28,108,200},
+//           fillPattern=FillPattern.Solid,
+//           textString=boxName),
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                          Rectangle(
           extent={{-100,100},{100,-100}},
@@ -43,12 +49,6 @@ equation
           lineColor={175,175,175},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-74,32},{74,-36}},
-          lineColor={0,0,0},
-          fillColor={28,108,200},
-          fillPattern=FillPattern.Solid,
-          textString=boxName),
         Text(
           extent={{-70,72},{70,44}},
           lineColor={28,108,200},
