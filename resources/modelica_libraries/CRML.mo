@@ -8262,6 +8262,13 @@ into your model and specify the seed.
             Placement(transformation(extent={{100,-10},{120,10}})));
       equation
         y = K;
+      //         Ellipse(
+      //           extent={{71,7},{85,-7}},
+      //           lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+      //                else {235,235,235}),
+      //           fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+      //                else {235,235,235}),
+      //           fillPattern=FillPattern.Solid),
         annotation (
           Coordsys(
             extent=[-100, -100; 100, 100],
@@ -8330,14 +8337,8 @@ into your model and specify the seed.
                 lineColor={255,0,255},
                 fillColor={255,0,255},
                 fillPattern=FillPattern.Solid),
-              Ellipse(
-                extent={{71,7},{85,-7}},
-                lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                     else {235,235,235}),
-                fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
-                     else {235,235,235}),
-                fillPattern=FillPattern.Solid),          Line(points={{-80,0},{80,0}}),
-                                                         Text(
+              Line(points={{-80,0},{80,0}}),
+              Text(
                 extent={{-148,24},{158,52}},
                 lineColor={0,0,0},
                 textString="%K")}),
@@ -8903,10 +8904,10 @@ into your model and specify the seed.
               extent={{-200,-40},{200,40}}),
             Text(extent={{-76,-20},{76,26}},
               textString=DynamicSelect("-------",
-              if u == 1 then "undefined"
-              else if u == 2 then "undecided"
-              else if u == 3 then "false"
-              else if u == 4 then "true"
+              if Integer(u) == 1 then "undefined"
+              else if Integer(u) == 2 then "undecided"
+              else if Integer(u) == 3 then "false"
+              else if Integer(u) == 4 then "true"
               else "????"))}),    Documentation(info="<html>
 <p>
 This block visualizes an Integer number in a diagram animation.
@@ -8948,10 +8949,10 @@ The usage is demonstrated, e.g., in example
               extent={{-200,-40},{200,40}}),
             Text(extent={{-76,-20},{76,26}},
               textString=DynamicSelect("-------",
-              if u == 1 then "undefined"
-              else if u == 2 then "undecided"
-              else if u == 3 then "false"
-              else if u == 4 then "true"
+              if Integer(u) == 1 then "undefined"
+              else if Integer(u) == 2 then "undecided"
+              else if Integer(u) == 3 then "false"
+              else if Integer(u) == 4 then "true"
               else "????"))}));
       end ShowBoolean4;
 
