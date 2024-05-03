@@ -242,6 +242,7 @@
           annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
               iconTransformation(extent={{-120,-10},{-100,10}})));
       equation
+
         if (cardinality(u) == 0) then
           u =CRML.ETL.Types.cvBooleanToBoolean4(defaultInputValue);
         end if;
