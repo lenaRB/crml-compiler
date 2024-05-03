@@ -14,5 +14,5 @@ annotation (Icon(graphics={
           lineColor={128,128,128},
           fillPattern=FillPattern.None,
           extent={{-100,-100},{100,100}},
-          radius=25.0)}), uses(Modelica(version="3.2.2")));
+          radius=25.0)}));
 end CRML_test;
