@@ -5,7 +5,7 @@
 
       annotation (Documentation(info="<html>
 <p>CRML(Common Requirement Modeling Language) is a language for the simulation of temporal requirements on cyber-physical systems.</p>
-<p>This library is a Modelica implementation of CRML. it requires the use of the Modelica language version 3.3 or later to support the notion of clock. </p>
+<p>This library is a Modelica implementation of CRML. It requires the use of the Modelica language version 3.3 or later to support the notion of clock. </p>
 <p>For more information, please consult the following references:</p>
 <ul>
 <li><span style=\"font-family: Arial;\">Bouskela D., Nguyen T. and Jardin A. (2017), &ldquo;Toward a Rigorous Approach for Verifying Cyber-Physical Systems Against Requirements,&rdquo; Canadian J. of Electrical and Computer Engineering, Vol. 40-2, pp. 66-73. </span></li>
@@ -120,13 +120,16 @@
           annotation (DocumentationClass=true, Documentation(info="<html>
 <p><b><span style=\"font-size: 10pt; color: #008000;\">Version 0.3 (in progress, 2024)</span></b></p>
 <p>This is the third beta release of the library. </p>
-<p>Minor updates:</p>
+<p>Minor changes:</p>
 <ul>
-<li>Package &quot;Blocks.Events&quot;: declaration of x as public (and not protected) for setting start value</li>
-<li>Package &quot;Examples&quot;: deletion of dependency with the Modelica_StateGraph2 library in &quot;traffic light&quot; example</li>
+<li>Updated package &quot;Blocks.Events&quot;: declaration of x as public (and not protected) for setting start value</li>
+<li>Updated package &quot;Examples&quot;: deletion of dependency with the Modelica_StateGraph2 library in &quot;traffic light&quot; example</li>
+<li>New package &quot;Units&quot;: deletion of dependency with the Modelica Standard Library for units declaration</li>
 </ul>
-<p>Major updates:</p>
-<p>- </p>
+<p>Major changes:</p>
+<ul>
+<li>Under progress</li>
+</ul>
 </html>"),Icon(graphics={
               Ellipse(
                 lineColor={75,138,73},
