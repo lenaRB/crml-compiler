@@ -27,7 +27,41 @@ equation
     annotation (Line(points={{-110,0},{-89,0}}, color={0,0,0}));
   connect(showEvent_c_b1_becomes_false.u, event4ToEvent.y) annotation (Line(
         points={{59.6,-52},{-36,-52},{-36,0},{-45.6,0}}, color={217,67,180}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{-100,102},{100,-98}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-250,170},{250,110}},
+          textString="%name",
+          lineColor={0,0,255}),                                              Line(points={{-80,34},
+              {-50,34},{-4,34},{-50,34},{-50,34},{52,34}},
+                                   color={0,140,72},
+          pattern=LinePattern.Dot),
+        Line(points={{-86,-52},{-50,-52},{-50,-8},{-8,-8},{-8,-54},{-8,-54}},
+            color={0,0,0}),
+        Line(
+          points={{54,78},{54,34}},
+          color={0,140,72},
+          pattern=LinePattern.Dot),
+        Line(points={{-8,-54},{28,-54},{28,-8},{52,-8},{52,-54},{76,-54}},
+            color={0,0,0}),
+        Line(
+          points={{-8,78},{-8,34}},
+          color={0,140,72},
+          pattern=LinePattern.Dot),
+        Ellipse(
+          extent={{44,88},{64,68}},
+          lineColor={0,140,72},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-18,88},{2,68}},
+          lineColor={0,140,72},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 </html>"));
