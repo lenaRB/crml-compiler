@@ -2,8 +2,6 @@ within CRML_test.ETL.DecideOver_no_ext;
 model DecideOver_no_ext
   import CRML_test;
 
-protected
-  parameter Integer N=CRML.ETL.Types.nMaxOverlap;
 
 public
   CRML.Blocks.Logical.BooleanTable phi1(
@@ -43,10 +41,10 @@ equation
     annotation (Line(points={{4.4,-50},{39,-50}}, color={162,29,33}));
   connect(decideOver.y, b_decide_over)
     annotation (Line(points={{202,0},{330,0}}, color={162,29,33}));
-  connect(and4_1.y, decideOver.u) annotation (Line(points={{21,42},{56,42},{56,
-          38},{60,38},{60,0},{158,0}}, color={162,29,33}));
-  connect(during.y, decideOver.tl) annotation (Line(points={{50,-60},{50,-80},{
-          120,-80},{120,40},{180,40},{180,20}}, color={0,0,255}));
+  connect(and4_1.y, decideOver.u) annotation (Line(points={{21,42},{56,42},{56,38},
+          {60,38},{60,0},{158,0}}, color={162,29,33}));
+  connect(decideOver.tl, during.y[1]) annotation (Line(points={{180,20},{180,40},
+          {120,40},{120,-70},{50,-70},{50,-60}}, color={0,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-100,-100},{320,100}},
         initialScale=0.1)),                                      Diagram(

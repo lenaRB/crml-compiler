@@ -69,8 +69,8 @@ equation
         points={{-1,-15},{-40,-15},{-40,25},{-1,25}}, color={0,0,255}));
   connect(becomesFalseInside1.P1, becomesFalseInside.P1) annotation (Line(
         points={{-1,-55},{-40,-55},{-40,25},{-1,25}}, color={0,0,255}));
-  connect(becomesFalseInside.b1, booleanToBoolean4_1.y) annotation (Line(points
-        ={{-1,35},{-8,35},{-8,10},{-15.6,10}}, color={162,29,33}));
+  connect(becomesFalseInside.b1, booleanToBoolean4_1.y) annotation (Line(points=
+         {{-1,35},{-8,35},{-8,10},{-15.6,10}}, color={162,29,33}));
   connect(booleanToBoolean4_2.y, becomesFalseInside2.b1) annotation (Line(
         points={{-15.6,-30},{-8,-30},{-8,-5},{-1,-5}}, color={162,29,33}));
   connect(booleanToBoolean4_3.y, becomesFalseInside1.b1) annotation (Line(

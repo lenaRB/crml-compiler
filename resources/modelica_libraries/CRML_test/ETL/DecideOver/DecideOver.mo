@@ -1,30 +1,24 @@
 within CRML_test.ETL.DecideOver;
 partial block DecideOver
 
-protected
-  parameter Integer N=CRML.ETL.Types.nMaxOverlap;
-
 public
   Utilities.Boolean4Connector phi1 "Boolean4 condition" annotation (Placement(
         transformation(extent={{-120,-10},{-100,10}}), iconTransformation(
           extent={{-120,-10},{-100,10}})));
-  Utilities.TimeLocatorConnector[N] P1 annotation (Placement(transformation(
+  Utilities.TimeLocatorConnector P1 annotation (Placement(transformation(
           extent={{-10,90},{10,110}}), iconTransformation(extent={{-10,90},{10,
             110}})));
   CRML.ETL.Connectors.Boolean4Output b_decide_over
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  CRML.TimeLocators.Attributes.PeriodsEnd periodsEnd
+  CRML.ETL.TimeLocators.Attributes.PeriodEnd
+                                          periodEnd
     annotation (Placement(transformation(extent={{-4,-12},{4,-4}})));
   CRML.Blocks.Logical4.Or4 or4_n
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   CRML.Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4
     annotation (Placement(transformation(extent={{20,-12},{28,-4}})));
 equation
-  connect(phi1, or4_n.u1)
-    annotation (Line(points={{-110,0},{-40,0},{-40,8},{39,8}}, color={0,0,0}));
-  connect(P1, periodsEnd.tl)
-    annotation (Line(points={{0,100},{0,-4}}, color={0,0,0}));
-  connect(periodsEnd.y, booleanToBoolean4.u)
+  connect(periodEnd.y, booleanToBoolean4.u)
     annotation (Line(points={{4.4,-8},{19.6,-8}}, color={217,67,180}));
   connect(or4_n.u2, booleanToBoolean4.y)
     annotation (Line(points={{39,-8},{28.4,-8}}, color={162,29,33}));
@@ -36,6 +30,10 @@ equation
 //           fillColor={28,108,200},
 //           fillPattern=FillPattern.Solid,
 //           textString=boxName),
+  connect(or4_n.u1, phi1) annotation (Line(points={{39,8},{-20,8},{-20,0},{-110,
+          0}}, color={162,29,33}));
+  connect(periodEnd.tl, P1)
+    annotation (Line(points={{0,-4},{0,100}}, color={0,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                          Rectangle(
           extent={{-100,100},{100,-100}},

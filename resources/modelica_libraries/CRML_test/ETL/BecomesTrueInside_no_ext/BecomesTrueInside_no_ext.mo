@@ -71,10 +71,10 @@ equation
           {{-15.6,-30},{-8,-30},{-8,-5},{-1,-5}}, color={162,29,33}));
   connect(booleanToBoolean4_1.y, becomesTrueInside1.u) annotation (Line(points=
           {{-15.6,10},{-6,10},{-6,35},{-1,35}}, color={162,29,33}));
-  connect(becomesTrueInside2.tl, becomesTrueInside1.tl) annotation (Line(points
-        ={{-1,-15},{-40,-15},{-40,25},{-1,25}}, color={0,0,255}));
-  connect(becomesTrueInside3.tl, becomesTrueInside1.tl) annotation (Line(points
-        ={{-1,-55},{-40,-55},{-40,25},{-1,25}}, color={0,0,255}));
+  connect(becomesTrueInside2.tl, becomesTrueInside1.tl) annotation (Line(points=
+         {{-1,-15},{-40,-15},{-40,25},{-1,25}}, color={0,0,255}));
+  connect(becomesTrueInside3.tl, becomesTrueInside1.tl) annotation (Line(points=
+         {{-1,-55},{-40,-55},{-40,25},{-1,25}}, color={0,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-250,
             -100},{250,100}})),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-250,-100},{250,

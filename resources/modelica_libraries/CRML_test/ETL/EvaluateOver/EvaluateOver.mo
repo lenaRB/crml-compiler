@@ -1,45 +1,58 @@
 within CRML_test.ETL.EvaluateOver;
 partial block EvaluateOver
 
-protected
-  parameter Integer N=CRML.ETL.Types.nMaxOverlap;
-
 public
   Utilities.Boolean4Connector phi1 "Boolean4 condition" annotation (Placement(
         transformation(extent={{-120,-10},{-100,10}}), iconTransformation(
           extent={{-120,-10},{-100,10}})));
-  Utilities.TimeLocatorConnector[N] P1 annotation (Placement(transformation(
+  Utilities.TimeLocatorConnector P1 annotation (Placement(transformation(
           extent={{-10,90},{10,110}}), iconTransformation(extent={{-10,90},{10,
             110}})));
   CRML.ETL.Connectors.Boolean4Output b_evaluate_over
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  EvalUndefined          [N] eval
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  CRML.Blocks.Routing.Boolean4Replicator boolean4Replicator(nout=N)
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  CRML.Blocks.Logical.BooleanConstant[N] booleanConstant(each K=false)
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  CRML.Blocks.Logical4.BooleanToBoolean4[N] booleanToBoolean3_1
-    annotation (Placement(transformation(extent={{-4,16},{4,24}})));
+  IntegrateUndefined integrateUndefined
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  CRML.ETL.Requirements.DecideOver decideOver
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  CRML.Blocks.Logical4.Boolean4Constant boolean4Constant(K=CRML.ETL.Types.Boolean4.false4)
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  CRML.Blocks.Events.EventFilter eventFilter
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  CRML.Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4
+    annotation (Placement(transformation(extent={{6,-4},{14,4}})));
+  CRML.Blocks.Events.Event4ToEvent event4ToEvent
+    annotation (Placement(transformation(extent={{-44,4},{-36,12}})));
+  CRML.Blocks.Events.Event4ToEvent event4ToEvent1
+    annotation (Placement(transformation(extent={{-44,-24},{-36,-16}})));
 equation
-  connect(P1, eval.tl) annotation (Line(points={{0,100},{0,60},{40,60},{40,10}},
-        color={0,0,255}));
-  connect(phi1, boolean4Replicator.u)
-    annotation (Line(points={{-110,0},{-92,0}}, color={162,29,33}));
-  connect(boolean4Replicator.y, eval.u)
-    annotation (Line(points={{-69,0},{29,0}}, color={162,29,33}));
-  connect(booleanConstant.y, booleanToBoolean3_1.u)
-    annotation (Line(points={{-19,20},{-4.4,20}}, color={217,67,180}));
-  connect(booleanToBoolean3_1.y, eval.a) annotation (Line(points={{4.4,20},
-          {20,20},{20,8},{29,8}}, color={162,29,33}));
-  connect(eval[1].y, b_evaluate_over)
-    annotation (Line(points={{51,0},{110,0}}, color={162,29,33}));
 //         Text(
 //           extent={{-74,32},{74,-36}},
 //           lineColor={0,0,0},
 //           fillColor={28,108,200},
 //           fillPattern=FillPattern.Solid,
 //           textString=boxName),
+  connect(decideOver.u, phi1)
+    annotation (Line(points={{-81,0},{-110,0}}, color={162,29,33}));
+  connect(eventFilter.y, booleanToBoolean4.u)
+    annotation (Line(points={{1,0},{5.6,0}},  color={217,67,180}));
+  connect(decideOver.y, event4ToEvent.u) annotation (Line(points={{-59,0},{-50,0},
+          {-50,8},{-44.4,8}}, color={162,29,33}));
+  connect(event4ToEvent1.u, phi1) annotation (Line(points={{-44.4,-20},{-90,-20},
+          {-90,0},{-110,0}}, color={162,29,33}));
+  connect(event4ToEvent1.y, eventFilter.u) annotation (Line(points={{-35.6,-20},
+          {-26,-20},{-26,0},{-21,0}}, color={217,67,180}));
+  connect(event4ToEvent.y, eventFilter.cond)
+    annotation (Line(points={{-35.6,8},{-21,8}}, color={217,67,180}));
+  connect(decideOver.tl, P1) annotation (Line(points={{-70,10},{-70,80},{0,80},
+          {0,100}}, color={0,0,255}));
+  connect(integrateUndefined.tl, P1) annotation (Line(points={{50,10},{50,80},{
+          0,80},{0,100}}, color={0,0,255}));
+  connect(boolean4Constant.y, integrateUndefined.a) annotation (Line(points={{1,
+          50},{20,50},{20,8},{39,8}}, color={162,29,33}));
+  connect(booleanToBoolean4.y, integrateUndefined.u)
+    annotation (Line(points={{14.4,0},{39,0}}, color={162,29,33}));
+  connect(integrateUndefined.y, b_evaluate_over)
+    annotation (Line(points={{61,0},{110,0}}, color={162,29,33}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                          Rectangle(
           extent={{-100,100},{100,-100}},

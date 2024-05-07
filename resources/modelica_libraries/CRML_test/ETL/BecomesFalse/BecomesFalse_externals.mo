@@ -16,8 +16,8 @@ equation
     annotation (Line(points={{-39,0},{-4.4,0}}, color={217,67,180}));
   connect(booleanToBoolean4_1.y, b1)
     annotation (Line(points={{4.4,0},{110,0}}, color={162,29,33}));
-  connect(booleanTable.y, showEvent_eventPeriodic_b1.u) annotation (Line(points
-        ={{-39,0},{-28,0},{-28,-40},{-20.4,-40}}, color={217,67,180}));
+  connect(booleanTable.y, showEvent_eventPeriodic_b1.u) annotation (Line(points=
+         {{-39,0},{-28,0},{-28,-40},{-20.4,-40}}, color={217,67,180}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end BecomesFalse_externals;
