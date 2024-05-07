@@ -14,7 +14,7 @@ partial model BecomesTrueInside
 equation
   connect(b1, becomesTrue.b1) annotation (Line(points={{-110,50},{-80,50},{-80,
           0},{-61,0}}, color={0,0,0}));
-  connect(inside.u, becomesTrue.c_b1_becomes_true) annotation (Line(
+  connect(inside.u, becomesTrue.y) annotation (Line(
       points={{-1,3},{-28,3},{-28,0},{-39,0}},
       color={175,175,175},
       pattern=LinePattern.Dot,
