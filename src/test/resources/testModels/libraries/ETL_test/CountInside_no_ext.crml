@@ -13,5 +13,5 @@ model CountInside_no_ext is {
 	Boolean b2 is if ((2 < time) and (time < 3)) or ((3.5 < time) and (time < 4.5)) or ((6 < time) and (time < 7.5)) then true else false;
 	Clock C1 is new Clock b2;
 	
-	Integer i_count_ticks_of_c1_inside_p1 is 'count' C1 'inside' P1; // Value should be 1 (there is only one tick of C1 inside Period P1)
+	Integer i_count_ticks_of_c1_inside_p1 is 'count' C1 'inside' P1; // Value starts at 0, turns to 1 at t=3.5s and remains to 1 (there is only one tick of C1 inside Period P1)
 };
