@@ -13,7 +13,6 @@ model BecomesTrueInside is {
 	
 	// Example of function call
 	Boolean b1 is external;
-	Boolean b2 is external;
-	Period P1 is [ b1, not b1];
-	Clock c_b2_becomes_true_inside_p1 is b2 'becomes true inside' P1;
+	Period P1 is external;
+	Clock c_b1_becomes_true_inside_p1 is b1 'becomes true inside' P1;
 };
