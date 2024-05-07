@@ -2,11 +2,11 @@ within CRML_test.ETL.Inside;
 model Inside_verif
   extends Inside;
   Inside_externals externals
-    annotation (Placement(transformation(extent={{-200,0},{-140,60}})));
+    annotation (Placement(transformation(extent={{-200,20},{-140,80}})));
 equation
   // Bindings
-  b1 = externals.b1;
-  b2 = externals.b2;
+  C1 = externals.C1;
+  P1 = externals.P1;
     annotation (Placement(transformation(extent={{0,-20},{60,40}})),
               Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-200,-100},{100,100}},

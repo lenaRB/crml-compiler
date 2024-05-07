@@ -1,16 +1,13 @@
 within CRML_test.ETL.DecideOver;
 model DecideOver_externals
 
-protected
-  parameter Integer N=CRML.ETL.Types.nMaxOverlap;
-
 public
   CRML.Blocks.Logical.BooleanTable      boolean4Constant1(
     y0=false,
     option_width=false,
     instant={2,3.5})
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  CRML.Blocks.Logical.BooleanTable      boolean4Constant2(
+  CRML.Blocks.Logical.BooleanTable b1(
     y0=false,
     option_width=false,
     instant={2.5,5})
@@ -25,7 +22,7 @@ public
     annotation (Placement(transformation(extent={{-34,20},{-14,40}})));
   CRML.Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_2
     annotation (Placement(transformation(extent={{-4,-54},{4,-46}})));
-  CRML.ETL.Connectors.TimeLocatorOutput[N] P1
+  CRML.ETL.Connectors.TimeLocatorOutput P1
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
   CRML.TimeLocators.Continuous.During during
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
@@ -38,12 +35,12 @@ equation
           30},{-6,34},{-1,34}}, color={162,29,33}));
   connect(and4_1.y, phi1) annotation (Line(points={{21,42},{66,42},{66,50},{110,
           50}}, color={162,29,33}));
-  connect(boolean4Constant2.y, booleanToBoolean4_2.u)
+  connect(b1.y, booleanToBoolean4_2.u)
     annotation (Line(points={{-39,-50},{-4.4,-50}}, color={217,67,180}));
   connect(booleanToBoolean4_2.y, during.u)
     annotation (Line(points={{4.4,-50},{39,-50}}, color={162,29,33}));
-  connect(during.y, P1) annotation (Line(points={{50,-60},{84,-60},{84,-70},{110,
-          -70}}, color={0,0,255}));
+  connect(during.y[1], P1)
+    annotation (Line(points={{50,-60},{50,-70},{110,-70}}, color={0,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end DecideOver_externals;
