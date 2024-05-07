@@ -17,16 +17,16 @@ public
     annotation (Placement(transformation(extent={{-4,-12},{4,-4}})));
   CRML.Blocks.Logical4.Or4 or4_n
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  CRML.Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_3
+  CRML.Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4
     annotation (Placement(transformation(extent={{20,-12},{28,-4}})));
 equation
   connect(phi1, or4_n.u1)
-    annotation (Line(points={{-110,0},{-36,0},{-36,8},{39,8}}, color={0,0,0}));
+    annotation (Line(points={{-110,0},{-40,0},{-40,8},{39,8}}, color={0,0,0}));
   connect(P1, periodsEnd.tl)
     annotation (Line(points={{0,100},{0,-4}}, color={0,0,0}));
-  connect(periodsEnd.y, booleanToBoolean4_3.u)
+  connect(periodsEnd.y, booleanToBoolean4.u)
     annotation (Line(points={{4.4,-8},{19.6,-8}}, color={217,67,180}));
-  connect(or4_n.u2, booleanToBoolean4_3.y)
+  connect(or4_n.u2, booleanToBoolean4.y)
     annotation (Line(points={{39,-8},{28.4,-8}}, color={162,29,33}));
   connect(or4_n.y, b_decide_over)
     annotation (Line(points={{61,0},{110,0}}, color={162,29,33}));
@@ -52,11 +52,11 @@ equation
         Text(
           extent={{-70,72},{70,44}},
           lineColor={28,108,200},
-          textString="Check"),
+          textString="decide"),
         Text(
           extent={{-70,18},{70,-10}},
           lineColor={28,108,200},
-          textString="at end")}),                             Diagram(
+          textString="over")}),                               Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p><b><span style=\"font-family: MS Shell Dlg 2;\">Syntax</span></b> </p>

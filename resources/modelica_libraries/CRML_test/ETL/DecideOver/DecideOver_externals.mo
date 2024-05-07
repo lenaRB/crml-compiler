@@ -10,7 +10,7 @@ public
     option_width=false,
     instant={2,3.5})
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  CRML.Blocks.Logical.BooleanTable      boolean4Constant2(
+  CRML.Blocks.Logical.BooleanTable b1(
     y0=false,
     option_width=false,
     instant={2.5,5})
@@ -38,7 +38,7 @@ equation
           30},{-6,34},{-1,34}}, color={162,29,33}));
   connect(and4_1.y, phi1) annotation (Line(points={{21,42},{66,42},{66,50},{110,
           50}}, color={162,29,33}));
-  connect(boolean4Constant2.y, booleanToBoolean4_2.u)
+  connect(b1.y, booleanToBoolean4_2.u)
     annotation (Line(points={{-39,-50},{-4.4,-50}}, color={217,67,180}));
   connect(booleanToBoolean4_2.y, during.u)
     annotation (Line(points={{4.4,-50},{39,-50}}, color={162,29,33}));
