@@ -1,6 +1,6 @@
 within CRML_test.ETL.BecomesTrue_no_ext;
 model BecomesTrue_no_ext
-  CRML.Blocks.Events.ClockEvent c1
+  CRML.Blocks.Events.ClockEvent clockEvent1
     annotation (Placement(transformation(extent={{24,44},{36,56}})));
   CRML.Blocks.Events.Event4ToEvent event4ToEvent(x(start=true))
     annotation (Placement(transformation(extent={{-4,46},{4,54}})));
@@ -13,7 +13,7 @@ model BecomesTrue_no_ext
     annotation (Placement(transformation(extent={{-24,46},{-16,54}})));
   CRML.Blocks.Events.ShowEvent show_c1
     annotation (Placement(transformation(extent={{56,32},{64,40}})));
-  CRML.Blocks.Events.ClockEvent c2
+  CRML.Blocks.Events.ClockEvent clockEvent2
     annotation (Placement(transformation(extent={{24,4},{36,16}})));
   CRML.Blocks.Events.Event4ToEvent event4ToEvent1(x(start=true))
     annotation (Placement(transformation(extent={{-4,6},{4,14}})));
@@ -23,7 +23,7 @@ model BecomesTrue_no_ext
     annotation (Placement(transformation(extent={{-24,6},{-16,14}})));
   CRML.Blocks.Events.ShowEvent show_c2
     annotation (Placement(transformation(extent={{56,-8},{64,0}})));
-  CRML.Blocks.Events.ClockEvent c3
+  CRML.Blocks.Events.ClockEvent clockEvent3
     annotation (Placement(transformation(extent={{24,-36},{36,-24}})));
   CRML.Blocks.Events.Event4ToEvent event4ToEvent2
     annotation (Placement(transformation(extent={{-4,-34},{4,-26}})));
@@ -33,8 +33,14 @@ model BecomesTrue_no_ext
     annotation (Placement(transformation(extent={{-24,-34},{-16,-26}})));
   CRML.Blocks.Events.ShowEvent show_c3
     annotation (Placement(transformation(extent={{56,-48},{64,-40}})));
+  CRML.ETL.Connectors.ClockOutput c1
+    annotation (Placement(transformation(extent={{100,40},{120,60}})));
+  CRML.ETL.Connectors.ClockOutput c2
+    annotation (Placement(transformation(extent={{100,0},{120,20}})));
+  CRML.ETL.Connectors.ClockOutput c3
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 equation
-  connect(c1.u, event4ToEvent.y)
+  connect(clockEvent1.u, event4ToEvent.y)
     annotation (Line(points={{23.4,50},{4.4,50}}, color={217,67,180}));
   connect(b1.y, booleanToBoolean4_1.u)
     annotation (Line(points={{-59,50},{-24.4,50}}, color={217,67,180}));
@@ -42,8 +48,8 @@ equation
     annotation (Line(points={{-15.6,50},{-4.4,50}}, color={162,29,33}));
   connect(show_c1.u, event4ToEvent.y) annotation (Line(points={{55.6,36},{12,36},
           {12,50},{4.4,50}}, color={217,67,180}));
-  connect(c2.u, event4ToEvent1.y) annotation (Line(points={{23.4,10},{4.4,10}},
-                                            color={217,67,180}));
+  connect(clockEvent2.u, event4ToEvent1.y)
+    annotation (Line(points={{23.4,10},{4.4,10}}, color={217,67,180}));
   connect(b2.y, booleanToBoolean4_2.u) annotation (Line(points={{-59,10},{-24.4,
           10}},                                       color={217,67,180}));
   connect(booleanToBoolean4_2.y, event4ToEvent1.u) annotation (Line(points={{-15.6,
@@ -52,7 +58,7 @@ equation
   connect(show_c2.u, event4ToEvent1.y) annotation (Line(points={{55.6,-4},{12,
           -4},{12,10},{4.4,10}},
                             color={217,67,180}));
-  connect(c3.u, event4ToEvent2.y)
+  connect(clockEvent3.u, event4ToEvent2.y)
     annotation (Line(points={{23.4,-30},{4.4,-30}}, color={217,67,180}));
   connect(b3.y, booleanToBoolean4_3.u)
     annotation (Line(points={{-59,-30},{-24.4,-30}}, color={217,67,180}));
@@ -60,6 +66,21 @@ equation
     annotation (Line(points={{-15.6,-30},{-4.4,-30}}, color={162,29,33}));
   connect(show_c3.u, event4ToEvent2.y) annotation (Line(points={{55.6,-44},{12,
           -44},{12,-30},{4.4,-30}}, color={217,67,180}));
+  connect(clockEvent1.y, c1) annotation (Line(
+      points={{36.6,50},{110,50}},
+      color={175,175,175},
+      pattern=LinePattern.Dot,
+      thickness=0.5));
+  connect(clockEvent2.y, c2) annotation (Line(
+      points={{36.6,10},{110,10}},
+      color={175,175,175},
+      pattern=LinePattern.Dot,
+      thickness=0.5));
+  connect(clockEvent3.y, c3) annotation (Line(
+      points={{36.6,-30},{110,-30}},
+      color={175,175,175},
+      pattern=LinePattern.Dot,
+      thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end BecomesTrue_no_ext;

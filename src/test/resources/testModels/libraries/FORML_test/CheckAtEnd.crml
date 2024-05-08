@@ -1,4 +1,4 @@
-model CheckAtEnd is ETL union {
+model CheckAtEnd is {
 	// Decide
 	// Option1
 	// Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi or (P end); //With or defined as the built-in disjunction operator
@@ -23,10 +23,8 @@ model CheckAtEnd is ETL union {
 	Operator [ Boolean ] Periods P 'check at end' Boolean b = 'check' (varying1 ('id' b)) 'over' P;
 	
 	// Example of function call
-	Event e1 is external;
-	Event e2 is external;
 	Boolean u is external;
-	Period P1 is ] e1, e2 [;
+	Period P1 is external;
 	
 	Boolean b_check_at_end is {P1} 'check at end' u;
 	

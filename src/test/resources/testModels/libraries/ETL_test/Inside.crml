@@ -4,10 +4,8 @@ model Inside is {
 		= C filter ((tick C >= P start) and (tick C <= P end));
 	
 	// Example of function call
-	Boolean b1 is external;
-	Period P1 is [ b1, not b1];
-	Boolean b2 is external;
-	Clock C1 is new Clock b2;
+	Period P1 is external;
+	Clock C1 is external;
 	
 	Clock c_filtered_ticks_of_c1_inside_p1 is C1 'inside' P1;
 };
