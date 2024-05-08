@@ -85,6 +85,8 @@ public class CRMLC {
       cs.referenceResFolder = cmd.verify;
     
     logger.trace("Output dir: " + cmd.outputDir);
+    // remove quotes if they exist
+    cmd.outputDir = cmd.outputDir.replace("\"", "");
       
     File out_dir = new File(cmd.outputDir);
     out_dir.mkdir();
@@ -92,6 +94,8 @@ public class CRMLC {
     logger.trace("Directory for generated .mo files: [" + out_dir.getPath() + "] absolute path: [" + out_dir.getAbsolutePath() + "]");
 
     for(String f : cmd.files){
+       // remove quotes if they exist
+       f = f.replace("\"", "");
        String path = new File(f).getCanonicalPath();
        File file = new File ( path );
        String [] testFiles;
