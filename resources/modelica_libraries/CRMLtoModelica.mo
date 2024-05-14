@@ -5,10 +5,12 @@ import CRML.ETL.Types.Boolean4;
 record CRMLClock
 //constant Integer buffer_size=50;  // number of events that can be logged
 
-CRMLtoModelica.Types.Boolean4 b;
+CRMLtoModelica.Types.Boolean4 b (start= CRMLtoModelica.Types.Boolean4.false4);
 
 Real ticks[50](each start = -1, each fixed = true);
 discrete Integer counter(start=1, fixed=true);
+
+CRMLtoModelica.Types.Boolean4 out(start = CRMLtoModelica.Types.Boolean4.false4);
 
 end CRMLClock;
   
@@ -20,14 +22,15 @@ end CRMLClock;
     
     initial algorithm 
      
-    
     algorithm
       e := (clock.b == CRMLtoModelica.Types.Boolean4.true4 and change(clock.b));
       when (e) then
         clock.ticks[clock.counter] := time;
         clock.counter := pre(clock.counter)+1;
       end when;
-    
+      
+      equation
+        clock.out = Functions.cvBooleanToBoolean4(e);
     end CRMLClock_build;
   
     type Boolean4 = enumeration(
@@ -56,8 +59,9 @@ end CRMLClock;
       Types.Boolean4 start_event;
       Types.Boolean4 close_event;
       
-      Integer timeOpen;
-      Integer timeClosed;
+      Real timeOpen;
+      Real timeClosed;
+      
     end CRMLPeriod;
 
     block CRMLPeriods "Generates multiple time periods"
@@ -543,6 +547,20 @@ end CRMLClock;
     
     </html>"));
     end TimeLocator;
+
+    model CRMLPeriod_build
+    CRMLPeriod P;
+    
+    algorithm
+      if (P.start_event == CRMLtoModelica.Types.Boolean4.true4) then
+        P.timeOpen :=  time;
+        end if;
+       
+       if  (P.close_event == CRMLtoModelica.Types.Boolean4.true4) then
+        P.timeClosed :=  time;
+       end if;
+
+    end CRMLPeriod_build;
   end Types;
 
   
@@ -675,7 +693,7 @@ end cvBooleanToBoolean4;
     function PStart
     
     input CRMLtoModelica.Types.CRMLPeriod p;
-    output Integer t;
+    output Real t;
     algorithm
       t:=p.timeOpen;
 
@@ -683,7 +701,7 @@ end cvBooleanToBoolean4;
 
     function PEnd
     input CRMLtoModelica.Types.CRMLPeriod p;
-    output Integer t;
+    output Real t;
     algorithm
       t:=p.timeClosed;
 
@@ -693,57 +711,63 @@ end cvBooleanToBoolean4;
   
   package Blocks
   
-  block EventFilter "Filters events depending on condition"
-  
-  protected
-    Boolean x(start=false, fixed=true);
-  
-  public
-    input Types.CRMLClock r1//u
-      annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-     output Types.CRMLClock out annotation (
-        Placement(transformation(extent={{100,-10},{120,10}}),
-          iconTransformation(extent={{100,-10},{120,10}})));
-  
-    input Types.Boolean4  r2 //cond
-     "Condition" annotation (Placement(
-          transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=0,
-          origin={-110,80})));
-  equation
-  
-  //  x = r2;
-    //x = r1 and r2;
-    //out =  edge(x);
-  
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Rectangle(
-            extent={{-100,100},{100,-100}},
-            lineColor={0,0,0},
-            lineThickness=5.0,
-            fillColor={215,215,215},
-            fillPattern=FillPattern.Solid,
-            borderPattern=BorderPattern.Raised),
-          Text(
-            extent={{-60,148},{62,112}},
-            lineColor={0,0,255},
-            lineThickness=0.5,
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
-            textString="%name"),
-            Line(points={{-80,-60},{-62,-60},{-62,-60},{-20,-60},{-20,-60},{88,-60}},
-                color={255,0,255}),
-          Line(points={{-62,-16},{-62,-60}},
-                                           color={217,67,180}),
-          Line(points={{-20,-16},{-20,-60}},
-                                           color={217,67,180}),
-          Line(points={{38,-16},{38,-60}}, color={217,67,180}),
-          Line(points={{68,-16},{68,-60}}, color={217,67,180}),
-            Line(points={{-78,38},{-50,38},{-50,82},{48,82},{48,38},{68,38}})}),
-                                                                   Diagram(
-          coordinateSystem(preserveAspectRatio=false)));
-  end EventFilter;
+    block EventFilter "Filters events depending on condition"
+    
+    protected
+     Boolean e(start=false, fixed=true);
+    
+    public
+      input Types.CRMLClock r1//u
+        annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+       output Types.CRMLClock out annotation (
+          Placement(transformation(extent={{100,-10},{120,10}}),
+            iconTransformation(extent={{100,-10},{120,10}})));
+    
+      input Types.Boolean4  r2 //cond
+       "Condition" annotation (Placement(
+            transformation(
+            extent={{-10,-10},{10,10}},
+            rotation=0,
+            origin={-110,80})));
+    equation
+    
+    algorithm
+      e := (r1.out == CRMLtoModelica.Types.Boolean4.true4 and r2 == CRMLtoModelica.Types.Boolean4.true4  and change(r2));
+      when (e ) then
+        out.ticks[out.counter] := time;
+       out.counter := pre(out.counter)+1;
+       out.out := CRMLtoModelica.Types.Boolean4.true4 ;
+       out.b :=Functions.cvBooleanToBoolean4(e);
+      end when;
+    
+    
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+            Rectangle(
+              extent={{-100,100},{100,-100}},
+              lineColor={0,0,0},
+              lineThickness=5.0,
+              fillColor={215,215,215},
+              fillPattern=FillPattern.Solid,
+              borderPattern=BorderPattern.Raised),
+            Text(
+              extent={{-60,148},{62,112}},
+              lineColor={0,0,255},
+              lineThickness=0.5,
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid,
+              textString="%name"),
+              Line(points={{-80,-60},{-62,-60},{-62,-60},{-20,-60},{-20,-60},{88,-60}},
+                  color={255,0,255}),
+            Line(points={{-62,-16},{-62,-60}},
+                                             color={217,67,180}),
+            Line(points={{-20,-16},{-20,-60}},
+                                             color={217,67,180}),
+            Line(points={{38,-16},{38,-60}}, color={217,67,180}),
+            Line(points={{68,-16},{68,-60}}, color={217,67,180}),
+              Line(points={{-78,38},{-50,38},{-50,82},{48,82},{48,38},{68,38}})}),
+                                                                     Diagram(
+            coordinateSystem(preserveAspectRatio=false)));
+    end EventFilter;
   
    
     block Integrate
@@ -753,42 +777,42 @@ end cvBooleanToBoolean4;
           Boolean4 d;
           Boolean4 c;
           Boolean4 v;
-          Boolean timePeriod(start = false, fixed = true) = tl.timePeriod;
-          Boolean not_timePeriod(start = true, fixed = true) = not tl.timePeriod;
+          Boolean timePeriod(start = false, fixed = true) = true;//  tl.timePeriod;
+          Boolean not_timePeriod(start = true, fixed = true) = not true;//tl.timePeriod;
           Boolean sync1(start = false, fixed = true);
           Boolean sync2(start = false, fixed = true);
         public
-          Boolean4 u;
-          Boolean4  y;
-          Types.TimeLocator  tl ;
+          Boolean4 r1;
+          Boolean4  out;
+          Types.CRMLPeriod  r2 ;
     
           Boolean4  a;
         equation
     /* Compute the decision event d */
           d = Functions.or4(a, Functions.cvBooleanToBoolean4(edge(not_timePeriod)));
     /* Determine whether the change of the condition u happens at the same instant as the start of the time period tl */
-          sync1 = u <> pre(u) and edge(timePeriod);
+          sync1 = r1 <> pre(r1) and edge(timePeriod);
     /* Determine whether the change of the condition u happens at the same instant as the end of the time period tl */
-          sync2 = u <> pre(u) and edge(not_timePeriod);
+          sync2 = r1 <> pre(r1) and edge(not_timePeriod);
     /* Compute the condition c from the condition u within the bounds of the time period tl */
-          c = if (tl.isLeftBoundaryIncluded and edge(sync1)) or (not tl.isRightBoundaryIncluded and edge(sync2)) then pre(u) else u;
+          c = if (tl.isLeftBoundaryIncluded and edge(sync1)) or (not r2.isRightBoundaryIncluded and edge(sync2)) then pre(r1) else r1;
     /* Compute the integral of c over the time period tl, taking into account the fact
-    that the same time thread tl may accomodate several non-overlapping time periods */
+    that the same time thread tl maout accomodate several non-overlapping time periods */
           v = if timePeriod or edge(not_timePeriod) then Functions.mul4(d, c) else Boolean4.undefined;
           x = if edge(timePeriod) then Functions.and4(pre(x), v) else Functions.add4(pre(x), v);
-    /* The output y is the value of the integral of c until the current time */
-          y = x;
+    /* The output out is the value of the integral of c until the current time */
+          out = x;
           annotation(
             Placement(transformation(extent = {{100, -90}, {120, -70}})),
             Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}, fillColor = {255, 213, 170}, lineThickness = 5, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Raised, lineColor = {0, 0, 0}), Text(extent = {{-76, 54}, {74, -50}}, lineColor = {0, 0, 0}, fontName = "Symbol", textString = "")}),
             Diagram(coordinateSystem(preserveAspectRatio = false)));
         end Integrate;
 
-    block ClockTick "Generates an event when the integer input changes"
+    block ClockTick "Returns time of last clock tick"
       input Types.CRMLClock r1;
       output Integer out;
         equation
-      // out = r1 <> pre(r1);
+        out = r1.ticks[r1.counter];
       annotation (
         Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,100}}, initialScale=0.06),
                         graphics={
@@ -891,10 +915,10 @@ end cvBooleanToBoolean4;
     
     CRMLtoModelica.Types.CRMLClock r1;
     
-    Integer out;
-    algorithm
+    Integer out(start = 0);
+    equation  
+      out = 1;  
       
-
     end CardClock;
     
     block BoolTick "Generates an event when the integer input changes"
