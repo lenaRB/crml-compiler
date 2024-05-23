@@ -9,8 +9,6 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.aventstack.extentreports.model.Category;
-
 import grammar.crmlBaseVisitor;
 import grammar.crmlParser;
 import grammar.crmlParser.Category_pairContext;
@@ -321,7 +319,12 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 	
 			user_operators.put(modelName.toString(), sig);
 
-			
+			//check for Category
+			if(ctx.operator_def().apply_category()!=null)
+				if(category_map.getCategory(ctx.operator_def().apply_category().id().getText())!= null)
+					current_category = ctx.operator_def().apply_category().id().getText();
+				else throw new ParseCancellationException ("Undefined Category " + ctx.operator_def().apply_category().id().getText());
+
 			// append body
 			Value exp = visit(ctx.operator_def().exp());
 			definition.append(localFunctionCalls + "\n");
@@ -335,6 +338,9 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 			//restore local function calls
 			localFunctionCalls = store_localFunctionCalls;
+
+			// restore category
+			current_category = null;
 			
 			return new Value (definition.toString(), "Operator");
 		}
@@ -446,21 +452,6 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 		@Override public Value visitExp(crmlParser.ExpContext ctx) {
 			Value right, left;
-
-			// if the expression is a category operator 
-			if(ctx.cat!=null){
-				//check if the category exists
-				if(category_map.getCategory(ctx.cat.getText())!= null){
-					// set category
-					current_category = ctx.cat.getText();
-					
-					Value res= visitExp(ctx.exp(0));
-
-					// unset category
-					current_category = null;
-					return res;
-				}
-			}
 			
 			// if the expression is a constructor
 			if(ctx.constructor() != null) {

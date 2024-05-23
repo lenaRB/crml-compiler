@@ -33,7 +33,9 @@ template : 'Template' (id | user_keyword)+ '=' exp ';' ;
 
 class_params : '(' (id '=' exp)+ ')';
 
-operator_def :  (type id | user_keyword)+ '=' ('apply' assoc=id 'on')? exp ;
+operator_def :  (type id | user_keyword)+ '=' apply_category? exp ;
+
+apply_category : 'apply' assoc=id 'on';
 	 
 type_def : 'type' id ('extends' type  arg_list? id?)?  ('{' class_var_def * '}' )? ;
 	 
@@ -79,6 +81,7 @@ integrate : 'integrate' exp 'on' exp;
 tick : 'tick' id;
     
  exp : sub_exp | id | constant | constructor | sum |trim |  proj | period_op 
+	 //| 'apply' cat=id 'on' '(' exp ')'
 	 | right=exp runary=right_op 
 	 | lunary=builtin_op left=exp 
 	 | left=exp binary=builtin_op right=exp
