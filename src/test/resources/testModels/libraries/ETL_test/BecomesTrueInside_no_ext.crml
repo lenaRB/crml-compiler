@@ -1,4 +1,4 @@
-model BecomesTrue_no_ext is {
+model BecomesTrueInside_no_ext is {
 	// Operators on clocks
 		// Filter clock ticks inside a time period
 		Operator [ Clock ] Clock C 'inside' Period P 
