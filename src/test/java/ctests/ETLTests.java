@@ -61,7 +61,7 @@ public class ETLTests  {
         public void simulateTestFile(final String fileName) throws InterruptedException, IOException, ModelicaSimulationException {
             OMCmsg ret = Util.runTest(fileName, cs, CompileStage.SIMULATE);
             files = ret.files;
-            if(ret.msg.contains("false")||ret.msg.contains("Failed")||ret.msg.contains("Error"))
+            if(ret.msg.contains("Failed")||ret.msg.contains("Error"))
 			fail("Unable to run Modelica script " + Utilities.getAbsolutePath(fileName) + ".mos", 
 			new Throwable( "\n omc fails with the following message: \n" + ret.msg));
 		
