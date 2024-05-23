@@ -8,28 +8,17 @@ import grammar.crmlParser.Category_pairContext;
 
 public class CategoryMapping {
 	
-	HashMap<String, List<Category>> categoryMap;
+	HashMap<String, HashMap <String, String>> categoryMap;
 	
-	public void addAssociation(String name, String category_name, List<List<String>> operator_mapping) {
-	
-		List<Category> cs = categoryMap.get(name); // check if already present
+	public void addCategory(String name, HashMap <String, String> operator_mapping) {
 		
-		//Category nc = new Category(category_name, operator_mapping);
-	
-		if (cs == null) {
-			cs = new Vector<Category>();
-		} else {
-			
-		}
-			
-		categoryMap.put(name, cs);
+		//FIXME - check for name conflicts
+		categoryMap.put(name, operator_mapping);
 	}
 
-    public void add_mapping(String text, List<Category_pairContext> category_pair) {
-    }
-
-    public void add_association(String text, String text2, String text3) {
-    }
+    public HashMap <String, String> getCategory(String name){
+		return categoryMap.get(name);
+	}
 
 
 }

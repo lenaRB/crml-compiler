@@ -9,8 +9,11 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.aventstack.extentreports.model.Category;
+
 import grammar.crmlBaseVisitor;
 import grammar.crmlParser;
+import grammar.crmlParser.Category_pairContext;
 import grammar.crmlParser.Class_var_defContext;
 import grammar.crmlParser.Element_defContext;
 import grammar.crmlParser.ExpContext;
@@ -39,6 +42,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		
 		private CategoryMapping category_map;
 		
+		private String current_category=null;
 		crmlParser parser;
 		
 		private String prefix= ""; //to keep track of variable prefix
@@ -53,6 +57,8 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		}
 
 		public crmlVisitorImpl (crmlParser parser) {
+
+		// FIXME check that class name and class file match
 			
 			this.parser = parser;
 
@@ -191,8 +197,13 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			
 		}	 
 		
-		@Override public Value visitCategory(crmlParser.CategoryContext ctx) {		
-			category_map.add_mapping(ctx.id().getText(), ctx.category_pair());
+		@Override public Value visitCategory(crmlParser.CategoryContext ctx) {
+			HashMap<String, String> ctg_pairs = new HashMap<>();
+			//TOFIX check that operators being mapped actually exist
+			for(Category_pairContext i : ctx.category_pair()){
+				ctg_pairs.put(i.op(0).getText(), i.op(1).getText());
+			}	
+			category_map.addCategory(ctx.id().getText(), ctg_pairs);
 			return new Value("", "Category");		
 		}	
 		
@@ -435,6 +446,21 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 		@Override public Value visitExp(crmlParser.ExpContext ctx) {
 			Value right, left;
+
+			// if the expression is a category operator 
+			if(ctx.cat!=null){
+				//check if the category exists
+				if(category_map.getCategory(ctx.cat.getText())!= null){
+					// set category
+					current_category = ctx.cat.getText();
+					
+					Value res= visitExp(ctx.exp(0));
+
+					// unset category
+					current_category = null;
+					return res;
+				}
+			}
 			
 			// if the expression is a constructor
 			if(ctx.constructor() != null) {
@@ -466,23 +492,29 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			}
 
 			// if the expression is a built in operator
-			if(ctx.builtin_op()!= null)
+			if(ctx.builtin_op()!= null){
+				String op=null;
+				if(current_category!=null) // we check if we should apply the category
+					op = category_map.getCategory(current_category).get(ctx.builtin_op().getText());
+				if (op==null) op = ctx.builtin_op().getText();
+				
 				if (ctx.binary!=null){
 				left = visit(ctx.left);
 				right = visit(ctx.right);
-				Value result = apply_binary_op(ctx.builtin_op().getText(), left, right);
+				Value result = apply_binary_op(op, left, right);
 				return result;
 				} else if(ctx.lunary!= null) {
 					left = visit(ctx.left);					
-					Value result = apply_lunary_op(ctx.builtin_op().getText(), left);
+					Value result = apply_lunary_op(op, left);
 					return result;
 				}
 
-			  if(ctx.runary!= null) {
+			 	if(ctx.runary!= null) {
 					right = visit(ctx.right);					
-					Value result = apply_runary_op(ctx.right_op().getText(), right);
+					Value result = apply_runary_op(op, right);
 					return result;
 				}
+			}
 
 			// if the expression is in parenthesis
 			if(ctx.sub_exp()!=null)
@@ -497,8 +529,11 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				List<crmlParser.ExpContext> args = new ArrayList<>();
 				// put together user operator name
 				UserOperatorCall uc = reconstructUserOperator(ctx, "", args);
-
-				return apply_user_operator("'"+uc.name+"'", uc.args);
+				String op=null;
+				if(current_category!=null) // we check if we should apply the category
+					op = category_map.getCategory(current_category).get("'"+uc.name+"'");
+				if (op==null) op = "'"+uc.name+"'";
+				return apply_user_operator(op, uc.args);
 			}
 			
 			// expression is a tick
@@ -515,13 +550,19 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		//	if(ctx.at!= null) //TODO implement 'at'
 		//		return visit(ctx.at());
 
-		// if expression is integrate TODO fix integrate
-		if (ctx.integrate()!=null)
-			return new Value ("integrate", "Real");
+		// if expression is integrate
+		if (ctx.integrate()!=null){
+			Value val = visit(ctx.integrate().exp(0));
+			Value on = visit(ctx.integrate().exp(1));
+			
+			return apply_binary_op("integrate", val, on);
+		}
+			
 
 			throw new ParseCancellationException("unable to parse expression : " + ctx.getParent().getText() + '\n');
 		}
-		
+	
+
 	private UserOperatorCall reconstructUserOperator(ExpContext ctx, String string, List<ExpContext> args) {
 			if(ctx.user_keyword()!= null)// is part of the user operator
 				if(ctx.ubinary!=null){// binary operator
@@ -546,10 +587,8 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 	@Override
 	public Value visitPeriod_op(crmlParser.Period_opContext ctx) {
 		
-		//String periodType = types_mapping.get("Period");
-		
 		Value left = visit(ctx.exp(0));
-		Value right = visit(ctx.exp(0));
+		Value right = visit(ctx.exp(1));
 
 		Boolean lborder = (ctx.lb.getText().equals("["));
 		Boolean rborder = (ctx.rb.getText().equals("]"));
@@ -564,8 +603,12 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		    ", isRightBoundaryIncluded=" + rborder.toString() + 
 			", start_event=" + left.contents + 
 			", close_event=" + right.contents +");\n";
+
 		
 		localFunctionCalls.append(code);
+
+		localFunctionCalls.append("CRMLtoModelica.Types.CRMLPeriod_build " + varName+"_init(P =" + varName + ");\n");
+		
 			
 		return new Value (varName, "Period", false);
 	}
