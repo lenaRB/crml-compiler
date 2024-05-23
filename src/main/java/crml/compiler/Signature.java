@@ -25,6 +25,8 @@ public class Signature {
 	Boolean is_return_set;
 	String temp_var_name; // sets a name to avoid variable names like '==0'
 
+	String associated_category = null;
+
 	public Signature() {
 		variable_names = new Vector<String>();
 		variable_types = new Vector<String>();
@@ -104,6 +106,14 @@ public class Signature {
 		this.variable_is_set = isSet;
 		this.is_return_set=returnSet;
 		this.temp_var_name = out_var_name;
+	}
+
+	public void setCategory(String name){
+		associated_category=name;
+	}
+
+	public String getCategory(){
+		return associated_category;
 	}
 
 }

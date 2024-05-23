@@ -117,7 +117,7 @@ string : STRING;
 
 IDENT : NONDIGIT ( DIGIT | NONDIGIT )* ;
 
-USER_KEYWORD : '\'' (NONDIGIT|SYMBOL) (NONDIGIT|' '|SYMBOL)* '\'';
+USER_KEYWORD : '\'' (NONDIGIT|SYMBOL) (NONDIGIT|' '|SYMBOL|DIGIT)* '\'';
 
 fragment CAPS :  'A' .. 'Z' ;
 fragment LOWCASE :  'a' .. 'z' ;

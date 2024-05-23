@@ -200,16 +200,13 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			//TOFIX check that operators being mapped actually exist
 			for(Category_pairContext i : ctx.category_pair()){
 				ctg_pairs.put(i.op(0).getText(), i.op(1).getText());
+				System.out.println(i.op(0).getText() +  " : " + i.op(1).getText() + "\n");
 			}	
 			category_map.addCategory(ctx.id().getText(), ctg_pairs);
+			System.err.println("Added category " + ctx.id().getText() + "\n");
+
 			return new Value("", "Category");		
 		}	
-		
-		// TODO move to association
-		/*@Override public Value visitAssociation(crmlParser.AssociationContext ctx) {
-			category_map.add_association(ctx.c_set.getText(), ctx.c_op_name.getText(), ctx.c_name.getText());
-			return new Value("", "Association");	
-		}*/
 		
 		@Override public Value visitClass_def(crmlParser.Class_defContext ctx) {
 			StringBuffer buffer = new StringBuffer();
@@ -221,9 +218,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				prefix+=".";
 			
 			prefix += ctx.id(0).getText();
-			
-			
-			
+						
 			buffer.append("model "+ ctx.id(0).getText());
 			// parse class variables
 			if (ctx.class_var_def()!= null)
@@ -233,7 +228,6 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 					
 					buffer.append(val.contents);
 				}
-			
 			
 			if (ctx.type()!=null) {
 				buffer.append(" extends " + ctx.type().getText());
@@ -316,15 +310,17 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				sig.variable_types.add(mtype);
 			    i++;
 			}
-	
-			user_operators.put(modelName.toString(), sig);
 
 			//check for Category
 			if(ctx.operator_def().apply_category()!=null)
 				if(category_map.getCategory(ctx.operator_def().apply_category().id().getText())!= null)
-					current_category = ctx.operator_def().apply_category().id().getText();
+					sig.setCategory(ctx.operator_def().apply_category().id().getText());
 				else throw new ParseCancellationException ("Undefined Category " + ctx.operator_def().apply_category().id().getText());
 
+	
+			user_operators.put(modelName.toString(), sig);
+
+			
 			// append body
 			Value exp = visit(ctx.operator_def().exp());
 			definition.append(localFunctionCalls + "\n");
@@ -483,6 +479,8 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				op = category_map.getCategory(current_category).get(ctx.builtin_op().getText());
 			if (op==null) op = ctx.builtin_op().getText();
 				
+			System.out.println("Category: " + current_category + " og_op : " + ctx.builtin_op().getText()+ " og_op : "+ op);
+			
 			if (ctx.binary!=null){
 				left = visit(ctx.left);
 				right = visit(ctx.right);
@@ -500,6 +498,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				op = category_map.getCategory(current_category).get(ctx.runary.getText());
 			if (op==null) op = ctx.runary.getText();
 			
+			System.out.println("Category: " + current_category + " og_op : " + ctx.runary.getText()+ " og_op : "+ op);
 			right = visit(ctx.right);					
 			Value result = apply_runary_op(op, right);
 			return result;
@@ -523,7 +522,9 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			if(current_category!=null) // we check if we should apply the category
 				op = category_map.getCategory(current_category).get("'"+uc.name+"'");
 			if (op==null) op = "'"+uc.name+"'";
-				return apply_user_operator(op, uc.args);
+
+			
+			return apply_user_operator(op, uc.args);
 		}
 			
 		// expression is a tick
@@ -675,12 +676,16 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		
 		
 		private Value apply_user_operator(String op, List<ExpContext> exp) {
-			
+			String previous_category = null;
 			// check if the operator is defined
 			Signature sign = user_operators.get(op);
 			if (sign== null)
 				throw new ParseCancellationException("User operator undefined : " + op + "\n");
 			
+			if (sign.getCategory() != null){
+				previous_category = current_category;
+				current_category = sign.getCategory();
+			}
 			String name=op.substring(0, op.length()-1).replace(".", "_")+counter+'\'';
 			
 			String res;
@@ -698,6 +703,8 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				
 			localFunctionCalls.append(res);
 			counter++;
+
+			current_category = previous_category; // restore
 			return new Value (name+ ".out", sign.return_type);
 		
 		}
