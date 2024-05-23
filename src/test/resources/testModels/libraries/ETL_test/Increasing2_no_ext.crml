@@ -1,4 +1,4 @@
-model Increasing1_no_ext is {
+model Increasing2_no_ext is {
 	Category increasing2 = { ( > , > ),( >= , >= ),( < , >= ), ( <= , > )};
 	Operator [ Boolean ] 'id' Boolean b = b;
 	
