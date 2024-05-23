@@ -405,142 +405,138 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		}
 
 
-		@Override public Value visitVar_def(crmlParser.Var_defContext ctx) {
-			String var_t, mapped_t;
-			StringBuffer buffer = new StringBuffer();
-			Value v;
-			Boolean isSet = false;
+	@Override public Value visitVar_def(crmlParser.Var_defContext ctx) {
+		String var_t, mapped_t;
+		StringBuffer buffer = new StringBuffer();
+		Value v;
+		Boolean isSet = false;
 			
 
-				var_t = ctx.type().getText();
+		var_t = ctx.type().getText();
+							
+		if(types_mapping.containsKey(var_t))
+			mapped_t= types_mapping.get(var_t);
+		else
+			mapped_t=var_t;
 				
-				
-				
-				if(types_mapping.containsKey(var_t))
-					mapped_t= types_mapping.get(var_t);
-				else
-					mapped_t=var_t;
-				
-				isSet = (ctx.type().empty_set()!=null);
-				if(isSet)
-					mapped_t+= " [:] ";
+		isSet = (ctx.type().empty_set()!=null);
+		if(isSet)
+			mapped_t+= " [:] ";
 
-				buffer.append(mapped_t + " ");
-				buffer.append(ctx.id().getText());
+		buffer.append(mapped_t + " ");
+		buffer.append(ctx.id().getText());
 				
 
-				//TODO fix set variables
+		//TODO fix set variables
 
-				if(saveExtrnal && ctx.is_external!=null){
-
-					external_variables.add(mapped_t + " " +ctx.id().getText() + "\n");
-			}
+		if(saveExtrnal && ctx.is_external!=null)
+			external_variables.add(mapped_t + " " +ctx.id().getText() + "\n");
+		
 				
-				variableTable.putVariable(ctx.id().getText(), var_t, isSet, prefix);
-				variableTable.putlocalVariable(ctx.id().getText(), var_t, isSet);
+		variableTable.putVariable(ctx.id().getText(), var_t, isSet, prefix);
+		variableTable.putlocalVariable(ctx.id().getText(), var_t, isSet);
 
-				if(ctx.exp()!=null) {
-					v=visit(ctx.exp());
-					if(!v.type.equals("new")) // check that it is not a constructor
-						buffer.append(" = " + v.contents);
-				}
-				buffer.append(";\n");
-
-			return new Value(buffer.toString(), "Definition");
+		if(ctx.exp()!=null) {
+			v=visit(ctx.exp());
+			if(!v.type.equals("new")) // check that it is not a constructor
+				buffer.append(" = " + v.contents);
 		}
+		buffer.append(";\n");
+
+		return new Value(buffer.toString(), "Definition");
+	}
 		
 
-		@Override public Value visitExp(crmlParser.ExpContext ctx) {
-			Value right, left;
+	@Override public Value visitExp(crmlParser.ExpContext ctx) {
+		Value right, left;
 			
-			// if the expression is a constructor
-			if(ctx.constructor() != null) {
-				return visit(ctx.constructor());
+		// if the expression is a constructor
+		if(ctx.constructor() != null)
+			return visit(ctx.constructor());
 				
-			}
+		// if the expression is a constant
+		if(ctx.constant()!=null)
+			return visit(ctx.constant());
 
-			// if the expression is a constant
-			if(ctx.constant()!=null)
-				return visit(ctx.constant());
-
-			// if the expression is a variable
-			if(ctx.id()!=null) 
-				return visit(ctx.id());
+		// if the expression is a variable
+		if(ctx.id()!=null) 
+			return visit(ctx.id());
 			 
-			//if the expression is a componenent reference
-			if(ctx.crml_component_reference()!=null) {
-				VariableData.VariableType v_type = variableTable.getVariableInfo(ctx.crml_component_reference().getText());
-				if (v_type!=null)
-					 return new Value (ctx.getText(), v_type.type, v_type.isSet, v_type.setPath);
-
-				else throw new ParseCancellationException("unable to get variable type : " + ctx.crml_component_reference().getText() + '\n');}
+		//if the expression is a componenent reference
+		if(ctx.crml_component_reference()!=null) {
+			VariableData.VariableType v_type = variableTable.getVariableInfo(ctx.crml_component_reference().getText());
+			if (v_type!=null)
+				return new Value (ctx.getText(), v_type.type, v_type.isSet, v_type.setPath);
+			else 
+				throw new ParseCancellationException("unable to get variable type : " + ctx.crml_component_reference().getText() + '\n');}
 				
-			
-			
-			// if expression is an if-then-else
-			if(ctx.if_exp() != null) {
-				return visit(ctx.if_exp());
-			}
-
-			// if the expression is a built in operator
-			if(ctx.builtin_op()!= null){
-				String op=null;
-				if(current_category!=null) // we check if we should apply the category
-					op = category_map.getCategory(current_category).get(ctx.builtin_op().getText());
-				if (op==null) op = ctx.builtin_op().getText();
 				
-				if (ctx.binary!=null){
+		// if expression is an if-then-else
+		if(ctx.if_exp() != null)
+			return visit(ctx.if_exp());
+
+		// if the expression is a built in operator
+		if(ctx.builtin_op()!= null){
+			String op=null;
+			
+			if(current_category!=null) // we check if we should apply the category
+				op = category_map.getCategory(current_category).get(ctx.builtin_op().getText());
+			if (op==null) op = ctx.builtin_op().getText();
+				
+			if (ctx.binary!=null){
 				left = visit(ctx.left);
 				right = visit(ctx.right);
 				Value result = apply_binary_op(op, left, right);
 				return result;
-				} else if(ctx.lunary!= null) {
-					left = visit(ctx.left);					
-					Value result = apply_lunary_op(op, left);
-					return result;
-				}
-
-			 	if(ctx.runary!= null) {
-					right = visit(ctx.right);					
-					Value result = apply_runary_op(op, right);
-					return result;
-				}
+			} else if(ctx.lunary!= null) {
+				left = visit(ctx.left);					
+				Value result = apply_lunary_op(op, left);
+				return result;
 			}
+		}	
+		if(ctx.runary!= null) {
+			String op=null;
+			if(current_category!=null) // we check if we should apply the category
+				op = category_map.getCategory(current_category).get(ctx.runary.getText());
+			if (op==null) op = ctx.runary.getText();
+			
+			right = visit(ctx.right);					
+			Value result = apply_runary_op(op, right);
+			return result;
+		}
 
-			// if the expression is in parenthesis
-			if(ctx.sub_exp()!=null)
-				return visit(ctx.sub_exp().exp());
+		// if the expression is in parenthesis
+		if(ctx.sub_exp()!=null)
+			return visit(ctx.sub_exp().exp());
 		
-			if(ctx.period_op()!=null){
-				return visit(ctx.period_op());
-			}
+		if(ctx.period_op()!=null)
+			return visit(ctx.period_op());
 
-			// if the expression is a user defined call
-			if(ctx.user_keyword() != null) {
-				List<crmlParser.ExpContext> args = new ArrayList<>();
-				// put together user operator name
-				UserOperatorCall uc = reconstructUserOperator(ctx, "", args);
-				String op=null;
-				if(current_category!=null) // we check if we should apply the category
-					op = category_map.getCategory(current_category).get("'"+uc.name+"'");
-				if (op==null) op = "'"+uc.name+"'";
+		// if the expression is a user defined call
+		if(ctx.user_keyword() != null) {
+			List<crmlParser.ExpContext> args = new ArrayList<>();
+			
+			// put together user operator name
+			UserOperatorCall uc = reconstructUserOperator(ctx, "", args);
+			
+			String op=null;
+			if(current_category!=null) // we check if we should apply the category
+				op = category_map.getCategory(current_category).get("'"+uc.name+"'");
+			if (op==null) op = "'"+uc.name+"'";
 				return apply_user_operator(op, uc.args);
-			}
+		}
 			
-			// expression is a tick
-			if(ctx.tick() != null) {
-				Value cl = visit(ctx.tick().id());
-				return apply_lunary_op("tick", cl);
-			}	
+		// expression is a tick
+		if(ctx.tick() != null) {
+			Value cl = visit(ctx.tick().id());
+			return apply_lunary_op("tick", cl);
+		}	
 			
-			// expression is an object set
+		// expression is an object set
 			
-			if(ctx.set_def() != null)
-				return visit(ctx.set_def());
+		if(ctx.set_def() != null)
+			return visit(ctx.set_def());
 			
-		//	if(ctx.at!= null) //TODO implement 'at'
-		//		return visit(ctx.at());
-
 		// if expression is integrate
 		if (ctx.integrate()!=null){
 			Value val = visit(ctx.integrate().exp(0));
@@ -548,10 +544,9 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			
 			return apply_binary_op("integrate", val, on);
 		}
-			
-
-			throw new ParseCancellationException("unable to parse expression : " + ctx.getParent().getText() + '\n');
-		}
+	
+		throw new ParseCancellationException("unable to parse expression : " + ctx.getText() + '\n');
+	}
 	
 
 	private UserOperatorCall reconstructUserOperator(ExpContext ctx, String string, List<ExpContext> args) {
