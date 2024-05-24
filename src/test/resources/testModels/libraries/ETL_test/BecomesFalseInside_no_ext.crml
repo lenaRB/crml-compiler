@@ -17,7 +17,7 @@ model BecomesFalseInside_no_ext is {
 	Boolean b3 is true;
 	Boolean b4 is false;
 	
-	Period P1 is [ b1, not b1];
+	Period P1 is [ new Event b1, new Event not b1];
 	
 	Clock c_b2_becomes_false_inside_p1 is b2 'becomes false inside' P1; // One event should be generated at instant 4.5s.
 	Clock c_b3_becomes_false_inside_p1 is b3 'becomes false inside' P1; // No event should be generated

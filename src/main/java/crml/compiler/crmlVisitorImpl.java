@@ -66,7 +66,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			types_mapping.put("Boolean", 	 "CRMLtoModelica.Types.Boolean4");
 			types_mapping.put("Period", 	 "CRMLtoModelica.Types.CRMLPeriod");
 			types_mapping.put("Periods", 	 "CRMLtoModelica.Types.CRMLPeriods");
-			types_mapping.put("Event", 	 	 "CRMLtoModelica.Types.Boolean4");
+			types_mapping.put("Event", 	 	 "CRMLtoModelica.Types.Event");
 			types_mapping.put("Requirement", "CRMLtoModelica.Types.Boolean4");
 			types_mapping.put("Clock", 		 "CRMLtoModelica.Types.CRMLClock");
 			types_mapping.put("Real", 		 "Real");
@@ -591,12 +591,11 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			", start_event=" + left.contents + 
 			", close_event=" + right.contents +");\n";
 
-		
+
 		localFunctionCalls.append(code);
 
 		localFunctionCalls.append("CRMLtoModelica.Types.CRMLPeriod_build " + varName+"_init(P =" + varName + ");\n");
 		
-			
 		return new Value (varName, "Period", false);
 	}
 
@@ -630,6 +629,20 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		//FIXME proper constructor initialisation
 		if(ctx.type().getText().equals("Periods")){
 			return new Value ("", "new");
+		}
+
+		// Constructor for events
+		if(ctx.type().getText().equals("Event")){
+		
+			String eventType = types_mapping.get("Event");
+			String e = "e" + counter++;
+			Value v = visit(ctx.exp());
+		
+			localFunctionCalls.append(eventType + " " + e + "(b=" + v.contents + ");\n");
+			localFunctionCalls.append("CRMLtoModelica.Types.CRMLEvent_build " + e +"_init(E =" + e + ");\n");
+		
+		
+			return new Value (e, "new");
 		}
 		
 		// Constructor with no expression - translates to nothing in Modelica
