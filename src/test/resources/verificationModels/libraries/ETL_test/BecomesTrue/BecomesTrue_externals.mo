@@ -1,4 +1,4 @@
-within CRML_test.ETL.BecomesTrue;
+within BecomesTrue;
 model BecomesTrue_externals
   CRML.Blocks.Events.EventPeriodic eventPeriodic1(period=3, startTime=2)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));

@@ -1,4 +1,4 @@
-within CRML_test.ETL.TemplateOr;
+within TemplateOr;
 model TemplateOr_verif
   extends TemplateOr;
   TemplateOr_externals externals

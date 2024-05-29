@@ -1,4 +1,4 @@
-within CRML_test.ETL.Implies;
+within Implies;
 model Implies_verif
   extends Implies;
   Implies_externals externals

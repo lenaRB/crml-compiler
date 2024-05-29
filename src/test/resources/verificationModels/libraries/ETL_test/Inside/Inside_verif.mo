@@ -1,4 +1,4 @@
-within CRML_test.ETL.Inside;
+within Inside;
 model Inside_verif
   extends Inside;
   Inside_externals externals

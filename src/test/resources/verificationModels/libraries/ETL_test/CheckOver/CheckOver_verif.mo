@@ -1,4 +1,4 @@
-within CRML_test.ETL.CheckOver;
+within CheckOver;
 model CheckOver_verif
   extends CheckOver;
   CheckOver_externals externals

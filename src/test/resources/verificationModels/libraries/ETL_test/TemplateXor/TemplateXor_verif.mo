@@ -1,4 +1,4 @@
-within CRML_test.ETL.TemplateXor;
+within TemplateXor;
 model TemplateXor_verif
   extends TemplateXor;
   TemplateXor_externals externals

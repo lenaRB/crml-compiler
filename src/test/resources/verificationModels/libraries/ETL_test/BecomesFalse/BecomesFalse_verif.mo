@@ -1,4 +1,4 @@
-within CRML_test.ETL.BecomesFalse;
+within BecomesFalse;
 model BecomesFalse_verif
   extends BecomesFalse(event4ToEvent(x(start=true)));
   BecomesFalse_externals externals

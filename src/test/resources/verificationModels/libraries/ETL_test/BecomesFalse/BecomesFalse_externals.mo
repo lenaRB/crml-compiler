@@ -1,4 +1,4 @@
-within CRML_test.ETL.BecomesFalse;
+within BecomesFalse;
 model BecomesFalse_externals
   CRML.Blocks.Logical.BooleanTable booleanTable(
     y0=false,
