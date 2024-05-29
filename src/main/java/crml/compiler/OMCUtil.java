@@ -102,12 +102,13 @@ public class OMCUtil {
       "  exit(1);\n" +
       "end if;\n" + 
       "getErrorString();\n" +
-      "if not loadFile(\"" + stripped_file_name + ".mo"+ "\") then\n" +
+     // "if not loadFile(\"" + stripped_file_name + ".mo"+ "\") then\n" +
+      "if not loadFile(\"" + "package" + ".mo"+ "\") then\n" +
       "  print(getErrorString());\n" +
       "  exit(1);\n" +
       "end if;\n" +
       "getErrorString();\n" +
-      "checkModel("+ stripped_file_name +");\n" +
+      "checkModel("+ stripped_file_name + "." + stripped_file_name +");\n" +
       "getErrorString();\n";
    
     // check if there is a simulation example to run the test-case
@@ -126,17 +127,18 @@ public class OMCUtil {
                   "  exit(1);\n" +
                   "end if;\n" + 
                   "getErrorString();\n";
-      mos_text += "if not loadFile(\"" + stripped_file_name + "_verif" + ".mo"+ "\") then\n" +
+      /** 
+      mos_text += "if not existClass(" + stripped_file_name  + "." + stripped_file_name + "_verif"+ ") then\n" +
                   "  print(getErrorString());\n" +
                   "  exit(1);\n" +
                   "end if;\n" + 
                  "getErrorString();\n";
-      mos_text += "if not loadFile(\"" + stripped_file_name + "_externals" + ".mo"+ "\") then\n" +
+      mos_text += "if not existClass(" + stripped_file_name  + "." + stripped_file_name + "_externals"+ ") then\n" +
                   "  print(getErrorString());\n" +
                   "  exit(1);\n" +
                   "end if;\n" + 
-                  "getErrorString();\n";
-      mos_text += "res := simulate("+ stripped_file_name + "_verif" +");\n" + 
+                  "getErrorString();\n";*/
+      mos_text += "res := simulate("+ stripped_file_name  + "." + stripped_file_name + "_verif" +");\n" + 
                   "error := getErrorString();\n" + 
                   "resultFile := res.resultFile;\n" +
                   "messages := res.messages;\n" +
@@ -146,12 +148,12 @@ public class OMCUtil {
                   "  exit(1);\n" +
                   "end if;\n";
     } else { // try simulating the model on its own (the non_external ones)
-      mos_text += "res := simulate("+ stripped_file_name +");" + 
+      mos_text += "res := simulate("+ stripped_file_name  + "." + stripped_file_name+");" + 
                   "error := getErrorString();\n" + 
                   "resultFile := res.resultFile;\n" +
                   "messages := res.messages;\n" +
                   "if resultFile == \"\" then\n" + 
-                  "  print(\"Error: Simulation of: " + stripped_file_name + " did not produce a result-file\n\");\n" +
+                  "  print(\"Error: Simulation of: " + stripped_file_name  + "." + stripped_file_name + " did not produce a result-file\n\");\n" +
                   "  print(\"Errors: \" + messages + error + \"\\n\");\n" +
                   "  exit(1);\n" +
                   "end if;\n";
@@ -172,12 +174,18 @@ public class OMCUtil {
     File ref_file = new File(Utilities.addDirToPath(cs.referenceResFolder, stripped_file_name + "_verif_ref.mat"));
     
     if(ref_file.exists()){
-      mos_text +=  OMCUtil.compareSimulationResults(stripped_file_name + "_verif_res.mat", ref_file.getPath());
+      mos_text +=  OMCUtil.compareSimulationResults(stripped_file_name + "." + stripped_file_name + "_verif_res.mat", ref_file.getPath());
     }
    
     
     BufferedWriter writer = new BufferedWriter(new FileWriter(script_file_name));
     writer.write(mos_text);
+    writer.close();
+
+    // add package support
+    writer = new BufferedWriter(new FileWriter(new File(out_dir + java.io.File.separator + "package.mo")));
+    writer.write("within " + cs.within + ";\n");
+    writer.write("package " + stripped_file_name + "\n end " + stripped_file_name + "; \n");
     writer.close();
 
     String omc = locateOMC();

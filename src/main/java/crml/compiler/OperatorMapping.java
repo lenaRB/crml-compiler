@@ -84,7 +84,7 @@ public class OperatorMapping {
     // * operators
     List<Signature> mult_sigs = Arrays.asList(new Signature("*", int2, "Integer", Type.OPERATOR),
       new Signature("*", real2, "Real", Type.OPERATOR),
-      new Signature("CRMLtoModelica.Functions.mul2x4", bool2, params, "Boolean", Type.FUNCTION));
+      new Signature("CRMLtoModelica.Functions.mul4", bool2, params, "Boolean", Type.FUNCTION));
 
     built_in_operators.put("*", mult_sigs);
 

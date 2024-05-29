@@ -11,12 +11,20 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import com.aventstack.extentreports.io.BufferedWriterWriter;
+
 import crml.compiler.ModelicaSimulationException;
 import crml.compiler.OMCUtil;
 import crml.compiler.OMCmsg;
 import crml.compiler.TestListener;
 import crml.compiler.Utilities;
 import crml.compiler.OMCUtil.CompileStage;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.junit.jupiter.params.ParameterizedTest;
 
@@ -48,11 +56,17 @@ public class ETLTests  {
         public static String files="blanc";
 
         @BeforeAll
-        public static void setupTestSuite() {
+        public static void setupTestSuite() throws IOException {
             cs.initAllDirs("testModels", "verificationModels", 
                     "refResults", "libraries/ETL_test");
             cs.processBuilder = new ProcessBuilder();
             cs.setOutputSubFolder("ETL_test");
+            
+            // add package support
+            Files.createDirectories(Path.of(cs.outputFolder));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(cs.outputFolder +java.io.File.separator + java.io.File.separator + "package.mo")));
+            writer.write("package " + "CRML_test.ETL" + "\n end package ;\n");
+            writer.close();
         }
     
     

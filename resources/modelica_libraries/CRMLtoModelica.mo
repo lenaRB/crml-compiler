@@ -98,6 +98,16 @@ end CRMLClock;
     end when;
     
     end CRMLEvent_build;
+    
+    record CRMLPeriods
+    
+      parameter Boolean isLeftBoundaryIncluded=true "If true, the left boundaries of the time periods are included";
+      parameter Boolean isRightBoundaryIncluded=true "If true, the right boundaries of the time periods are included";
+    
+    public
+      Types.Event start_event;
+      Types.Event close_event;
+    end CRMLPeriods;
   end Types;
 
   
@@ -250,7 +260,7 @@ end cvBooleanToBoolean4;
     
     output Types.Boolean4 out = Types.Boolean4.true4;
     algorithm
-      
+       
 
     end gEV;
     
@@ -363,7 +373,7 @@ end cvBooleanToBoolean4;
     /* Determine whether the change of the condition u happens at the same instant as the end of the time period tl */
           sync2 = r1 <> pre(r1) and edge(not_timePeriod);
     /* Compute the condition c from the condition u within the bounds of the time period tl */
-          c = if (tl.isLeftBoundaryIncluded and edge(sync1)) or (not r2.isRightBoundaryIncluded and edge(sync2)) then pre(r1) else r1;
+          c = if (r2.isLeftBoundaryIncluded and edge(sync1)) or (not r2.isRightBoundaryIncluded and edge(sync2)) then pre(r1) else r1;
     /* Compute the integral of c over the time period tl, taking into account the fact
     that the same time thread tl maout accomodate several non-overlapping time periods */
           v = if timePeriod or edge(not_timePeriod) then Functions.mul4(d, c) else Boolean4.undefined;

@@ -8,7 +8,8 @@ public class CompileSettings {
     public String testFolderIn;
 	public String verifModelFolder;
     public String referenceResFolder;
-    public String outputFolder = defaultOutputRoot; // if not set explicitly 
+    public String outputFolder = defaultOutputRoot; // if not set explicitly
+    public String within = ""; 
 
     static final String defaultOutputRoot = "build/testSuiteGenerated";
 	static final String CRMLtoModelicaLibrary = "resources/modelica_libraries/CRMLtoModelica.mo";
