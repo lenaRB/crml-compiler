@@ -63,10 +63,10 @@ public class ETLTests  {
             cs.setOutputSubFolder("ETL_test");
             
             // add package support
-            Files.createDirectories(Path.of(cs.outputFolder));
+          /*  Files.createDirectories(Path.of(cs.outputFolder));
             BufferedWriter writer = new BufferedWriter(new FileWriter(new File(cs.outputFolder +java.io.File.separator + java.io.File.separator + "package.mo")));
             writer.write("package " + "CRML_test.ETL" + "\n end package ;\n");
-            writer.close();
+            writer.close();*/
         }
     
     
