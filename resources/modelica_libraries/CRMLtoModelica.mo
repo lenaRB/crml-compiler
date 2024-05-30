@@ -290,6 +290,8 @@ end cvBooleanToBoolean4;
     b:=e.b;
 
     end Event2Boolean;
+
+
   
   end Functions;
   
@@ -370,7 +372,7 @@ end cvBooleanToBoolean4;
           
           input Types.CRMLPeriod  r2 ;
     
-          input Boolean4  a(start = Types.Boolean4.true4);
+          input Boolean4  a= Types.Boolean4.true4; //FIXME
           output Boolean4  out;
         equation
     /* Compute the decision event d */
@@ -497,11 +499,12 @@ end cvBooleanToBoolean4;
     </html>"));
     end ClockTick;
 
-    model CardClock
+    block CardClock
     
-    CRMLtoModelica.Types.CRMLClock r1;
+    input CRMLtoModelica.Types.CRMLClock r1;
     
-    Integer out(start = 0);
+    output Integer out(start = 0);
+    
     equation  
       out = r1.counter;  
       
@@ -538,6 +541,20 @@ end cvBooleanToBoolean4;
         </p>
         </html>"));
     end BoolTick;
+
+    block unaryBoolAnd
+    
+    input Types.Boolean4 r1;
+    
+    output Types.Boolean4 out (start = Types.Boolean4.true4);
+    
+    equation 
+    
+      when (r1 == Types.Boolean4.false4) then
+        out = Types.Boolean4.false4;
+        end when;
+      
+    end unaryBoolAnd;
 
 
 
