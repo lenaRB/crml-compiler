@@ -22,7 +22,7 @@ import crml.compiler.OMCUtil.CompileStage;
 public class SpecificationTests {
 
 	@Nested
-	@Disabled("temporarily disabled to speed up ETL testing")
+	//@Disabled("temporarily disabled to speed up ETL testing")
     static class VerificationTests extends ParameterizedSuite {
 
  	@BeforeAll
@@ -39,26 +39,4 @@ public class SpecificationTests {
 		    Util.runTest(fileName, cs, CompileStage.VERIFY);
 	    }
     }
-    
-	@Disabled("temporarily disabled to speed up ETL testing")
-    @Nested
-    static class TranslationTests extends ParameterizedSuite {
-        
-        @BeforeAll
-        public static void setupTestSuite() { 
-		cs.initAllDirs("testModels", "verificationModels", 
-				"refResults", "spec-doc-examples");
-		cs.processBuilder = new ProcessBuilder();
-		cs.setOutputSubFolder("spec-doc-examples");
-	    }
- 
-       @ParameterizedTest
-	    @MethodSource("fileNameSource")
-	    public void simulateTestFile(final String fileName) throws InterruptedException, IOException, ModelicaSimulationException {
-		    Util.runTest(fileName, cs, CompileStage.TRANSLATE);
-	    }
-    }
-
-	
-
 }

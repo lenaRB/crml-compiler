@@ -35,7 +35,7 @@ public class TestListener implements TestExecutionListener, AfterEachCallback  {
   @Override
   public void testPlanExecutionStarted(TestPlan testPlan) {
    this.extentReport.attachReporter(reporter);
-   this.extentReport.setAnalysisStrategy(AnalysisStrategy.TEST);
+   this.extentReport.setAnalysisStrategy(AnalysisStrategy.SUITE);
    testPlan.getChildren(getRoot(testPlan)).forEach(testIdentifier -> {
     RESULTS.put(testIdentifier, null);
     });

@@ -30,26 +30,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 
 
 public class ETLTests  {
-    @Nested
-    @Disabled
-    public static class TranslationTests extends ParameterizedSuite {
-
-        public static String files;
-        @BeforeAll
-        public static void setupTestSuite() {
-            cs.initAllDirs("testModels", "verificationModels", 
-                    "refResults", "libraries/ETL_test");
-            cs.processBuilder = new ProcessBuilder();
-            cs.setOutputSubFolder("ETL_test_t");
-        } 
-    
-        @ParameterizedTest
-        @MethodSource("fileNameSource")
-        public void simulateTestFile(final String fileName) throws InterruptedException, IOException, ModelicaSimulationException {
-            OMCmsg msg = Util.runTest(fileName, cs, CompileStage.TRANSLATE);
-            files = msg.files;
-        }
-    }
 
     @Nested
     public static class SimulationTests extends ParameterizedSuite {
@@ -61,12 +41,6 @@ public class ETLTests  {
                     "refResults", "libraries/ETL_test");
             cs.processBuilder = new ProcessBuilder();
             cs.setOutputSubFolder("ETL_test");
-            
-            // add package support
-          /*  Files.createDirectories(Path.of(cs.outputFolder));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(cs.outputFolder +java.io.File.separator + java.io.File.separator + "package.mo")));
-            writer.write("package " + "CRML_test.ETL" + "\n end package ;\n");
-            writer.close();*/
         }
     
     
