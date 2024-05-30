@@ -58,6 +58,8 @@ end CRMLClock;
     public
       Types.Event start_event;
       Types.Event close_event;
+      
+      Boolean is_open;
     end CRMLPeriod;
 
     record Event
@@ -83,6 +85,10 @@ end CRMLClock;
 
     model CRMLPeriod_build
     CRMLPeriod P;
+    
+    equation
+    P.is_open = true;
+      
 
     end CRMLPeriod_build;
     
@@ -258,7 +264,7 @@ end cvBooleanToBoolean4;
     input CRMLtoModelica.Types.Event r1;
     input CRMLtoModelica.Types.Event r2;
     
-    output Types.Boolean4 out = Types.Boolean4.true4;
+    output Types.Boolean4 out = Functions.cvBooleanToBoolean4(r1.t>r2.t);
     algorithm
        
 
@@ -268,7 +274,7 @@ end cvBooleanToBoolean4;
     input CRMLtoModelica.Types.Event r1;
     input CRMLtoModelica.Types.Event r2;
     
-    output Types.Boolean4 out = Types.Boolean4.true4;
+    output Types.Boolean4 out = Functions.cvBooleanToBoolean4(r1.t>r2.t);
     algorithm
       
     
@@ -355,16 +361,17 @@ end cvBooleanToBoolean4;
           Boolean4 d;
           Boolean4 c;
           Boolean4 v;
-          Boolean timePeriod(start = false, fixed = true) = true;//  tl.timePeriod;
-          Boolean not_timePeriod(start = true, fixed = true) = not true;//tl.timePeriod;
+          Boolean timePeriod(start = false, fixed = true) = r2.is_open;//  tl.timePeriod;
+          Boolean not_timePeriod(start = true, fixed = true) = not r2.is_open;//tl.timePeriod;
           Boolean sync1(start = false, fixed = true);
           Boolean sync2(start = false, fixed = true);
         public
-          Boolean4 r1;
-          Boolean4  out;
-          Types.CRMLPeriod  r2 ;
+          input Boolean4 r1;
+          
+          input Types.CRMLPeriod  r2 ;
     
-          Boolean4  a;
+          input Boolean4  a(start = Types.Boolean4.true4);
+          output Boolean4  out;
         equation
     /* Compute the decision event d */
           d = Functions.or4(a, Functions.cvBooleanToBoolean4(edge(not_timePeriod)));
@@ -496,7 +503,7 @@ end cvBooleanToBoolean4;
     
     Integer out(start = 0);
     equation  
-      out = 1;  
+      out = r1.counter;  
       
     end CardClock;
     
