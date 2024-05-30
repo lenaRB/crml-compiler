@@ -1,6 +1,6 @@
 within CRML_test.ETL.BecomesFalse;
 model BecomesFalse_verif
-  extends BecomesFalse(event4ToEvent(x(start=true)));
+  extends BecomesFalse;
   BecomesFalse_externals externals
     annotation (Placement(transformation(extent={{-200,0},{-140,60}})));
 equation

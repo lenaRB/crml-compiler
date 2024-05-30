@@ -7,7 +7,7 @@ partial model BecomesFalse
     annotation (Placement(transformation(extent={{100,10},{120,-10}})));
   CRML.Blocks.Events.ClockEvent clockEvent
     annotation (Placement(transformation(extent={{-6,-6},{6,6}})));
-  CRML.Blocks.Events.Event4ToEvent event4ToEvent
+  CRML.Blocks.Events.Event4ToEvent event4ToEvent(x(start=true))
     annotation (Placement(transformation(extent={{-54,-4},{-46,4}})));
   CRML.Blocks.Logical4.Not4 not4_1
     annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
