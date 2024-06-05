@@ -1,11 +1,13 @@
-within BecomesFalse;
+within ;
 model BecomesFalse_verif
-  extends BecomesFalse(event4ToEvent(x(start=true)));
+  extends BecomesFalse;
   BecomesFalse_externals externals
     annotation (Placement(transformation(extent={{-200,0},{-140,60}})));
+  CRMLtoModelica.Types.Boolean4 obs_b1;
 equation
   // Bindings
-  b1 = externals.b1;
+  obs_b1 = externals.b1;
+  b1 = obs_b1;
     annotation (Placement(transformation(extent={{0,-20},{60,40}})),
               Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-200,-100},{100,100}},
