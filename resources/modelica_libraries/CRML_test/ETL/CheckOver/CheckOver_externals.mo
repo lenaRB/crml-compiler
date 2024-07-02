@@ -1,10 +1,7 @@
 within CRML_test.ETL.CheckOver;
 model CheckOver_externals
-
-protected
-  parameter Integer N=CRML.ETL.Types.nMaxOverlap;
-
-public
+  inner CRML.TimeLocators.Continuous.Master master annotation(
+    Placement(transformation(origin = {50, -10}, extent = {{-10, -10}, {10, 10}})));
   CRML.Blocks.Logical.BooleanTable      boolean4Constant1(
     y0=false,
     option_width=false,
@@ -28,7 +25,8 @@ public
   CRML.ETL.Connectors.TimeLocatorOutput[N] P1
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
   CRML.TimeLocators.Continuous.During during
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));protected
+  parameter Integer N=CRML.ETL.Types.nMaxOverlap;
 equation
   connect(boolean4Constant1.y, booleanToBoolean4_1.u)
     annotation (Line(points={{-39,50},{-20.4,50}}, color={217,67,180}));
