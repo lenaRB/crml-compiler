@@ -45,20 +45,31 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		
 		private String prefix= ""; //to keep track of variable prefix
 
+		private String input_prefix;
+		private String output_prefix;
+
 		Boolean saveExtrnal = false;
 		List<String> external_variables;
 
-		public crmlVisitorImpl (crmlParser parser, List<String> external_variables){
-			this(parser);
+		public crmlVisitorImpl (crmlParser parser, List<String> external_variables, Boolean causal){
+			this(parser, causal);
 			saveExtrnal= true;
 			this.external_variables = external_variables;
 		}
 
-		public crmlVisitorImpl (crmlParser parser) {
+		public crmlVisitorImpl (crmlParser parser, Boolean causal) {
 
 		// FIXME check that class name and class file match
 			
 			this.parser = parser;
+
+			if (causal) {
+				input_prefix = "input";
+				output_prefix = "output";
+			} else {
+				input_prefix = "";
+				output_prefix = "";
+			};
 
 			types_mapping = new HashMap<String, String>();
 
@@ -292,7 +303,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			sig.function_name = modelName.toString();
 			String mtype = bType;
 
-			definition.append("output " + bType + " out; \n");
+			definition.append(output_prefix + bType + " out; \n");
 
 
 			// generate variables
@@ -301,7 +312,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				String type = ctx.operator_def().type().get(i).getText();
 				mtype = types_mapping.get(type);
 				if(mtype == null) mtype = type;
-				definition.append("input " + mtype + " " + v.getText() + ";\n");	
+				definition.append(input_prefix + mtype + " " + v.getText() + ";\n");	
 				
 				// TODO fix set support
 				variableTable.putlocalVariable(v.getText(), type, false);
@@ -370,7 +381,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 			// generate variables
 			for (IdContext v : ctx.id()) {
-				definition.append("input " + bType + " " + v.getText() + ";\n");
+				definition.append(input_prefix + bType + " " + v.getText() + ";\n");
 				
 				// TODO fix sets
 				variableTable.putlocalVariable(v.getText(), "Boolean", false);
@@ -381,7 +392,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 			user_operators.put(modelName.toString(), sig);
 
-			definition.append("output " + bType + " out; \n");
+			definition.append(output_prefix + bType + " out; \n");
 
 			// append body
 			Value exp = visit(ctx.exp());

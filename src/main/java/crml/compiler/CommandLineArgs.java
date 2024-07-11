@@ -41,4 +41,7 @@ public class CommandLineArgs {
     
     @Parameter(names = "--within",  description = "generate the translated modelica model within a given class")
     public String within = "";
+
+    @Parameter(names = {"-causal"}, description = "Generates explicit input prefixes in helper blocks")
+    public Boolean causal = false;
 }

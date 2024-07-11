@@ -36,7 +36,7 @@ public class Util {
 		try {
     		
 			crml.compiler.CRMLC.parse_file(cs.testFolderIn, fileName, out_dir, 
-				true, false, true, stripped_file_name);
+				true, false, true, stripped_file_name, false);
 			
     	} catch (Exception e) {
 			fail("Unable to translate " + fileName + " to Modelica\n", e);

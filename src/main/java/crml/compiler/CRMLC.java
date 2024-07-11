@@ -105,7 +105,7 @@ public class CRMLC {
             if(test.endsWith(".crml")) {
             logger.trace("Translating test: " + test);
               parse_file(path, test, cmd.outputDir, cmd.stacktrace, cmd.printAST , 
-                cmd.generateExternal, cmd.within);
+                cmd.generateExternal, cmd.within, cmd.causal);
               if(cmd.simulate!=null) {
                 OMCmsg msg;
                 try {
@@ -125,7 +125,7 @@ public class CRMLC {
           String stripped_file_name = Utilities.stripNameEndingAndPath(path);
           String outputDir = Utilities.addDirToPath(cmd.outputDir, stripped_file_name);
           parse_file("", path, outputDir, cmd.stacktrace, 
-            cmd.printAST, cmd.generateExternal, cmd.within);
+            cmd.printAST, cmd.generateExternal, cmd.within, cmd.causal);
          if(cmd.simulate!=null){
                 OMCmsg msg;
                 try {
@@ -148,7 +148,8 @@ public class CRMLC {
       String dir, String file, 
       String gen_dir, Boolean testMode, Boolean printAST,
       Boolean generateExternal,
-      String within) throws Exception {
+      String within,
+      Boolean causal) throws Exception {
   
     try {
       String fullName = dir + java.io.File.separator + file;
@@ -175,9 +176,9 @@ public class CRMLC {
      
 
       if (generateExternal)
-        visitor = new crmlVisitorImpl(parser, external_var);
+        visitor = new crmlVisitorImpl(parser, external_var, causal);
       else
-        visitor = new crmlVisitorImpl(parser);
+        visitor = new crmlVisitorImpl(parser, causal);
 
       try {
         Value result = visitor.visit(tree);
@@ -190,6 +191,7 @@ public class CRMLC {
           out_file.getParentFile().mkdirs();   	
         
           BufferedWriter writer = new BufferedWriter(new FileWriter(out_file));
+          System.out.println("File : " + out_file.toString() + " within : " + within);
           if(!within.isEmpty())
             writer.write("within " + within + ";\n");
           writer.write(result.contents);
