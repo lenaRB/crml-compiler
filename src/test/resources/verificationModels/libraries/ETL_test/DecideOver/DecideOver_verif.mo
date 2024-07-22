@@ -1,4 +1,4 @@
-within CRML_test.ETL.DecideOver;
+within DecideOver;
 model DecideOver_verif
   extends DecideOver;
   DecideOver_externals externals

@@ -1,4 +1,4 @@
-within CRML_test.ETL.CountInside;
+within CountInside;
 model CountInside_verif
   extends CountInside;
   CountInside_externals externals

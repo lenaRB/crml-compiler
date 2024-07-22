@@ -1,4 +1,4 @@
-within CRML_test.ETL.EvaluateOver;
+within EvaluateOver;
 model EvaluateOver_verif
   extends EvaluateOver;
   EvaluateOver_externals externals

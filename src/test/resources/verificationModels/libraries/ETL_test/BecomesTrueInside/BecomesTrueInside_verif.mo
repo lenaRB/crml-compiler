@@ -1,4 +1,4 @@
-within CRML_test.ETL.BecomesTrueInside;
+within BecomesTrueInside;
 model BecomesTrueInside_verif
   extends BecomesTrueInside;
   BecomesTrueInside_externals externals

@@ -1,4 +1,4 @@
-within CRML_test.ETL.BecomesTrueInside;
+within BecomesTrueInside;
 model BecomesTrueInside_externals
   CRML.ETL.Connectors.Boolean4Output b1
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
