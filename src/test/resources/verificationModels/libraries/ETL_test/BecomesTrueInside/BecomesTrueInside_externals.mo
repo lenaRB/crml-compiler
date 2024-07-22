@@ -4,7 +4,7 @@ model BecomesTrueInside_externals
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   CRML.Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_1
     annotation (Placement(transformation(extent={{-4,36},{4,44}})));
-public
+
   CRML.Blocks.Logical.BooleanTable booleanTable2(
     y0=false,
     option_width=false,
@@ -26,7 +26,8 @@ public
   CRML.ETL.TimeLocators.Attributes.CRMLPeriodTimePeriod cRMLPeriodTimePeriod
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   CRML.ETL.Connectors.CRMLPeriodOutput P1
-    annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
+    annotation (Placement(transformation(extent={{100,-80},{120,-60}})));inner CRML.TimeLocators.Continuous.Master master annotation(
+    Placement(transformation(origin = {50, 70}, extent = {{-10, -10}, {10, 10}})));
 equation
   connect(booleanToBoolean4_1.y, b1)
     annotation (Line(points={{4.4,40},{110,40}},
