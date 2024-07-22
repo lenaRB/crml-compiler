@@ -6016,6 +6016,40 @@ Connector with one output signal of type Boolean.
       connector CRMLPeriodOutput = output Types.CRMLPeriod "'Period' as output" annotation(
         Icon(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -100}, {100, 100}}), graphics = {Polygon(lineColor = {255, 170, 255}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, points = {{-100, 100}, {-100, -100}, {100, 0}, {-100, 100}})}),
         Diagram(graphics = {Polygon(lineColor = {255, 170, 255}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, points = {{-100, 100}, {-100, -100}, {100, 0}, {-100, 100}})}));
+      connector CRMLClockInput
+                           = input CRML.ETL.Types.CRMLClock "'input CRMLClock' as connector"
+                                                                      annotation(
+        defaultComponentName = "u",
+        Icon(graphics = {Polygon(points = {{-34, 6}, {20, 0}, {-34, -8}, {-34, 6}}, lineColor = {175, 175, 175}, fillColor = {175, 175, 175}, fillPattern = FillPattern.Solid, pattern = LinePattern.Dot, lineThickness = 0.5), Polygon(points = {{-100, 100}, {100, 0}, {-100, -100}, {-100, 100}}, lineColor={213,255,
+                  170},                                                                                                                                                                                                        fillColor={213,255,
+                  170},                                                                                                                                                                                                        fillPattern
+                = FillPattern.Solid)},                                                                                                                                                                                                        coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.2, grid = {2, 2})),
+        Diagram(coordinateSystem(preserveAspectRatio = true, initialScale = 0.2, extent = {{-100, -100}, {100, 100}}, grid = {2, 2}), graphics = {Polygon(points = {{-34, 6}, {20, 0}, {-34, -8}, {-34, 6}}, lineColor = {175, 175, 175}, fillColor = {175, 175, 175}, fillPattern = FillPattern.Solid, pattern = LinePattern.Dot, lineThickness = 0.5), Polygon(points = {{-100, 100}, {100, 0}, {-100, -100}, {-100, 100}}, lineColor={213,255,
+                  170},                                                                                                                                                                                                        fillColor={213,255,
+                  170},                                                                                                                                                                                                        fillPattern
+                = FillPattern.Solid)}),
+        Documentation(info = "<html>
+<p>
+Connector with one input signal of type Boolean.
+</p>
+</html>"));
+      connector CRMLClockOutput
+                           = output CRML.ETL.Types.CRMLClock "'output CRMLClock' as connector"
+                                                                      annotation(
+        defaultComponentName = "u",
+        Icon(graphics = {Polygon(points = {{-34, 6}, {20, 0}, {-34, -8}, {-34, 6}}, lineColor = {175, 175, 175}, fillColor = {175, 175, 175}, fillPattern = FillPattern.Solid, pattern = LinePattern.Dot, lineThickness = 0.5), Polygon(points = {{-100, 100}, {100, 0}, {-100, -100}, {-100, 100}}, lineColor={213,255,
+                  170},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid)},                                                                                                                                                                                                        coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.2, grid = {2, 2})),
+        Diagram(coordinateSystem(preserveAspectRatio = true, initialScale = 0.2, extent = {{-100, -100}, {100, 100}}, grid = {2, 2}), graphics = {Polygon(points = {{-34, 6}, {20, 0}, {-34, -8}, {-34, 6}}, lineColor = {175, 175, 175}, fillColor = {175, 175, 175}, fillPattern = FillPattern.Solid, pattern = LinePattern.Dot, lineThickness = 0.5), Polygon(points = {{-100, 100}, {100, 0}, {-100, -100}, {-100, 100}}, lineColor={213,255,
+                  170},                                                                                                                                                                                                        fillColor={255,255,
+                  255},                                                                                                                                                                                                        fillPattern
+                = FillPattern.Solid)}),
+        Documentation(info = "<html>
+<p>
+Connector with one input signal of type Boolean.
+</p>
+</html>"));
       annotation(
         Icon(graphics = {Rectangle(lineColor = {200, 200, 200}, fillColor = {248, 248, 248}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-100, -100}, {100, 100}}, radius = 25.0), Rectangle(lineColor = {128, 128, 128}, fillPattern = FillPattern.None, extent = {{-100, -100}, {100, 100}}, radius = 25.0), Polygon(origin = {20, 0}, lineColor = {64, 64, 64}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, points = {{-10.0, 70.0}, {10.0, 70.0}, {40.0, 20.0}, {80.0, 20.0}, {80.0, -20.0}, {40.0, -20.0}, {10.0, -70.0}, {-10.0, -70.0}}), Polygon(fillColor = {102, 102, 102}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-100, 20}, {-60, 20}, {-30, 70}, {-10, 70}, {-10, -70}, {-30, -70}, {-60, -20}, {-100, -20}})}));
     end Connectors;
@@ -6066,6 +6100,23 @@ Connector with one output signal of type Boolean.
         y := if x then Boolean3.true3 else Boolean3.false3;
       end cvBooleanToBoolean3;
 
+      record CRMLClock
+      //constant Integer buffer_size=50;  // number of events that can be logged
+
+      CRMLtoModelica.Types.Boolean4 b( start= CRMLtoModelica.Types.Boolean4.false4);
+
+      Real ticks[50](each start = -1, each fixed = true);
+      discrete Integer counter(start=1, fixed=true);
+
+      CRMLtoModelica.Types.Boolean4 out(start = CRMLtoModelica.Types.Boolean4.false4);
+
+      end CRMLClock;
+
+      record Event
+        CRMLtoModelica.Types.Boolean4 b;
+        Real t;
+      end Event;
+
       record CRMLPeriod
         Boolean isLeftBoundaryIncluded "If true, the left boundaries of the time periods are included";
         Boolean isRightBoundaryIncluded "If true, the right boundaries of the time periods are included";
@@ -6075,10 +6126,40 @@ Connector with one output signal of type Boolean.
         Boolean is_open;
       end CRMLPeriod;
 
-      record Event
-        CRMLtoModelica.Types.Boolean4 b;
-        Real t;
-      end Event;
+      block CRMLClockClock "Converts Clock into a CRMLClock"
+        Connectors.CRMLClockOutput      y annotation(
+          Placement(transformation(extent = {{100, -10}, {120, 10}})));
+        Connectors.ClockInput c annotation (Placement(transformation(extent={{-120,-10},
+                  {-100,10}}), iconTransformation(extent={{-120,-10},{-100,10}})));
+
+        CRML.Blocks.Events.ClockToBoolean clockToBoolean
+          annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+      protected
+        Boolean e;
+
+      algorithm
+        e := (y.b == CRMLtoModelica.Types.Boolean4.true4 and change(y.b));
+
+        when (e) then
+          y.ticks[y.counter] := time;
+          y.counter := pre(y.counter)+1;
+        end when;
+
+      equation
+        y.b = CRML.ETL.Types.cvBooleanToBoolean4(clockToBoolean.y);
+        y.out = CRML.ETL.Types.cvBooleanToBoolean4(e);
+        connect(clockToBoolean.u, c) annotation (Line(
+            points={{-12,0},{-110,0}},
+            color={175,175,175},
+            pattern=LinePattern.Dot,
+            thickness=0.5));
+        annotation(
+          Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Rectangle(lineColor = {28, 108, 200}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}),                                                                                                                                                                                                        Text(origin = {2, 52}, extent = {{-58, 16}, {58, -16}},
+                textString="Clock -> CRMLClock",
+                textColor={0,0,0})}),
+          Diagram(coordinateSystem(preserveAspectRatio = false)));
+      end CRMLClockClock;
       annotation(
         Icon(graphics = {Rectangle(lineColor = {200, 200, 200}, fillColor = {248, 248, 248}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-100, -100}, {100, 100}}, radius = 25.0), Rectangle(lineColor = {128, 128, 128}, fillPattern = FillPattern.None, extent = {{-100, -100}, {100, 100}}, radius = 25.0), Polygon(origin = {-12.167, -23}, fillColor = {128, 128, 128}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{12.167, 65}, {14.167, 93}, {36.167, 89}, {24.167, 20}, {4.167, -30}, {14.167, -30}, {24.167, -30}, {24.167, -40}, {-5.833, -50}, {-15.833, -30}, {4.167, 20}, {12.167, 65}}, smooth = Smooth.Bezier, lineColor = {0, 0, 0}), Polygon(origin = {2.7403, 1.6673}, fillColor = {128, 128, 128}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{49.2597, 22.3327}, {31.2597, 24.3327}, {7.2597, 18.3327}, {-26.7403, 10.3327}, {-46.7403, 14.3327}, {-48.7403, 6.3327}, {-32.7403, 0.3327}, {-6.7403, 4.3327}, {33.2597, 14.3327}, {49.2597, 14.3327}, {49.2597, 22.3327}}, smooth = Smooth.Bezier)}));
     end Types;
