@@ -1,4 +1,4 @@
-within Inside;
+within CRML_test.ETL.Inside;
 model Inside_externals
 
 public
@@ -28,11 +28,11 @@ public
     annotation (Placement(transformation(extent={{-4,-64},{4,-56}})));
   inner CRML.TimeLocators.Continuous.Master master
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  CRML.ETL.TimeLocators.Attributes.CRMLPeriodTimePeriod cRMLPeriodTimePeriod
+  CRML.CompilerCompliancy.CRMLPeriodTimePeriod cRMLPeriodTimePeriod
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   CRML.ETL.Connectors.CRMLPeriodOutput P1
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-  CRML.ETL.Types.CRMLClockClock cRMLClockClock
+  CRML.CompilerCompliancy.CRMLClockClock cRMLClockClock
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   CRML.ETL.Connectors.CRMLClockOutput C1 annotation (Placement(transformation(
           extent={{100,30},{120,50}}), iconTransformation(extent={{100,30},{120,

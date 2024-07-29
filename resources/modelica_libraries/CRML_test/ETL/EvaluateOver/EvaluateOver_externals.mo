@@ -29,7 +29,7 @@ public
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   CRML.ETL.Connectors.CRMLPeriodOutput P1
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-  CRML.ETL.TimeLocators.Attributes.CRMLPeriodTimePeriod cRMLPeriodTimePeriod
+  CRML.CompilerCompliancy.CRMLPeriodTimePeriod cRMLPeriodTimePeriod
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 equation
   connect(boolean4Constant1.y, booleanToBoolean4_1.u)

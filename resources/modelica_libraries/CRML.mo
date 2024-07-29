@@ -4729,47 +4729,6 @@ which is only valid in the rotor-fixed coordinate system.
             Diagram(coordinateSystem(preserveAspectRatio = false), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}, lineColor = {28, 108, 200}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid), Line(points = {{-86, -24}, {-50, -24}, {-50, 20}, {60, 20}, {60, -26}, {88, -26}}, color = {0, 0, 0}), Rectangle(extent = {{-66, -46}, {0, -62}}, lineColor = {0, 0, 0}, fillColor = {244, 125, 35}, fillPattern = FillPattern.Solid, radius = 0), Rectangle(extent = {{0, -46}, {66, -62}}, lineColor = {0, 0, 0}, fillColor = {244, 125, 35}, fillPattern = FillPattern.Solid, radius = 0)}));
         end WhileTimePeriod;
 
-        block CRMLPeriodTimePeriod "Extracts the CRML time period of a single time locator"
-          ETL.Connectors.CRMLPeriodOutput y annotation(
-            Placement(transformation(extent = {{100, -10}, {120, 10}})));
-          ETL.Connectors.TimeLocatorInput tl annotation(
-            Placement(transformation(extent = {{-10, 90}, {10, 110}}), iconTransformation(extent = {{-10, 90}, {10, 110}})));
-          PeriodStart periodStart annotation (
-            Placement(transformation(origin={-70,50},    extent={{-10,-10},{10,10}})));
-          PeriodEnd periodEnd annotation (
-            Placement(transformation(origin={-30,10},    extent = {{-10, -10}, {10, 10}})));
-          PeriodTimePeriod periodTimePeriod
-            annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-        initial equation
-          y.start_event.t = -1;
-          y.close_event.t = -1;
-        equation
-          y.isLeftBoundaryIncluded = tl.isLeftBoundaryIncluded;
-          y.isRightBoundaryIncluded = tl.isRightBoundaryIncluded;
-
-          when (y.start_event.b == CRML.ETL.Types.Boolean4.true4) then
-            y.start_event.t = time;
-          end when;
-
-          when (y.close_event.b == CRML.ETL.Types.Boolean4.true4) then
-            y.close_event.t = time;
-          end when;
-
-          y.start_event.b = CRML.ETL.Types.cvBooleanToBoolean4(periodStart.y);
-          y.close_event.b = CRML.ETL.Types.cvBooleanToBoolean4(periodEnd.y);
-          y.is_open = periodTimePeriod.y;
-          connect(
-          periodStart.tl, tl) annotation (
-            Line(points={{-70,60},{-70,86},{0,86},{0,100}},          color = {0, 0, 255}));
-          connect(
-          periodEnd.tl, tl) annotation (
-            Line(points={{-30,20},{-30,80},{0,80},{0,100}},                    color = {0, 0, 255}));
-          connect(periodTimePeriod.tl, tl) annotation (Line(points={{10,-40},{12,-40},{12,
-                  82},{0,82},{0,100}}, color={0,0,255}));
-          annotation(
-            Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Rectangle(lineColor = {28, 108, 200}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Line(points = {{-86, -24}, {-50, -24}, {-50, 20}, {60, 20}, {60, -26}, {88, -26}}), Rectangle(fillColor = {244, 125, 35}, fillPattern = FillPattern.Solid, extent = {{-66, -46}, {0, -62}}), Rectangle(fillColor = {244, 125, 35}, fillPattern = FillPattern.Solid, extent = {{0, -46}, {66, -62}}), Text(origin = {2, 52}, extent = {{-58, 16}, {58, -16}}, textString = "tl -> Period")}),
-            Diagram(coordinateSystem(preserveAspectRatio = false)));
-        end CRMLPeriodTimePeriod;
         annotation(
           Icon(graphics = {Rectangle(lineColor = {200, 200, 200}, fillColor = {248, 248, 248}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-100.0, -100.0}, {100.0, 100.0}}, radius = 25.0), Rectangle(lineColor = {128, 128, 128}, extent = {{-100.0, -100.0}, {100.0, 100.0}}, radius = 25.0), Rectangle(extent = {{-76, -26}, {80, -76}}, lineColor = {95, 95, 95}, fillColor = {235, 235, 235}, fillPattern = FillPattern.Solid), Rectangle(extent = {{-76, 24}, {80, -26}}, lineColor = {95, 95, 95}, fillColor = {235, 235, 235}, fillPattern = FillPattern.Solid), Rectangle(extent = {{-76, 74}, {80, 24}}, lineColor = {95, 95, 95}, fillColor = {235, 235, 235}, fillPattern = FillPattern.Solid), Line(points = {{-28, 74}, {-28, -76}}, color = {95, 95, 95}), Line(points = {{24, 74}, {24, -76}}, color = {95, 95, 95})}));
       end Attributes;
@@ -6010,14 +5969,17 @@ Connector with one output signal of type Boolean.
       connector FunctionTypeOutput = output CRML.ETL.Types.FunctionType "Function type output" annotation(
         Icon(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -100}, {100, 100}}), graphics = {Polygon(points = {{-100, 100}, {-100, -100}, {100, 0}, {-100, 100}}, lineColor = {102, 44, 145}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid)}),
         Diagram(graphics = {Polygon(points = {{-100, 100}, {-100, -100}, {100, 0}, {-100, 100}}, lineColor = {102, 44, 145}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid)}));
-      connector CRMLPeriodInput = input Types.CRMLPeriod "'Period' as input" annotation(
+      connector CRMLPeriodInput = input CompilerCompliancy.CRMLPeriod
+                                                         "'Period' as input" annotation(
         Icon(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -100}, {100, 100}}), graphics = {Polygon(lineColor = {255, 170, 255}, fillColor = {255, 170, 255}, fillPattern = FillPattern.Solid, points = {{-100, 100}, {-100, -100}, {100, 0}, {-100, 100}})}),
         Diagram(graphics = {Polygon(lineColor = {255, 170, 255}, fillColor = {255, 170, 255}, fillPattern = FillPattern.Solid, points = {{-100, 100}, {-100, -100}, {100, 0}, {-100, 100}})}));
-      connector CRMLPeriodOutput = output Types.CRMLPeriod "'Period' as output" annotation(
+      connector CRMLPeriodOutput = output CompilerCompliancy.CRMLPeriod
+                                                           "'Period' as output" annotation(
         Icon(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -100}, {100, 100}}), graphics = {Polygon(lineColor = {255, 170, 255}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, points = {{-100, 100}, {-100, -100}, {100, 0}, {-100, 100}})}),
         Diagram(graphics = {Polygon(lineColor = {255, 170, 255}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, points = {{-100, 100}, {-100, -100}, {100, 0}, {-100, 100}})}));
       connector CRMLClockInput
-                           = input CRML.ETL.Types.CRMLClock "'input CRMLClock' as connector"
+                           = input CRML.CompilerCompliancy.CRMLClock
+                                                            "'input CRMLClock' as connector"
                                                                       annotation(
         defaultComponentName = "u",
         Icon(graphics = {Polygon(points = {{-34, 6}, {20, 0}, {-34, -8}, {-34, 6}}, lineColor = {175, 175, 175}, fillColor = {175, 175, 175}, fillPattern = FillPattern.Solid, pattern = LinePattern.Dot, lineThickness = 0.5), Polygon(points = {{-100, 100}, {100, 0}, {-100, -100}, {-100, 100}}, lineColor={213,255,
@@ -6034,7 +5996,8 @@ Connector with one input signal of type Boolean.
 </p>
 </html>"));
       connector CRMLClockOutput
-                           = output CRML.ETL.Types.CRMLClock "'output CRMLClock' as connector"
+                           = output CRML.CompilerCompliancy.CRMLClock
+                                                             "'output CRMLClock' as connector"
                                                                       annotation(
         defaultComponentName = "u",
         Icon(graphics = {Polygon(points = {{-34, 6}, {20, 0}, {-34, -8}, {-34, 6}}, lineColor = {175, 175, 175}, fillColor = {175, 175, 175}, fillPattern = FillPattern.Solid, pattern = LinePattern.Dot, lineThickness = 0.5), Polygon(points = {{-100, 100}, {100, 0}, {-100, -100}, {-100, 100}}, lineColor={213,255,
@@ -6100,66 +6063,6 @@ Connector with one input signal of type Boolean.
         y := if x then Boolean3.true3 else Boolean3.false3;
       end cvBooleanToBoolean3;
 
-      record CRMLClock
-      //constant Integer buffer_size=50;  // number of events that can be logged
-
-      CRMLtoModelica.Types.Boolean4 b( start= CRMLtoModelica.Types.Boolean4.false4);
-
-      Real ticks[50](each start = -1, each fixed = true);
-      discrete Integer counter(start=1, fixed=true);
-
-      CRMLtoModelica.Types.Boolean4 out(start = CRMLtoModelica.Types.Boolean4.false4);
-
-      end CRMLClock;
-
-      record Event
-        CRMLtoModelica.Types.Boolean4 b;
-        Real t;
-      end Event;
-
-      record CRMLPeriod
-        Boolean isLeftBoundaryIncluded "If true, the left boundaries of the time periods are included";
-        Boolean isRightBoundaryIncluded "If true, the right boundaries of the time periods are included";
-      public
-        Event start_event;
-        Event close_event;
-        Boolean is_open;
-      end CRMLPeriod;
-
-      block CRMLClockClock "Converts Clock into a CRMLClock"
-        Connectors.CRMLClockOutput      y annotation(
-          Placement(transformation(extent = {{100, -10}, {120, 10}})));
-        Connectors.ClockInput c annotation (Placement(transformation(extent={{-120,-10},
-                  {-100,10}}), iconTransformation(extent={{-120,-10},{-100,10}})));
-
-        CRML.Blocks.Events.ClockToBoolean clockToBoolean
-          annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
-      protected
-        Boolean e;
-
-      algorithm
-        e := (y.b == CRMLtoModelica.Types.Boolean4.true4 and change(y.b));
-
-        when (e) then
-          y.ticks[y.counter] := time;
-          y.counter := pre(y.counter)+1;
-        end when;
-
-      equation
-        y.b = CRML.ETL.Types.cvBooleanToBoolean4(clockToBoolean.y);
-        y.out = CRML.ETL.Types.cvBooleanToBoolean4(e);
-        connect(clockToBoolean.u, c) annotation (Line(
-            points={{-12,0},{-110,0}},
-            color={175,175,175},
-            pattern=LinePattern.Dot,
-            thickness=0.5));
-        annotation(
-          Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Rectangle(lineColor = {28, 108, 200}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}),                                                                                                                                                                                                        Text(origin = {2, 52}, extent = {{-58, 16}, {58, -16}},
-                textString="Clock -> CRMLClock",
-                textColor={0,0,0})}),
-          Diagram(coordinateSystem(preserveAspectRatio = false)));
-      end CRMLClockClock;
       annotation(
         Icon(graphics = {Rectangle(lineColor = {200, 200, 200}, fillColor = {248, 248, 248}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-100, -100}, {100, 100}}, radius = 25.0), Rectangle(lineColor = {128, 128, 128}, fillPattern = FillPattern.None, extent = {{-100, -100}, {100, 100}}, radius = 25.0), Polygon(origin = {-12.167, -23}, fillColor = {128, 128, 128}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{12.167, 65}, {14.167, 93}, {36.167, 89}, {24.167, 20}, {4.167, -30}, {14.167, -30}, {24.167, -30}, {24.167, -40}, {-5.833, -50}, {-15.833, -30}, {4.167, 20}, {12.167, 65}}, smooth = Smooth.Bezier, lineColor = {0, 0, 0}), Polygon(origin = {2.7403, 1.6673}, fillColor = {128, 128, 128}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{49.2597, 22.3327}, {31.2597, 24.3327}, {7.2597, 18.3327}, {-26.7403, 10.3327}, {-46.7403, 14.3327}, {-48.7403, 6.3327}, {-32.7403, 0.3327}, {-6.7403, 4.3327}, {33.2597, 14.3327}, {49.2597, 14.3327}, {49.2597, 22.3327}}, smooth = Smooth.Bezier)}));
     end Types;
@@ -9078,6 +8981,167 @@ unvailability should be less of 1 hour in a sliding time period of one month
     annotation(
       Icon(graphics = {Rectangle(lineColor = {200, 200, 200}, fillColor = {248, 248, 248}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-100.0, -100.0}, {100.0, 100.0}}, radius = 25.0), Rectangle(lineColor = {128, 128, 128}, extent = {{-100.0, -100.0}, {100.0, 100.0}}, radius = 25.0), Polygon(origin = {8.0, 14.0}, lineColor = {78, 138, 73}, fillColor = {78, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-58.0, 46.0}, {42.0, -14.0}, {-58.0, -74.0}, {-58.0, 46.0}})}));
   end Tests;
+
+  package CompilerCompliancy
+    "Internal types and converters for compliancy of code generated by the CRMLToModelica compiler (a user should usually not directly utilize them!)"
+
+    record CRMLClock
+    //constant Integer buffer_size=50;  // number of events that can be logged
+
+      CRML.ETL.Types.Boolean4 b( start= CRML.ETL.Types.Boolean4.false4);
+
+      Real ticks[50](each start = -1, each fixed = true);
+      discrete Integer counter(start=1, fixed=true);
+
+      CRML.ETL.Types.Boolean4 out(start = CRML.ETL.Types.Boolean4.false4);
+
+    end CRMLClock;
+
+    record CRMLPeriod
+      Boolean isLeftBoundaryIncluded "If true, the left boundaries of the time periods are included";
+      Boolean isRightBoundaryIncluded "If true, the right boundaries of the time periods are included";
+    public
+      CRMLEvent start_event;
+      CRMLEvent close_event;
+      Boolean is_open;
+    end CRMLPeriod;
+
+    record CRMLEvent
+      CRML.ETL.Types.Boolean4 b;
+      Real t;
+    end CRMLEvent;
+
+    block CRMLClockClock "Converts Clock into a CRMLClock"
+      ETL.Connectors.CRMLClockOutput y
+        annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+      ETL.Connectors.ClockInput c annotation (Placement(transformation(extent={{-120,
+                -10},{-100,10}}), iconTransformation(extent={{-120,-10},{-100,10}})));
+
+      CRML.Blocks.Events.ClockToBoolean clockToBoolean
+        annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+    protected
+      Boolean e;
+
+    algorithm
+      e := (y.b == CRML.ETL.Types.Boolean4.true4 and change(y.b));
+
+      when (e) then
+        y.ticks[y.counter] := time;
+        y.counter := pre(y.counter)+1;
+      end when;
+
+    equation
+      y.b = CRML.ETL.Types.cvBooleanToBoolean4(clockToBoolean.y);
+      y.out = CRML.ETL.Types.cvBooleanToBoolean4(e);
+      connect(clockToBoolean.u, c) annotation (Line(
+          points={{-12,0},{-110,0}},
+          color={175,175,175},
+          pattern=LinePattern.Dot,
+          thickness=0.5));
+      annotation(
+        Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Rectangle(lineColor = {28, 108, 200}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}),                                                                                                                                                                                                        Text(origin = {2, 52}, extent = {{-58, 16}, {58, -16}},
+              textString="Clock -> CRMLClock",
+              textColor={0,0,0})}),
+        Diagram(coordinateSystem(preserveAspectRatio = false)));
+    end CRMLClockClock;
+
+    block CRMLPeriodTimePeriod
+      "Extracts the CRML time period of a single time locator"
+      ETL.Connectors.CRMLPeriodOutput y annotation(
+        Placement(transformation(extent = {{100, -10}, {120, 10}})));
+      ETL.Connectors.TimeLocatorInput tl annotation(
+        Placement(transformation(extent = {{-10, 90}, {10, 110}}), iconTransformation(extent = {{-10, 90}, {10, 110}})));
+      ETL.TimeLocators.Attributes.PeriodStart periodStart annotation (Placement(
+            transformation(origin={-70,50}, extent={{-10,-10},{10,10}})));
+      ETL.TimeLocators.Attributes.PeriodEnd periodEnd annotation (Placement(
+            transformation(origin={-30,10}, extent={{-10,-10},{10,10}})));
+      ETL.TimeLocators.Attributes.PeriodTimePeriod periodTimePeriod
+        annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+    initial equation
+      y.start_event.t = -1;
+      y.close_event.t = -1;
+    equation
+      y.isLeftBoundaryIncluded = tl.isLeftBoundaryIncluded;
+      y.isRightBoundaryIncluded = tl.isRightBoundaryIncluded;
+
+      when (y.start_event.b == CRML.ETL.Types.Boolean4.true4) then
+        y.start_event.t = time;
+      end when;
+
+      when (y.close_event.b == CRML.ETL.Types.Boolean4.true4) then
+        y.close_event.t = time;
+      end when;
+
+      y.start_event.b = CRML.ETL.Types.cvBooleanToBoolean4(periodStart.y);
+      y.close_event.b = CRML.ETL.Types.cvBooleanToBoolean4(periodEnd.y);
+      y.is_open = periodTimePeriod.y;
+      connect(
+      periodStart.tl, tl) annotation (
+        Line(points={{-70,60},{-70,86},{0,86},{0,100}},          color = {0, 0, 255}));
+      connect(
+      periodEnd.tl, tl) annotation (
+        Line(points={{-30,20},{-30,80},{0,80},{0,100}},                    color = {0, 0, 255}));
+      connect(periodTimePeriod.tl, tl) annotation (Line(points={{10,-40},{12,-40},{12,
+              82},{0,82},{0,100}}, color={0,0,255}));
+      annotation(
+        Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Rectangle(lineColor = {28, 108, 200}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Line(points = {{-86, -24}, {-50, -24}, {-50, 20}, {60, 20}, {60, -26}, {88, -26}}), Rectangle(fillColor = {244, 125, 35}, fillPattern = FillPattern.Solid, extent = {{-66, -46}, {0, -62}}), Rectangle(fillColor = {244, 125, 35}, fillPattern = FillPattern.Solid, extent = {{0, -46}, {66, -62}}), Text(origin = {2, 52}, extent = {{-58, 16}, {58, -16}}, textString = "tl -> Period")}),
+        Diagram(coordinateSystem(preserveAspectRatio = false)));
+    end CRMLPeriodTimePeriod;
+    annotation (Icon(graphics={
+        Rectangle(
+          lineColor={215,215,215},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          extent={{-100,-100},{100,100}},
+          radius=25),
+        Rectangle(
+          lineColor={215,215,215},
+          extent={{-100,-100},{100,100}},
+          radius=25),
+        Ellipse(
+          extent={{-80,80},{80,-80}},
+          lineColor={215,215,215},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-55,55},{55,-55}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-60,14},{60,-14}},
+          lineColor={215,215,215},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          rotation=45)}), Diagram(graphics={
+        Rectangle(
+          lineColor={215,215,215},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          extent={{-100,-100},{100,100}},
+          radius=25),
+        Rectangle(
+          lineColor={215,215,215},
+          extent={{-100,-100},{100,100}},
+          radius=25),
+        Ellipse(
+          extent={{-80,80},{80,-80}},
+          lineColor={215,215,215},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-55,55},{55,-55}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-60,14},{60,-14}},
+          lineColor={215,215,215},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          rotation=45)}));
+  end CompilerCompliancy;
   annotation(
     Icon(graphics = {Rectangle(lineColor = {200, 200, 200}, fillColor = {248, 248, 248}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-100, -100}, {100, 100}}, radius = 25.0), Text(extent = {{-42, 38}, {44, -30}}, lineColor = {0, 0, 0}, fontName = "Symbol", textString = ""), Rectangle(lineColor = {128, 128, 128}, fillPattern = FillPattern.None, extent = {{-100, -100}, {100, 100}}, radius = 25.0)}),
     uses(Modelica(version = "4.0.0"), Complex(version = "4.0.0")));

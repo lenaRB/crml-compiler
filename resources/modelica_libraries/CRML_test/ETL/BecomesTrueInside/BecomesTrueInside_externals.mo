@@ -23,7 +23,7 @@ public
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   CRML.Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_3
     annotation (Placement(transformation(extent={{-4,-34},{4,-26}})));
-  CRML.ETL.TimeLocators.Attributes.CRMLPeriodTimePeriod cRMLPeriodTimePeriod
+  CRML.CompilerCompliancy.CRMLPeriodTimePeriod cRMLPeriodTimePeriod
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   CRML.ETL.Connectors.CRMLPeriodOutput P1
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));

@@ -1,4 +1,4 @@
-within CheckOver;
+within CRML_test.ETL.CheckOver;
 model CheckOver_externals
   inner CRML.TimeLocators.Continuous.Master master annotation(
     Placement(transformation(origin = {50, -10}, extent = {{-10, -10}, {10, 10}})));
@@ -28,7 +28,7 @@ model CheckOver_externals
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   CRML.ETL.Connectors.CRMLPeriodOutput P1
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-  CRML.ETL.TimeLocators.Attributes.CRMLPeriodTimePeriod cRMLPeriodTimePeriod
+  CRML.CompilerCompliancy.CRMLPeriodTimePeriod cRMLPeriodTimePeriod
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
                                                                        protected
   parameter Integer N=CRML.ETL.Types.nMaxOverlap;
