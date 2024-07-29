@@ -6,7 +6,7 @@ model BecomesTrueInside_verif
 equation
   // Bindings
   b1 = externals.b1;
-  P1 = externals.P1;
+  P1 =externals.tl1;
     annotation (Placement(transformation(extent={{0,-20},{60,40}})),
               Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-200,-100},{100,100}},

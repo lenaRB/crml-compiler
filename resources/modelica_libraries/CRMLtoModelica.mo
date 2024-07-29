@@ -52,8 +52,8 @@ end CRMLClock;
 
     record CRMLPeriod
     
-      parameter Boolean isLeftBoundaryIncluded=true "If true, the left boundaries of the time periods are included";
-      parameter Boolean isRightBoundaryIncluded=true "If true, the right boundaries of the time periods are included";
+      Boolean isLeftBoundaryIncluded "If true, the left boundaries of the time periods are included";
+      Boolean isRightBoundaryIncluded "If true, the right boundaries of the time periods are included";
     
     public
       Types.Event start_event;

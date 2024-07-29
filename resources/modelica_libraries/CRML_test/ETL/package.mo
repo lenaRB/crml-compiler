@@ -1,4 +1,4 @@
-﻿within CRML_test;
+within CRML_test;
 package ETL
 annotation (Icon(graphics={
         Rectangle(

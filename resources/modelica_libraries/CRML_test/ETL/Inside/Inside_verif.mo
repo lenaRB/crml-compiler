@@ -5,8 +5,8 @@ model Inside_verif
     annotation (Placement(transformation(extent={{-200,20},{-140,80}})));
 equation
   // Bindings
-  C1 = externals.C1;
-  P1 = externals.P1;
+  C1 =externals.clock1;
+  P1 =externals.tl1;
     annotation (Placement(transformation(extent={{0,-20},{60,40}})),
               Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-200,-100},{100,100}},
