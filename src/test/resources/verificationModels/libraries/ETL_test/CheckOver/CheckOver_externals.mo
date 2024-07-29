@@ -1,4 +1,4 @@
-within CRML_test.ETL.CheckOver;
+within CheckOver;
 model CheckOver_externals
   inner CRML.TimeLocators.Continuous.Master master annotation(
     Placement(transformation(origin = {50, -10}, extent = {{-10, -10}, {10, 10}})));
