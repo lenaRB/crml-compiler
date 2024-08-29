@@ -23,10 +23,14 @@ public
     annotation (Placement(transformation(extent={{-34,20},{-14,40}})));
   CRML.Blocks.Logical4.BooleanToBoolean4 booleanToBoolean4_2
     annotation (Placement(transformation(extent={{-4,-54},{4,-46}})));
-  CRML.ETL.Connectors.TimeLocatorOutput P1
-    annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
+  CRML.ETL.Connectors.TimeLocatorOutput tl1
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   CRML.TimeLocators.Continuous.During during
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+  CRML.ETL.Connectors.CRMLPeriodOutput P1
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+  CRML.CompilerCompliancy.CRMLPeriodTimePeriod cRMLPeriodTimePeriod
+    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 equation
   connect(boolean4Constant1.y, booleanToBoolean4_1.u)
     annotation (Line(points={{-39,50},{-20.4,50}}, color={217,67,180}));
@@ -40,8 +44,12 @@ equation
     annotation (Line(points={{-39,-50},{-4.4,-50}}, color={217,67,180}));
   connect(booleanToBoolean4_2.y, during.u)
     annotation (Line(points={{4.4,-50},{39,-50}}, color={162,29,33}));
-  connect(during.y[1], P1) annotation (Line(points={{50,-60},{50,-68},{110,-68},
-          {110,-70}}, color={0,0,255}));
+  connect(during.y[1], tl1) annotation (Line(points={{50,-60},{50,-64},{96,-64},
+          {96,-30},{110,-30}}, color={0,0,255}));
+  connect(cRMLPeriodTimePeriod.tl, during.y[1])
+    annotation (Line(points={{50,-70},{50,-60}}, color={0,0,255}));
+  connect(cRMLPeriodTimePeriod.y, P1)
+    annotation (Line(points={{61,-80},{110,-80}}, color={255,170,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end EvaluateOver_externals;
