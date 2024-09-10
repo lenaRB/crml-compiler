@@ -87,7 +87,7 @@ end CRMLClock;
     CRMLPeriod P;
     
     equation
-    P.is_open = true;
+    P.is_open = if( CRMLtoModelica.Functions.Event2Boolean (P.start_event) and not CRMLtoModelica.Functions.Event2Boolean (P.close_event))then true else false;
       
 
     end CRMLPeriod_build;
@@ -283,11 +283,11 @@ end cvBooleanToBoolean4;
     function Event2Boolean
     input Types.Event e;
     
-    output Types.Boolean4 b;
+    output Boolean b;
     
     algorithm
     
-    b:=e.b;
+    b:=if(e.b == CRMLtoModelica.Types.Boolean4.true4)then true else false;
 
     end Event2Boolean;
 
