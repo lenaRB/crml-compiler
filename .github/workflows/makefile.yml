@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - uses: actions/setup-java@v4
       with:
           distribution: 'temurin' # See 'Supported distributions' for available options
@@ -58,13 +58,13 @@ jobs:
         omc runTests.mos
 
     - name: upload the crml-compiler
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: crml-compiler-all.jar
         path: ${{github.workspace}}/build/libs/crml-compiler-all.jar
     
     - name: upload the tests and results
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: tests-and-results
         path: |
