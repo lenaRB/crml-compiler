@@ -1,5 +1,4 @@
 package CRMLtoModelica
-import CRML.ETL.Types.Boolean4;
   package Types
   
 record CRMLClock
@@ -90,7 +89,7 @@ end CRMLClock;
     CRMLPeriod P;
     
     equation
-    P.is_open = if( CRMLtoModelica.Functions.Event2Boolean (P.start_event) and not CRMLtoModelica.Functions.Event2Boolean (P.close_event))then true else false;
+    P.is_open = if( (CRMLtoModelica.Functions.Event2Boolean (P.start_event) == Boolean4.true4) and not (CRMLtoModelica.Functions.Event2Boolean (P.close_event)== Boolean4.true4))then true else false;
       
 
     end CRMLPeriod_build;
@@ -286,11 +285,11 @@ end cvBooleanToBoolean4;
     function Event2Boolean
     input Types.Event e;
     
-    output Boolean b;
+    output Boolean4 b;
     
     algorithm
     
-    b:=if(e.b == CRMLtoModelica.Types.Boolean4.true4)then true else false;
+    b:=if(e.b == CRMLtoModelica.Types.Boolean4.true4)then Boolean4.true4 else Boolean4.false4;
 
     end Event2Boolean;
 
