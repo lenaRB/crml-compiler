@@ -1,5 +1,4 @@
 package CRMLtoModelica
-import CRML.ETL.Types.Boolean4;
   package Types
   
 record CRMLClock
@@ -8,7 +7,7 @@ record CRMLClock
 CRMLtoModelica.Types.Boolean4 b (start= CRMLtoModelica.Types.Boolean4.false4);
 
 Real ticks[50](each start = -1, each fixed = true);
-discrete Integer counter(start=1, fixed=true);
+discrete Integer counter(start=0, fixed=true);
 
 CRMLtoModelica.Types.Boolean4 out(start = CRMLtoModelica.Types.Boolean4.false4);
 
@@ -18,19 +17,22 @@ end CRMLClock;
     
     CRMLClock clock;
     
-    protected  Boolean e;
+//      Boolean e;
     
     initial algorithm 
      
     algorithm
-      e := (clock.b == CRMLtoModelica.Types.Boolean4.true4 and change(clock.b));
-      when (e) then
-        clock.ticks[clock.counter] := time;
+      
+      //e := (clock.b == CRMLtoModelica.Types.Boolean4.true4);
+      when (clock.b == CRMLtoModelica.Types.Boolean4.true4 and change(clock.b)) then
         clock.counter := pre(clock.counter)+1;
-      end when;
+        clock.ticks[clock.counter] := time;
+         end when;
       
       equation
-        clock.out = Functions.cvBooleanToBoolean4(e);
+         
+         clock.out = Functions.cvBooleanToBoolean4(time==clock.ticks[clock.counter]);
+         
     end CRMLClock_build;
   
     type Boolean4 = enumeration(
@@ -87,7 +89,7 @@ end CRMLClock;
     CRMLPeriod P;
     
     equation
-    P.is_open = true;
+    P.is_open = if( (CRMLtoModelica.Functions.Event2Boolean (P.start_event) == Boolean4.true4) and not (CRMLtoModelica.Functions.Event2Boolean (P.close_event)== Boolean4.true4))then true else false;
       
 
     end CRMLPeriod_build;
@@ -287,7 +289,7 @@ end cvBooleanToBoolean4;
     
     algorithm
     
-    b:=e.b;
+    b:=if(e.b == CRMLtoModelica.Types.Boolean4.true4)then Types.Boolean4.true4 else Types.Boolean4.false4;
 
     end Event2Boolean;
 
@@ -308,7 +310,7 @@ end cvBooleanToBoolean4;
        output Types.CRMLClock out annotation (
           Placement(transformation(extent={{100,-10},{120,10}}),
             iconTransformation(extent={{100,-10},{120,10}})));
-    
+       Types.CRMLClock_build clock_c(clock=out);
       input Types.Boolean4  r2 //cond
        "Condition" annotation (Placement(
             transformation(
@@ -316,16 +318,10 @@ end cvBooleanToBoolean4;
             rotation=0,
             origin={-110,80})));
     equation
-    
-    algorithm
-      e := (r1.out == CRMLtoModelica.Types.Boolean4.true4 and r2 == CRMLtoModelica.Types.Boolean4.true4  and change(r2));
-      when (e ) then
-        out.ticks[out.counter] := time;
-       out.counter := pre(out.counter)+1;
-       out.out := CRMLtoModelica.Types.Boolean4.true4 ;
-       out.b :=Functions.cvBooleanToBoolean4(e);
-      end when;
-    
+       e = (r1.out == CRMLtoModelica.Types.Boolean4.true4 and r2 == CRMLtoModelica.Types.Boolean4.true4);
+      
+      out.b = Functions.cvBooleanToBoolean4(e);
+      
     
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
             Rectangle(
@@ -503,7 +499,7 @@ end cvBooleanToBoolean4;
     
     input CRMLtoModelica.Types.CRMLClock r1;
     
-    output Integer out(start = 0);
+    output Integer out;
     
     equation  
       out = r1.counter;  

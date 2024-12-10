@@ -221,7 +221,8 @@ public class OperatorMapping {
     List<Signature> and_sigs = Arrays.asList(
       new Signature("CRMLtoModelica.Functions.and4", bool2, params, "Boolean", Type.FUNCTION),
       new Signature("arrayAnd", bool1, params, "Boolean", Type.SET_OP, setUnary, false),
-      new Signature("CRMLtoModelica.Blocks.unaryBoolAnd", bool1, params, "Boolean", Type.BLOCK));
+      new Signature("CRMLtoModelica.Blocks.unaryBoolAnd", bool1, params, "Boolean", Type.BLOCK),
+      new Signature ("andOnPeriod", Arrays.asList("Periods"), params, "Boolean", Type.FUNCTION));
         built_in_operators.put("and", and_sigs);
 
     // or operators
