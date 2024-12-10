@@ -1,9 +1,20 @@
-model AfterBefore is {
+model AfterBefore_no_ext is {
 	// After events occur and before events occur
 	Operator [ Periods ] 'after' Clock ev1 'before' Clock ev2 = new Periods ] ev1, ev2 [;
 	
 	// Example of function call
-	Boolean b1 is if 2.0 < time and time < 3.5 then true else false;
-	Boolean b2 is if 2.5 < time and time < 5 then true else false;
+	Boolean b1 is 
+		if (2.0 < time and time < 3.5)
+			or (4.0 < time and time < 5.0)
+			or (5.5 < time and time < 5.6)
+			or (16.0 < time)
+			then true
+		else false;
+	Boolean b2 is 
+		if (2.5 < time and time < 5)
+			or (6.0 < time and time < 7.0)
+			or (7.5 < time and time < 10.0)
+			then true 
+		else false;
 	Periods p_after_b1_before_b2 is 'after' new Clock b1 'before' new Clock b2;
 };
