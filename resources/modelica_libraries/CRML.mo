@@ -461,7 +461,7 @@ into your model.
         ETL.Connectors.WhileInput tl "Master time period" annotation(
           Placement(transformation(extent = {{-10, 90}, {10, 110}})));
         ETL.Connectors.RealInput duration "Duration" annotation(
-          Placement(transformation(extent = {{-120, -90}, {-100, -70}}), visible = not periods.durationSpecified));
+          Placement(transformation(extent = {{-120, -90}, {-100, -70}}), visible = periods.durationSpecified));
       public
         ETL.Connectors.TimeLocatorOutput[N] y(timePeriod(each fixed = true, each start = false)) "Vector of time periods" annotation(
           Placement(transformation(extent = {{-10, -10}, {10, 10}}, rotation = -90, origin = {0, -100}), iconTransformation(extent = {{-10, -10}, {10, 10}}, rotation = -90, origin = {0, -100})));
@@ -5038,12 +5038,13 @@ which is only valid in the rotor-fixed coordinate system.
         //           fillColor={28,108,200},
         //           fillPattern=FillPattern.Solid,
         //           textString=boxName),
-        connect(evaluateOver.tl, tl) annotation(
-          Line(points = {{0, 10}, {0, 100}}, color = {0, 0, 255}));
         connect(evaluateOver.u, boolean4Replicator.y) annotation(
           Line(points = {{-11, 0}, {-39, 0}}, color = {162, 29, 33}));
         connect(evaluateOver.y, and4.u) annotation(
           Line(points = {{11, 0}, {39, 0}}, color = {162, 29, 33}));
+        connect(
+          evaluateOver.tl, tl) annotation (
+          Line(points = {{0, 10}, {0, 100}}, color = {0, 0, 255}, thickness = 0.5));
         annotation(
           Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}, fillColor = {162, 29, 33}, lineThickness = 5, fillPattern = FillPattern.Solid, borderPattern = BorderPattern.Raised, lineColor = {0, 0, 0}), Rectangle(extent = {{-78, 80}, {82, -80}}, lineColor = {175, 175, 175}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid), Text(extent = {{-70, 72}, {70, 44}}, lineColor = {28, 108, 200}, textString = "check"), Text(extent = {{-70, 18}, {70, -10}}, lineColor = {28, 108, 200}, textString = "over")}),
           Diagram(coordinateSystem(preserveAspectRatio = false)),
@@ -8987,7 +8988,6 @@ unvailability should be less of 1 hour in a sliding time period of one month
 
     record CRMLClock
     //constant Integer buffer_size=50;  // number of events that can be logged
-
       CRML.ETL.Types.Boolean4 b( start= CRML.ETL.Types.Boolean4.false4);
 
       Real ticks[50](each start = -1, each fixed = true);

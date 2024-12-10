@@ -1,0 +1,9 @@
+model FromUntil is {
+	// From events occur and until events occur
+	Operator [ Periods ] 'from' Clock ev1 'until' Clock ev2 = new Periods [ ev1, ev2 ];
+	
+	// Example of function call
+	Boolean b1 is external;
+	Boolean b2 is external;
+	Periods p_from_b1_until_b2 is 'from' new Clock b1 'until' new Clock b2;
+};

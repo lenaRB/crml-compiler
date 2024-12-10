@@ -1,0 +1,9 @@
+model AfterUntil is {
+	// After events occur and until events occur
+	Operator [ Periods ] 'after' Clock ev1 'until' Clock ev2 = Periods ] ev1, ev2 ];
+	
+	// Example of function call
+	Boolean b1 is external;
+	Boolean b2 is external;
+	Periods p_after_b1_until_b2 is 'after' new Clock b1 'until' new Clock b2;
+};
