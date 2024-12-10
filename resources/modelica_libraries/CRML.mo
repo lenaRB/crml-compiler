@@ -461,7 +461,7 @@ into your model.
         ETL.Connectors.WhileInput tl "Master time period" annotation(
           Placement(transformation(extent = {{-10, 90}, {10, 110}})));
         ETL.Connectors.RealInput duration "Duration" annotation(
-          Placement(transformation(extent = {{-120, -90}, {-100, -70}}), visible = not periods.durationSpecified));
+          Placement(transformation(extent = {{-120, -90}, {-100, -70}}), visible = periods.durationSpecified));
       public
         ETL.Connectors.TimeLocatorOutput[N] y(timePeriod(each fixed = true, each start = false)) "Vector of time periods" annotation(
           Placement(transformation(extent = {{-10, -10}, {10, 10}}, rotation = -90, origin = {0, -100}), iconTransformation(extent = {{-10, -10}, {10, 10}}, rotation = -90, origin = {0, -100})));
