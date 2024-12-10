@@ -1,4 +1,4 @@
-﻿within CRML_test;
+within CRML_test;
 package FORML
 annotation (Icon(graphics={
         Rectangle(
