@@ -17,21 +17,21 @@ end CRMLClock;
     
     CRMLClock clock;
     
-      Boolean e;
+//      Boolean e;
     
     initial algorithm 
      
     algorithm
-      e := (clock.b == CRMLtoModelica.Types.Boolean4.true4 and change(clock.b));
+      
       //e := (clock.b == CRMLtoModelica.Types.Boolean4.true4);
       when (clock.b == CRMLtoModelica.Types.Boolean4.true4 and change(clock.b)) then
         clock.counter := pre(clock.counter)+1;
         clock.ticks[clock.counter] := time;
-       
-      end when;
+         end when;
       
       equation
-         clock.out = Functions.cvBooleanToBoolean4(e);
+         
+         clock.out = Functions.cvBooleanToBoolean4(time==clock.ticks[clock.counter]);
          
     end CRMLClock_build;
   
@@ -285,11 +285,11 @@ end cvBooleanToBoolean4;
     function Event2Boolean
     input Types.Event e;
     
-    output Boolean4 b;
+    output Types.Boolean4 b;
     
     algorithm
     
-    b:=if(e.b == CRMLtoModelica.Types.Boolean4.true4)then Boolean4.true4 else Boolean4.false4;
+    b:=if(e.b == CRMLtoModelica.Types.Boolean4.true4)then Types.Boolean4.true4 else Types.Boolean4.false4;
 
     end Event2Boolean;
 
