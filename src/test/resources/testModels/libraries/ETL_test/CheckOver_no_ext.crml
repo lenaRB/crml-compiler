@@ -17,7 +17,7 @@ model CheckOver_no_ext is {
 	// Example of function call
 	Boolean phi1 is if (2.0 < time) and (time < 3.5) then undecided else false;
 	Boolean b1 is if (2.5 < time) and (time < 5) then true else false;
-	Period P1 is [new Event b1, new Event not b1];
+	Periods P1 is {[new Event b1, new Event not b1]};
 					
 	Boolean b_check_over is 'check' phi1 'over' P1; //Value is undefined, becomes undecided at 2.5s and then false at t=3.5s
 };

@@ -16,7 +16,7 @@ model CheckOver is {
 		
 	// Example of function call
 	Boolean phi1 is external;
-	Period P1 is external;
+	Periods P1 is external;
 			
 	Boolean b_check_over is 'check' phi1 'over' P1;
 };
