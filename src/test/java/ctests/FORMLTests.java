@@ -16,7 +16,7 @@ import crml.compiler.OMCUtil.CompileStage;
 import org.junit.jupiter.params.ParameterizedTest;
 
 
-public class ETLTests  {
+public class FORMLTests  {
 
     @Nested
     public static class SimulationTests extends ParameterizedSuite {
@@ -25,9 +25,9 @@ public class ETLTests  {
         @BeforeAll
         public static void setupTestSuite() throws IOException {
             cs.initAllDirs("testModels", "verificationModels", 
-                    "refResults", "libraries/ETL_test");
+                    "refResults", "libraries/FORML_test");
             cs.processBuilder = new ProcessBuilder();
-            cs.setOutputSubFolder("ETL_test");
+            cs.setOutputSubFolder("FORML_test");
         }
     
     

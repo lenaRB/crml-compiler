@@ -578,8 +578,15 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		}
 
 	@Override
+	//FIXME proper set implementation
 	public Value visitSet_def(crmlParser.Set_defContext ctx) {
-		return new Value ("Set", "{}", true);
+		if(ctx.empty_set()!=null) return new Value ("{}", "{}", true);
+		StringBuffer values = new StringBuffer();
+		for(ExpContext e:ctx.exp()){
+			Value v = visit(e);
+			values.append(v.contents+", ");
+		}
+		return new Value (values.toString(), "{}", true);
 	}
 
 	@Override
@@ -637,9 +644,14 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		}
 
 		// if the constructor is for Periods 
-		//FIXME proper constructor initialisation
 		if(ctx.type().getText().equals("Periods")){
-			return new Value ("", "new");
+			String periodsType = types_mapping.get("Periods");
+			String ps = "ps" + counter++;
+			Value v = visit(ctx.exp());
+			localFunctionCalls.append(periodsType + " " + ps + "(periods=" + v.contents + ");\n");
+			localFunctionCalls.append("CRMLtoModelica.Types.CRMLPeriods_build " + ps +"_init(E =" + ps + ");\n");
+		
+			return new Value (ps, "new");
 		}
 
 		// Constructor for events
