@@ -1,10 +1,5 @@
 within CRML_test.ETL.CheckOver;
 partial block CheckOver
-
-protected
-  parameter Integer N=CRML.ETL.Types.nMaxOverlap;
-
-public
   Utilities.Boolean4Connector phi1 "Boolean4 condition" annotation (Placement(
         transformation(extent={{-120,-10},{-100,10}}), iconTransformation(
           extent={{-120,-10},{-100,10}})));
@@ -13,29 +8,23 @@ public
             110}})));
   CRML.ETL.Connectors.Boolean4Output b_check_over
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  CRML.Blocks.Logical4.And4_n and4(N=N)
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  CRML.Blocks.Routing.Boolean4Replicator boolean4Replicator(nout=N)
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  CRML.ETL.Requirements.EvaluateOver[N] evaluateOver
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  CRML.ETL.Requirements.CheckOver checkOver annotation(
+    Placement(transformation(extent = {{-10, -10}, {10, 10}})));
+protected
+  parameter Integer N=CRML.ETL.Types.nMaxOverlap;
 equation
-  connect(phi1, boolean4Replicator.u)
-    annotation (Line(points={{-110,0},{-62,0}}, color={162,29,33}));
-  connect(and4.y, b_check_over)
-    annotation (Line(points={{61,0},{110,0}}, color={162,29,33}));
 //         Text(
 //           extent={{-74,32},{74,-36}},
 //           lineColor={0,0,0},
 //           fillColor={28,108,200},
 //           fillPattern=FillPattern.Solid,
 //           textString=boxName),
-  connect(evaluateOver.tl, P1)
-    annotation (Line(points={{0,10},{0,100}}, color={0,0,255}));
-  connect(evaluateOver.u, boolean4Replicator.y)
-    annotation (Line(points={{-11,0},{-39,0}}, color={162,29,33}));
-  connect(evaluateOver.y, and4.u)
-    annotation (Line(points={{11,0},{39,0}}, color={162,29,33}));
+  connect(checkOver.y, b_check_over) annotation(
+    Line(points = {{12, 0}, {110, 0}}, color = {162, 29, 33}));
+  connect(checkOver.tl, P1) annotation(
+    Line(points = {{0, 10}, {0, 100}}, color = {0, 0, 255}, thickness = 0.5));
+  connect(checkOver.u, phi1) annotation(
+    Line(points = {{-10, 0}, {-110, 0}}, color = {162, 29, 33}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                          Rectangle(
           extent={{-100,100},{100,-100}},

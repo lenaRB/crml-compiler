@@ -1,0 +1,9 @@
+model FromBefore is {
+	// From events occur and before events occur
+	Operator [ Periods ] 'from' Clock ev1 'before' Clock ev2 = new Periods [ ev1, ev2 [;
+	
+	// Example of function call
+	Boolean b1 is external;
+	Boolean b2 is external;
+	Periods p_from_b1_before_b2 is 'from' new Clock b1 'before' new Clock b2;
+};
