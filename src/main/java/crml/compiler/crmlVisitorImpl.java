@@ -581,11 +581,14 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 	//FIXME proper set implementation
 	public Value visitSet_def(crmlParser.Set_defContext ctx) {
 		if(ctx.empty_set()!=null) return new Value ("{}", "{}", true);
-		StringBuffer values = new StringBuffer();
-		for(ExpContext e:ctx.exp()){
-			Value v = visit(e);
-			values.append(v.contents+", ");
+		StringBuffer values = new StringBuffer("{");
+		for(int i =0; i < ctx.exp().size(); i++){
+			Value v = visit(ctx.exp(i));
+			values.append(v.contents);
+			if(i<ctx.exp().size()-1)
+				values.append(", ");
 		}
+		values.append("}");
 		return new Value (values.toString(), "{}", true);
 	}
 
