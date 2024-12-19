@@ -27,6 +27,10 @@ public
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   CRML.ETL.Blocks.Clocks.Inside inside
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+  CRML.ETL.Connectors.TimeLocatorOutput P1
+    annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
+  CRML.ETL.Connectors.ClockOutput C1
+    annotation (Placement(transformation(extent={{160,30},{180,50}})));
 equation
   connect(booleanToBoolean4_1.y,during. u)
     annotation (Line(points={{-27.6,-40},{-1,-40}},
@@ -47,6 +51,13 @@ equation
       thickness=0.5));
   connect(during.y[1], inside.tl) annotation (Line(points={{10,-50},{10,-66},{
           66,-66},{66,-3},{79,-3}}, color={0,0,255}));
+  connect(during.y[1], P1) annotation (Line(points={{10,-50},{10,-66},{66,-66},
+          {66,-60},{170,-60}}, color={0,0,255}));
+  connect(clockEvent.y, C1) annotation (Line(
+      points={{-17,40},{170,40}},
+      color={175,175,175},
+      pattern=LinePattern.Dot,
+      thickness=0.5));
  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
         extent={{-160,-100},{160,100}},
         initialScale=0.1)),                                     Diagram(
