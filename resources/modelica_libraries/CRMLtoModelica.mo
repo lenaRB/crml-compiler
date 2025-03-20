@@ -109,13 +109,18 @@ end CRMLClock;
     
     record CRMLPeriods
     
-      parameter Boolean isLeftBoundaryIncluded=true "If true, the left boundaries of the time periods are included";
-      parameter Boolean isRightBoundaryIncluded=true "If true, the right boundaries of the time periods are included";
     
-    public
-      Types.Event start_event;
-      Types.Event close_event;
+    CRMLPeriod period;
+      
+      
     end CRMLPeriods;
+    model CRMLPeriods_build
+  CRMLPeriod P;
+  
+  
+  
+  end CRMLPeriods_build;
+  
   end Types;
 
   
@@ -551,6 +556,17 @@ end cvBooleanToBoolean4;
         end when;
       
     end unaryBoolAnd;
+
+    block ClockAdd
+    
+    input CRMLtoModelica.Types.CRMLClock r1;
+    input Real r2;
+    
+    output CRMLtoModelica.Types.CRMLClock out;
+    equation
+     
+
+    end ClockAdd;
 
 
 

@@ -9,7 +9,7 @@ model Spec is {
 		
 			// Operators on Boolean
 			// Logical disjunction
-			Template b1 'or' b2 = not (not b1 and not b2);
+			Template b1 'or' b2 = not ((not b1) and (not b2));
 		
 			// Operators on events
 			// Events generated when a Boolean becomes true
@@ -17,7 +17,11 @@ model Spec is {
 
 			// Filter clock ticks inside a time period
 			Operator [ Clock ] Clock C 'inside' Period P 
-				= C filter ((tick C >= (P start)) and (tick C <= (P end)));
+				= C filter (((tick C) >= (P start)) and ((tick C) <= (P end)));
+
+			// Decide
+			//Operator 'decide' is 
+			Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' new Boolean((P end));
 			
 			// Operators on clocks
 			// Count the occurrences of events inside a time period
@@ -31,10 +35,6 @@ model Spec is {
 			// Check
 			Operator [ Boolean ] 'check' Boolean phi 'over' Periods P 
 				= and ('evaluate' phi 'over' P);
-  
-			// Decide
-			//Operator 'decide' is 
-			Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' (P end);
   
 			// Category c1 is Category increasing1 
 				//= { (>, >), (>=, >=), (<, >=), (<=, >), (==, >), (<>, >) };
@@ -59,7 +59,7 @@ model Spec is {
 			Operator [ Periods ] 'after' Clock ev1 'before' Clock ev2 = new Periods ] ev1, ev2 [;
 
 			// After events occur and for an elapsed time
-			Operator [ Periods ] 'after' Clock ev 'for' Real d = new Periods ] ev, ev + d ]; 	
+			Operator [ Periods ] 'after' Clock ev 'for' Real d = {new Period ] ev, (ev + d) ]}; 	
 			
 			// Checking that the number of event occurrences at the end of a time period is lower or higher than a threshold
 			// Option 1: without category
@@ -76,16 +76,18 @@ model Spec is {
 			// Operator [ Boolean ] Periods P 'ensure' Boolean b 
 				// = ('check' (('count' (b 'becomes true') 'inside' P) == 0) 'over' P) and (P 'check anytime' b);
 
-			//Option 2:
-			Operator [ Boolean ] Periods P 'ensure' Boolean b 
-				= (Periods P 'check count' (b 'becomes true') '==' 0) and (P 'check anytime' b);
-
+			
 
 			// Checking that a requirement is satisfied at any time instant of a time period
-			Operator [ Boolean ] Periods P 'check anytime' Boolean b =  apply varying2 on ('check' 'id' b 'over' P);
+			Operator [ Boolean ] Periods P 'check anytime' Boolean b =  apply varying2 on ('check' ('id' b) 'over' P);
 
 			// Checking that a requirement is satisfied at the end of a time period
-			Operator [ Boolean ] Periods P 'check at end' Boolean b = apply varying1 on ('check'  'id' b 'over' P);
+			Operator [ Boolean ] Periods P 'check at end' Boolean b = apply varying1 on ('check'  ('id' b) 'over' P);
+
+			//Option 2:
+			Operator [ Boolean ] Periods P 'ensure' Boolean b 
+				= (P 'check count' (b 'becomes true') '==' 0) and (P 'check anytime' b);
+
 
 	// List of external variables
 	Boolean red is external;
@@ -96,19 +98,20 @@ model Spec is {
 	// req1: "After green, next step is yellow"
 	// Requirement req1 is
 	Boolean req1 is
-		'after' (green 'becomes true') 'before' (yellow 'becomes true')
-		'check count' (red 'becomes true') '==' 0;
+		('after' (green 'becomes true') 'before' (yellow 'becomes true')) 
+			'check count' (red 'becomes true') '==' 0;
 
 	// req2: "Step green should stay active for at least 30 seconds"
 	// Requirement req2 is
 	Boolean req2 is
-		'after' (green 'becomes true') 'for' 30
+		('after' (green 'becomes true') 'for' 30)
 		'ensure' green;
 
 	// req3: "After green becomes active + 30 seconds,
 	//        next step should turn yellow within 0.2 seconds"
 	// Requirement req3 is
 	Boolean req3 is
-		'after' (green 'becomes true' + 30) 'for' 0.2
+		('after' ((green 'becomes true') + 30) 'for' 0.2)
 		'check at end' yellow;
 };
+

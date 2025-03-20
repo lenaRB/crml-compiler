@@ -219,6 +219,7 @@ public class CRMLC {
           }
           if(testMode)
             throw new Exception("Translation error");
+          
         }
         
       } catch (ParseCancellationException e) {
@@ -228,6 +229,7 @@ public class CRMLC {
             String prettyTree = Utilities.toPrettyTree(tree, ruleNamesList);
             logger.trace("\nThe AST for the program: \n" + prettyTree);
           }
+        
         if (testMode) throw e;
       }
       catch(Exception e) {

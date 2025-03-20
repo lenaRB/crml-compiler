@@ -4,17 +4,17 @@ model FromBefore_no_ext is {
 	
 	// Example of function call
 	Boolean b1 is 
-		if (2.0 < time and time < 3.5)
-			or (4.0 < time and time < 5.0)
-			or (5.5 < time and time < 5.6)
+		if ((2.0 < time) and (time < 3.5))
+			or ((4.0 < time) and (time < 5.0))
+			or ((5.5 < time) and (time < 5.6))
 			or (16.0 < time)
 			then true
 		else false;
 	Boolean b2 is 
-		if (2.5 < time and time < 5)
-			or (6.0 < time and time < 7.0)
-			or (7.5 < time and time < 10.0)
+		if ((2.5 < time) and (time < 5))
+			or ((6.0 < time) and (time < 7.0))
+			or ((7.5 < time) and (time < 10.0))
 			then true 
 		else false;
-	Periods p_from_b1_before_b2 is 'from' new Clock b1 'before' new Clock b2;
+	Periods p_from_b1_before_b2 is 'from' (new Clock b1) 'before' (new Clock b2);
 };

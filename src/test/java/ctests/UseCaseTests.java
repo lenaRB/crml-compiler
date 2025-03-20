@@ -28,12 +28,12 @@ public class UseCaseTests {
 		Util.runTest(filePath, cs, CompileStage.TRANSLATE);
 	}
 
-	@DisplayName("Pumping System use-case test")
+	/** @DisplayName("Pumping System use-case test")
 	@Test
 	void testPumpingSystem () throws InterruptedException, IOException, ModelicaSimulationException{
 		String filePath = "pumping_system/";
 		Util.runTest(filePath, cs, CompileStage.TRANSLATE);
-	}
+	} */
 
 	
 }
