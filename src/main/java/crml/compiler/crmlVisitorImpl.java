@@ -3,6 +3,7 @@ package crml.compiler;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
@@ -581,11 +582,14 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 	//FIXME proper set implementation
 	public Value visitSet_def(crmlParser.Set_defContext ctx) {
 		if(ctx.empty_set()!=null) return new Value ("{}", "{}", true);
-		StringBuffer values = new StringBuffer();
-		for(ExpContext e:ctx.exp()){
-			Value v = visit(e);
-			values.append(v.contents+", ");
+		StringBuffer values = new StringBuffer("{");
+		for(int i =0; i < ctx.exp().size(); i++){
+			Value v = visit(ctx.exp(i));
+			values.append(v.contents);
+			if(i<ctx.exp().size()-1)
+				values.append(", ");
 		}
+		values.append("}");
 		return new Value (values.toString(), "{}", true);
 	}
 
@@ -648,8 +652,8 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			String periodsType = types_mapping.get("Periods");
 			String ps = "ps" + counter++;
 			Value v = visit(ctx.exp());
-			localFunctionCalls.append(periodsType + " " + ps + "(periods=" + v.contents + ");\n");
-			localFunctionCalls.append("CRMLtoModelica.Types.CRMLPeriods_build " + ps +"_init(E =" + ps + ");\n");
+			localFunctionCalls.append(periodsType + " " + ps + "(period=" + v.contents + ");\n");
+			localFunctionCalls.append("CRMLtoModelica.Types.CRMLPeriods_build " + ps +"_init(P =" + ps + ");\n");
 		
 			return new Value (ps, "new");
 		}
@@ -707,13 +711,12 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			return new Value (" if " + value_if.contents + " then " 
 					+  value_then.contents, 
 					value_then.type);			
-			}
-		
-		
+			}		
 		
 		private Value apply_user_operator(String op, List<ExpContext> exp) {
 			String previous_category = null;
 			// check if the operator is defined
+			System.out.println("APPLYING OPERATOR " + op + "\n");
 			Signature sign = user_operators.get(op);
 			if (sign== null)
 				throw new ParseCancellationException("User operator undefined : " + op + "\n");
@@ -912,6 +915,12 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 					
 			}
 
+		}
+
+		public void dump_userOperators(){
+			for (Entry<String, Signature> e : user_operators.entrySet()){
+				System.out.println("operator " + e.getKey() + "\n");
+			}
 		}
 				
 }

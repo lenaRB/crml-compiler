@@ -45,6 +45,8 @@ public class OperatorMapping {
     // Period mix and match signatures
     List<String> periodReal = Arrays.asList("Period", "Real");
     List<String> realPeriod = Arrays.asList("Real", "Period");
+    List<String> clockReal = Arrays.asList("Clock", "Real");
+    List<String> clockInteger = Arrays.asList("Clock", "Integer");
 
     // Default operand names in built-in functions
     List<String> params = Arrays.asList("r1", "r2");
@@ -59,7 +61,8 @@ public class OperatorMapping {
     List<String> event2 = Arrays.asList("Event", "Event");
 
     // + operators
-    List<Signature> plus_sigs = Arrays.asList(new Signature("+", int2, "Integer", Type.OPERATOR),
+    List<Signature> plus_sigs = Arrays.asList(
+      new Signature("+", int2, "Integer", Type.OPERATOR),
       new Signature(" ", int1, "Integer", Type.OPERATOR),
       new Signature("+", real2, "Real", Type.OPERATOR),
       new Signature(" ", real1, "Real", Type.OPERATOR),
@@ -68,6 +71,9 @@ public class OperatorMapping {
       new Signature("+", intstring, "String", Type.OPERATOR),
       new Signature("+", stringreal, "String", Type.OPERATOR),
       new Signature("+", realstring, "String", Type.OPERATOR),
+      new Signature("CRMLtoModelica.Blocks.ClockAdd", periodReal, params, "Clock", Type.BLOCK),
+      new Signature("CRMLtoModelica.Blocks.ClockAdd", clockReal, params, "Clock", Type.BLOCK),
+      new Signature("CRMLtoModelica.Blocks.ClockAdd", clockInteger, params, "Clock", Type.BLOCK),
       new Signature("CRMLtoModelica.Functions.add4", bool2, params, "Boolean", Type.FUNCTION));
 
     built_in_operators.put("+", plus_sigs);
@@ -120,7 +126,8 @@ public class OperatorMapping {
       new Signature("<", realint, "Boolean", Type.OPERATOR),
       new Signature("leqArray", realint, params, "Boolean", Type.SET_OP, setOnvar, true),
       new Signature("CRMLtoModelica.Blocks.realPeriodleq", realPeriod, params, "Boolean", Type.BLOCK),
-      new Signature("CRMLtoModelica.Blocks.Logical4.leq", bool2, params, "Boolean", "leq", Type.BLOCK));
+      new Signature("CRMLtoModelica.Blocks.Logical4.leq", bool2, params, "Boolean", "leq", Type.BLOCK),
+      new Signature("CRMLtoModelica.Functions.leqEV", event2, params, "Boolean", Type.FUNCTION));
 
     built_in_operators.put("<", le_sigs);
 
