@@ -8127,12 +8127,12 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           Placement(transformation(extent = {{12, 36}, {4, 44}})));
         Modelica.Blocks.Sources.RealExpression redObserver(y = phys.redLamp.i) annotation(
           Placement(transformation(extent = {{56, 50}, {30, 70}})));
+        Log1 log
+          annotation (Placement(transformation(extent={{148,30},{128,50}})));
         Modelica.Blocks.Logical.GreaterEqualThreshold oRed(threshold = 9) annotation(
           Placement(transformation(extent = {{12, 56}, {4, 64}})));
         Phys1 phys annotation(
           Placement(transformation(extent = {{108, 30}, {88, 50}})));
-        Log1 log annotation(
-          Placement(transformation(extent = {{148, 30}, {128, 50}})));
         Modelica.Blocks.Sources.BooleanExpression green_active(y = oGreen.y) annotation(
           Placement(transformation(extent = {{-30, 10}, {-50, 30}})));
         Modelica.Blocks.Sources.BooleanExpression yellow_active(y = oYellow.y) annotation(
@@ -8141,11 +8141,11 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           Placement(transformation(extent = {{-30, 50}, {-50, 70}})));
       equation
         connect(spec.green, green_active.y) annotation(
-          Line(points = {{-90.5385, 28.8}, {-80, 28.8}, {-80, 20}, {-51, 20}}, color = {217, 67, 180}));
+          Line(points={{-90.5385,28.8},{-80,28.8},{-80,20},{-51,20}},          color = {217, 67, 180}));
         connect(spec.yellow, yellow_active.y) annotation(
-          Line(points = {{-90.5385, 40}, {-51, 40}}, color = {217, 67, 180}));
+          Line(points={{-90.5385,40},{-51,40}},      color = {217, 67, 180}));
         connect(spec.red, red_active.y) annotation(
-          Line(points = {{-90.5385, 51.2}, {-80, 51.2}, {-80, 60}, {-51, 60}}, color = {217, 67, 180}));
+          Line(points={{-90.5385,51.2},{-80,51.2},{-80,60},{-51,60}},          color = {217, 67, 180}));
         connect(greenObserver.y, oGreen.u) annotation(
           Line(points = {{28.7, 20}, {12.8, 20}}, color = {0, 0, 127}));
         connect(yellowObservor.y, oYellow.u) annotation(
@@ -8279,38 +8279,27 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
       end Spec;
 
       model Log1
-        block Init
-          annotation(
-            Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Text(extent = {{-100, 100}, {100, -100}}, lineColor = {0, 0, 0}, textString = "%name")}),
-            Diagram(coordinateSystem(preserveAspectRatio = false), graphics = {Text(extent = {{-100, 100}, {100, -100}}, lineColor = {0, 0, 0}, textString = "%stateName", fontSize = 10)}),
-            __Dymola_state = true,
-            showDiagram = true,
-            singleInstance = true);
-        end Init;
 
         block Red
           annotation(
-            Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Text(extent = {{-100, 100}, {100, -100}}, lineColor = {0, 0, 0}, textString = "%name")}),
+            Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Text(origin = {-4, 0},extent = {{-100, 100}, {100, -100}}, textString = "%name"), Rectangle( lineColor = {165, 165, 165}, borderPattern = BorderPattern.Raised, extent = {{-100, 100}, {100, -100}}, radius = 25)}),
             Diagram(coordinateSystem(preserveAspectRatio = false), graphics = {Text(extent = {{-100, 100}, {100, -100}}, lineColor = {0, 0, 0}, textString = "%stateName", fontSize = 10)}),
-            __Dymola_state = true,
             showDiagram = true,
             singleInstance = true);
         end Red;
 
         block Yellow
           annotation(
-            Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Text(extent = {{-100, 100}, {100, -100}}, lineColor = {0, 0, 0}, textString = "%name")}),
+            Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Text(extent = {{-100, 100}, {100, -100}}, textString = "%name"), Rectangle(lineColor = {165, 165, 165}, borderPattern = BorderPattern.Raised, extent = {{-100, 100}, {100, -100}}, radius = 25)}),
             Diagram(coordinateSystem(preserveAspectRatio = false), graphics = {Text(extent = {{-100, 100}, {100, -100}}, lineColor = {0, 0, 0}, textString = "%stateName", fontSize = 10)}),
-            __Dymola_state = true,
             showDiagram = true,
             singleInstance = true);
         end Yellow;
 
         block Green
           annotation(
-            Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Text(extent = {{-100, 100}, {100, -100}}, lineColor = {0, 0, 0}, textString = "%name")}),
+            Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Text(extent = {{-100, 100}, {100, -100}}, textString = "%name"), Rectangle(lineColor = {165, 165, 165}, borderPattern = BorderPattern.Raised, extent = {{-100, 100}, {100, -100}}, radius = 25)}),
             Diagram(coordinateSystem(preserveAspectRatio = false), graphics = {Text(extent = {{-100, 100}, {100, -100}}, lineColor = {0, 0, 0}, textString = "%stateName", fontSize = 10)}),
-            __Dymola_state = true,
             showDiagram = true,
             singleInstance = true);
         end Green;
@@ -8333,17 +8322,15 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           Placement(transformation(extent = {{100, -10}, {120, 10}})));
         Modelica.Blocks.Interfaces.BooleanOutput y_red "Value of Boolean output" annotation(
           Placement(transformation(extent = {{100, 70}, {120, 90}})));
-        Init init annotation(
-          Placement(transformation(extent = {{-80, -20}, {-60, 0}})));
       equation
         transition(green, yellow, timeInState() > 30, immediate = true, reset = true, synchronize = false, priority = 1) annotation(
-          Line(points = {{-48, 60}, {-14, 60}}, color = {175, 175, 175}, thickness = 0.25, smooth = Smooth.Bezier),
+          Line(points={{-48,60},{-14,60}},      color = {175, 175, 175}, thickness = 0.25, smooth = Smooth.Bezier),
           Text(string = "%condition", extent = {{-4, 4}, {-4, 10}}, fontSize = 10, textStyle = {TextStyle.Bold}, horizontalAlignment = TextAlignment.Right));
         transition(yellow, red, timeInState() > 4, immediate = true, reset = true, synchronize = false, priority = 1) annotation(
-          Line(points = {{14, 60}, {48, 60}}, color = {175, 175, 175}, thickness = 0.25, smooth = Smooth.Bezier),
+          Line(points={{14,60},{48,60}},      color = {175, 175, 175}, thickness = 0.25, smooth = Smooth.Bezier),
           Text(textString = "%condition", extent = {{-4, 4}, {-4, 10}}, fontSize = 10, textStyle = {TextStyle.Bold}, horizontalAlignment = TextAlignment.Right));
         transition(red, green, timeInState() > 30, immediate = true, reset = true, synchronize = false, priority = 1) annotation(
-          Line(points = {{60, 48}, {60, 34}, {60, 20}, {-60, 20}, {-60, 48}}, color = {175, 175, 175}, thickness = 0.25, smooth = Smooth.Bezier),
+          Line(points={{60,48},{60,34},{60,20},{-60,20},{-60,48}},            color = {175, 175, 175}, thickness = 0.25, smooth = Smooth.Bezier),
           Text(textString = "%condition", extent = {{4, -4}, {4, -10}}, fontSize = 10, textStyle = {TextStyle.Bold}, horizontalAlignment = TextAlignment.Left));
         connect(green_active.y, y_green) annotation(
           Line(points = {{82, -80}, {110, -80}}, color = {255, 0, 255}));
@@ -8351,11 +8338,8 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           Line(points = {{82, 0}, {110, 0}}, color = {255, 0, 255}));
         connect(red_active.y, y_red) annotation(
           Line(points = {{82, 80}, {110, 80}}, color = {255, 0, 255}));
-        transition(init, green, timeInState() > 1) annotation(
-          Line(points = {{-82, -10}, {-92, -10}, {-92, 48}, {-92, 60}, {-72, 60}}, color = {175, 175, 175}, thickness = 0.25, smooth = Smooth.Bezier),
-          Text(textString = "%condition", extent = {{-4, 4}, {-4, 10}}, fontSize = 10, textStyle = {TextStyle.Bold}, horizontalAlignment = TextAlignment.Right));
-        initialState(init) annotation(
-          Line(points = {{-58, -10}, {-40, -10}}, color = {175, 175, 175}, thickness = 0.25, smooth = Smooth.Bezier, arrow = {Arrow.Filled, Arrow.None}));
+        initialState(green) annotation (
+          Line(points={{-72,60},{-84,60},{-84,58}},        color = {175, 175, 175}, smooth = Smooth.Bezier));
         annotation(
           Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}, lineColor = {28, 108, 200}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid), Ellipse(extent = {{-20, 98}, {20, 58}}, lineColor = {238, 46, 47}, fillColor = {238, 46, 47}, fillPattern = FillPattern.Solid), Ellipse(extent = {{-20, 18}, {20, -20}}, lineColor = {244, 125, 35}, fillColor = {244, 125, 35}, fillPattern = FillPattern.Solid), Ellipse(extent = {{-20, -60}, {20, -98}}, lineColor = {0, 140, 72}, fillColor = {0, 140, 72}, fillPattern = FillPattern.Solid), Text(extent = {{-92, 126}, {90, 108}}, lineColor = {28, 108, 200}, fillColor = {255, 255, 255}, fillPattern = FillPattern.None, textString = "%name")}),
           Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}})));
@@ -8525,6 +8509,7 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           Icon(coordinateSystem(preserveAspectRatio = false), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}, lineColor = {28, 108, 200}, fillColor = {170, 255, 255}, fillPattern = FillPattern.Solid), Ellipse(extent = {{-20, 98}, {20, 58}}, lineColor = {238, 46, 47}, fillColor = {238, 46, 47}, fillPattern = FillPattern.Solid), Ellipse(extent = {{-20, 18}, {20, -20}}, lineColor = {244, 125, 35}, fillColor = {244, 125, 35}, fillPattern = FillPattern.Solid), Ellipse(extent = {{-20, -60}, {20, -98}}, lineColor = {0, 140, 72}, fillColor = {0, 140, 72}, fillPattern = FillPattern.Solid), Text(extent = {{-92, 126}, {90, 108}}, lineColor = {28, 108, 200}, fillColor = {255, 255, 255}, fillPattern = FillPattern.None, textString = "%name")}),
           Diagram(coordinateSystem(preserveAspectRatio = false)));
       end Phys1;
+
       annotation(
         Icon(graphics = {Rectangle(lineColor = {200, 200, 200}, fillColor = {248, 248, 248}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-100, -100}, {100, 100}}, radius = 25.0), Rectangle(lineColor = {128, 128, 128}, fillPattern = FillPattern.None, extent = {{-100, -100}, {100, 100}}, radius = 25.0), Polygon(origin = {8, 14}, lineColor = {78, 138, 73}, fillColor = {78, 138, 73}, pattern = LinePattern.None, fillPattern = FillPattern.Solid, points = {{-58.0, 46.0}, {42.0, -14.0}, {-58.0, -74.0}, {-58.0, 46.0}})}));
     end TrafficLight;
