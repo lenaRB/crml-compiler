@@ -19,8 +19,6 @@ import grammar.crmlParser.ExpContext;
 import grammar.crmlParser.IdContext;
 import grammar.crmlParser.User_keywordContext;
 
-// TODO strip new variable names
-
 public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 		private Integer counter;
