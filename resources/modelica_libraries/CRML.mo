@@ -8323,13 +8323,13 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
         Modelica.Blocks.Interfaces.BooleanOutput y_red "Value of Boolean output" annotation(
           Placement(transformation(extent = {{100, 70}, {120, 90}})));
       equation
-        transition(green, yellow, timeInState() > 30, immediate = true, reset = true, synchronize = false, priority = 1) annotation(
+        transition(green, yellow, timeInState() > 30, immediate = false, reset = true, synchronize = false, priority = 1) annotation(
           Line(points={{-48,60},{-14,60}},      color = {175, 175, 175}, thickness = 0.25, smooth = Smooth.Bezier),
           Text(string = "%condition", extent = {{-4, 4}, {-4, 10}}, fontSize = 10, textStyle = {TextStyle.Bold}, horizontalAlignment = TextAlignment.Right));
-        transition(yellow, red, timeInState() > 4, immediate = true, reset = true, synchronize = false, priority = 1) annotation(
+        transition(yellow, red, timeInState() > 4, immediate = false, reset = true, synchronize = false, priority = 1) annotation(
           Line(points={{14,60},{48,60}},      color = {175, 175, 175}, thickness = 0.25, smooth = Smooth.Bezier),
           Text(textString = "%condition", extent = {{-4, 4}, {-4, 10}}, fontSize = 10, textStyle = {TextStyle.Bold}, horizontalAlignment = TextAlignment.Right));
-        transition(red, green, timeInState() > 30, immediate = true, reset = true, synchronize = false, priority = 1) annotation(
+        transition(red, green, timeInState() > 30, immediate = false, reset = true, synchronize = false, priority = 1) annotation(
           Line(points={{60,48},{60,34},{60,20},{-60,20},{-60,48}},            color = {175, 175, 175}, thickness = 0.25, smooth = Smooth.Bezier),
           Text(textString = "%condition", extent = {{4, -4}, {4, -10}}, fontSize = 10, textStyle = {TextStyle.Bold}, horizontalAlignment = TextAlignment.Left));
         connect(green_active.y, y_green) annotation(
@@ -8342,7 +8342,8 @@ I = { 1, 2, 7, 6, 4, 3, 5, 8, 9, 10 };</pre>
           Line(points={{-72,60},{-84,60},{-84,58}},        color = {175, 175, 175}, smooth = Smooth.Bezier));
         annotation(
           Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}, lineColor = {28, 108, 200}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid), Ellipse(extent = {{-20, 98}, {20, 58}}, lineColor = {238, 46, 47}, fillColor = {238, 46, 47}, fillPattern = FillPattern.Solid), Ellipse(extent = {{-20, 18}, {20, -20}}, lineColor = {244, 125, 35}, fillColor = {244, 125, 35}, fillPattern = FillPattern.Solid), Ellipse(extent = {{-20, -60}, {20, -98}}, lineColor = {0, 140, 72}, fillColor = {0, 140, 72}, fillPattern = FillPattern.Solid), Text(extent = {{-92, 126}, {90, 108}}, lineColor = {28, 108, 200}, fillColor = {255, 255, 255}, fillPattern = FillPattern.None, textString = "%name")}),
-          Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}})));
+          Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}})),
+          experiment(StopTime=100, __Dymola_Algorithm="Dassl"));
       end Log1;
 
       model Log2
