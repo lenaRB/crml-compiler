@@ -1,0 +1,60 @@
+model TrafficLight_Spec is ETL union FORM_L union 
+{
+// Requirement model for the traffic light example
+
+ // Definition of Requirement type
+  Type Requirement is Boolean ;//forbid { *, +, integrate };
+  
+  // Extension of FORM_L library
+  // Checking that the duration of a condition at the end of a time period is between two threshold (could be declined with '>' and '<' relations)
+  Operator [ Boolean ] Periods P 'check duration' Boolean b 'between' constant Real d1 'and' constant Real d2
+		= (P 'check duration' b '>=' d1) and (P 'check duration' b '<=' d2);
+	// Checking that the transitional regime between two states does not spend too much time.
+	// In 'relaxed' mode, there is no imposed order.
+	Operator [ Boolean ] Boolean b1 'relaxed switches to' Boolean b2 'within' constant Real d
+		= 'after' (b1 'becomes false' 'or' b2 'becomes true') 'within' d 						// time locator
+			'check at end' not b1 and b2 ;																			// condition
+  
+	class Lamp is {
+		Boolean current ;
+		Boolean next ;
+		Real minTime ;
+		Real maxTime ;
+		
+		constant Real switchingTime = 0.2;
+	
+		// Functional requirement
+		// req1: "The lamp should light during a continuous time between minTime and maxTime."
+		Requirement req1 is
+			'during' current 																									// time locator
+			'check duration' current 'between' minTime 'and' maxTime ;							// condition
+			
+		// req2: "after current step, current lamp should turn off, and next one should turn on within 0.2 seconds (whatever the order)"
+		Requirement req2 is current 'relaxed switches to' next 'within' switchingTime ;
+	};
+	
+	class TrafficLight is {
+		// List of external variables
+		Boolean red is external;
+		Boolean yellow is external;
+		Boolean green is external;
+		
+		Boolean simulationTime is external ;
+
+		// Instantiate the three lamps
+		Lamp      red_lamp is new Lamp ( current =  red,      next = green,  minTime = 30, maxTime = 40);
+		Lamp  green_lamp is new Lamp ( current =  green,  next = yellow, minTime = 30, maxTime = 40);
+		Lamp yellow_lamp is new Lamp ( current =  yellow, next = red,     minTime = 5,   maxTime = 10);
+
+		// Shadow requirement (only to eliminate a "null solution" where all lamps never light)
+		Requirement req_init is 'during' simulationTime 'check count' red_lamp '>=' 1 ;
+	};
+	
+	// instantiate two traffic lights in a crossroads
+	TrafficLight t1 is new TrafficLight ;
+	TrafficLight t2 is new TrafficLight ;
+	
+	// Crossroad safety requirements 
+	Requirement req_crossroad1 is 'during' t1.green 'ensure' t2.red ;
+	Requirement req_crossroad2 is 'during' t2.green 'ensure' t1.red ;
+};

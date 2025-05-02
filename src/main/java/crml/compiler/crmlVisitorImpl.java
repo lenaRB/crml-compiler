@@ -19,8 +19,6 @@ import grammar.crmlParser.ExpContext;
 import grammar.crmlParser.IdContext;
 import grammar.crmlParser.User_keywordContext;
 
-// TODO strip new variable names
-
 public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 		private Integer counter;
@@ -535,6 +533,11 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				op = category_map.getCategory(current_category).get("'"+uc.name+"'");
 			if (op==null) op = "'"+uc.name+"'";
 
+			String s="";
+			for ( ExpContext e : uc.args){
+				s+= e.getText().toString() + " ";
+			}
+			System.out.println("Applying operator: " + uc.name + " " + s  + "\n");
 			
 			return apply_user_operator(op, uc.args);
 		}
@@ -640,7 +643,6 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		
 		//TODO add return type checking
 		Value v = visit(ctx.exp());
-			
 		
 		localFunctionCalls.append(clockType + " " + varName + "(b=" + v.contents + ");\n");
 		localFunctionCalls.append("CRMLtoModelica.Types.CRMLClock_build " + varName+"_init(clock =" + varName + ");\n");
@@ -650,12 +652,26 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		// if the constructor is for Periods 
 		if(ctx.type().getText().equals("Periods")){
 			String periodsType = types_mapping.get("Periods");
-			String ps = "ps" + counter++;
-			Value v = visit(ctx.exp());
-			localFunctionCalls.append(periodsType + " " + ps + "(period=" + v.contents + ");\n");
-			localFunctionCalls.append("CRMLtoModelica.Types.CRMLPeriods_build " + ps +"_init(P =" + ps + ");\n");
+			String varName = "ps" + counter++;
+			crmlParser.Period_opContext period = ctx.exp().period_op();
+			Value left = visit(period.exp(0));
+			Value right = visit(period.exp(1));
+
+			Boolean lborder = (period.lb.getText().equals("["));
+			Boolean rborder = (period.rb.getText().equals("]"));
+
+			String code = 
+			periodsType + " " + varName +
+			"(isLeftBoundaryIncluded=" + lborder.toString() + 
+		    ", isRightBoundaryIncluded=" + rborder.toString() + 
+			", start_event=" + left.contents + 
+			", close_event=" + right.contents +");\n";
+			
+			localFunctionCalls.append(code);
+			localFunctionCalls.append("CRMLtoModelica.Types.CRMLPeriods_build " + varName +"_init(ps =" + varName + ");\n");
 		
-			return new Value (ps, "new");
+		
+			return new Value (varName, "new");
 		}
 
 		// Constructor for events
@@ -716,7 +732,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		private Value apply_user_operator(String op, List<ExpContext> exp) {
 			String previous_category = null;
 			// check if the operator is defined
-			System.out.println("APPLYING OPERATOR " + op + "\n");
+			//System.out.println("APPLYING OPERATOR " + op + "\n");
 			Signature sign = user_operators.get(op);
 			if (sign== null)
 				throw new ParseCancellationException("User operator undefined : " + op + "\n");
@@ -727,18 +743,17 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			}
 			String name=op.substring(0, op.length()-1).replace(".", "_")+counter+'\'';
 			
-			String res;
-			if (exp.size()==2) {
-				Value left = visit(exp.get(0));
-				Value right = visit(exp.get(1));
-				
-				res = sign.function_name + " " + name+ "(" + sign.variable_names.get(1) + "="+left.contents+"," +
-						sign.variable_names.get(0)+ "="+right.contents+");\n";
-			} else {
-				Value operand = visit(exp.get(0));
-				
-				res = sign.function_name + " " + name+ "(" + sign.variable_names.get(0) + "="+operand.contents+");\n";
+			String res="";
+
+			for(int i=0; i<exp.size(); i++){
+				ExpContext e = exp.get(i);
+				Value operand = visit(e);
+				res += sign.variable_names.get(exp.size()-i-1) + "="+operand.contents;
+				if(i<exp.size()-1)
+					res += ", ";
 			}
+			res = sign.function_name + " " + name+ "(" + res + ");\n";
+			
 				
 			localFunctionCalls.append(res);
 			counter++;

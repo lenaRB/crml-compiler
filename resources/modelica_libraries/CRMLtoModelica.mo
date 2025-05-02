@@ -109,16 +109,20 @@ end CRMLClock;
     
     record CRMLPeriods
     
+      Boolean isLeftBoundaryIncluded "If true, the left boundaries of the time periods are included";
+      Boolean isRightBoundaryIncluded "If true, the right boundaries of the time periods are included";
     
-    CRMLPeriod period;
+    public
+      Types.CRMLClock start_event;
+      Types.CRMLClock close_event;
       
+      Boolean is_open;
       
     end CRMLPeriods;
     model CRMLPeriods_build
-  CRMLPeriod P;
   
-  
-  
+  CRMLPeriods ps;
+    
   end CRMLPeriods_build;
   
   end Types;
