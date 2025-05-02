@@ -533,6 +533,11 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				op = category_map.getCategory(current_category).get("'"+uc.name+"'");
 			if (op==null) op = "'"+uc.name+"'";
 
+			String s="";
+			for ( ExpContext e : uc.args){
+				s+= e.getText().toString() + " ";
+			}
+			System.out.println("Applying operator: " + uc.name + " " + s  + "\n");
 			
 			return apply_user_operator(op, uc.args);
 		}
@@ -714,7 +719,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		private Value apply_user_operator(String op, List<ExpContext> exp) {
 			String previous_category = null;
 			// check if the operator is defined
-			System.out.println("APPLYING OPERATOR " + op + "\n");
+			//System.out.println("APPLYING OPERATOR " + op + "\n");
 			Signature sign = user_operators.get(op);
 			if (sign== null)
 				throw new ParseCancellationException("User operator undefined : " + op + "\n");
@@ -725,18 +730,17 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			}
 			String name=op.substring(0, op.length()-1).replace(".", "_")+counter+'\'';
 			
-			String res;
-			if (exp.size()==2) {
-				Value left = visit(exp.get(0));
-				Value right = visit(exp.get(1));
-				
-				res = sign.function_name + " " + name+ "(" + sign.variable_names.get(1) + "="+left.contents+"," +
-						sign.variable_names.get(0)+ "="+right.contents+");\n";
-			} else {
-				Value operand = visit(exp.get(0));
-				
-				res = sign.function_name + " " + name+ "(" + sign.variable_names.get(0) + "="+operand.contents+");\n";
+			String res="";
+
+			for(int i=0; i<exp.size(); i++){
+				ExpContext e = exp.get(i);
+				Value operand = visit(e);
+				res += sign.variable_names.get(i) + "="+operand.contents;
+				if(i<exp.size()-1)
+					res += ", ";
 			}
+			res = sign.function_name + " " + name+ "(" + res + ");\n";
+			
 				
 			localFunctionCalls.append(res);
 			counter++;

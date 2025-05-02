@@ -59,7 +59,7 @@ model Spec is {
 			Operator [ Periods ] 'after' Clock ev1 'before' Clock ev2 = new Periods ] ev1, ev2 [;
 
 			// After events occur and for an elapsed time
-			Operator [ Periods ] 'after' Clock ev 'for' Real d = {new Period ] ev, (ev + d) ]}; 	
+			Operator [ Periods ] 'after' Clock ev 'for' Real d = new Periods ] ev, (ev + d) ]; 	
 			
 			// Checking that the number of event occurrences at the end of a time period is lower or higher than a threshold
 			// Option 1: without category
