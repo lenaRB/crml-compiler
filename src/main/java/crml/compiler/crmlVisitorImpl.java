@@ -643,7 +643,6 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		
 		//TODO add return type checking
 		Value v = visit(ctx.exp());
-			
 		
 		localFunctionCalls.append(clockType + " " + varName + "(b=" + v.contents + ");\n");
 		localFunctionCalls.append("CRMLtoModelica.Types.CRMLClock_build " + varName+"_init(clock =" + varName + ");\n");
@@ -653,12 +652,26 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 		// if the constructor is for Periods 
 		if(ctx.type().getText().equals("Periods")){
 			String periodsType = types_mapping.get("Periods");
-			String ps = "ps" + counter++;
-			Value v = visit(ctx.exp());
-			localFunctionCalls.append(periodsType + " " + ps + "(period=" + v.contents + ");\n");
-			localFunctionCalls.append("CRMLtoModelica.Types.CRMLPeriods_build " + ps +"_init(P =" + ps + ");\n");
+			String varName = "ps" + counter++;
+			crmlParser.Period_opContext period = ctx.exp().period_op();
+			Value left = visit(period.exp(0));
+			Value right = visit(period.exp(1));
+
+			Boolean lborder = (period.lb.getText().equals("["));
+			Boolean rborder = (period.rb.getText().equals("]"));
+
+			String code = 
+			periodsType + " " + varName +
+			"(isLeftBoundaryIncluded=" + lborder.toString() + 
+		    ", isRightBoundaryIncluded=" + rborder.toString() + 
+			", start_event=" + left.contents + 
+			", close_event=" + right.contents +");\n";
+			
+			localFunctionCalls.append(code);
+			localFunctionCalls.append("CRMLtoModelica.Types.CRMLPeriods_build " + varName +"_init(ps =" + varName + ");\n");
 		
-			return new Value (ps, "new");
+		
+			return new Value (varName, "new");
 		}
 
 		// Constructor for events
@@ -735,7 +748,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			for(int i=0; i<exp.size(); i++){
 				ExpContext e = exp.get(i);
 				Value operand = visit(e);
-				res += sign.variable_names.get(i) + "="+operand.contents;
+				res += sign.variable_names.get(exp.size()-i-1) + "="+operand.contents;
 				if(i<exp.size()-1)
 					res += ", ";
 			}
