@@ -5,7 +5,7 @@ grammar crml;
 
 import modelica;
 
-definition : definition_type id 'is' '{'
+definition : definition_type id 'is' (id 'union')* '{'
 		(element_def)* 
 		'}'  ';' EOF;	
 
