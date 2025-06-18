@@ -5,9 +5,11 @@ grammar crml;
 
 import modelica;
 
-definition : definition_type id 'is' (id 'union')* '{'
+definition : definition_type id 'is' dependency* '{'
 		(element_def)* 
 		'}'  ';' EOF;	
+
+dependency : id 'union' ;
 
 definition_type : 'model' | 'package' | 'library';
 
@@ -50,7 +52,7 @@ crml_component_reference : '.'? id array_subscripts? ( '.' id array_subscripts? 
 
 type :   (builtin_type | id ) isset=empty_set?;
 
-builtin_type : 'Integer' |'Real' | 'Boolean' | 'String' | 'Clock' | 'Set' | 'Period' |'Periods'| 'Event';
+builtin_type : 'Integer' |'Real' | 'Boolean' | 'String' | 'Clock' | 'Set' | 'Period' |'Periods'| 'Event' | 'Requirement';
 
 structure_type : 'type' | 'class';
 
