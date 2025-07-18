@@ -3,13 +3,11 @@
  */
 grammar crml;
 
-import modelica;
-
 definition : definition_type id 'is' dependency* '{'
 		(element_def)* 
 		'}'  ';' EOF;	
 
-dependency : id 'union' ;
+dependency : (id |'flatten' '{' id* '}') 'union' ;
 
 definition_type : 'model' | 'package' | 'library';
 
@@ -111,6 +109,14 @@ builtin_op : 'and' | '*' | '+' | '-' | '/' | 'with' | 'master' | 'on' | 'filter'
 				'exp' | 'log' | 'log10' |
 				'cos' |'acos' | 'sin' | 'asin'  ;
 
+array_subscripts :
+  '[' subscript ( ',' subscript )* ']'
+  ;
+
+subscript :
+  ':' | exp
+  ;
+
 id: IDENT;
 user_keyword : USER_KEYWORD;
 comment : LINE_COMMENT;
@@ -127,3 +133,43 @@ fragment NONDIGIT : '_' | 'a' .. 'z' | 'A' .. 'Z' ;
 fragment DIGIT : '0' .. '9' ;
 fragment SYMBOL : '='|'>'|'<';
 
+// Whitespace and comments
+
+BOM : '\u00EF' '\u00BB' '\u00BF' ;
+
+WS : ( ' ' | '\t' | NL )+ -> channel(HIDDEN)
+  ;
+
+LINE_COMMENT
+    : '//' ( ~('\r'|'\n')* ) (NL|EOF) -> channel(HIDDEN)
+    ;
+
+ML_COMMENT
+    :   '/*' (.)*? '*/' -> channel(HIDDEN)
+    ;
+
+fragment
+NL: '\r\n' | '\n' | '\r';
+
+// Lexical units except for keywords
+
+
+STRING : '"' ( S_CHAR | S_ESCAPE )* '"' ;
+
+fragment S_CHAR : NL | ~('\r' | '\n' | '\\' | '"'); // Unicode other than " and \
+
+fragment Q_IDENT : '\'' ( Q_CHAR | S_ESCAPE ) ( Q_CHAR | S_ESCAPE | '"' )* '\'' ;
+
+fragment Q_CHAR
+   : NONDIGIT | DIGIT | '!' | '#' | '$' | '%' | '&' | '(' | ')' | '*'
+   | '+' | ',' | '-' | '.' | '/' | ':' | ';' | '<' | '>' | '=' | '?'
+   | '@' | '[' | ']' | '^' | '{' | '}' | '|' | '~' | ' '
+   ;
+fragment S_ESCAPE : '\\'
+  ( '\'' | '"' | '?' | '\\' | 'a' | 'b' | 'f' | 'n' | 'r' | 't' | 'v')
+  ;
+
+fragment UNSIGNED_INTEGER : DIGIT+ ;
+fragment EXPONENT : ( 'e' | 'E' ) ( '+' | '-' )? DIGIT+ ;
+
+UNSIGNED_NUMBER : DIGIT+ ( '.' (DIGIT)* )? ( EXPONENT )? ;
