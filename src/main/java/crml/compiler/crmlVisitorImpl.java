@@ -707,12 +707,12 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 	}
 		
 		
-		@Override 
+		/** @Override 
 		public Value visitComponent_reference(crmlParser.Component_referenceContext ctx) {
 		// TODO fix component references
 			
 			throw new ParseCancellationException("component references not implemented yet : " + ctx.toStringTree() + '\n');
-		}
+		} */
 		
 		@Override
 		public Value visitIf_exp(crmlParser.If_expContext ctx) {

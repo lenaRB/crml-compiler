@@ -3,13 +3,17 @@
  */
 grammar crml;
 
+@header {
+package grammar;
+}
+
 definition : definition_type id 'is' dependency* '{'
 		(element_def)* 
 		'}'  ';' EOF;	
 
-dependency : (id |'flatten' '{' id* '}') 'union' ;
+dependency : (id |'flatten' '{' id (',' id)* '}') 'union' ;
 
-definition_type : 'model' | 'package' | 'library';
+definition_type : 'model' | 'package' | 'library'; // should we keep library?
 
 element_def : comment | template | class_def | uninstantiated_def | type_def | operator | var_def | category;
 	
