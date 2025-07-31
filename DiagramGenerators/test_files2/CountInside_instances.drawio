@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram id="d1752843421973" name="Page-1">
+    <mxGraphModel dx="800" dy="600" grid="1"><root>
+      <mxCell id="0"/>
+      <mxCell id="1" parent="0"/>
+      <mxCell id="table_b1" style="shape=table;container=1;recursiveResize=0;strokeColor=#000;" vertex="1" parent="1">
+        <mxGeometry x="60" y="80" width="200" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="r0" style="shape=tableRow;startSize=0;fillColor=none;" vertex="1" parent="table_b1">
+        <mxGeometry y="0" width="200" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="c1" value="&lt;b&gt;b1 : Boolean&lt;/b&gt;" style="html=1;verticalAlign=middle;whiteSpace=wrap;overflow=visible;align=center;fillColor=#ADD8E6;strokeColor=none" vertex="1" parent="r0">
+        <mxGeometry width="200" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="table_P1" style="shape=table;container=1;recursiveResize=0;strokeColor=#000;" vertex="1" parent="1">
+        <mxGeometry x="310" y="80" width="200" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="r2" style="shape=tableRow;startSize=0;fillColor=none;" vertex="1" parent="table_P1">
+        <mxGeometry y="0" width="200" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="c3" value="&lt;b&gt;P1 : Period&lt;/b&gt;" style="html=1;verticalAlign=middle;whiteSpace=wrap;overflow=visible;align=center;fillColor=#ADD8E6;strokeColor=none" vertex="1" parent="r2">
+        <mxGeometry width="200" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="table_b2" style="shape=table;container=1;recursiveResize=0;strokeColor=#000;" vertex="1" parent="1">
+        <mxGeometry x="560" y="80" width="200" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="r4" style="shape=tableRow;startSize=0;fillColor=none;" vertex="1" parent="table_b2">
+        <mxGeometry y="0" width="200" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="c5" value="&lt;b&gt;b2 : Boolean&lt;/b&gt;" style="html=1;verticalAlign=middle;whiteSpace=wrap;overflow=visible;align=center;fillColor=#ADD8E6;strokeColor=none" vertex="1" parent="r4">
+        <mxGeometry width="200" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="table_C1" style="shape=table;container=1;recursiveResize=0;strokeColor=#000;" vertex="1" parent="1">
+        <mxGeometry x="60" y="190" width="200" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="r6" style="shape=tableRow;startSize=0;fillColor=none;" vertex="1" parent="table_C1">
+        <mxGeometry y="0" width="200" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="c7" value="&lt;b&gt;C1 : Clock&lt;/b&gt;" style="html=1;verticalAlign=middle;whiteSpace=wrap;overflow=visible;align=center;fillColor=#ADD8E6;strokeColor=none" vertex="1" parent="r6">
+        <mxGeometry width="200" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="table_i_count_ticks_of_c1_inside_p1" style="shape=table;container=1;recursiveResize=0;strokeColor=#000;" vertex="1" parent="1">
+        <mxGeometry x="310" y="190" width="200" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="r8" style="shape=tableRow;startSize=0;fillColor=none;" vertex="1" parent="table_i_count_ticks_of_c1_inside_p1">
+        <mxGeometry y="0" width="200" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="c9" value="&lt;b&gt;i_count_ticks_of_c1_inside_p1 : Integer&lt;/b&gt;" style="html=1;verticalAlign=middle;whiteSpace=wrap;overflow=visible;align=center;fillColor=#ADD8E6;strokeColor=none" vertex="1" parent="r8">
+        <mxGeometry width="200" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="edge0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#000;endArrow=classic;endFill=0;" edge="1" source="table_P1" target="table_b1" parent="1">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="edge1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#000;endArrow=classic;endFill=0;" edge="1" source="table_P1" target="table_b1" parent="1">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="edge2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#000;endArrow=classic;endFill=0;" edge="1" source="table_C1" target="table_b2" parent="1">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="edge3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#000;endArrow=classic;endFill=0;" edge="1" source="table_i_count_ticks_of_c1_inside_p1" target="table_C1" parent="1">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="edge4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeColor=#000;endArrow=classic;endFill=0;" edge="1" source="table_i_count_ticks_of_c1_inside_p1" target="table_P1" parent="1">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+    </root></mxGraphModel>
+  </diagram>
+</mxfile>

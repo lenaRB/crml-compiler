@@ -1,0 +1,22 @@
+model CheckOver is {
+	// Decide
+	// Option1
+	// Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi or (P end); //With or defined as the built-in disjunction operator
+	// Option2
+	Template b1 'or' b2 = not (not b1 and not b2);
+	Operator [ Boolean ] 'decide' Boolean phi 'over' Period P = phi 'or' new Boolean (P end); //With 'or' as a user-defined disjunction operator for Booleans (only)
+
+	// Evaluate
+	Operator [ Boolean ] 'evaluate' Boolean phi 'over' Period P 
+		= integrate (('decide' phi 'over' P) * phi) on P;
+	
+	// Check
+	Operator [ Boolean ] 'check' Boolean phi 'over' Periods P 
+		= and ('evaluate' phi 'over' P);
+		
+	// Example of function call
+	Boolean phi1 is external;
+	Periods P1 is external;
+			
+	Boolean b_check_over is 'check' phi1 'over' P1;
+};

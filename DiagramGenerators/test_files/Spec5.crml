@@ -1,0 +1,46 @@
+model multi_subclass_inheritance is
+{
+
+    class BaseModel is
+    {
+        Real sharedValue is external;
+    };
+    BaseModel base is new BaseModel;
+    Requirement R0 is base.sharedValue >= 0;
+
+
+    class AlphaModel is
+    {
+        Real alphaOnly is external;
+    } extends BaseModel;
+    AlphaModel alpha is new AlphaModel;
+    Requirement R1 is alpha.sharedValue >= 0;
+    Requirement R2 is alpha.alphaOnly    >= 1;
+
+
+    class BetaModel is
+    {
+        Real betaOnly is external;
+    } extends BaseModel;
+    BetaModel beta is new BetaModel;
+    Requirement R3 is beta.sharedValue  <= 100;
+    Requirement R4 is beta.betaOnly      <=  5;
+
+   
+    class GammaModel is
+    {
+        Real gammaOnly is external;
+    } extends BaseModel;
+    GammaModel gamma is new GammaModel;
+    Requirement R5 is gamma.sharedValue >= -10;
+    Requirement R6 is gamma.gammaOnly     == 2;
+
+  
+    class DeltaModel is
+    {
+        Real deltaOnly is external;
+    } extends BaseModel;
+    DeltaModel delta is new DeltaModel;
+    Requirement R7 is delta.sharedValue <= 50;
+    Requirement R8 is delta.deltaOnly     == 10;
+};

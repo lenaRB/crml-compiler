@@ -1,0 +1,23 @@
+model requirements_tank is {
+ 
+	class TankModel is {
+		Real level is external;
+		Real temperature is external;
+	};
+ 
+	TankModel tankm is new TankModel;
+ 
+	Requirement R1 is tankm.level >= 7.5;
+	Requirement R2 is tankm.level >= 10;
+	Requirement R3 is R1 and (not R2);
+	Requirement R4 is tankm.temperature <= 100;
+
+
+    TankModel tankm2 is new TankModel;
+ 
+	Requirement R1 is tankm2.level >= 7.5;
+	Requirement R2 is tankm2.level >= 10;
+	Requirement R3 is R1 and (not R2);
+	Requirement R4 is tankm2.temperature <= 100;
+ 
+};

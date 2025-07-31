@@ -1,0 +1,35 @@
+
+
+model PumpingSystem is flatten {Units, FORM_L}
+	
+	union {
+		// type Requirement is Boolean forbid { *, +, integrate };
+		
+		class Pump is {
+			String ident;
+			Boolean isStarted is external;
+			Real temperature is external;
+			
+			// R1: While the system is in operation, the pump must not be started more than twice.
+			Requirement R1 is
+				'during' system.inOperation 'check count' (pump.isStarted 'becomes true') '<=' 2;
+			// R2: At least one hour must separate two consecutive pump startups.
+			Requirement R2 is
+				'after' pump.isStarted 'for' 1*h 'check count' (pump.isStarted 'becomes true') '==' 0;
+			// R3: While the pump is in operation (i.e. started), its temperature must always stay below 50°C.
+			Requirement R3 is
+				'during' pump.isStarted 'ensure' pump.temperature < 50*degC;
+			// R4: While the system is in operation, after the pump temperature rises above 40 °C,
+			// the temperature must not stay above for a duration of more than 1 mn cumulated over the next 15 mn.
+			Requirement R4 is
+				'during' system.inOperation 'after' pump.temperature > 40*degC 'for' 15*mn 
+					'check duration' (pump.temperature > 40*degC) '<' 1*mn;
+		};
+		
+		class System is {
+			Pump {} pumps;
+			Boolean inOperation is external;
+		};
+		
+		System system is System{ Pump (ident = "PO1"),  Pump (ident = "PO2"), Pump (ident = "PO3") };
+};

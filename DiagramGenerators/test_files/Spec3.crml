@@ -1,0 +1,28 @@
+model inheritance_test is
+{
+
+    class TankModel is
+    {
+        Real level       is external;
+        Real temperature is external;
+    };
+
+
+    TankModel           baseTank is new TankModel;
+   
+    Requirement R1 is baseTank.level       >= 7.5;
+    Requirement R2 is baseTank.temperature <= 100;
+
+
+    class AdvancedTankModel is
+    {
+        Real pressure is external;
+    } extends TankModel;
+
+
+    AdvancedTankModel   advTank  is new AdvancedTankModel;
+
+    Requirement R3 is advTank.level       >= 7.5;
+    Requirement R4 is advTank.temperature <= 100;
+    Requirement R5 is advTank.pressure    <= 50;
+};

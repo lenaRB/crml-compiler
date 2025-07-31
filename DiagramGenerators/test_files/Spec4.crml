@@ -1,0 +1,45 @@
+model multi_relationships is
+{
+    class BaseModel is
+    {
+        Real sharedValue is external;
+    };
+    BaseModel base is new BaseModel;
+    Requirement R0 is base.sharedValue >= 0;
+
+    class AlphaModel is
+    {
+        Real alphaOnly is external;
+        BetaModel betaContained is contains; // "contains" relationship (composition)
+    } extends BaseModel;
+    AlphaModel alpha is new AlphaModel;
+    Requirement R1 is alpha.sharedValue >= 0;
+    Requirement R2 is alpha.alphaOnly >= 1;
+    Requirement R3 is alpha.betaContained.betaOnly <= 5; // Constraint on contained BetaModel
+
+    class BetaModel is
+    {
+        Real betaOnly is external;
+    } extends BaseModel;
+    BetaModel beta is new BetaModel;
+    Requirement R4 is beta.sharedValue <= 100;
+    Requirement R5 is beta.betaOnly <= 5;
+
+    class GammaModel is
+    {
+        Real gammaOnly is external;
+        DeltaModel deltaUsed is uses; // "uses" relationship (association)
+    } extends BaseModel;
+    GammaModel gamma is new GammaModel;
+    Requirement R6 is gamma.sharedValue >= -10;
+    Requirement R7 is gamma.gammaOnly == 2;
+    Requirement R8 is gamma.deltaUsed.deltaOnly == 10; // Constraint on used DeltaModel
+
+    class DeltaModel is
+    {
+        Real deltaOnly is external;
+    } extends BaseModel;
+    DeltaModel delta is new DeltaModel;
+    Requirement R9 is delta.sharedValue <= 50;
+    Requirement R10 is delta.deltaOnly == 10;
+};

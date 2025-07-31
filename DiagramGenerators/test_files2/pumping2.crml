@@ -1,0 +1,44 @@
+model PumpingSystem is
+    Units union
+    FORM_L union
+{
+    // Pump class definition
+    class Pump is {
+        String  ident;
+        Boolean isStarted  is external;
+        Real    temperature is external;
+
+        Requirement R1 is
+            'during' system.inOperation
+            'check count' (pump.isStarted 'becomes true') '<=' 2;
+
+        Requirement R2 is
+            'after' pump.isStarted
+            'for' 1*h
+            'check count' (pump.isStarted 'becomes true') '==' 0;
+
+        Requirement R3 is
+            'during' pump.isStarted
+            'ensure' pump.temperature < 50*degC;
+
+        Requirement R4 is
+            'during' system.isOperation
+            'after' pump.temperature > 40*degC
+            'for' 15*mn
+            'check duration' (pump.temperature > 40*degC) '<' 1*mn;
+    };
+
+    // System class definition
+    class System is {
+        Pump {}      pumps;
+        Boolean      inOperation  is external;
+    };
+
+    // --- instantiate pumps with a single positional argument (the ident) ---
+    Pump PO1("PO1");
+    Pump PO2("PO2");
+    Pump PO3("PO3");
+
+    // --- instantiate system, passing the three pumps as positional args ---
+    System system(PO1, PO2, PO3);
+};

@@ -1,0 +1,6 @@
+model requirements_tank is {
+    class TankModel is {
+        Real level is external;
+        Real temperature is external;
+    };
+};
