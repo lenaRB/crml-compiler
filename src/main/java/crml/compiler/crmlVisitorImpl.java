@@ -14,6 +14,7 @@ import grammar.crmlBaseVisitor;
 import grammar.crmlParser;
 import grammar.crmlParser.Category_pairContext;
 import grammar.crmlParser.Class_var_defContext;
+import grammar.crmlParser.DependencyContext;
 import grammar.crmlParser.Element_defContext;
 import grammar.crmlParser.ExpContext;
 import grammar.crmlParser.IdContext;
@@ -103,6 +104,12 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				if (!ctx.definition_type().getText().equals("model"))
 					throw new ParseCancellationException("library and package not implemented yet");
 				
+				// load libraries and packages
+				if (!ctx.dependency().isEmpty()){
+					for (DependencyContext d:ctx.dependency()){
+						
+					}
+				}
 				buffer.append("model " + ctx.id().getText() + " \n");
 
 				List<Element_defContext> cL = ctx.element_def();
@@ -700,12 +707,12 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 	}
 		
 		
-		@Override 
+		/** @Override 
 		public Value visitComponent_reference(crmlParser.Component_referenceContext ctx) {
 		// TODO fix component references
 			
 			throw new ParseCancellationException("component references not implemented yet : " + ctx.toStringTree() + '\n');
-		}
+		} */
 		
 		@Override
 		public Value visitIf_exp(crmlParser.If_expContext ctx) {

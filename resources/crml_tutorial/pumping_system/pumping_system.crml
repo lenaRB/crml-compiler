@@ -1,7 +1,9 @@
-model PumpingSystem is 
-	flatten {Units, FORM_L}
+
+
+model PumpingSystem is flatten {Units, FORM_L}
+	
 	union {
-		type Requirement is Boolean forbid { *, +, integrate };
+		// type Requirement is Boolean forbid { *, +, integrate };
 		
 		class Pump is {
 			String ident;
