@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram id="d1758131445951" name="UML-ClassDiagram">
+    <mxGraphModel grid="1"><root>
+      <mxCell id="0"/>
+      <mxCell id="1" parent="0"/>
+      <mxCell id="2" style="umlClass;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#AEC6CF;" vertex="1" parent="1">
+        <mxGeometry x="60" y="60" width="240" height="130" as="geometry"/>
+      </mxCell>
+      <mxCell id="3" value="&lt;b&gt;Room&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;fillColor=#AEC6CF;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="0" width="240" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="4" value="ident: String" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="30" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="5" value="area: Real" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="50" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="6" value="temp: Real" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="70" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="7" value="R_comfort: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="90" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="8" value="(temp &gt;= 20 and temp &lt;= 24)" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="110" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="9" style="umlClass;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#AEC6CF;" vertex="1" parent="1">
+        <mxGeometry x="380" y="60" width="240" height="150" as="geometry"/>
+      </mxCell>
+      <mxCell id="10" value="&lt;b&gt;HVAC&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;fillColor=#AEC6CF;strokeColor=#888888;" vertex="1" parent="9">
+        <mxGeometry y="0" width="240" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="11" value="ident: String" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="9">
+        <mxGeometry y="30" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="12" value="supplyTemp: Real" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="9">
+        <mxGeometry y="50" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="13" value="serves: Room" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="9">
+        <mxGeometry y="70" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="14" value="R_supplySafe: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="9">
+        <mxGeometry y="90" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="15" value="(supplyTemp &gt;= 10 and supplyTemp &lt;= 35)" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="9">
+        <mxGeometry y="110" width="240" height="40" as="geometry"/>
+      </mxCell>
+      <mxCell id="16" style="umlClass;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#AEC6CF;" vertex="1" parent="1">
+        <mxGeometry x="700" y="60" width="240" height="130" as="geometry"/>
+      </mxCell>
+      <mxCell id="17" value="&lt;b&gt;Thermostat&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;fillColor=#AEC6CF;strokeColor=#888888;" vertex="1" parent="16">
+        <mxGeometry y="0" width="240" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="18" value="ident: String" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="16">
+        <mxGeometry y="30" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="19" value="zone: Room" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="16">
+        <mxGeometry y="50" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="20" value="R_linked: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="16">
+        <mxGeometry y="70" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="21" value="(zone.temp &gt;= 0 or zone.temp &lt;= 100)" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="16">
+        <mxGeometry y="90" width="240" height="40" as="geometry"/>
+      </mxCell>
+      <mxCell id="22" style="umlClass;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#AEC6CF;" vertex="1" parent="1">
+        <mxGeometry x="60" y="330" width="240" height="110" as="geometry"/>
+      </mxCell>
+      <mxCell id="23" value="&lt;b&gt;OccupancySensor&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;fillColor=#AEC6CF;strokeColor=#888888;" vertex="1" parent="22">
+        <mxGeometry y="0" width="240" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="24" value="ident: String" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="22">
+        <mxGeometry y="30" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="25" value="locatedIn: Room" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="22">
+        <mxGeometry y="50" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="26" value="R_valid: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="22">
+        <mxGeometry y="70" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="27" value="(locatedIn.area &gt; 0)" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="22">
+        <mxGeometry y="90" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="28" style="umlClass;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#AEC6CF;" vertex="1" parent="1">
+        <mxGeometry x="380" y="330" width="240" height="190" as="geometry"/>
+      </mxCell>
+      <mxCell id="29" value="&lt;b&gt;Controller&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;fillColor=#AEC6CF;strokeColor=#888888;" vertex="1" parent="28">
+        <mxGeometry y="0" width="240" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="30" value="ident: String" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="28">
+        <mxGeometry y="30" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="31" value="room: Room" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="28">
+        <mxGeometry y="50" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="32" value="tstat: Thermostat" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="28">
+        <mxGeometry y="70" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="33" value="hvac: HVAC" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="28">
+        <mxGeometry y="90" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="34" value="occ: OccupancySensor" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="28">
+        <mxGeometry y="110" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="35" value="R_logic: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="28">
+        <mxGeometry y="130" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="36" value="(occ.ident == occ.ident and hvac.supplyTemp &gt;= 12 and room.temp &lt;= 26)" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="28">
+        <mxGeometry y="150" width="240" height="40" as="geometry"/>
+      </mxCell>
+      <mxCell id="37" style="umlClass;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#AEC6CF;" vertex="1" parent="1">
+        <mxGeometry x="700" y="330" width="240" height="190" as="geometry"/>
+      </mxCell>
+      <mxCell id="38" value="&lt;b&gt;Building&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;fillColor=#AEC6CF;strokeColor=#888888;" vertex="1" parent="37">
+        <mxGeometry y="0" width="240" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="39" value="ident: String" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="37">
+        <mxGeometry y="30" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="40" value="ctrl: Controller" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="37">
+        <mxGeometry y="50" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="41" value="mainHVAC: HVAC" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="37">
+        <mxGeometry y="70" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="42" value="lobbyTstat: Thermostat" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="37">
+        <mxGeometry y="90" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="43" value="lobby: Room" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="37">
+        <mxGeometry y="110" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="44" value="R_env: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="37">
+        <mxGeometry y="130" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="45" value="(lobby.temp &gt;= 18 and lobby.temp &lt;= 26)" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="37">
+        <mxGeometry y="150" width="240" height="40" as="geometry"/>
+      </mxCell>
+      <mxCell id="46" value="&lt;i&gt;LOBBY: Room&lt;/i&gt;" style="shape=ellipse;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#FFF5BA;" vertex="1" parent="1">
+        <mxGeometry x="60" y="640" width="120" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="47" value="&lt;i&gt;OFFICE_101: Room&lt;/i&gt;" style="shape=ellipse;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#FFF5BA;" vertex="1" parent="1">
+        <mxGeometry x="260" y="640" width="120" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="48" value="&lt;i&gt;AHU1: HVAC&lt;/i&gt;" style="shape=ellipse;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#FFF5BA;" vertex="1" parent="1">
+        <mxGeometry x="460" y="640" width="120" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="49" value="&lt;i&gt;T_LOBBY: Thermostat&lt;/i&gt;" style="shape=ellipse;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#FFF5BA;" vertex="1" parent="1">
+        <mxGeometry x="60" y="710" width="120" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="50" value="&lt;i&gt;OCC_101: OccupancySensor&lt;/i&gt;" style="shape=ellipse;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#FFF5BA;" vertex="1" parent="1">
+        <mxGeometry x="260" y="710" width="120" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="51" value="&lt;i&gt;BMS1: Controller&lt;/i&gt;" style="shape=ellipse;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#FFF5BA;" vertex="1" parent="1">
+        <mxGeometry x="460" y="710" width="120" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="52" value="&lt;i&gt;HQ: Building&lt;/i&gt;" style="shape=ellipse;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#FFF5BA;" vertex="1" parent="1">
+        <mxGeometry x="60" y="780" width="120" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="53" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="9" target="2">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="54" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="16" target="2">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="55" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="22" target="2">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="56" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="28" target="2">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="57" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="28" target="16">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="58" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="28" target="9">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="59" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="28" target="22">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="60" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="37" target="28">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="61" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="37" target="9">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="62" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="37" target="16">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="63" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="37" target="2">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="64" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;strokeColor=#888888;" edge="1" parent="1" source="46" target="2">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="65" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;strokeColor=#888888;" edge="1" parent="1" source="47" target="2">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="66" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;strokeColor=#888888;" edge="1" parent="1" source="48" target="9">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="67" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;strokeColor=#888888;" edge="1" parent="1" source="49" target="16">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="68" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;strokeColor=#888888;" edge="1" parent="1" source="50" target="22">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="69" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;strokeColor=#888888;" edge="1" parent="1" source="51" target="28">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="70" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;strokeColor=#888888;" edge="1" parent="1" source="52" target="37">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+    </root></mxGraphModel>
+  </diagram>
+</mxfile>

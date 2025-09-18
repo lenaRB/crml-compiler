@@ -1,0 +1,57 @@
+model SmartBuilding is flatten {Units, FORM_L}
+
+union {
+  // ---- Domain classes ----
+  class Room is {
+    String ident;
+    Real area;
+    Real temp;
+    Requirement R_comfort is (temp >= 20 and temp <= 24);
+  };
+
+  class HVAC is {
+    String ident;
+    Real supplyTemp;
+    Room serves;            // association: HVAC -> Room
+    Requirement R_supplySafe is (supplyTemp >= 10 and supplyTemp <= 35);
+  };
+
+  class Thermostat is {
+    String ident;
+    Room zone;              // association: Thermostat -> Room
+    Requirement R_linked is (zone.temp >= 0 or zone.temp <= 100);
+  };
+
+  class OccupancySensor is {
+    String ident;
+    Room locatedIn;         // association: OccupancySensor -> Room
+    Requirement R_valid is (locatedIn.area > 0);
+  };
+
+  class Controller is {
+    String ident;
+    Room room;              // association: Controller -> Room
+    Thermostat tstat;       // association: Controller -> Thermostat
+    HVAC hvac;              // association: Controller -> HVAC
+    OccupancySensor occ;    // association: Controller -> OccupancySensor
+    Requirement R_logic is (occ.ident == occ.ident and hvac.supplyTemp >= 12 and room.temp <= 26);
+  };
+
+  class Building is {
+    String ident;
+    Controller ctrl;        // association: Building -> Controller
+    HVAC mainHVAC;          // association: Building -> HVAC
+    Thermostat lobbyTstat;  // association: Building -> Thermostat
+    Room lobby;             // association: Building -> Room
+    Requirement R_env is (lobby.temp >= 18 and lobby.temp <= 26);
+  };
+
+  // ---- Instances (top-level var_def) ----
+  Room LOBBY(ident = "LOBBY");
+  Room OFFICE_101(ident = "OFFICE_101");
+  HVAC AHU1(ident = "AHU1");
+  Thermostat T_LOBBY(ident = "T_LOBBY");
+  OccupancySensor OCC_101(ident = "OCC_101");
+  Controller BMS1(ident = "BMS1");
+  Building HQ(ident = "HQ");
+};

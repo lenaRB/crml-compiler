@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram id="d1758186754431" name="UML-ClassDiagram">
+    <mxGraphModel grid="1"><root>
+      <mxCell id="0"/>
+      <mxCell id="1" parent="0"/>
+      <mxCell id="2" style="umlClass;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#AEC6CF;" vertex="1" parent="1">
+        <mxGeometry x="60" y="60" width="240" height="130" as="geometry"/>
+      </mxCell>
+      <mxCell id="3" value="&lt;b&gt;Sensor&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;fillColor=#AEC6CF;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="0" width="240" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="4" value="ident: String" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="30" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="5" value="value: Real" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="50" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="6" value="healthy: Boolean" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="70" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="7" value="R_validRange: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="90" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="8" value="(value &gt;= 0 and value &lt;= 100)" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="110" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="9" style="umlClass;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#AEC6CF;" vertex="1" parent="1">
+        <mxGeometry x="380" y="60" width="240" height="210" as="geometry"/>
+      </mxCell>
+      <mxCell id="10" value="&lt;b&gt;Machine&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;fillColor=#AEC6CF;strokeColor=#888888;" vertex="1" parent="9">
+        <mxGeometry y="0" width="240" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="11" value="ident: String" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="9">
+        <mxGeometry y="30" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="12" value="temperature: Real" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="9">
+        <mxGeometry y="50" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="13" value="vibration: Real" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="9">
+        <mxGeometry y="70" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="14" value="tempSensor: Sensor" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="9">
+        <mxGeometry y="90" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="15" value="vibSensor: Sensor" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="9">
+        <mxGeometry y="110" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="16" value="R_overheat: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="9">
+        <mxGeometry y="130" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="17" value="(temperature &lt; 90)" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="9">
+        <mxGeometry y="150" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="18" value="R_vibration: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="9">
+        <mxGeometry y="170" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="19" value="(vibration &lt; 5)" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="9">
+        <mxGeometry y="190" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="20" style="umlClass;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#AEC6CF;" vertex="1" parent="1">
+        <mxGeometry x="700" y="60" width="240" height="150" as="geometry"/>
+      </mxCell>
+      <mxCell id="21" value="&lt;b&gt;Conveyor&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;fillColor=#AEC6CF;strokeColor=#888888;" vertex="1" parent="20">
+        <mxGeometry y="0" width="240" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="22" value="ident: String" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="20">
+        <mxGeometry y="30" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="23" value="upstream: Machine" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="20">
+        <mxGeometry y="50" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="24" value="downstream: Machine" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="20">
+        <mxGeometry y="70" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="25" value="R_flow: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="20">
+        <mxGeometry y="90" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="26" value="(upstream.temperature &lt; 85 and downstream.temperature &lt; 85)" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="20">
+        <mxGeometry y="110" width="240" height="40" as="geometry"/>
+      </mxCell>
+      <mxCell id="27" style="umlClass;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#AEC6CF;" vertex="1" parent="1">
+        <mxGeometry x="60" y="390" width="240" height="170" as="geometry"/>
+      </mxCell>
+      <mxCell id="28" value="&lt;b&gt;Controller&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;fillColor=#AEC6CF;strokeColor=#888888;" vertex="1" parent="27">
+        <mxGeometry y="0" width="240" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="29" value="ident: String" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="27">
+        <mxGeometry y="30" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="30" value="targetMachine: Machine" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="27">
+        <mxGeometry y="50" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="31" value="feedback: Sensor" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="27">
+        <mxGeometry y="70" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="32" value="line: Conveyor" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="27">
+        <mxGeometry y="90" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="33" value="R_safe: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="27">
+        <mxGeometry y="110" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="34" value="(feedback.value &lt; 80 and targetMachine.temperature &lt; 85)" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="27">
+        <mxGeometry y="130" width="240" height="40" as="geometry"/>
+      </mxCell>
+      <mxCell id="35" style="umlClass;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#AEC6CF;" vertex="1" parent="1">
+        <mxGeometry x="380" y="390" width="240" height="190" as="geometry"/>
+      </mxCell>
+      <mxCell id="36" value="&lt;b&gt;Line&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;fillColor=#AEC6CF;strokeColor=#888888;" vertex="1" parent="35">
+        <mxGeometry y="0" width="240" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="37" value="ident: String" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="35">
+        <mxGeometry y="30" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="38" value="m1: Machine" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="35">
+        <mxGeometry y="50" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="39" value="m2: Machine" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="35">
+        <mxGeometry y="70" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="40" value="belt: Conveyor" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="35">
+        <mxGeometry y="90" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="41" value="plc: Controller" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="35">
+        <mxGeometry y="110" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="42" value="R_balanced: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="35">
+        <mxGeometry y="130" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="43" value="(m1.temperature - m2.temperature &lt; 10)" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="35">
+        <mxGeometry y="150" width="240" height="40" as="geometry"/>
+      </mxCell>
+      <mxCell id="44" value="&lt;i&gt;S_TEMP: Sensor&lt;/i&gt;" style="shape=ellipse;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#FFF5BA;" vertex="1" parent="1">
+        <mxGeometry x="60" y="700" width="120" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="45" value="&lt;i&gt;S_VIB: Sensor&lt;/i&gt;" style="shape=ellipse;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#FFF5BA;" vertex="1" parent="1">
+        <mxGeometry x="260" y="700" width="120" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="46" value="&lt;i&gt;M1: Machine&lt;/i&gt;" style="shape=ellipse;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#FFF5BA;" vertex="1" parent="1">
+        <mxGeometry x="460" y="700" width="120" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="47" value="&lt;i&gt;M2: Machine&lt;/i&gt;" style="shape=ellipse;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#FFF5BA;" vertex="1" parent="1">
+        <mxGeometry x="60" y="770" width="120" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="48" value="&lt;i&gt;C_MAIN: Conveyor&lt;/i&gt;" style="shape=ellipse;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#FFF5BA;" vertex="1" parent="1">
+        <mxGeometry x="260" y="770" width="120" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="49" value="&lt;i&gt;CTRL_A: Controller&lt;/i&gt;" style="shape=ellipse;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#FFF5BA;" vertex="1" parent="1">
+        <mxGeometry x="460" y="770" width="120" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="50" value="&lt;i&gt;LINE_A: Line&lt;/i&gt;" style="shape=ellipse;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#FFF5BA;" vertex="1" parent="1">
+        <mxGeometry x="60" y="840" width="120" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="51" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="9" target="2">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="52" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="9" target="2">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="53" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="20" target="9">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="54" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="20" target="9">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="55" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="27" target="9">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="56" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="27" target="2">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="57" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="27" target="20">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="58" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="35" target="9">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="59" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="35" target="9">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="60" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="35" target="20">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="61" style="edgeStyle=orthogonalEdgeStyle;endArrow=diamond;endFill=1;strokeColor=#888888;" edge="1" parent="1" source="35" target="27">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="62" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;strokeColor=#888888;" edge="1" parent="1" source="44" target="2">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="63" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;strokeColor=#888888;" edge="1" parent="1" source="45" target="2">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="64" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;strokeColor=#888888;" edge="1" parent="1" source="46" target="9">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="65" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;strokeColor=#888888;" edge="1" parent="1" source="47" target="9">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="66" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;strokeColor=#888888;" edge="1" parent="1" source="48" target="20">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="67" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;strokeColor=#888888;" edge="1" parent="1" source="49" target="27">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+      <mxCell id="68" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;dashed=1;strokeColor=#888888;" edge="1" parent="1" source="50" target="35">
+        <mxGeometry relative="1" as="geometry"/>
+      </mxCell>
+    </root></mxGraphModel>
+  </diagram>
+</mxfile>

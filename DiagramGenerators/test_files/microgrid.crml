@@ -1,0 +1,113 @@
+
+// ===================================================================
+/* CRML Example #2 — Microgrid
+   Demonstrates: many classes, events, evaluate time at <event>,
+   when/then, conditional requirements, constructor lists. */
+// ===================================================================
+
+model Microgrid is
+  flatten {Units, FORM_L}
+union {
+
+  // ---- Components ------------------------------------------------------
+
+  class Generator is {
+    String  ident;
+    Real    power is external;     // kW
+    Boolean online is external;
+    Event   start;
+    Event   stop;
+
+    // Startup should occur within 5s of start command
+    Requirement R_StartupDelay is (evaluate time at start) '<=' 5;
+
+    // When online, power must be non‑negative
+    Requirement R_PowerValid is when online then (power >= 0);
+  };
+
+  class Battery is {
+    String  ident;
+    Real    soc is external;       // state of charge 0..100
+    Real    chargeRate is external;
+    Event   chargeStart;
+    Event   chargeStop;
+
+    Requirement R_SoCBounds is (soc >= 0 'and' soc <= 100);
+
+    // If charging, rate should be positive; else non‑positive
+    Requirement R_RateSign is
+      if (chargeRate > 0) then (soc < 100) else true;
+  };
+
+  class Load is {
+    String  ident;
+    Real    demand is external;    // kW
+    Event   shed;
+
+    Requirement R_PeakLimit is (demand < 2000);
+  };
+
+  class Inverter is {
+    String  ident;
+    Boolean synced is external;
+    Event   sync;
+    Event   trip;
+
+    Requirement R_SyncSetsFlag is when sync then synced;
+
+    // Trips should be rare during sync period
+    Requirement R_TripsLimited is
+      'during' synced 'check count' (trip 'becomes true') '<=' 1;
+  };
+
+  class Controller is {
+    String  ident;
+    Boolean safeMode is external;
+    Event   tick1Hz;
+
+    Operator [Boolean isSupervising] = true;
+    Requirement R_Tick is tick tick1Hz;
+  };
+
+  // System wraps all devices
+  class System is {
+    parameter Integer NGen, NBatt, NLoad, NInv;
+
+    Generator {} generators;
+    Battery   {} batteries;
+    Load      {} loads;
+    Inverter  {} inverters;
+    Controller ctrl;
+
+    Boolean islanded is external;
+    Boolean inOperation;
+
+    // If islanded, at least one generator must be online
+    Requirement R_IslandSupply is
+      when islanded then (sum (proj generators online)) '>=' 1;
+
+    // Evaluate times at events for monitoring
+    Requirement R_FirstGenFast is
+      (evaluate time at generators.start) '<=' 10;
+
+    // During operation, inverter trips must be limited
+    Requirement R_InvTrips is
+      'during' inOperation
+      'check count' (inverters.trip 'becomes true') '<=' 2;
+  };
+
+  // ---- Instantiate an example microgrid -------------------------------
+
+  System mg is System{
+    Generator (ident = "G1"),
+    Generator (ident = "G2"),
+    Battery   (ident = "B1"),
+    Battery   (ident = "B2"),
+    Load      (ident = "L1"),
+    Load      (ident = "L2"),
+    Inverter  (ident = "I1"),
+    Inverter  (ident = "I2"),
+    Controller(ident = "CTRL")
+  };
+
+};

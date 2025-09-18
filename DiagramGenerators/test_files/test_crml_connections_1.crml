@@ -1,0 +1,54 @@
+model ManufacturingPlant is flatten {Units, FORM_L}
+
+union {
+  // ---- Domain classes ----
+  class Sensor is {
+    String ident;
+    Real value;
+    Boolean healthy is external;
+    Requirement R_validRange is (value >= 0 and value <= 100);
+  };
+
+  class Machine is {
+    String ident;
+    Real temperature;
+    Real vibration;
+    Sensor tempSensor;        // association: Machine -> Sensor
+    Sensor vibSensor;         // association: Machine -> Sensor
+    Requirement R_overheat is (temperature < 90);
+    Requirement R_vibration is (vibration < 5);
+  };
+
+  class Conveyor is {
+    String ident;
+    Machine upstream;         // association: Conveyor -> Machine
+    Machine downstream;       // association: Conveyor -> Machine
+    Requirement R_flow is (upstream.temperature < 85 and downstream.temperature < 85);
+  };
+
+  class Controller is {
+    String ident;
+    Machine targetMachine;    // association: Controller -> Machine
+    Sensor feedback;          // association: Controller -> Sensor
+    Conveyor line;            // association: Controller -> Conveyor
+    Requirement R_safe is (feedback.value < 80 and targetMachine.temperature < 85);
+  };
+
+  class Line is {
+    String ident;
+    Machine m1;               // association: Line -> Machine
+    Machine m2;               // association: Line -> Machine
+    Conveyor belt;            // association: Line -> Conveyor
+    Controller plc;           // association: Line -> Controller
+    Requirement R_balanced is (m1.temperature - m2.temperature < 10);
+  };
+
+  // ---- Instances (top-level var_def) ----
+  Sensor S_TEMP(ident = "S_TEMP");
+  Sensor S_VIB(ident = "S_VIB");
+  Machine M1(ident = "M1");
+  Machine M2(ident = "M2");
+  Conveyor C_MAIN(ident = "C_MAIN");
+  Controller CTRL_A(ident = "CTRL_A");
+  Line LINE_A(ident = "LINE_A");
+};

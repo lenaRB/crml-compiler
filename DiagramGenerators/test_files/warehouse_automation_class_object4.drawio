@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram id="d1758130975447" name="UML-ClassDiagram">
+    <mxGraphModel grid="1"><root>
+      <mxCell id="0"/>
+      <mxCell id="1" parent="0"/>
+      <mxCell id="2" style="umlClass;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#AEC6CF;" vertex="1" parent="1">
+        <mxGeometry x="60" y="60" width="240" height="230" as="geometry"/>
+      </mxCell>
+      <mxCell id="3" value="&lt;b&gt;Conveyor&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;fillColor=#AEC6CF;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="0" width="240" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="4" value="ident: String" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="30" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="5" value="speed: Real" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="50" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="6" value="running: Boolean" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="70" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="7" value="start: Event" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="90" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="8" value="stop: Event" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="110" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="9" value="R_SpeedPositive: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="130" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="10" value="when running then (speed &gt; 0)" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="150" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="11" value="R_StopCount: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="170" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="12" value="'during' running
+      'check count' (stop 'becomes true') '&lt;=' 1" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="2">
+        <mxGeometry y="190" width="240" height="40" as="geometry"/>
+      </mxCell>
+      <mxCell id="13" style="umlClass;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#AEC6CF;" vertex="1" parent="1">
+        <mxGeometry x="380" y="60" width="240" height="130" as="geometry"/>
+      </mxCell>
+      <mxCell id="14" value="&lt;b&gt;Sensor&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;fillColor=#AEC6CF;strokeColor=#888888;" vertex="1" parent="13">
+        <mxGeometry y="0" width="240" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="15" value="ident: String" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="13">
+        <mxGeometry y="30" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="16" value="value: Real" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="13">
+        <mxGeometry y="50" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="17" value="sample: Event" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="13">
+        <mxGeometry y="70" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="18" value="R_WithinRange: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="13">
+        <mxGeometry y="90" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="19" value="(value &gt;= 0 'and' value &lt;= 100)" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="13">
+        <mxGeometry y="110" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="20" style="umlClass;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#AEC6CF;" vertex="1" parent="1">
+        <mxGeometry x="700" y="60" width="240" height="230" as="geometry"/>
+      </mxCell>
+      <mxCell id="21" value="&lt;b&gt;TemperatureSensor&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;fillColor=#AEC6CF;strokeColor=#888888;" vertex="1" parent="20">
+        <mxGeometry y="0" width="240" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="22" value="ident: String" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="20">
+        <mxGeometry y="30" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="23" value="temperature: Real" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="20">
+        <mxGeometry y="50" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="24" value="overheated: Boolean" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="20">
+        <mxGeometry y="70" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="25" value="overheat: Event" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="20">
+        <mxGeometry y="90" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="26" value="R_OverheatFires: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="20">
+        <mxGeometry y="110" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="27" value="when (temperature &gt; 80) then overheat" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="20">
+        <mxGeometry y="130" width="240" height="40" as="geometry"/>
+      </mxCell>
+      <mxCell id="28" value="R_OverheatMeaning: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="20">
+        <mxGeometry y="170" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="29" value="if overheated then (temperature &gt; 80) else true" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="20">
+        <mxGeometry y="190" width="240" height="40" as="geometry"/>
+      </mxCell>
+      <mxCell id="30" style="umlClass;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#AEC6CF;" vertex="1" parent="1">
+        <mxGeometry x="60" y="410" width="240" height="250" as="geometry"/>
+      </mxCell>
+      <mxCell id="31" value="&lt;b&gt;Robot&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;fillColor=#AEC6CF;strokeColor=#888888;" vertex="1" parent="30">
+        <mxGeometry y="0" width="240" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="32" value="ident: String" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="30">
+        <mxGeometry y="30" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="33" value="hasFault: Boolean" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="30">
+        <mxGeometry y="50" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="34" value="enabled: Boolean" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="30">
+        <mxGeometry y="70" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="35" value="start: Event" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="30">
+        <mxGeometry y="90" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="36" value="stop: Event" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="30">
+        <mxGeometry y="110" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="37" value="fault: Event" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="30">
+        <mxGeometry y="130" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="38" value="R_StartOnlyWhenEnabled: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="30">
+        <mxGeometry y="150" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="39" value="when start then enabled" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="30">
+        <mxGeometry y="170" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="40" value="R_FaultsLimited: Requirement" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#FFDAC1;strokeColor=#888888;" vertex="1" parent="30">
+        <mxGeometry y="190" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="41" value="'during' start
+      'check count' (fault 'becomes true') '&lt;=' 2" style="text;html=1;whiteSpace=wrap;verticalAlign=top;align=left;fillColor=#FFE4B5;strokeColor=#888888;" vertex="1" parent="30">
+        <mxGeometry y="210" width="240" height="40" as="geometry"/>
+      </mxCell>
+      <mxCell id="42" style="umlClass;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#AEC6CF;" vertex="1" parent="1">
+        <mxGeometry x="380" y="410" width="240" height="110" as="geometry"/>
+      </mxCell>
+      <mxCell id="43" value="&lt;b&gt;Controller&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=center;fillColor=#AEC6CF;strokeColor=#888888;" vertex="1" parent="42">
+        <mxGeometry y="0" width="240" height="30" as="geometry"/>
+      </mxCell>
+      <mxCell id="44" value="ident: String" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="42">
+        <mxGeometry y="30" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="45" value="hasFault: Boolean" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="42">
+        <mxGeometry y="50" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="46" value="clock: Event" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#E8DAEF;strokeColor=#888888;" vertex="1" parent="42">
+        <mxGeometry y="70" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="47" value="= not" style="text;html=1;whiteSpace=wrap;verticalAlign=middle;align=left;fillColor=#F4C2C2;strokeColor=#888888;" vertex="1" parent="42">
+        <mxGeometry y="90" width="240" height="20" as="geometry"/>
+      </mxCell>
+      <mxCell id="48" value="&lt;i&gt;R_Tick: Requirement&lt;/i&gt;" style="shape=ellipse;html=1;whiteSpace=wrap;rounded=1;strokeColor=#888888;fillColor=#FFF5BA;" vertex="1" parent="1">
+        <mxGeometry x="60" y="780" width="120" height="30" as="geometry"/>
+      </mxCell>
+    </root></mxGraphModel>
+  </diagram>
+</mxfile>

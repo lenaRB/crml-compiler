@@ -1,0 +1,118 @@
+
+// ===================================================================
+// CRML Example #1 — WarehouseAutomation
+// Demonstrates: multi‑class model, parameters, events, requirements,
+// constructor lists, when/then, count checks, boolean logic, and ticks.
+// ===================================================================
+
+model WarehouseAutomation is
+  flatten {Units, FORM_L}
+union {
+
+  // ---- Basic components ------------------------------------------------
+
+  class Conveyor is {
+    String  ident;
+    Real    speed;                 // m/s
+    Boolean running is external;
+    Event   start;
+    Event   stop;
+
+    // Safety: if running then speed must be positive
+    Requirement R_SpeedPositive is when running then (speed > 0);
+
+    // A conveyor should not stop more than once while running
+    Requirement R_StopCount is
+      'during' running
+      'check count' (stop 'becomes true') '<=' 1;
+  };
+
+  class Sensor is {
+    String  ident;
+    Real    value is external;
+    Event   sample;
+    Requirement R_WithinRange is (value >= 0 'and' value <= 100);
+  };
+
+  class TemperatureSensor is {
+    String  ident;
+    Real    temperature is external;
+    Boolean overheated;
+    Event   overheat;            // fired on high temperature
+
+    Requirement R_OverheatFires is
+      when (temperature > 80) then overheat;
+
+    // If overheated, temperature must be strictly above threshold
+    Requirement R_OverheatMeaning is
+      if overheated then (temperature > 80) else true;
+  };
+
+  class Robot is {
+    String  ident;
+    Boolean hasFault is external;
+    Boolean enabled is external;
+    Event   start;
+    Event   stop;
+    Event   fault;
+
+    Requirement R_StartOnlyWhenEnabled is
+      when start then enabled;
+
+    Requirement R_FaultsLimited is
+      'during' start
+      'check count' (fault 'becomes true') '<=' 2;
+  };
+
+  class Controller is {
+    String  ident;
+    Boolean hasFault is external;
+    Event   clock;
+
+    // Simple operator example (appears as a method in the diagram)
+    Operator [Boolean isHealthy] = not hasFault;
+
+    // A heartbeat tick source
+    Requirement R_Tick is tick clock;
+  };
+
+  // ---- System composition ----------------------------------------------
+
+  class System is {
+    // Static parameters
+    parameter Integer NConveyors, NSensors, NRobots;
+
+    // Component aggregations
+    Conveyor {}         conveyors;
+    TemperatureSensor {} tempSensors;
+    Sensor   {}         sensors;
+    Robot    {}         robots;
+    Controller          ctrl;
+
+    // Operating state
+    Boolean inOperation;
+
+    // At least one robot must start during system operation
+    Requirement R_RobotStarted is
+      'during' inOperation
+      'check count' (robots.start 'becomes true') '>=' 1;
+
+    // If any robot has a fault, system must not be in operation
+    Requirement R_NoOpOnFault is
+      not (sum (proj robots hasFault) ) 'or' not inOperation;
+  };
+
+  // ---- Top‑level instances ---------------------------------------------
+
+  System sys is System{
+    Conveyor   (ident = "C1"),
+    Conveyor   (ident = "C2"),
+    Robot      (ident = "R1"),
+    Robot      (ident = "R2"),
+    TemperatureSensor (ident = "T1"),
+    TemperatureSensor (ident = "T2"),
+    Sensor     (ident = "S1"),
+    Controller (ident = "PLC1")
+  };
+
+};
