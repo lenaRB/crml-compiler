@@ -1,6 +1,6 @@
 # CRML Class-Object Diagram Generator
 
-This project parses CRML files (with the latest CRML grammar) using ANTLR-generated JavaScript parsers and produces **class-object diagrams** in Draw.io (`.drawio`) format.
+This project parses CRML files (with the latest CRML grammar) using ANTLR-generated JavaScript parsers and produces **class-object/instance diagrams** in Draw.io (`.drawio`) format.
 
 ## Prerequisites
 
@@ -31,18 +31,18 @@ This project parses CRML files (with the latest CRML grammar) using ANTLR-genera
 The canonical diagram generator for the current grammar is:
 
 ```bash
-node instanceDiagramGeneratorLatest.js <path-to-crml-file>
+node instanceDiagramGenerator.js <path-to-crml-file>
 ```
 
 **Example:**
 ```bash
-node instanceDiagramGeneratorLatest.js test_files_latest_crml/pumping3.crml
+node instanceDiagramGenerator.js test_files/pumping3.crml
 ```
 
 This will produce a Draw.io class-object diagram file alongside the input, e.g.:
 
 ```
-test_files_latest_crml/pumping3_class_object2.drawio
+test_files_latest_crml/pumping3_class_object4.drawio
 ```
 
 ## Viewing the Diagram
@@ -56,8 +56,8 @@ To view and edit the generated `.drawio` file:
 ## Project Structure & Caveats
 
 - The project is **JavaScript-based**. Everything depends on having the proper Node environment and required packages (e.g., `antlr4`).
-- Besides `instanceDiagramGeneratorLatest.js`, the repository contains several other folders and older diagram generators targeting previous versions of the grammar. Those are **likely broken** with the current grammar and may emit errors if used as-is.
-- Only `instanceDiagramGeneratorLatest.js` is expected to work out of the box with the **latest CRML grammar-compliant files**. Other generators are kept for reference and will be updated in the future.
+- Besides `instanceDiagramGeneratorLatest.js`, the repository contains several other folders and older diagram generators targeting previous versions of the grammar. Those are **likely broken** with the current grammar and may emit errors if used as-is, so kindly avoid the files and folders starting with the prefix **old_**.
+- Only `instanceDiagramGenerator.js` is expected to work out of the box with the **latest CRML grammar-compliant files**. Other generators are kept for reference and will be updated in the near future.
 
 ## Troubleshooting
 
