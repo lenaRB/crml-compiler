@@ -36,5 +36,5 @@ The documentation for CRML can be found [HERE](https://github.com/lenaRB/crml-co
 ## Diagram Generator
 
 In the `Diagram generator` folder, you will find the CRML code diagram generator along with its supporting files.  
-For detailed instructions on how to use it, please refer to the [`instruction.md`](Diagram%20generator/instruction.md) file inside the folder.
+For detailed instructions on how to use it, please refer to the `instruction.md` file inside the folder.
 
