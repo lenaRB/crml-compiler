@@ -5,7 +5,7 @@
 plugins {
     id 'application'
  	id 'antlr'
-    id 'com.github.johnrengelman.shadow' version "8.1.1" 
+    id 'com.gradleup.shadow' version "9.2.0" 
     id 'java'
  }
 
@@ -78,7 +78,7 @@ test {
 	 testLogging {
 		events "passed", "skipped", "failed"
 	 } 
-	test.ignoreFailures true
+	test.ignoreFailures = true
 }
 
 jar {
