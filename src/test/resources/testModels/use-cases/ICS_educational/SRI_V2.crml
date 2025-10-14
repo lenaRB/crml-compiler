@@ -1,0 +1,194 @@
+// SRI model
+model SRI is {
+
+   // ETL library
+
+	// Operators on Boolean
+	// Logical disjunction
+	Template b1 'or' b2 = not (not b1 and not b2);
+
+	// Exclusive logical disjunction
+	Template b1 'xor' b2 = (b1 'or' b2) and not (b1 and b2);
+  
+	// Logical inference
+	Template b1 'implies' b2 = not b1 'or' b2;
+
+	// Operators on clocks
+	// Filter clock ticks inside a time period
+	Operator [ Clock ] Clock C 'inside' Period P 
+		= C filter ((tick C >= P start) and (tick C <= P end));
+  
+	// Count the occurrences of events inside a time period
+	Operator [ Integer ] 'count' Clock C 'inside' Period P = card (C 'inside' P);
+  
+	// Operators on events
+	// Events generated when a Boolean becomes true
+	Operator [ Clock ] Boolean b 'becomes true' = new Clock b;
+  
+	// Events generated when a Boolean becomes false
+	Operator [ Clock] Boolean b 'becomes false' = not b 'becomes true';
+
+	// Events generated when a Boolean becomes true inside a time period
+	Operator [ Clock] Boolean b 'becomes true inside' Period P 
+		= (b 'becomes true') 'inside' P;
+
+	// Events generated when a Boolean becomes false inside a time period
+	Operator [ Clock] Boolean b 'becomes false inside' Period P 
+		= (b 'becomes false') 'inside' P; 
+
+	// Decide
+	// Operator 'decide' is 
+	Operator [ Boolean ] 'decide' Boolean phi 'over' Period P 
+        = phi 'or' new Boolean (P end);
+
+	// Evaluate
+	Operator [ Boolean ] 'evaluate' Boolean phi 'over' Period P 
+		= integrate (('decide' phi 'over' P) * phi) on P;
+
+	// Operators for the evaluation of requirements
+	// Check
+	Operator [ Boolean ] 'check' Boolean phi 'over' Periods P 
+		= and ('evaluate' phi 'over' P); // not implemented yet?
+    
+	Category increasing_int = { (>, >), (>=, >=), (<, >=), (<=, >), (==, >), (<>, >) };
+	Category increasing_real = { (>, >), (>=, >=), (<, >=), (<=, >) };
+	Operator [ Boolean ]  Integer x '>_int' Integer n = apply increasing_int on ( x > n );
+	Operator [ Boolean ]  Integer x '>=_int' Integer n = apply increasing_int on ( x >= n );
+	Operator [ Boolean ]  Integer x '<_int' Integer n = apply increasing_int on ( x < n );
+	Operator [ Boolean ]  Integer x '<=_int' Integer n = apply increasing_int on ( x <= n );
+	Operator [ Boolean ]  Integer x '==_int' Integer n = apply increasing_int on ( x == n );
+	Operator [ Boolean ]  Integer x '<>_int' Integer n = apply increasing_int on ( x <> n );
+	Operator [ Boolean ]  Real x '>_real' Real d = apply increasing_real on ( x > d );
+	Operator [ Boolean ]  Real x '>=_real' Real d = apply increasing_real on ( x >= d );
+	Operator [ Boolean ]  Real x '<_real' Real d = apply increasing_real on ( x < d );
+	Operator [ Boolean ]  Real x '<=_real' Real d = apply increasing_real on ( x <= d );
+
+
+    Operator [ Boolean ] 'id' Boolean b = b;
+	Operator [ Boolean ] 'cte_false' Boolean b = false;
+	Operator [ Boolean ] 'cte_true' Boolean b = true;
+
+    Category varying1 = { ('id', 'cte_false') };
+    Category varying2 = { ('id', 'cte_true') };
+    Operator [ Boolean ] 'set to false' Boolean b = apply varying1 on ( 'id' b ); 
+    Operator [ Boolean ] 'set to true' Boolean b = apply varying2 on ( 'id' b ); 
+
+	///////////////////////////////////////////////////////////////////////////////
+	// FORM-L library
+    // include "ETL.crml"
+
+	// Operators to define time periods
+	// From events occur
+	Operator [ Periods ] 'from' Clock ev = new Periods [ ev, new Clock false ]; 
+	
+	// After events occur
+	Operator [ Periods ] 'after' Clock ev = new Periods ] ev, new Clock false ]; 
+	
+	// Before events occur
+	Operator [ Periods ] 'before' Clock ev = new Periods [ new Clock false, ev [; 
+	
+	// Until events occur
+	Operator [ Periods ] 'until' Clock ev = new Periods [ new Clock false, ev ]; 
+	
+	// While a Boolean is true
+	Operator [ Periods ] 'during' Boolean b = new Periods [ new Clock b, new Clock not b ]; 
+	
+	// After events occur and before events occur
+	Operator [ Periods ] 'after' Clock ev1 'before' Clock ev2 = new Periods ] ev1, ev2 [; 
+	
+	// After events occur and until events occur
+	Operator [ Periods ] 'after' Clock ev1 'until' Clock ev2 = new Periods ] ev1, ev2 ]; 
+	
+	// After events occur and for an elapsed time
+	Operator [ Periods ] 'after' Clock ev 'for' Real d = new Periods ] ev, ev + d ]; 
+	
+	// After events occur and within an elapsed time
+	Operator [ Periods ] 'after' Clock ev 'within' Real d = new Periods ] ev, ev + d [; 
+	
+	// From events occur and before events occur
+	Operator [ Periods ] 'from' Clock ev1 'before' Clock ev2 = new Periods [ ev1, ev2 [; 
+	
+	// From events occur and until events occur
+	Operator [ Periods ] 'from' Clock ev1 'until' Clock ev2 = new Periods [ ev1, ev2 ]; 
+	
+	// From events occur and for an elapsed time
+	Operator [ Periods ] 'from' Clock ev 'for' Real d = new Periods [ ev, ev + d ]; 
+	
+	// From events occur and within an elapsed time
+	Operator [ Periods ] 'from' Clock ev 'within' Real d = new Periods [ ev, ev + d [; 
+	
+	// When events occurs
+	Operator [ Periods ] 'when' Clock ev = new Periods [ ev, ev ];
+
+
+	// Operators for the evaluation of requirements
+	
+	// Checking that a requirement is satisfied at the end of a time period
+	Operator [ Boolean ] Periods P 'check at end' Boolean b 
+        = 'check' ('set to false' b) 'over' P;
+	
+	// Checking that a requirement is satisfied at any time instant of a time period
+	Operator [ Boolean ] Periods P 'check anytime' Boolean b 
+        = 'check' ('set to true' b) 'over' P;
+		
+    // Following operators cannot be implemented because "count inside" is implemented only on period and not periods (which would have no meaning) !
+  
+	// Checking that the number of event occurrences at the end of a time period is lower or higher than a threshold
+	//Operator [ Boolean ] Periods P 'check count' Clock E '<' Integer n 
+	//	= 'check' (('count' E 'inside' P) '<_int' n) 'over' P;
+	//Operator [ Boolean ] Periods P 'check count' Clock E '<=' Integer n 
+	//	= 'check'(('count' E 'inside' P) '<=_int' n) 'over' P;
+	//Operator [ Boolean ] Periods P 'check count' Clock E '>' Integer n 
+	//	= 'check'(('count' E 'inside' P) '>_int' n) 'over' P;
+	//Operator [ Boolean ] Periods P 'check count' Clock E '>=' Integer n 
+	//	= 'check'(('count' E 'inside' P) '>=_int' n) 'over' P;
+	//Operator [ Boolean ] Periods P 'check count' Clock E '==' Integer n 
+	//	= 'check'(('count' E 'inside' P) '==_int' n) 'over' P;
+	//Operator [ Boolean ] Periods P 'check count' Clock E '<>' Integer n 
+	//	= 'check'(('count' E 'inside' P) '<>_int' n) 'over' P;
+    
+	// Ensuring that a requirement is satisfied all along a time period
+	//Operator [ Boolean ] Periods P 'ensure' Boolean b 
+	//	= (P 'check count' (b 'becomes true') '==' 0) and (P 'check anytime' b);
+
+
+    // Following operators cannot been implemented because "duration on" is not implemented yet in the compiler.
+    
+	// Checking that the duration of a condition at the end of a time period is lower or higher than a threshold 
+	//Operator [ Boolean ] Periods P 'check duration' Boolean b '<' Real d 
+	//	= 'check' (('duration' b 'on' P) '<_real' d) 'over' P;
+	//Operator [ Boolean ] Periods P 'check duration' Boolean b '<=' Real d 
+	//	= 'check' (('duration' b 'on' P) '<=_real' d) 'over' P;
+	//Operator [ Boolean ] Periods P 'check duration' Boolean b '>' Real d 
+	//	= 'check' (('duration' b 'on' P) '>_real' d) 'over' P;
+	//Operator [ Boolean ] Periods P 'check duration' Boolean b '>=' Real d 
+	//	= 'check' (('duration' b 'on' P) '>=_real' d) 'over' P;
+	
+	///////////////////////////////////////////////////////////////////////////////
+	// Finally, the SRI model
+	
+	// Always ??? Not sure operator without parameter is admitted.
+	Operator [ Periods ] 'always' = new Periods [ new Clock false, new Clock false ]; 
+
+	// Temperature requirement	
+    Real T is external;
+    Boolean T_in_range is ((T >= 16) and (T <= 30));
+    Boolean R1_T is ('always') 'ensure' T_in_range ;
+    Boolean R2_T is ('after' (new Clock (not R1_T)) 'for' 60.0) 'check at end' T_in_range ;
+    
+    	// speed requirements
+    Real v is external;
+    Boolean v_too_high is (v > 6.0) ; // m/s
+    Clock v_too_high_clock is (new Clock v_too_high) ;
+    Boolean R1_v is ('from' v_too_high_clock 'for' 3600.0) 'check duration' v_too_high '<=_real' 10.0 ;
+    Boolean R2_v is ('from' v_too_high_clock 'for' 3600.0) 'check count' v_too_high_clock '<=_int' 2 ;
+    Boolean R_v is R1_v and R2_v ;
+    
+    	// flow requirements
+    	Real f is external ;
+    	Boolean pump_in_service is external ;
+    	Boolean f_over_fmin is (f >= 700) ; // t/h
+    	Boolean R_f is ('during' pump_in_service) 'ensure' f_over_fmin ;
+    
+
+};
