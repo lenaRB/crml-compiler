@@ -1,0 +1,68 @@
+within cooling_system.Verification;
+
+model Reqs_sri_CRML
+  Modelica.Blocks.Interfaces.RealInput T annotation(
+    Placement(transformation(origin = {-160, -140}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -100}, extent = {{-20, -20}, {20, 20}})));
+  CRML.ETL.Connectors.Boolean4Output R_speed_all annotation(
+    Placement(transformation(origin = {140, -20}, extent = {{100, 40}, {120, 60}}), iconTransformation(extent = {{100, 40}, {120, 60}})));
+  CRML.ETL.Connectors.Boolean4Output R_flow_all annotation(
+    Placement(transformation(origin = {140, -48}, extent = {{100, 8}, {120, 28}}), iconTransformation(origin = {0, 54}, extent = {{100, -54}, {120, -34}})));
+  outer CRML.TimeLocators.Continuous.Master master annotation(
+    Placement(transformation(origin = {70, 76}, extent = {{-10, -10}, {10, 10}})));
+  CRML.ETL.Connectors.Boolean4Output R_T annotation(
+    Placement(transformation(origin = {140, -148}, extent = {{100, 8}, {120, 28}}), iconTransformation(origin = {0, -12}, extent = {{100, -54}, {120, -34}})));
+  Verification.Requirements.Req_speed_all_CRML req_speed_all_CRML annotation(
+    Placement(transformation(origin = {-172, -22}, extent = {{212, 42}, {232, 62}})));
+  Verification.Requirements.Req_flow_all_CRML req_flow_all_CRML annotation(
+    Placement(transformation(origin = {-174, 6}, extent = {{214, -46}, {234, -26}})));
+  Verification.Requirements.Req_Tsri_CRML req_Tsri_CRML annotation(
+    Placement(transformation(origin = {-170, 20}, extent = {{210, -158}, {230, -138}})));
+  Modelica.Blocks.Interfaces.RealInput v1 annotation(
+    Placement(transformation(origin = {-160, 60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 100}, extent = {{-20, -20}, {20, 20}})));
+  Modelica.Blocks.Interfaces.RealInput v2 annotation(
+    Placement(transformation(origin = {-160, 40}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}})));
+  Modelica.Blocks.Interfaces.RealInput flow1 annotation(
+    Placement(transformation(origin = {-160, -10}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 20}, extent = {{-20, -20}, {20, 20}})));
+  Modelica.Blocks.Interfaces.RealInput flow2 annotation(
+    Placement(transformation(origin = {-160, -60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}})));
+  Modelica.Blocks.Interfaces.RealInput flow3 annotation(
+    Placement(transformation(origin = {-160, -110}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}})));
+  Modelica.Blocks.Interfaces.BooleanInput pump_in_service1 annotation(
+    Placement(transformation(origin = {-160, 10}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}})));
+  Modelica.Blocks.Interfaces.BooleanInput pump_in_service2 annotation(
+    Placement(transformation(origin = {-160, -40}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}})));
+  Modelica.Blocks.Interfaces.BooleanInput pump_in_service3 annotation(
+    Placement(transformation(origin = {-160, -90}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}})));
+equation
+  connect(R_flow_all, R_flow_all) annotation(
+    Line(points = {{250, -30}, {250, -30}}, color = {162, 29, 33}));
+  connect(req_speed_all_CRML.v1, v1) annotation(
+    Line(points = {{38, 34}, {-100, 34}, {-100, 60}, {-160, 60}}, color = {0, 0, 127}));
+  connect(req_speed_all_CRML.v2, v2) annotation(
+    Line(points = {{38, 26}, {-61, 26}, {-61, 40}, {-160, 40}}, color = {0, 0, 127}));
+  connect(req_Tsri_CRML.T, T) annotation(
+    Line(points = {{41, -130}, {-59.5, -130}, {-59.5, -140}, {-160, -140}}, color = {0, 0, 127}));
+  connect(req_flow_all_CRML.pump_in_service_1, pump_in_service1) annotation(
+    Line(points = {{38, -22}, {-60, -22}, {-60, 10}, {-160, 10}}, color = {255, 0, 255}));
+  connect(req_flow_all_CRML.flow1, flow1) annotation(
+    Line(points = {{38, -26}, {-78, -26}, {-78, -10}, {-160, -10}}, color = {0, 0, 127}));
+  connect(req_flow_all_CRML.pump_in_service_2, pump_in_service2) annotation(
+    Line(points = {{38, -30}, {-60, -30}, {-60, -40}, {-160, -40}}, color = {255, 0, 255}));
+  connect(req_flow_all_CRML.flow3, flow2) annotation(
+    Line(points = {{38, -34}, {-54, -34}, {-54, -56}, {-160, -56}, {-160, -60}}, color = {0, 0, 127}));
+  connect(req_flow_all_CRML.pump_in_service_3, pump_in_service3) annotation(
+    Line(points = {{38, -38}, {-40, -38}, {-40, -90}, {-160, -90}}, color = {255, 0, 255}));
+  connect(req_flow_all_CRML.flow2, flow3) annotation(
+    Line(points = {{38, -42}, {-30, -42}, {-30, -110}, {-160, -110}}, color = {0, 0, 127}));
+  connect(req_speed_all_CRML.R_speed_all, R_speed_all) annotation(
+    Line(points = {{62, 30}, {250, 30}}, color = {162, 29, 33}));
+  connect(req_speed_all_CRML.R_speed_all, R_speed_all) annotation(
+    Line(points = {{62, 30}, {250, 30}}, color = {162, 29, 33}));
+  connect(req_flow_all_CRML.R_flow_all, R_flow_all) annotation(
+    Line(points = {{62, -30}, {250, -30}}, color = {162, 29, 33}));
+  connect(req_Tsri_CRML.R_T, R_T) annotation(
+    Line(points = {{58, -134}, {250, -134}, {250, -130}}, color = {162, 29, 33}));
+  annotation(
+    Icon(graphics = {Rectangle(fillColor = {128, 0, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-6, 124}, extent = {{-136, 30}, {136, -30}}, textString = "%name")}, coordinateSystem(extent = {{-140, 160}, {140, -100}})),
+    Diagram(coordinateSystem(extent = {{-180, 80}, {260, -160}})));
+end Reqs_sri_CRML;
