@@ -31,4 +31,4 @@ REM to clean call: project-clean.bat
 
 # CRML specification
 
-The documentation for CRML can be found [HERE](https://github.com/lenaRB/crml-compiler/tree/main/language_specification)
+The documentation for CRML can be found [HERE](language_specification.pdf)
