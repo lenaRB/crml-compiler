@@ -61,23 +61,23 @@ model Reqs_sri_CRML_externals
   Modelica.Blocks.Sources.RealExpression T_output_sf(y = SRI_corrige.EchangeurAPlaques1D2.Tsf) annotation(
     Placement(transformation(origin = {27, -190}, extent = {{-17, -14}, {17, 14}})));
   Modelica.Blocks.Interfaces.RealOutput v1 annotation(
-    Placement(transformation(origin = {270, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {270, 60}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {270, 60}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {290, 60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput v2 annotation(
-    Placement(transformation(origin = {270, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {270, 20}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {270, 40}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {290, 20}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.BooleanOutput pump_in_service1 annotation(
-    Placement(transformation(origin = {270, 10}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {270, -60}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {270, 10}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {290, -60}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.BooleanOutput pump_in_service2 annotation(
-    Placement(transformation(origin = {270, -46}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {270, -120}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {270, -46}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {290, -120}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.BooleanOutput pump_in_service3 annotation(
-    Placement(transformation(origin = {270, -100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {270, -180}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {270, -100}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {290, -180}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput flow1 annotation(
-    Placement(transformation(origin = {270, -12}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {270, -80}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {270, -12}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {290, -80}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput flow2 annotation(
-    Placement(transformation(origin = {270, -70}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {270, -140}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {270, -70}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {290, -140}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput flow3 annotation(
-    Placement(transformation(origin = {270, -130}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {270, -200}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {270, -130}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {290, -200}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Interfaces.RealOutput T annotation(
-    Placement(transformation(origin = {270, -200}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {270, -240}, extent = {{-10, -10}, {10, 10}})));
+    Placement(transformation(origin = {270, -200}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {290, -240}, extent = {{-10, -10}, {10, 10}})));
 equation
   connect(Q_echangeur_1.y, flowToSpeed.u) annotation(
     Line(points = {{45.7, 64}, {57.4, 64}, {57.4, 65.2}, {66, 65.2}}, color = {0, 0, 127}));
@@ -123,6 +123,6 @@ equation
     Line(points = {{270, 60}, {178, 60}, {178, 66}, {90, 66}}, color = {0, 0, 127}));
   annotation(
     Diagram(graphics = {Rectangle(origin = {56, -70}, fillColor = {143, 240, 164}, fillPattern = FillPattern.Solid, extent = {{-52, 166}, {52, -166}}), Text(origin = {53, 87}, extent = {{-27, 9}, {27, -9}}, textString = "Observers"), Rectangle(origin = {-127, 0}, fillColor = {255, 190, 111}, fillPattern = FillPattern.Solid, extent = {{-67, 96}, {67, -96}}), Text(origin = {-131, 87}, extent = {{-35, 7}, {35, -7}}, textString = "Scenarios")}, coordinateSystem(extent = {{-200, 100}, {260, -240}})),
-    Icon(coordinateSystem(extent = {{-200, -300}, {260, 100}})),
+    Icon(coordinateSystem(extent = {{-200, 100}, {280, -300}}), graphics = {Rectangle(origin = {39, -104}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-241, 204}, {241, -196}}), Text(origin = {70, -38}, extent = {{-14, -102}, {-96, -2}}, textString = "%name")}),
     experiment(StartTime = 0, StopTime = 1000, Tolerance = 1e-06, Interval = 2));
 end Reqs_sri_CRML_externals;

@@ -2,15 +2,15 @@ within cooling_system.Verification;
 
 model Reqs_sri_CRML
   Modelica.Blocks.Interfaces.RealInput T annotation(
-    Placement(transformation(origin = {-160, -140}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -100}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {-160, -140}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-200, -100}, extent = {{-20, -20}, {20, 20}})));
   CRML.ETL.Connectors.Boolean4Output R_speed_all annotation(
-    Placement(transformation(origin = {140, -20}, extent = {{100, 40}, {120, 60}}), iconTransformation(extent = {{100, 40}, {120, 60}})));
+    Placement(transformation(origin = {140, -20}, extent = {{100, 40}, {120, 60}}), iconTransformation(origin = {60, 70}, extent = {{100, 40}, {120, 60}})));
   CRML.ETL.Connectors.Boolean4Output R_flow_all annotation(
-    Placement(transformation(origin = {140, -48}, extent = {{100, 8}, {120, 28}}), iconTransformation(origin = {0, 54}, extent = {{100, -54}, {120, -34}})));
+    Placement(transformation(origin = {140, -48}, extent = {{100, 8}, {120, 28}}), iconTransformation(origin = {60, 104}, extent = {{100, -54}, {120, -34}})));
   outer CRML.TimeLocators.Continuous.Master master annotation(
     Placement(transformation(origin = {70, 76}, extent = {{-10, -10}, {10, 10}})));
   CRML.ETL.Connectors.Boolean4Output R_T annotation(
-    Placement(transformation(origin = {140, -148}, extent = {{100, 8}, {120, 28}}), iconTransformation(origin = {0, -12}, extent = {{100, -54}, {120, -34}})));
+    Placement(transformation(origin = {140, -148}, extent = {{100, 8}, {120, 28}}), iconTransformation(origin = {60, -16}, extent = {{100, -54}, {120, -34}})));
   Verification.Requirements.Req_speed_all_CRML req_speed_all_CRML annotation(
     Placement(transformation(origin = {-172, -22}, extent = {{212, 42}, {232, 62}})));
   Verification.Requirements.Req_flow_all_CRML req_flow_all_CRML annotation(
@@ -18,21 +18,21 @@ model Reqs_sri_CRML
   Verification.Requirements.Req_Tsri_CRML req_Tsri_CRML annotation(
     Placement(transformation(origin = {-170, 20}, extent = {{210, -158}, {230, -138}})));
   Modelica.Blocks.Interfaces.RealInput v1 annotation(
-    Placement(transformation(origin = {-160, 60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 100}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {-160, 60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-200, 200}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.RealInput v2 annotation(
-    Placement(transformation(origin = {-160, 40}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {-160, 40}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-200, 180}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.RealInput flow1 annotation(
-    Placement(transformation(origin = {-160, -10}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 20}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {-160, -10}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-200, 20}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.RealInput flow2 annotation(
-    Placement(transformation(origin = {-160, -60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {-160, -60}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-200, -20}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.RealInput flow3 annotation(
-    Placement(transformation(origin = {-160, -110}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {-160, -110}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-200, -60}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.BooleanInput pump_in_service1 annotation(
-    Placement(transformation(origin = {-160, 10}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 40}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {-160, 10}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-200, 140}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.BooleanInput pump_in_service2 annotation(
-    Placement(transformation(origin = {-160, -40}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {-160, -40}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-200, 100}, extent = {{-20, -20}, {20, 20}})));
   Modelica.Blocks.Interfaces.BooleanInput pump_in_service3 annotation(
-    Placement(transformation(origin = {-160, -90}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-120, -40}, extent = {{-20, -20}, {20, 20}})));
+    Placement(transformation(origin = {-160, -90}, extent = {{-20, -20}, {20, 20}}), iconTransformation(origin = {-200, 60}, extent = {{-20, -20}, {20, 20}})));
 equation
   connect(R_flow_all, R_flow_all) annotation(
     Line(points = {{250, -30}, {250, -30}}, color = {162, 29, 33}));
@@ -63,6 +63,6 @@ equation
   connect(req_Tsri_CRML.R_T, R_T) annotation(
     Line(points = {{58, -134}, {250, -134}, {250, -130}}, color = {162, 29, 33}));
   annotation(
-    Icon(graphics = {Rectangle(fillColor = {128, 0, 255}, fillPattern = FillPattern.Solid, extent = {{-100, 100}, {100, -100}}), Text(origin = {-6, 124}, extent = {{-136, 30}, {136, -30}}, textString = "%name")}, coordinateSystem(extent = {{-140, 160}, {140, -100}})),
+    Icon(graphics = {Rectangle(origin = {-10, 60},fillColor = {128, 0, 255}, fillPattern = FillPattern.Solid, extent = {{-170, 160}, {170, -160}}), Text(origin = {-30, 244}, extent = {{-136, 30}, {136, -30}}, textString = "%name")}, coordinateSystem(extent = {{-180, 220}, {160, -100}})),
     Diagram(coordinateSystem(extent = {{-180, 80}, {260, -160}})));
 end Reqs_sri_CRML;
