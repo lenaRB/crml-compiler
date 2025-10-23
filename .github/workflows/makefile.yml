@@ -16,7 +16,7 @@ jobs:
     - uses: actions/setup-java@v4
       with:
           distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: '8'
+          java-version: '17'
     
     # run omc runTest.mos using docker!
     #- name: run OM docker
@@ -39,6 +39,7 @@ jobs:
     
     - name: build the crml-compiler
       run: |
+        sudo apt install openjdk-8-jdk
         java -version
         make distribution
 
