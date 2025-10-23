@@ -1,5 +1,3 @@
-within CRML_test.Examples.TrafficLight;
-
 model Spec_externals
   Modelica.Blocks.Sources.RealExpression greenObserver(y = phys.greenLamp.i) annotation(
     Placement(transformation(extent = {{56, 10}, {30, 30}})));
