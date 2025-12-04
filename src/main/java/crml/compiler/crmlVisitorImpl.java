@@ -967,7 +967,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			
 			// operator translates to block instantiation
 			String name=op_t.temp_var_name.replace('.', '_')+counter;
-			
+			System.out.println("VALUES: " + op_t.variable_names.get(0) + " " + op_t.function_name);
 			
 			String res = op_t.function_name+ " " + name+ "("+ op_t.variable_names.get(0) + " = "+left.toModelica()+","
 					+ op_t.variable_names.get(1) + " = "+right.toModelica()+");\n";
