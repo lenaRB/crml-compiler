@@ -1,7 +1,6 @@
 package crml.compiler;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -512,7 +511,6 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 					throw new ParseCancellationException("iterators need to be implemented");
 						
 				}
-
 				left = visit(ctx.left);
 				right = visit(ctx.right);
 				Value result = apply_binary_op(op, left, right);
@@ -521,20 +519,19 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 				left = visit(ctx.left);					
 				Value result = apply_lunary_op(op, left);
 				return result;
-			}
-		}	
+			}}
 		if(ctx.runary!= null) {
 			String op=null;
-			if(current_category!=null) // we check if we should apply the category
-				op = category_map.getCategory(current_category).get(ctx.runary.getText());
-			if (op==null) op = ctx.runary.getText();
+				if(current_category!=null) // we check if we should apply the category
+					op = category_map.getCategory(current_category).get(ctx.runary.getText());
+				if (op==null) op = ctx.runary.getText();
 			
-			System.out.println("Category: " + current_category + " og_op : " + ctx.runary.getText()+ " og_op : "+ op);
-			right = visit(ctx.right);					
-			Value result = apply_runary_op(op, right);
-			return result;
-		}
-
+				System.out.println("Category: " + current_category + " og_op : " + ctx.runary.getText()+ " og_op : "+ op);
+				right = visit(ctx.right);					
+				Value result = apply_runary_op(op, right);
+				return result;
+			}
+	
 		// if the expression is in parenthesis
 		if(ctx.sub_exp()!=null)
 			return visit(ctx.sub_exp().exp());
@@ -556,30 +553,32 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 			String s="";
 
-			Signature sig = user_operators.get(uc.name);
+			Signature sig = user_operators.get(op);
+
+			if(sig == null)
+				throw new ParseCancellationException("no definition found : " + ctx.getText() + '\n');
+	
 
 			int i=0;
 
 			// check for array iterators
-			Value v;
-			List<Value> returns = new ArrayList<>();
+			Value v = null;
+			
 			Boolean foundIterator = false;
 			for ( ExpContext e : uc.args){
-				if(e.iterator()!=null && !sig.variable_is_set.get(i)){
+				System.out.println(e.getText().replace(".element", "") );
+				if(e.iterator()!=null && ((sig.variable_is_set==null) || !sig.variable_is_set.get(i))){
 					// flatten iterator 
-					foundIterator = true;
-					v = visit(e);
-					if(!v.isSet)
-						throw new ParseCancellationException(e.getText() + "is not an element set");
+					// foundIterator = true;
+					//v = new Value (e.id().getText(), sig.return_type, true);
 					
-					for(Value arg: v.getSetValue()){
-						returns.add(apply_user_operator_element(op, uc.args, arg.toModelica(), i));
-					}			
+					v=  apply_iterator_op(sig, e.getText().replace(".element", ""), i, args);
+					
 				}
 				i++;	
 			}
 			if(foundIterator)
-				return new Value(returns, "", true); // FIXME type checking
+				return v; // FIXME type checking
 
 			for ( ExpContext e : uc.args){
 					s+= e.getText().toString() + " ";
@@ -910,6 +909,29 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			counter++;
 					
 			return new Value (name + ".out", op_t.return_type, op_t.is_return_set);
+		}
+
+		private Value apply_iterator_op(Signature sig, String v_name, int arg_index, List<ExpContext> args){
+
+			// translates to block instantiation
+			
+			String name = sig.function_name +"_iteraor"+counter++;
+			String res = name + "\n algorithm \n";
+			res+= sig.return_type + "[:] out";
+			res += "for " + v_name + ".size()" +"\n";
+			
+			String args_modelica = "";
+			for(int i=0; i< args.size(); i++){
+			 
+			}
+
+			res += "out[i]=" + sig.function_name + "(" + args + ")";
+			
+			res += "end " + name + ";\n";
+
+			localFunctionCalls.append(res);
+			counter++;
+			return new Value("", "");
 		}
 		
 		private Value apply_binary_op(String op, Value left, Value right) {
