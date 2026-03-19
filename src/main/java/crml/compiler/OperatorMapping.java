@@ -349,7 +349,7 @@ public class OperatorMapping {
           && s.variable_types.get(1).equals(type2)
           && s.variable_is_set.get(0) == isSet1 && s.variable_is_set.get(1) == isSet2)
             return s;
-
+      
     return null;
   }
 

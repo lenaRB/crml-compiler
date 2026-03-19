@@ -47,7 +47,7 @@ public class Value {
 	}
 
 	public String toModelica(){
-		if(!isSet) return contents;
+		if(!isSet | contents_set == null) return contents;
 
 		String ret = "{";
 		String separator = "";

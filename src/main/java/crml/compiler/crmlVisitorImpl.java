@@ -566,12 +566,13 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 			
 			Boolean foundIterator = false;
 			for ( ExpContext e : uc.args){
-				System.out.println(e.getText().replace(".element", "") );
 				if(e.iterator()!=null && ((sig.variable_is_set==null) || !sig.variable_is_set.get(i))){
 					// flatten iterator 
-					// foundIterator = true;
+					foundIterator = true;
 					//v = new Value (e.id().getText(), sig.return_type, true);
 					
+					System.out.println("FOUND iterator " + e.getText().replace(".element", "") );
+				
 					v=  apply_iterator_op(sig, e.getText().replace(".element", ""), i, args);
 					
 				}
@@ -931,7 +932,7 @@ public class crmlVisitorImpl extends crmlBaseVisitor<Value> {
 
 			localFunctionCalls.append(res);
 			counter++;
-			return new Value("", "");
+			return new Value("res", sig.return_type, true);
 		}
 		
 		private Value apply_binary_op(String op, Value left, Value right) {

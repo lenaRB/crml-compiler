@@ -95,7 +95,7 @@ tick : 'tick' id;
  	 | 'element' | 'terminate' | when_exp | exp 'at' at=exp 
  	 | integrate | tick |crml_component_reference | if_exp | set_def | 'evaluate' exp ;
  	 
-iterator : name= IDENT '.element';
+iterator : name= ITERATOR;
 
 if_exp : 'if' if_e=exp 'then' then_e=exp ('else' else_e=exp);
 
@@ -130,6 +130,8 @@ number : UNSIGNED_NUMBER;
 string : STRING;
 
 IDENT : NONDIGIT ( DIGIT | NONDIGIT )* ;
+
+ITERATOR : NONDIGIT ( DIGIT | NONDIGIT )* '.element';
 
 USER_KEYWORD : '\'' (NONDIGIT|SYMBOL) (NONDIGIT|' '|SYMBOL|DIGIT)* '\'';
 
