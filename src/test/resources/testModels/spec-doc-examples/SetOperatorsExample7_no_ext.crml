@@ -1,0 +1,24 @@
+model SetOperatorsExample7_no_ext is {
+	// extracting from a set of pieces of equipment 
+	// the pieces of equipment that are in operation 
+	class Equipment is {
+		String id; // Equipment identification
+		Boolean inOperation is external; // inOperation is true if the equipment is in operation
+	};
+	
+	class Pump is {
+		extends Equipment;
+		String type = "Centrifugal";
+	};
+	
+	class Motor is {
+		extends Equipment;
+		String provider = "JohnDoe";
+	};
+	
+	Pump Equip1(id = "E1", inOperation = false);
+	Motor Equip2(id = "E2", inOperation = true);
+	Equipment Equip3(id = "E3", inOperation = true);
+	
+	Equipment {} S is filter { Equipment (id is "E1"), Equipment (id is "E2"), Equipment (id is "E3") } (element.inOperation == true); // S should be equal to {Equip2}
+};
