@@ -1,0 +1,9 @@
+library TestLib is {
+	Template b1 'or' b2 = not (not b1 and not b2);
+};
+
+model LibraryImport is TestLib union {
+	Boolean b1 is true;
+	Boolean b2 i false;
+	Boolean b1_or_b2 is b1 'or' b2;
+};
